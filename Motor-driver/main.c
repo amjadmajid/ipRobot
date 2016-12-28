@@ -42,17 +42,19 @@ void i2c_init(){
     P1SEL0 &= ~(BIT6 | BIT6);               // configure I2C pins
 
     UCB0CTL1 &= ~UCSWRST;                   // eUSCI_B in operational state
+    UCB0IE &= ~UCTXIE;                      // Ensure Interrupts off
 }
 
 void i2c_transmit(uint8_t cmd, uint8_t data){
 
-    UCB0CTLW0 |= UCTR + UCTXSTT;            // transmitter mode and START condition.
+    UCB0CTLW0 |= UCTR | UCTXSTT;            // transmitter mode and START condition.
 
     while(!(UCB0IFG & UCTXIFG0));
     UCB0TXBUF = cmd;
     while(!(UCB0IFG & UCTXIFG0));
     UCB0TXBUF = data;
     while(UCB0CTLW0 & UCTXSTP);             // wait for stop
+    _delay_cycles(800);
 }
 
 int main(void) {
