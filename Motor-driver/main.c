@@ -22,6 +22,7 @@ void init(void) {
     CSCTL0_H = 0;                           // Lock CS registers
 
     P1DIR |= BIT0;                          // Set led2 pin to output
+    P1OUT &= ~BIT0;
 
     P1DIR |= BIT4;                          // Set P1.4 (AUX3) to output
     P1OUT &= ~BIT4;                         // Hold TCA9539 in reset (active low)
@@ -67,6 +68,8 @@ int main(void) {
     // enable TCA9539
     P1OUT |= BIT4;
 
+    P1OUT |= BIT0;
+
     // make all outputs low
     i2c_transmit(0x02, 0x00);
     i2c_transmit(0x03, 0x00);
@@ -93,6 +96,7 @@ int main(void) {
         next_state++;
         steps_to_move--;
     }
+    P1OUT &= ~BIT0;
 
     return 0;
 }
