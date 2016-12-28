@@ -57,8 +57,8 @@ void i2c_transmit(uint8_t cmd, uint8_t data){
 
 int main(void) {
 
-    uint8_t states_right[NUM_OF_STATES] = {0x88, 0xA0, 0x89, 0xE0}; // P13 = PA, P14 = DA, P15 = PB, P16 = DB, P17 = SL
-    uint8_t states_left[NUM_OF_STATES] = {0x22, 0x28, 0x26, 0x38};  // P1 = PA, P2 = DA, P3 = PB, P4 = DB, P5 = SL
+    uint8_t states_right[NUM_OF_STATES] = {0x90, 0xC0, 0x98, 0xE0}; // P13 = DA, P14 = PA, P15 = DB, P16 = PB, P17 = SL
+    uint8_t states_left[NUM_OF_STATES] = {0x24, 0x30, 0x26, 0x38};  // P1 = DA, P2 = PA, P3 = DB, P4 = PB, P5 = SL
     uint8_t next_state = 0;
     uint8_t steps_to_move = 20;
 
@@ -75,8 +75,8 @@ int main(void) {
     i2c_transmit(0x03, 0x00);
 
     //configure output
-    i2c_transmit(0x05, 0xE1); // ~0x1E
-    i2c_transmit(0x06, 0x0F); // ~0xF0
+    i2c_transmit(0x06, 0xC1); // ~0x1E
+    i2c_transmit(0x07, 0x07); // ~0xF0
 
     while (steps_to_move > 0){
         if (next_state > (NUM_OF_STATES -1)){
