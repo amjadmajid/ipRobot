@@ -1,5 +1,4 @@
-*
-*/
-!.gitignore
-!Motor-driver/*
-Motor-driver/Debug/
+Code/*
+Code/*/
+!Code/Motor-driver/
+Code/Motor-driver/Debug/
