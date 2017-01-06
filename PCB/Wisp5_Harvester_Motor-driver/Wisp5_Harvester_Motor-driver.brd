@@ -6,7 +6,7 @@
 <setting alwaysvectorfont="no"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="0.01" unitdist="inch" unit="inch" style="lines" multiple="1" display="yes" altdistance="0.001" altunitdist="inch" altunit="inch"/>
+<grid distance="0.05" unitdist="inch" unit="inch" style="lines" multiple="1" display="yes" altdistance="0.005" altunitdist="inch" altunit="inch"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
 <layer number="16" name="Bottom" color="1" fill="1" visible="yes" active="yes"/>
@@ -15,10 +15,10 @@
 <layer number="19" name="Unrouted" color="6" fill="1" visible="yes" active="yes"/>
 <layer number="20" name="Dimension" color="15" fill="1" visible="yes" active="yes"/>
 <layer number="21" name="tPlace" color="16" fill="1" visible="yes" active="yes"/>
-<layer number="22" name="bPlace" color="14" fill="1" visible="no" active="yes"/>
+<layer number="22" name="bPlace" color="14" fill="1" visible="yes" active="yes"/>
 <layer number="23" name="tOrigins" color="15" fill="1" visible="yes" active="yes"/>
 <layer number="24" name="bOrigins" color="15" fill="1" visible="yes" active="yes"/>
-<layer number="25" name="tNames" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="25" name="tNames" color="7" fill="1" visible="no" active="yes"/>
 <layer number="26" name="bNames" color="7" fill="1" visible="no" active="yes"/>
 <layer number="27" name="tValues" color="7" fill="1" visible="no" active="yes"/>
 <layer number="28" name="bValues" color="7" fill="1" visible="no" active="yes"/>
@@ -44,7 +44,7 @@
 <layer number="48" name="Document" color="7" fill="1" visible="no" active="yes"/>
 <layer number="49" name="Reference" color="7" fill="1" visible="no" active="yes"/>
 <layer number="50" name="dxf" color="7" fill="1" visible="no" active="no"/>
-<layer number="51" name="tDocu" color="6" fill="1" visible="no" active="yes"/>
+<layer number="51" name="tDocu" color="6" fill="1" visible="yes" active="yes"/>
 <layer number="52" name="bDocu" color="7" fill="1" visible="no" active="yes"/>
 <layer number="53" name="tGND_GNDA" color="7" fill="9" visible="no" active="no"/>
 <layer number="54" name="bGND_GNDA" color="1" fill="9" visible="no" active="no"/>
@@ -152,6 +152,7 @@
 <wire x1="30" y1="30" x2="30" y2="0" width="0.254" layer="20"/>
 <wire x1="30" y1="0" x2="0" y2="0" width="0.254" layer="20"/>
 <rectangle x1="5.461" y1="5.7912" x2="24.5364" y2="24.2062" layer="114"/>
+<text x="6.858" y="1.016" size="0.8128" layer="21" font="vector" ratio="12">IPR board v1.0 by Koen Schaper</text>
 </plain>
 <libraries>
 <library name="rcl">
@@ -2881,13 +2882,13 @@ Please make sure your boards conform to these design rules.</description>
 <attribute name="NAME" x="14.386" y="20.107" size="1" layer="25" ratio="11" rot="R180"/>
 <attribute name="VALUE" x="19.466" y="26.107" size="1" layer="27" ratio="11" rot="R180"/>
 </element>
-<element name="VIN/GND" library="transceiver" package="PINHEAD_1X02-1.27MM" value="PINHEAD_PINHD-1X2-1.27MM" x="24.711" y="26.854" smashed="yes" rot="R180">
-<attribute name="NAME" x="27.2002" y="29.1527" size="1" layer="25" ratio="11" rot="R180"/>
-<attribute name="VALUE" x="26.616" y="29.7115" size="1" layer="27" ratio="11" rot="R180"/>
+<element name="VIN/GND" library="transceiver" package="PINHEAD_1X02-1.27MM" value="PINHEAD_PINHD-1X2-1.27MM" x="24.7872" y="26.727" smashed="yes" rot="R180">
+<attribute name="NAME" x="27.2764" y="29.0257" size="1" layer="25" ratio="11" rot="R180"/>
+<attribute name="VALUE" x="26.6922" y="29.5845" size="1" layer="27" ratio="11" rot="R180"/>
 </element>
-<element name="JP2" library="transceiver" package="PINHEAD_1X03-1.27MM" value="PINHEAD_PINHD-1X3-1.27MM" x="6.096" y="6.858" smashed="yes" rot="R270">
-<attribute name="NAME" x="7.3533" y="8.5852" size="1" layer="25" ratio="11" rot="R270"/>
-<attribute name="VALUE" x="3.2385" y="10.033" size="1" layer="27" ratio="11" rot="R270"/>
+<element name="JP2" library="transceiver" package="PINHEAD_1X03-1.27MM" value="PINHEAD_PINHD-1X3-1.27MM" x="5.842" y="6.858" smashed="yes" rot="R270">
+<attribute name="NAME" x="7.0993" y="8.5852" size="1" layer="25" ratio="11" rot="R270"/>
+<attribute name="VALUE" x="2.9845" y="10.033" size="1" layer="27" ratio="11" rot="R270"/>
 </element>
 <element name="JP1" library="transceiver" package="PINHEAD_1X05-1.27MM" value="PINHEAD_PINHD-1X5-1.27MM" x="9.525" y="4.572" smashed="yes">
 <attribute name="NAME" x="6.0198" y="2.2733" size="1" layer="25" ratio="11"/>
@@ -3105,7 +3106,7 @@ Please make sure your boards conform to these design rules.</description>
 <contactref element="R4" pad="1"/>
 <contactref element="U2" pad="14"/>
 <contactref element="JP2" pad="2"/>
-<wire x1="6.096" y1="8.128" x2="3.38" y2="8.128" width="0.254" layer="1"/>
+<wire x1="5.842" y1="8.128" x2="3.38" y2="8.128" width="0.254" layer="1"/>
 <wire x1="3.38" y1="8.128" x2="2.8364" y2="7.686" width="0.254" layer="1"/>
 <wire x1="5.7404" y1="1.7272" x2="26.4414" y2="1.778" width="0.254" layer="1"/>
 <wire x1="26.4414" y1="1.778" x2="27.4574" y2="2.7686" width="0.254" layer="1"/>
@@ -3113,7 +3114,7 @@ Please make sure your boards conform to these design rules.</description>
 <wire x1="27.432" y1="3.3782" x2="24.9174" y2="6.1214" width="0.254" layer="1"/>
 <wire x1="24.9174" y1="6.1214" x2="23.068" y2="6.1468" width="0.254" layer="1"/>
 <wire x1="23.068" y1="6.1468" x2="23.0618" y2="6.153" width="0.254" layer="1"/>
-<wire x1="6.096" y1="8.128" x2="4.572" y2="6.604" width="0.254" layer="16"/>
+<wire x1="5.842" y1="8.128" x2="4.572" y2="6.604" width="0.254" layer="16"/>
 <wire x1="4.572" y1="6.604" x2="4.5466" y2="2.6416" width="0.254" layer="16"/>
 <via x="4.5466" y="2.6416" extent="1-16" drill="0.508"/>
 <wire x1="4.5466" y1="2.6416" x2="5.7404" y2="1.7272" width="0.254" layer="1"/>
@@ -3130,7 +3131,7 @@ Please make sure your boards conform to these design rules.</description>
 <wire x1="27.9146" y1="3.6576" x2="24.9428" y2="6.8326" width="0.254" layer="1"/>
 <wire x1="24.9428" y1="6.8326" x2="23.1168" y2="6.8072" width="0.254" layer="1"/>
 <wire x1="23.1168" y1="6.8072" x2="23.0618" y2="6.803" width="0.254" layer="1"/>
-<wire x1="6.096" y1="6.858" x2="5.3848" y2="6.1722" width="0.254" layer="16"/>
+<wire x1="5.842" y1="6.858" x2="5.3848" y2="6.1722" width="0.254" layer="16"/>
 <wire x1="5.3848" y1="6.1722" x2="5.334" y2="2.54" width="0.254" layer="16"/>
 <wire x1="5.334" y1="2.54" x2="4.953" y2="1.397" width="0.254" layer="16"/>
 <via x="4.953" y="1.397" extent="1-16" drill="0.508"/>
@@ -3433,8 +3434,8 @@ Please make sure your boards conform to these design rules.</description>
 <contactref element="C15" pad="1"/>
 <wire x1="18.191" y1="22.107" x2="19.549" y2="22.107" width="0.254" layer="1"/>
 <wire x1="19.549" y1="22.107" x2="19.558" y2="22.098" width="0.254" layer="1"/>
-<wire x1="23.441" y1="26.854" x2="23.25" y2="26.663" width="1.016" layer="1"/>
-<wire x1="23.25" y1="26.663" x2="23.25" y2="23.64355" width="1.016" layer="1"/>
+<wire x1="23.5172" y1="26.727" x2="23.5548" y2="24.4024" width="1.016" layer="1"/>
+<wire x1="23.5548" y1="24.4024" x2="23.25" y2="23.64355" width="1.016" layer="1"/>
 <wire x1="27.2914" y1="24.1308" x2="27.3304" y2="24.0918" width="0.8128" layer="1"/>
 <wire x1="27.3304" y1="24.0918" x2="27.3304" y2="21.778" width="1.016" layer="1"/>
 <wire x1="27.2914" y1="24.1308" x2="26.80415" y2="23.64355" width="1.016" layer="1"/>
