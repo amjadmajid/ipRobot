@@ -6,7 +6,7 @@
 <setting alwaysvectorfont="no"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="0.01" unitdist="inch" unit="inch" style="lines" multiple="1" display="yes" altdistance="0.001" altunitdist="inch" altunit="inch"/>
+<grid distance="0.05" unitdist="inch" unit="inch" style="lines" multiple="1" display="yes" altdistance="0.005" altunitdist="inch" altunit="inch"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
 <layer number="16" name="Bottom" color="1" fill="1" visible="yes" active="yes"/>
@@ -2836,15 +2836,15 @@ Please make sure your boards conform to these design rules.</description>
 <attribute name="NAME" x="1.7572" y="2.0518" size="1" layer="25" ratio="11" rot="R90"/>
 <attribute name="VALUE" x="5.3386" y="2.2042" size="1" layer="27" ratio="11" rot="R90"/>
 </element>
-<element name="R6" library="resistor" package="R0805" value="1.82M" x="7.336" y="26.0124" smashed="yes" rot="R270">
+<element name="R6" library="resistor" package="R0805" value="6.04M" x="7.336" y="26.0124" smashed="yes" rot="R270">
 <attribute name="NAME" x="8.3774" y="26.8252" size="1" layer="25" ratio="11" rot="R270"/>
 <attribute name="VALUE" x="4.796" y="26.6474" size="1" layer="27" ratio="11" rot="R270"/>
 </element>
-<element name="R7" library="resistor" package="R0805" value="5.9M" x="3.6864" y="26.9156" smashed="yes">
+<element name="R7" library="resistor" package="R0805" value="3.01M" x="3.6864" y="26.9156" smashed="yes">
 <attribute name="NAME" x="2.7974" y="24.8836" size="1" layer="25" ratio="11"/>
 <attribute name="VALUE" x="3.0514" y="24.3756" size="1" layer="27" ratio="11"/>
 </element>
-<element name="R8" library="resistor" package="R0805" value="5.49M" x="3.686" y="24.086" smashed="yes">
+<element name="R8" library="resistor" package="R0805" value="3.65M" x="3.686" y="24.086" smashed="yes">
 <attribute name="NAME" x="2.797" y="22.054" size="1" layer="25" ratio="11"/>
 <attribute name="VALUE" x="3.051" y="21.546" size="1" layer="27" ratio="11"/>
 </element>
@@ -2852,19 +2852,19 @@ Please make sure your boards conform to these design rules.</description>
 <attribute name="NAME" x="0.8044" y="7.7774" size="1" layer="25" ratio="11" rot="R270"/>
 <attribute name="VALUE" x="0.2964" y="7.5234" size="1" layer="27" ratio="11" rot="R270"/>
 </element>
-<element name="R1" library="resistor" package="R0805" value="8.66M" x="12.1624" y="26.452" smashed="yes" rot="R180">
+<element name="R1" library="resistor" package="R0805" value="7.50M" x="12.1624" y="26.452" smashed="yes" rot="R180">
 <attribute name="NAME" x="13.0006" y="28.4586" size="1" layer="25" ratio="11" rot="R180"/>
 <attribute name="VALUE" x="12.7974" y="28.992" size="1" layer="27" ratio="11" rot="R180"/>
 </element>
-<element name="R2" library="resistor" package="R0805" value="4.30M" x="10.3004" y="22.824" smashed="yes">
+<element name="R2" library="resistor" package="R0805" value="5.36M" x="10.3004" y="22.824" smashed="yes">
 <attribute name="NAME" x="9.513" y="23.7892" size="1" layer="25" ratio="11"/>
 <attribute name="VALUE" x="9.6654" y="20.284" size="1" layer="27" ratio="11"/>
 </element>
-<element name="R10" library="resistor" package="R0805" value="6.49M" x="3.678" y="17.996" smashed="yes">
+<element name="R10" library="resistor" package="R0805" value="6.98M" x="3.678" y="17.996" smashed="yes">
 <attribute name="NAME" x="2.5096" y="15.837" size="1" layer="25" ratio="11"/>
 <attribute name="VALUE" x="3.043" y="15.456" size="1" layer="27" ratio="11"/>
 </element>
-<element name="R9" library="resistor" package="R0805" value="6.49M" x="3.651" y="21.044" smashed="yes">
+<element name="R9" library="resistor" package="R0805" value="5.76M" x="3.651" y="21.044" smashed="yes">
 <attribute name="NAME" x="2.762" y="19.012" size="1" layer="25" ratio="11"/>
 <attribute name="VALUE" x="3.016" y="18.504" size="1" layer="27" ratio="11"/>
 </element>

@@ -7632,21 +7632,21 @@ by exp-lbrs.ulp</description>
 <part name="GND6" library="supply1" deviceset="GND" device=""/>
 <part name="GND7" library="supply1" deviceset="GND" device=""/>
 <part name="C5" library="rcl" deviceset="C-EU" device="C0805" value="10nF"/>
-<part name="R10" library="resistor" deviceset="R-EU_" device="R0805" value="6.49M"/>
-<part name="R9" library="resistor" deviceset="R-EU_" device="R0805" value="6.49M"/>
+<part name="R10" library="resistor" deviceset="R-EU_" device="R0805" value="6.98M"/>
+<part name="R9" library="resistor" deviceset="R-EU_" device="R0805" value="5.76M"/>
 <part name="GND9" library="supply1" deviceset="GND" device=""/>
 <part name="C6" library="rcl" deviceset="C-EU" device="C0805" value="4.7uF"/>
 <part name="C7" library="rcl" deviceset="C-EU" device="C0805" value="0.01 uF"/>
 <part name="GND10" library="supply1" deviceset="GND" device=""/>
 <part name="GND11" library="supply1" deviceset="GND" device=""/>
-<part name="R2" library="resistor" deviceset="R-EU_" device="R0805" value="4.30M"/>
-<part name="R1" library="resistor" deviceset="R-EU_" device="R0805" value="8.66M"/>
+<part name="R2" library="resistor" deviceset="R-EU_" device="R0805" value="5.36M"/>
+<part name="R1" library="resistor" deviceset="R-EU_" device="R0805" value="7.50M"/>
 <part name="L1" library="passives" deviceset="COILCRAFT-LPS4018" device="" value="22uH"/>
 <part name="L2" library="passives" deviceset="COILCRAFT-LPS4018" device="" value="10uH"/>
 <part name="C8" library="rcl" deviceset="C-EU" device="C0805" value="22uF"/>
-<part name="R6" library="resistor" deviceset="R-EU_" device="R0805" value="1.82M"/>
-<part name="R7" library="resistor" deviceset="R-EU_" device="R0805" value="5.9M"/>
-<part name="R8" library="resistor" deviceset="R-EU_" device="R0805" value="5.49M"/>
+<part name="R6" library="resistor" deviceset="R-EU_" device="R0805" value="6.04M"/>
+<part name="R7" library="resistor" deviceset="R-EU_" device="R0805" value="3.01M"/>
+<part name="R8" library="resistor" deviceset="R-EU_" device="R0805" value="3.65M"/>
 <part name="GND12" library="supply1" deviceset="GND" device=""/>
 <part name="GND21" library="supply1" deviceset="GND" device=""/>
 <part name="C4" library="rcl" deviceset="C-EU" device="C0805" value="0.01uF"/>
