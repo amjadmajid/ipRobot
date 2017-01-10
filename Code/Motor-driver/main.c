@@ -7,7 +7,7 @@
 #include <stdint.h>
 
 #define DATA_SIZE 2
-#define SLAVE_ADDR 116 // TCA9539 address pins to GND
+#define SLAVE_ADDR 112 // TCA9538 address pins to GND
 #define NUM_OF_STATES 4
 
 void init(void) {
@@ -16,19 +16,25 @@ void init(void) {
     PM5CTL0 &= ~LOCKLPM5;                   // Disable the GPIO power-on default high-impedance mode
                                             // to activate previously configured port settings
     CSCTL0_H = CSKEY_H;                     // Unlock clock registers
-    CSCTL1 = DCOFSEL_3 | DCORSEL;           // Set DCO to 8MHz
+    CSCTL1 = DCOFSEL_3;                     // Set DCO to 8MHz
     CSCTL2 = SELA__VLOCLK | SELS__DCOCLK | SELM__DCOCLK;
     CSCTL3 = DIVA__1 | DIVS__8 | DIVM__1;   // Set all dividers
     CSCTL0_H = 0;                           // Lock CS registers
 
-    P1DIR |= BIT0;                          // Set led2 pin to output
-    P1OUT &= ~BIT0;
+    //P1DIR |= BIT0;                          // Set led2 pin to output
+    //P1OUT &= ~BIT0;
 
     P1DIR |= BIT4;                          // Set P1.4 (AUX3) to output
     P1OUT &= ~BIT4;                         // Hold TCA9539 in reset (active low)
+
+    P3DIR |= BIT4 | BIT5;                   // Set P3.4 and P3.5 (AUX1 and AUX2) to output
+    P3OUT &= ~(BIT4 | BIT5);                // Disable both motor drivers
 }
 
 void i2c_init(){
+
+    P1SEL1 |= BIT6 | BIT7;                  // configure I2C pins
+    P1SEL0 &= ~(BIT6 | BIT6);               // configure I2C pins
 
     // I2C default uses SMCLK
     UCB0CTL1 |= UCSWRST;                    // put eUSCI_B in reset state
@@ -37,12 +43,7 @@ void i2c_init(){
     UCB0CTLW1 = UCASTP_2;                   // automatic STOP assertion
     UCB0TBCNT = DATA_SIZE;                  // TX 2 bytes of data
     UCB0I2CSA = SLAVE_ADDR;                 // slave address
-
-    P1SEL1 |= BIT6 | BIT7;                  // configure I2C pins
-    P1SEL0 &= ~(BIT6 | BIT6);               // configure I2C pins
-
     UCB0CTL1 &= ~UCSWRST;                   // eUSCI_B in operational state
-    UCB0IE &= ~UCTXIE;                      // Ensure Interrupts off
 }
 
 void i2c_transmit(uint8_t cmd, uint8_t data){
@@ -59,46 +60,45 @@ void i2c_transmit(uint8_t cmd, uint8_t data){
 
 int main(void) {
 
-    uint8_t states_right[NUM_OF_STATES] = {0x90, 0xC0, 0x98, 0xE0}; // P13 = DA, P14 = PA, P15 = DB, P16 = PB, P17 = SL
-    uint8_t states_left[NUM_OF_STATES] = {0x24, 0x30, 0x26, 0x38};  // P1 = DA, P2 = PA, P3 = DB, P4 = PB, P5 = SL
+    uint8_t states_left[NUM_OF_STATES] = {0x02, 0x10, 0x03, 0x11};  // P0 = DA, P1 = PA, P4 = DB, P3 = PB
+    uint8_t states_right[NUM_OF_STATES] = {0x11, 0x03, 0x10, 0x02}; // P4 = DA, P5 = PA, P6 = DB, P7 = PB
     uint8_t next_state = 0;
     uint8_t steps_to_move = 20;
 
     init();
     i2c_init();
 
-    // enable TCA9539
+    // enable TCA9538
     P1OUT |= BIT4;
 
-    P1OUT |= BIT0;
+    //P1OUT |= BIT0;
 
     // make all outputs low
-    i2c_transmit(0x02, 0x00);
-    i2c_transmit(0x03, 0x00);
+    i2c_transmit(0x01, 0x00);
 
     //configure output
-    i2c_transmit(0x06, 0xC1); // ~0x1E
-    i2c_transmit(0x07, 0x07); // ~0xF0
+    i2c_transmit(0x03, 0x00);
 
     while (steps_to_move > 0){
         if (next_state > (NUM_OF_STATES -1)){
             next_state = 0;
         }
-        i2c_transmit(0x02, states_left[next_state]);
-        i2c_transmit(0x03, states_right[next_state]);
+        // enable both motor drivers
+        P3OUT |= (BIT4 | BIT5);
+        i2c_transmit(0x01, (states_left[next_state] | (states_right[next_state] << 4)));
 
         __delay_cycles(160000);
 
-        // Make all outputs low
-        i2c_transmit(0x02, 0x00);
-        i2c_transmit(0x03, 0x00);
+        // disable both motor drivers
+        P3OUT &= ~(BIT4 | BIT5);
+        i2c_transmit(0x01, 0x00);
 
         __delay_cycles(480000);
 
         next_state++;
         steps_to_move--;
     }
-    P1OUT &= ~BIT0;
+    //P1OUT &= ~BIT0;
 
     return 0;
 }
