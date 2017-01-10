@@ -7636,7 +7636,7 @@ by exp-lbrs.ulp</description>
 <part name="R9" library="resistor" deviceset="R-EU_" device="R0805" value="5.76M"/>
 <part name="GND9" library="supply1" deviceset="GND" device=""/>
 <part name="C6" library="rcl" deviceset="C-EU" device="C0805" value="4.7uF"/>
-<part name="C7" library="rcl" deviceset="C-EU" device="C0805" value="0.01 uF"/>
+<part name="C7" library="rcl" deviceset="C-EU" device="C0805" value="0.1 uF"/>
 <part name="GND10" library="supply1" deviceset="GND" device=""/>
 <part name="GND11" library="supply1" deviceset="GND" device=""/>
 <part name="R2" library="resistor" deviceset="R-EU_" device="R0805" value="5.36M"/>
@@ -7649,15 +7649,15 @@ by exp-lbrs.ulp</description>
 <part name="R8" library="resistor" deviceset="R-EU_" device="R0805" value="3.65M"/>
 <part name="GND12" library="supply1" deviceset="GND" device=""/>
 <part name="GND21" library="supply1" deviceset="GND" device=""/>
-<part name="C4" library="rcl" deviceset="C-EU" device="C0805" value="0.01uF"/>
+<part name="C4" library="rcl" deviceset="C-EU" device="C0805" value="0.1uF"/>
 <part name="C9" library="ipr" deviceset="BZ054B223ZSBBQ" device=""/>
 <part name="GND3" library="supply1" deviceset="GND" device=""/>
 <part name="R3" library="resistor" deviceset="R-EU_" device="R0805" value="10K"/>
 <part name="R4" library="resistor" deviceset="R-EU_" device="R0805" value="10K"/>
 <part name="GND4" library="supply1" deviceset="GND" device=""/>
 <part name="GND13" library="supply1" deviceset="GND" device=""/>
-<part name="C2" library="rcl" deviceset="C-EU" device="C0805" value="0.01uF"/>
-<part name="C1" library="rcl" deviceset="C-EU" device="C0805" value="0.01uF"/>
+<part name="C2" library="rcl" deviceset="C-EU" device="C0805" value="0.1uF"/>
+<part name="C1" library="rcl" deviceset="C-EU" device="C0805" value="0.1uF"/>
 <part name="VIN/GND" library="transceiver" deviceset="PINHEAD_PINHD-1X2-1.27MM" device=""/>
 <part name="U2" library="ipr" deviceset="TCA9538PWR" device=""/>
 <part name="JP1" library="transceiver" deviceset="PINHEAD_PINHD-1X5-1.27MM" device=""/>

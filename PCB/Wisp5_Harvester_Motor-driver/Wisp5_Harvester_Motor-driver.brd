@@ -2786,7 +2786,7 @@ Please make sure your boards conform to these design rules.</description>
 </pass>
 </autorouter>
 <elements>
-<element name="C1" library="rcl" package="C0805" value="0.01uF" x="6.801" y="14.855" smashed="yes" rot="R180">
+<element name="C1" library="rcl" package="C0805" value="0.1uF" x="6.801" y="14.855" smashed="yes" rot="R180">
 <attribute name="NAME" x="7.5376" y="13.8136" size="1" layer="25" ratio="11" rot="R180"/>
 <attribute name="VALUE" x="8.071" y="17.395" size="1" layer="27" ratio="11" rot="R180"/>
 </element>
@@ -2798,11 +2798,11 @@ Please make sure your boards conform to these design rules.</description>
 <attribute name="NAME" x="20.7704" y="25.742" size="1" layer="25" ratio="11" rot="R180"/>
 <attribute name="VALUE" x="21.3546" y="29.3234" size="1" layer="27" ratio="11" rot="R180"/>
 </element>
-<element name="C4" library="rcl" package="C0805" value="0.01uF" x="27.2914" y="25.0808" smashed="yes" rot="R90">
+<element name="C4" library="rcl" package="C0805" value="0.1uF" x="27.2914" y="25.0808" smashed="yes" rot="R90">
 <attribute name="NAME" x="29.3234" y="23.8108" size="1" layer="25" ratio="11" rot="R90"/>
 <attribute name="VALUE" x="29.8314" y="23.8108" size="1" layer="27" ratio="11" rot="R90"/>
 </element>
-<element name="C2" library="rcl" package="C0805" value="0.01uF" x="23.114" y="9.906" smashed="yes">
+<element name="C2" library="rcl" package="C0805" value="0.1uF" x="23.114" y="9.906" smashed="yes">
 <attribute name="NAME" x="22.352" y="10.922" size="1" layer="25" ratio="11"/>
 <attribute name="VALUE" x="21.844" y="7.366" size="1" layer="27" ratio="11"/>
 </element>
@@ -2814,7 +2814,7 @@ Please make sure your boards conform to these design rules.</description>
 <attribute name="NAME" x="17.648" y="15.2544" size="1" layer="25" ratio="11"/>
 <attribute name="VALUE" x="17.1146" y="14.8226" size="1" layer="27" ratio="11"/>
 </element>
-<element name="C7" library="rcl" package="C0805" value="0.01 uF" x="23.5472" y="17.3872" smashed="yes" rot="R180">
+<element name="C7" library="rcl" package="C0805" value="0.1 uF" x="23.5472" y="17.3872" smashed="yes" rot="R180">
 <attribute name="NAME" x="24.233" y="16.1934" size="1" layer="25" ratio="11" rot="R180"/>
 <attribute name="VALUE" x="24.8172" y="19.9272" size="1" layer="27" ratio="11" rot="R180"/>
 </element>
