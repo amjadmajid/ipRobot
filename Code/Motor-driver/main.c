@@ -16,7 +16,7 @@ void init(void) {
     PM5CTL0 &= ~LOCKLPM5;                   // Disable the GPIO power-on default high-impedance mode
                                             // to activate previously configured port settings
     CSCTL0_H = CSKEY_H;                     // Unlock clock registers
-    CSCTL1 = DCOFSEL_3 | DCORSEL;           // Set DCO to 8MHz
+    CSCTL1 = DCOFSEL_3;                     // Set DCO to 8MHz
     CSCTL2 = SELA__VLOCLK | SELS__DCOCLK | SELM__DCOCLK;
     CSCTL3 = DIVA__1 | DIVS__8 | DIVM__1;   // Set all dividers
     CSCTL0_H = 0;                           // Lock CS registers
@@ -30,6 +30,9 @@ void init(void) {
 
 void i2c_init(){
 
+    P1SEL1 |= BIT6 | BIT7;                  // configure I2C pins
+    P1SEL0 &= ~(BIT6 | BIT6);               // configure I2C pins
+
     // I2C default uses SMCLK
     UCB0CTL1 |= UCSWRST;                    // put eUSCI_B in reset state
     UCB0CTLW0 |= UCMODE_3 | UCMST | UCSYNC; // I2C, master, sync
@@ -37,12 +40,7 @@ void i2c_init(){
     UCB0CTLW1 = UCASTP_2;                   // automatic STOP assertion
     UCB0TBCNT = DATA_SIZE;                  // TX 2 bytes of data
     UCB0I2CSA = SLAVE_ADDR;                 // slave address
-
-    P1SEL1 |= BIT6 | BIT7;                  // configure I2C pins
-    P1SEL0 &= ~(BIT6 | BIT6);               // configure I2C pins
-
     UCB0CTL1 &= ~UCSWRST;                   // eUSCI_B in operational state
-    UCB0IE &= ~UCTXIE;                      // Ensure Interrupts off
 }
 
 void i2c_transmit(uint8_t cmd, uint8_t data){
