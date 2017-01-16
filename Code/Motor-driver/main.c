@@ -5,70 +5,62 @@
 
 #include <msp430.h>
 #include <stdint.h>
+#include "eusci_b0_i2c.h"
 
-#define DATA_SIZE 2
-#define SLAVE_ADDR 116 // TCA9539 address pins to GND
 #define NUM_OF_STATES 4
+#define MCF 8000000 // Hz
+#define FREQ 20
+#define DUTY 0.25
+
+struct NVvar {
+    uint8_t started;
+    uint16_t cnt;
+    uint8_t next_state;
+};
 
 void init(void) {
 
     WDTCTL = WDTPW | WDTHOLD;               // Stop watchdog timer
     PM5CTL0 &= ~LOCKLPM5;                   // Disable the GPIO power-on default high-impedance mode
                                             // to activate previously configured port settings
+    FRCTL0 = 0xA500 | ((1) << 4);           // Disable FRAM wait cycles to allow clock operation over 8MHz
+
     CSCTL0_H = CSKEY_H;                     // Unlock clock registers
     CSCTL1 = DCOFSEL_3;                     // Set DCO to 8MHz
     CSCTL2 = SELA__VLOCLK | SELS__DCOCLK | SELM__DCOCLK;
     CSCTL3 = DIVA__1 | DIVS__8 | DIVM__1;   // Set all dividers
     CSCTL0_H = 0;                           // Lock CS registers
 
-    P1DIR |= BIT0;                          // Set led2 pin to output
-    P1OUT &= ~BIT0;
+    P4DIR |= BIT0;                          // Set led2 pin to output
+    P4OUT &= ~BIT0;
 
     P1DIR |= BIT4;                          // Set P1.4 (AUX3) to output
     P1OUT &= ~BIT4;                         // Hold TCA9539 in reset (active low)
 }
 
-void i2c_init(){
-
-    P1SEL1 |= BIT6 | BIT7;                  // configure I2C pins
-    P1SEL0 &= ~(BIT6 | BIT6);               // configure I2C pins
-
-    // I2C default uses SMCLK
-    UCB0CTL1 |= UCSWRST;                    // put eUSCI_B in reset state
-    UCB0CTLW0 |= UCMODE_3 | UCMST | UCSYNC; // I2C, master, sync
-    UCB0BRW = 0x000A;                       // baud rate = SMCLK / 10 = 100khz
-    UCB0CTLW1 = UCASTP_2;                   // automatic STOP assertion
-    UCB0TBCNT = DATA_SIZE;                  // TX 2 bytes of data
-    UCB0I2CSA = SLAVE_ADDR;                 // slave address
-    UCB0CTL1 &= ~UCSWRST;                   // eUSCI_B in operational state
-}
-
-void i2c_transmit(uint8_t cmd, uint8_t data){
-
-    UCB0CTLW0 |= UCTR | UCTXSTT;            // transmitter mode and START condition.
-
-    while(!(UCB0IFG & UCTXIFG0));
-    UCB0TXBUF = cmd;
-    while(!(UCB0IFG & UCTXIFG0));
-    UCB0TXBUF = data;
-    while(UCB0CTLW0 & UCTXSTP);             // wait for stop
-    _delay_cycles(800);
-}
-
 int main(void) {
 
+    struct NVvar * fram = (struct NVvar *) 0x1800;
     uint8_t states_right[NUM_OF_STATES] = {0x90, 0xC0, 0x98, 0xE0}; // P13 = DA, P14 = PA, P15 = DB, P16 = PB, P17 = SL
     uint8_t states_left[NUM_OF_STATES] = {0x24, 0x30, 0x26, 0x38};  // P1 = DA, P2 = PA, P3 = DB, P4 = PB, P5 = SL
-    uint8_t next_state = 0;
-    uint8_t steps_to_move = 20;
+    uint16_t steps_to_move = 20;
+    uint16_t cnt;
+    uint8_t next_state;
+
+    if( fram->started != 0x02 ){
+        cnt = 0;
+        next_state = 0;
+        fram->started = 0x02;
+    } else{
+        cnt = fram->cnt;
+        next_state = fram->next_state;
+    }
 
     init();
     i2c_init();
 
     // enable TCA9539
     P1OUT |= BIT4;
-
-    P1OUT |= BIT0;
 
     // make all outputs low
     i2c_transmit(0x02, 0x00);
@@ -78,25 +70,30 @@ int main(void) {
     i2c_transmit(0x06, 0xC1); // ~0x1E
     i2c_transmit(0x07, 0x07); // ~0xF0
 
-    while (steps_to_move > 0){
+    while (cnt < steps_to_move) {
         if (next_state > (NUM_OF_STATES -1)){
             next_state = 0;
         }
+        P4OUT |= BIT0;
         i2c_transmit(0x02, states_left[next_state]);
         i2c_transmit(0x03, states_right[next_state]);
 
-        __delay_cycles(160000);
+        __delay_cycles((MCF/FREQ) * DUTY);
 
         // Make all outputs low
+        P4OUT &= ~BIT0;
         i2c_transmit(0x02, 0x00);
         i2c_transmit(0x03, 0x00);
 
-        __delay_cycles(480000);
-
         next_state++;
-        steps_to_move--;
+        fram->next_state = next_state;
+        cnt++;
+        fram->cnt = cnt;
+
+        __delay_cycles((MCF/FREQ) * (1-DUTY));
+
     }
-    P1OUT &= ~BIT0;
+    fram->started = 0x00;
 
     return 0;
 }
