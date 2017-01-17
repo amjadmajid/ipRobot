@@ -36,13 +36,16 @@ void init(void) {
 
     P1DIR |= BIT4;                          // Set P1.4 (AUX3) to output
     P1OUT &= ~BIT4;                         // Hold TCA9539 in reset (active low)
+
+    P3DIR |= BIT4 | BIT5;                   // Set P3.4 and P3.5 (AUX1 and AUX2) to output
+    P3OUT &= ~(BIT4 | BIT5);                // Disable both motor drivers
 }
 
 int main(void) {
 
     struct NVvar * fram = (struct NVvar *) 0x1800;
-    uint8_t states_right[NUM_OF_STATES] = {0x90, 0xC0, 0x98, 0xE0}; // P13 = DA, P14 = PA, P15 = DB, P16 = PB, P17 = SL
-    uint8_t states_left[NUM_OF_STATES] = {0x24, 0x30, 0x26, 0x38};  // P1 = DA, P2 = PA, P3 = DB, P4 = PB, P5 = SL
+    uint8_t states_left[NUM_OF_STATES] = {0x02, 0x10, 0x03, 0x11};  // P0 = DA, P1 = PA, P4 = DB, P3 = PB
+    uint8_t states_right[NUM_OF_STATES] = {0x11, 0x03, 0x10, 0x02}; // P4 = DA, P5 = PA, P6 = DB, P7 = PB
     uint16_t steps_to_move = 20;
     uint16_t cnt;
     uint8_t next_state;
@@ -63,27 +66,26 @@ int main(void) {
     P1OUT |= BIT4;
 
     // make all outputs low
-    i2c_transmit(0x02, 0x00);
-    i2c_transmit(0x03, 0x00);
+    i2c_transmit(0x02, 0x00); //0x01 for TCA9538
 
     //configure output
-    i2c_transmit(0x06, 0xC1); // ~0x1E
-    i2c_transmit(0x07, 0x07); // ~0xF0
+    i2c_transmit(0x06, 0x00); //0x03 for TCA9538
 
     while (cnt < steps_to_move) {
         if (next_state > (NUM_OF_STATES -1)){
             next_state = 0;
         }
         P4OUT |= BIT0;
-        i2c_transmit(0x02, states_left[next_state]);
-        i2c_transmit(0x03, states_right[next_state]);
+        // enable both motor drivers
+        P3OUT |= (BIT4 | BIT5);
+        i2c_transmit(0x02, (states_left[next_state] | (states_right[next_state] << 4))); //0x01 for TCA9538
 
         __delay_cycles((MCF/FREQ) * DUTY);
 
-        // Make all outputs low
         P4OUT &= ~BIT0;
-        i2c_transmit(0x02, 0x00);
-        i2c_transmit(0x03, 0x00);
+        i2c_transmit(0x02, 0x00); //0x01 for TCA9538
+        // disable both motor drivers
+        P3OUT &= ~(BIT4 | BIT5);
 
         next_state++;
         fram->next_state = next_state;
