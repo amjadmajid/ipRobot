@@ -33,5 +33,4 @@ void i2c_transmit(uint8_t cmd, uint8_t data){
     while(!(UCB0IFG & UCTXIFG0));
     UCB0TXBUF = data;
     while(UCB0CTLW0 & UCTXSTP);             // wait for stop
-    _delay_cycles(800);                     // 100us delay;
 }

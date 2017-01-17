@@ -44,9 +44,9 @@ void init(void) {
 int main(void) {
 
     struct NVvar * fram = (struct NVvar *) 0x1800;
-    uint8_t states_left[NUM_OF_STATES] = {0x02, 0x10, 0x03, 0x11};  // P0 = DA, P1 = PA, P4 = DB, P3 = PB
-    uint8_t states_right[NUM_OF_STATES] = {0x11, 0x03, 0x10, 0x02}; // P4 = DA, P5 = PA, P6 = DB, P7 = PB
-    uint16_t steps_to_move = 20;
+    const uint8_t states_left[NUM_OF_STATES] = {0x02, 0x08, 0x03, 0x0C};  // P0 = DA, P1 = PA, P4 = DB, P3 = PB
+    const uint8_t states_right[NUM_OF_STATES] = {0x0C, 0x03, 0x08, 0x02}; // P4 = DA, P5 = PA, P6 = DB, P7 = PB
+    const uint16_t steps_to_move = 20;
     uint16_t cnt;
     uint8_t next_state;
 
@@ -66,10 +66,12 @@ int main(void) {
     P1OUT |= BIT4;
 
     // make all outputs low
-    i2c_transmit(0x02, 0x00); //0x01 for TCA9538
+    i2c_transmit(0x02, 0x00);   //0x01 for TCA9538
+    _delay_cycles(800);         // 100us delay;
 
     //configure output
-    i2c_transmit(0x06, 0x00); //0x03 for TCA9538
+    i2c_transmit(0x06, 0x00);   //0x03 for TCA9538
+    _delay_cycles(800);         // 100us delay;
 
     while (cnt < steps_to_move) {
         if (next_state > (NUM_OF_STATES -1)){
@@ -87,13 +89,10 @@ int main(void) {
         // disable both motor drivers
         P3OUT &= ~(BIT4 | BIT5);
 
-        next_state++;
-        fram->next_state = next_state;
-        cnt++;
-        fram->cnt = cnt;
+        fram->next_state = ++next_state;
+        fram->cnt = ++cnt;
 
         __delay_cycles((MCF/FREQ) * (1-DUTY));
-
     }
     fram->started = 0x00;
 
