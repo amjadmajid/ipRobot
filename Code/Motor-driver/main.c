@@ -46,6 +46,22 @@ void init(void) {
     P3OUT &= ~(BIT4 | BIT5);                // Disable both motor drivers
 }
 
+void motor_init() {
+
+    i2c_init();
+
+    // enable TCA9539
+    P1OUT |= BIT4;
+
+    // make all outputs low
+    i2c_transmit(0x02, 0x00);   //0x01 for TCA9538
+    _delay_cycles(800);         // 100us delay;
+
+    //configure output
+    i2c_transmit(0x06, 0x00);   //0x03 for TCA9538
+    _delay_cycles(800);         // 100us delay;
+}
+
 void drive_motors() {
 
     while (fram->cnt < fram->len) {
@@ -80,18 +96,7 @@ int main(void) {
     }
 
     init();
-    i2c_init();
-
-    // enable TCA9539
-    P1OUT |= BIT4;
-
-    // make all outputs low
-    i2c_transmit(0x02, 0x00);   //0x01 for TCA9538
-    _delay_cycles(800);         // 100us delay;
-
-    //configure output
-    i2c_transmit(0x06, 0x00);   //0x03 for TCA9538
-    _delay_cycles(800);         // 100us delay;
+    motor_init();
 
     //prepaire array
 
