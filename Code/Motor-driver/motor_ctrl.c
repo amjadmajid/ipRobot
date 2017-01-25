@@ -19,11 +19,11 @@ void drv_init() {
     P1OUT |= BIT4;
 
     // make all outputs low
-    i2c_transmit(0x02, 0x00);   //0x01 for TCA9538
+    i2c_transmit(0x01, 0x00);   //0x02 for TCA9539
     _delay_cycles(800);         // 100us delay;
 
     //configure output
-    i2c_transmit(0x06, 0x00);   //0x03 for TCA9538
+    i2c_transmit(0x03, 0x00);   //0x06 for TCA9539
     _delay_cycles(800);         // 100us delay;
 }
 
@@ -97,13 +97,13 @@ void drive_motors() {
         P4OUT |= BIT0;
         // enable both motor drivers
         P3OUT |= (BIT4 | BIT5);
-        i2c_transmit(0x02, fram->inst[fram->cnt]); //0x01 for TCA9538
+        i2c_transmit(0x01, fram->inst[fram->cnt]); //0x02 for TCA9539
 
         __delay_cycles((MCF/FREQ) * DUTY);
         fram->cnt++;
 
         P4OUT &= ~BIT0;
-        i2c_transmit(0x02, 0x00); //0x01 for TCA9538
+        i2c_transmit(0x01, 0x00); //0x02 for TCA9539
         // disable both motor drivers
         P3OUT &= ~(BIT4 | BIT5);
 

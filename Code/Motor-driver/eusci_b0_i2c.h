@@ -9,7 +9,7 @@
 #define EUSCI_B0_I2C_H_
 
 #define DATA_SIZE 2
-#define SLAVE_ADDR 116 // TCA9539 address pins to GND
+#define SLAVE_ADDR 112 // both TCA9538 address pins to GND (116 for TCA9539)
 
 void i2c_init();
 void i2c_transmit(uint8_t cmd, uint8_t data);
