@@ -9,8 +9,8 @@
 #define MOTOR_CTRL_H_
 
 #define MCF 8000000 // Hz
-#define FREQ 10
-#define DUTY 0.25
+#define FREQ 20
+#define DUTY 0.5
 
 extern struct NVvar * fram;
 

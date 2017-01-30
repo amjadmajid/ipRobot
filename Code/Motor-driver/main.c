@@ -23,9 +23,6 @@ void init(void) {
     CSCTL3 = DIVA__1 | DIVS__8 | DIVM__1;   // Set all dividers
     CSCTL0_H = 0;                           // Lock CS registers
 
-    P4DIR |= BIT0;                          // Set led2 pin to output
-    P4OUT &= ~BIT0;
-
     P1DIR |= BIT4;                          // Set P1.4 (AUX3) to output
     P1OUT &= ~BIT4;                         // Hold TCA9539 in reset (active low)
 

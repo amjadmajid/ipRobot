@@ -29,8 +29,8 @@ void drv_init() {
 
 void prep_inst(uint8_t cmd, uint8_t len) {
 
-    const uint8_t lstates[4] = {0x02, 0x08, 0x03, 0x0C};  // P0 = DA, P1 = PA, P2 = DB, P3 = PB
-    const uint8_t rstates[4] = {0x0C, 0x03, 0x08, 0x02};  // P4 = DA, P1 = PA, P2 = DB, P3 = PB
+    const uint8_t lstates[4] = {0x0C, 0x03, 0x08, 0x02};  // P0 = DA, P1 = PA, P2 = DB, P3 = PB
+    const uint8_t rstates[4] = {0x02, 0x08, 0x03, 0x0C};  // P4 = DA, P1 = PA, P2 = DB, P3 = PB
     uint8_t cnt = 0;
     int8_t lstate = 0;
     int8_t rstate = 0;
@@ -94,7 +94,6 @@ void drive_motors() {
 
     while (fram->cnt < fram->len) {
 
-        P4OUT |= BIT0;
         // enable both motor drivers
         P3OUT |= (BIT4 | BIT5);
         i2c_transmit(0x01, fram->inst[fram->cnt]); //0x02 for TCA9539
@@ -102,7 +101,6 @@ void drive_motors() {
         __delay_cycles((MCF/FREQ) * DUTY);
         fram->cnt++;
 
-        P4OUT &= ~BIT0;
         i2c_transmit(0x01, 0x00); //0x02 for TCA9539
         // disable both motor drivers
         P3OUT &= ~(BIT4 | BIT5);
