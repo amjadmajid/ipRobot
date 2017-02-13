@@ -32,7 +32,7 @@ void init(void) {
 
 int main(void) {
 
-    const uint16_t stm = 40;
+    const uint16_t stm = 8000;
 
     if( fram->cp == 0x00 ){
         fram->cnt = 0;
@@ -46,9 +46,11 @@ int main(void) {
         prep_inst(0x01, stm);
     }
 
-    drive_motors();
+    drv_mot();
 
     fram->cp = 0x00;
+
+    while(1);
 
     return 0;
 }

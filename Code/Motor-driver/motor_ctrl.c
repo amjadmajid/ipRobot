@@ -90,7 +90,7 @@ void prep_inst(uint8_t cmd, uint8_t len) {
     fram->cp++;
 }
 
-void drive_motors() {
+void drv_mot() {
 
     while (fram->cnt < fram->len) {
 
@@ -98,13 +98,15 @@ void drive_motors() {
         P3OUT |= (BIT4 | BIT5);
         i2c_transmit(0x01, fram->inst[fram->cnt]); //0x02 for TCA9539
 
-        __delay_cycles((MCF/FREQ) * DUTY);
+        __delay_cycles(DELAY);
         fram->cnt++;
-
-        i2c_transmit(0x01, 0x00); //0x02 for TCA9539
-        // disable both motor drivers
-        P3OUT &= ~(BIT4 | BIT5);
-
-        __delay_cycles((MCF/FREQ) * (1-DUTY));
     }
+}
+
+void dsbl_mot() {
+
+    i2c_transmit(0x01, 0x00); //0x02 for TCA9539
+    // disable both motor drivers
+    P3OUT &= ~(BIT4 | BIT5);
+
 }
