@@ -9,11 +9,11 @@
 #define EXTERN_H_
 
 // Note: INFOD has a length of 128 bytes
-struct NVvar {
+typedef struct NVvar {
     uint8_t cp;
     uint8_t cnt;
     uint8_t len;
     uint8_t inst[100];
-};
+}NVvar;
 
 #endif /* EXTERN_H_ */

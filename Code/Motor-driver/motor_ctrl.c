@@ -108,5 +108,4 @@ void dsbl_mot() {
     i2c_transmit(0x01, 0x00); //0x02 for TCA9539
     // disable both motor drivers
     P3OUT &= ~(BIT4 | BIT5);
-
 }

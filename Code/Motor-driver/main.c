@@ -8,7 +8,7 @@
 #include "extern.h"
 #include "motor_ctrl.h"
 
-struct NVvar * fram = (struct NVvar *) 0x1800;
+NVvar * fram = (NVvar *) 0x1800;
 
 void init(void) {
 
@@ -32,25 +32,27 @@ void init(void) {
 
 int main(void) {
 
-    const uint16_t stm = 8000;
-
-    if( fram->cp == 0x00 ){
-        fram->cnt = 0;
-        fram->cp = 0x01;
-    }
+    const uint16_t stm = 100;
 
     init();
     drv_init();
 
-    if( fram->cp == 0x01 ) {
-        prep_inst(0x01, stm);
+    while(1) {
+
+        if( fram->cp == 0x00 ){
+            fram->cnt = 0;
+            fram->cp = 0x01;
+        }
+
+        if( fram->cp == 0x01 ) {
+            prep_inst(0x01, stm);
+        }
+
+        drv_mot();
+        dsbl_mot();
+
+        fram->cp = 0x00;
     }
-
-    drv_mot();
-
-    fram->cp = 0x00;
-
-    while(1);
 
     return 0;
 }
