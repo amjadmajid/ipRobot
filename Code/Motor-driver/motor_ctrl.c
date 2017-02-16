@@ -7,9 +7,16 @@
 
 #include <msp430.h>
 #include <stdint.h>
-#include "extern.h"
+#include "global.h"
 #include "motor_ctrl.h"
 #include "eusci_b0_i2c.h"
+
+void swap(pi **r, pi **s) {
+
+   pi *tmp = *r;
+   *r = *s;
+   *s = tmp;
+}
 
 void drv_init() {
 
@@ -31,9 +38,11 @@ void prep_inst(uint8_t cmd, uint8_t len) {
 
     const uint8_t lstates[4] = {0x0C, 0x03, 0x08, 0x02};  // P0 = DA, P1 = PA, P2 = DB, P3 = PB
     const uint8_t rstates[4] = {0x02, 0x08, 0x03, 0x0C};  // P4 = DA, P1 = PA, P2 = DB, P3 = PB
-    uint8_t cnt = 0;
-    int8_t lstate = 0;
-    int8_t rstate = 0;
+
+    uint8_t cnt = pi_or->cnt;
+    int8_t lstate = pi_or->lstate;
+    int8_t rstate = pi_or->rstate;
+
     int8_t ladd = 0;
     int8_t radd = 0;
 
@@ -83,24 +92,23 @@ void prep_inst(uint8_t cmd, uint8_t len) {
         } else if (rstate < 0) {
             rstate = 3;
         }
-        fram->inst[cnt] = (lstates[lstate] | (rstates[rstate] << 4));
-        cnt++;
+        if(!DEBUG)
+            drv_mot(lstates[lstate] | (rstates[rstate] << 4));
+        *pi_wc = *pi_or;
+        pi_wc->lstate = lstate;
+        pi_wc->rstate = rstate;
+        pi_wc->cnt = ++cnt;
+        swap(&pi_or, &pi_wc);
     }
-    fram->len = len;
-    fram->cp++;
+    pi_or->cnt = 0;
 }
 
-void drv_mot() {
+void drv_mot(uint8_t data) {
 
-    while (fram->cnt < fram->len) {
-
-        // enable both motor drivers
-        P3OUT |= (BIT4 | BIT5);
-        i2c_transmit(0x01, fram->inst[fram->cnt]); //0x02 for TCA9539
-
-        __delay_cycles(DELAY);
-        fram->cnt++;
-    }
+    // enable both motor drivers
+    P3OUT |= (BIT4 | BIT5);
+    i2c_transmit(0x01, data); //0x02 for TCA9539
+    __delay_cycles(DELAY);
 }
 
 void dsbl_mot() {

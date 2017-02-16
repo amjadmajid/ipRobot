@@ -10,11 +10,12 @@
 
 #define DELAY 100000
 
-extern struct NVvar * fram;
+extern pi *pi_or;
+extern pi *pi_wc;
 
 void drv_init();
 void prep_inst(uint8_t cmd, uint8_t len);
-void drv_mot();
+void drv_mot(uint8_t data);
 void dsbl_mot();
 
 #endif /* MOTOR_CTRL_H_ */

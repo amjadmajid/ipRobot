@@ -5,10 +5,13 @@
 
 #include <msp430.h>
 #include <stdint.h>
-#include "extern.h"
+#include "global.h"
 #include "motor_ctrl.h"
 
+// Note: INFOD has a length of 128 bytes
 NVvar * fram = (NVvar *) 0x1800;
+pi *pi_or = (pi *) 0x180A;
+pi *pi_wc = (pi *) 0x180D;
 
 void init(void) {
 
@@ -32,26 +35,31 @@ void init(void) {
 
 int main(void) {
 
-    const uint16_t stm = 100;
+    const uint8_t len = 10;
+    const uint8_t inst_cmd[10] = {0x01, 0x03, 0x01, 0x03, 0x01, 0x03, 0x01, 0x03, 0x01, 0x03};
+    const uint8_t inst_len[10] = {41, 1, 41, 1, 41, 1, 41, 1, 41, 1};
 
     init();
-    drv_init();
+    if(!DEBUG)
+        drv_init();
 
     while(1) {
 
-        if( fram->cp == 0x00 ){
-            fram->cnt = 0;
-            fram->cp = 0x01;
+        if(fram->cp_nr == 0x00) {
+            fram->inst = 0;
+            pi_or->cnt = 0;
+            fram->cp_nr = 0x01;
         }
 
-        if( fram->cp == 0x01 ) {
-            prep_inst(0x01, stm);
+        while(fram->inst < len){
+            prep_inst(inst_cmd[fram->inst], inst_len[fram->inst]);
+            fram->inst++;
         }
 
-        drv_mot();
-        dsbl_mot();
+        if(!DEBUG)
+            dsbl_mot();
 
-        fram->cp = 0x00;
+        fram->cp_nr = 0x00;
     }
 
     return 0;
