@@ -32,4 +32,6 @@ void create_map_const();
 
 uint8_t is_wall(uint8_t x, uint8_t y);
 
+uint16_t get_rand();
+
 #endif /* PARTICLE_FILTER_H_ */

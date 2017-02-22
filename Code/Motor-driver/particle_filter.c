@@ -45,6 +45,38 @@ uint8_t is_wall(uint8_t x, uint8_t y) {
     return 0;
 }
 
+/*
+* Based on the random number generator example:
+* http://processors.wiki.ti.com/index.php/MSP430_FAQ#How_to_generate_random_number_with_MSP430_devices.3F
+* Modified to work with MSP430FR59xx
+*/
+uint16_t get_rand() {
+
+  uint8_t i;
+  uint16_t result = 0;
+
+  // Timer0_A3 Setup
+  TA0CCTL2 = CM_1 + CCIS_1 + CAP;
+  TA0CTL |= TASSEL__SMCLK + MC__CONTINOUS;
+
+  for(i=0 ; i<16 ; i++) {
+
+    // shift left result
+    result <<= 1;
+    // wait until Capture flag is set
+    while(!(TA0CCTL2 & CCIFG));
+    // clear flag
+    TA0CCTL2 &= ~CCIFG;
+    // check LSB
+    if(TA0CCR2 & 0x01) {
+        result |= 0x01;
+    }
+    // change the division of timer input clock
+    TA0CTL = (TA0CTL & 0xFF3F) | ((TA0CCR2 & 0x03) << 6);
+  }
+  return result;
+}
+
 // initialize x number of particles in non wall area's
 /*void part_init(uint16_t num_part){
 
@@ -60,4 +92,3 @@ uint8_t is_wall(uint8_t x, uint8_t y) {
 /* void resample(){
 
 } */
-

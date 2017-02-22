@@ -7,6 +7,7 @@
 #include <stdint.h>
 #include "extern.h"
 #include "motor_ctrl.h"
+#include "particle_filter.h"
 
 struct NVvar * fram = (struct NVvar *) 0x1800;
 
@@ -22,6 +23,8 @@ void init(void) {
     CSCTL2 = SELA__VLOCLK | SELS__DCOCLK | SELM__DCOCLK;
     CSCTL3 = DIVA__1 | DIVS__8 | DIVM__1;   // Set all dividers
     CSCTL0_H = 0;                           // Lock CS registers
+
+    __delay_cycles(1000);                   // Allow clock system to settle
 
     P4DIR |= BIT0;                          // Set led2 pin to output
     P4OUT &= ~BIT0;
