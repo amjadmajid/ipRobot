@@ -28,11 +28,14 @@ void create_map_const() {
 }
 
 uint8_t is_wall(uint8_t x, uint8_t y) {
+
     uint8_t i;
+
     // check if coordinate is outside map
     if((x > map->x_size) || (y > map->y_size)) {
         return 1;
     }
+
     // check if coordinate is inside wall
     for(i=0; i < map->num_walls; i++) {
         if((x > map->walls[i].x1) && (x < map->walls[i].x2) && (y > map->walls[i].y1) && (y < map->walls[i].y2)){
