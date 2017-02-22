@@ -9,22 +9,33 @@
 #include "particle_filter.h"
 
 ConstMap * map = (ConstMap *) 0x1880;
+PartArray * parr = (PartArray *) 0x1900;
 
 // put constrained map in nv mem (only run once)
 void create_map_const() {
-    map->x_size = 10;
-    map->y_size = 10;
-    map->num_walls = 2;
+    map->x_size = 100;
+    map->y_size = 100;
+    map->num_walls = 4;
 
-    map->walls[0].x1 = 4;
-    map->walls[0].x2 = 10;
+    map->walls[0].x1 = 0;
+    map->walls[0].x2 = 25;
     map->walls[0].y1 = 0;
-    map->walls[0].y2 = 3;
+    map->walls[0].y2 = 75;
 
-    map->walls[1].x1 = 4;
-    map->walls[1].x2 = 10;
-    map->walls[1].y1 = 7;
-    map->walls[1].y2 = 10;
+    map->walls[1].x1 = 50;
+    map->walls[1].x2 = 100;
+    map->walls[1].y1 = 0;
+    map->walls[1].y2 = 25;
+
+    map->walls[1].x1 = 50;
+    map->walls[1].x2 = 75;
+    map->walls[1].y1 = 50;
+    map->walls[1].y2 = 100;
+
+    map->walls[1].x1 = 75;
+    map->walls[1].x2 = 100;
+    map->walls[1].y1 = 75;
+    map->walls[1].y2 = 100;
 }
 
 uint8_t is_wall(uint8_t x, uint8_t y) {
@@ -78,9 +89,25 @@ uint16_t get_rand() {
 }
 
 // initialize x number of particles in non wall area's
-/*void part_init(uint16_t num_part){
+void part_init(uint8_t num_part){
 
-} */
+    uint8_t i;
+    uint8_t x, y, ang;
+
+    parr->num_part = num_part;
+
+    for(i=0; i<num_part; i++){
+        do {
+            x = get_rand() % map->x_size;
+            y = get_rand() % map->y_size;
+        } while(is_wall(x, y));
+        ang = get_rand() % 180;
+        // make these changes consistent ?
+        parr->particles[i].x = x;
+        parr->particles[i].y = y;
+        parr->particles[i].angle = ang;
+    }
+}
 
 // update all particle position according to steps done in certain direction
 /* void move(){
