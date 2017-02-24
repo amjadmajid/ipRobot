@@ -25,7 +25,7 @@ typedef struct ConstMap {
 typedef struct Particle {
     uint8_t x;
     uint8_t y;
-    uint8_t ang;
+    uint8_t wgt;
 }Particle;
 
 typedef struct PartArray {
@@ -37,5 +37,7 @@ void const_map_init();
 uint8_t is_wall(uint8_t x, uint8_t y);
 uint16_t get_rand();
 void part_init(uint8_t num_parts);
+uint8_t move(uint8_t dist, uint8_t ang);
+void resample(uint8_t dcnt);
 
 #endif /* PARTICLE_FILTER_H_ */

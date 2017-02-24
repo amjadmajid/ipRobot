@@ -94,7 +94,7 @@ uint16_t get_rand() {
 void part_init(uint8_t num_parts){
 
     uint8_t i;
-    uint8_t x, y, ang;
+    uint8_t x, y;
 
     parr.num_parts = num_parts;
 
@@ -103,21 +103,49 @@ void part_init(uint8_t num_parts){
             x = get_rand() % map.x_size;
             y = get_rand() % map.y_size;
         } while(is_wall(x, y));
-        ang = get_rand() % 180;
         // make these changes consistent ?
         parr.parts[i].x = x;
         parr.parts[i].y = y;
-        parr.parts[i].ang = ang;
+        parr.parts[i].wgt = 1;
     }
 }
 
 // update all particle position according to steps done in certain direction
-/* void move(){
+uint8_t move(uint8_t dist, uint8_t ang){
 
-} */
+    uint8_t i, dcnt = 0;
+    uint8_t x, y, xn, yn;
 
-// "random" increase particle weight according to likelihood of being there
-// (only with died amount of particles)
-/* void resample(){
+    //xn = cos(ang)*dist;
+    //yn = sin(ang)*dist;
 
-} */
+    for(i=0; i<parr.num_parts; i++){
+        if(parr.parts[i].wgt > 0){
+            x = parr.parts[i].x + xn;
+            y = parr.parts[i].y + yn;
+
+            if(is_wall(x, y)){
+                parr.parts[i].wgt = 0;
+                dcnt++;
+            } else {
+                parr.parts[i].x = x;
+                parr.parts[i].y = y;
+            }
+        }
+    }
+    return dcnt;
+}
+
+// "random" increase particle weight (only with died amount of particles)
+void resample(uint8_t dcnt){
+
+    uint8_t i, j;
+
+    for(i=0; i<dcnt; i++){
+        do{
+            j = get_rand() % parr.num_parts;
+        } while(parr.parts[j].wgt == 0);
+        // make this change consistent ?
+        parr.parts[j].wgt++;
+    }
+}
