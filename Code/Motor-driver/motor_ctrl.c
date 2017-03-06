@@ -114,6 +114,7 @@ void drv_mot(uint8_t data) {
 void dsbl_mot() {
 
     i2c_transmit(0x01, 0x00); //0x02 for TCA9539
+    __delay_cycles(DELAY);
     // disable both motor drivers
     P3OUT &= ~(BIT4 | BIT5);
 }
