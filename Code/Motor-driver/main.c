@@ -31,25 +31,34 @@ void init(void) {
 
     P3DIR |= BIT4 | BIT5;                   // Set P3.4 and P3.5 (AUX1 and AUX2) to output
     P3OUT &= ~(BIT4 | BIT5);                // Disable both motor drivers
+
+    P2DIR &= ~(BIT1);                       // Set P2.1 (UART_RX) to input
+    P2OUT |= BIT1;                          // Set pull up resistor on input
+    P2REN |= BIT1;                          // Enable pull up resistor for button to keep pin high until pressed
 }
 
 int main(void) {
 
-    const uint8_t len = 10;
-    const uint8_t inst_cmd[10] = {0x01, 0x03, 0x01, 0x03, 0x01, 0x03, 0x01, 0x03, 0x01, 0x03};
-    const uint8_t inst_len[10] = {41, 1, 41, 1, 41, 1, 41, 1, 41, 1};
+    const uint8_t len = 3;
+    const uint8_t inst_cmd[3] = {0x01, 0x02, 0x01}; // 0x03, 0x01, 0x03, 0x01, 0x03, 0x01, 0x03};
+    const uint8_t inst_len[3] = {143, 14, 101}; //, 10, 50, 10, 50, 10, 50, 10};
 
     init();
-    if(!DEBUG)
-        drv_init();
 
     while(1) {
 
         if(fram->cp_nr == 0x00) {
+            while(1) {
+                if((P2IN & BIT1)==0)
+                    break;
+            }
             fram->inst = 0;
             pi_or->cnt = 0;
             fram->cp_nr = 0x01;
         }
+
+        if(!DEBUG)
+            drv_init();
 
         while(fram->inst < len){
             prep_inst(inst_cmd[fram->inst], inst_len[fram->inst]);

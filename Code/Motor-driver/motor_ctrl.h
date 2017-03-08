@@ -8,7 +8,7 @@
 #ifndef MOTOR_CTRL_H_
 #define MOTOR_CTRL_H_
 
-#define DELAY 100000
+#define DELAY 200000
 
 extern pi *pi_or;
 extern pi *pi_wc;
