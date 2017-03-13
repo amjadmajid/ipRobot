@@ -20,17 +20,40 @@ void i2c_init(){
     UCB0BRW = 0x000A;                       // baud rate = SMCLK / 10 = 100khz
     UCB0CTLW1 = UCASTP_2;                   // automatic STOP assertion
     UCB0TBCNT = DATA_SIZE;                  // TX 2 bytes of data
-    UCB0I2CSA = SLAVE_ADDR;                 // slave address
     UCB0CTL1 &= ~UCSWRST;                   // eUSCI_B in operational state
 }
 
-void i2c_transmit(uint8_t cmd, uint8_t data){
+void i2c_write(uint8_t slv_addr, uint8_t reg_addr, uint8_t data){
 
+    UCB0I2CSA = slv_addr;                   // set slave address
     UCB0CTLW0 |= UCTR | UCTXSTT;            // transmitter mode and START condition.
 
     while(!(UCB0IFG & UCTXIFG0));
-    UCB0TXBUF = cmd;
+    UCB0TXBUF = reg_addr;
     while(!(UCB0IFG & UCTXIFG0));
     UCB0TXBUF = data;
     while(UCB0CTLW0 & UCTXSTP);             // wait for stop
+    __delay_cycles(800);                    // 100us delay;
+}
+
+uint8_t i2c_read(uint8_t slv_addr, uint8_t reg_addr){
+
+    uint8_t data = 0;
+    UCB0I2CSA = slv_addr;                   // set slave address
+    UCB0CTLW0 |= UCTR | UCTXSTT;            // transmitter mode and START condition.
+
+    while (!(UCB0IFG & UCTXIFG0));
+    UCB0TXBUF = reg_addr;
+    while (!(UCB0IFG & UCTXIFG0));
+
+    UCB0CTLW0 &= ~UCTR;                     // receiver mode
+    UCB0CTLW0 |= UCTXSTT;                   // START condition
+
+    while (!(UCB0IFG & UCRXIFG0))
+    UCB0CTLW0 |= UCTXSTP;                   // STOP condition
+
+    data = UCB0RXBUF;
+    while (UCB0CTLW0 & UCTXSTP);
+
+    return data;
 }
