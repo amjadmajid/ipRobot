@@ -26,12 +26,6 @@ void init(void) {
     CSCTL3 = DIVA__1 | DIVS__8 | DIVM__1;   // Set all dividers
     CSCTL0_H = 0;                           // Lock CS registers
 
-    P1DIR |= BIT4;                          // Set P1.4 (AUX3) to output
-    P1OUT &= ~BIT4;                         // Hold TCA9539 in reset (active low)
-
-    P3DIR |= BIT4 | BIT5;                   // Set P3.4 and P3.5 (AUX1 and AUX2) to output
-    P3OUT &= ~(BIT4 | BIT5);                // Disable both motor drivers
-
     P2DIR &= ~(BIT1);                       // Set P2.1 (UART_RX) to input
     P2OUT |= BIT1;                          // Set pull up resistor on input
     P2REN |= BIT1;                          // Enable pull up resistor for button to keep pin high until pressed

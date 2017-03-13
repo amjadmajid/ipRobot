@@ -22,16 +22,17 @@ void drv_init() {
 
     i2c_init();
 
-    // enable TCA9539
-    P1OUT |= BIT4;
+    P1DIR |= BIT4;                     // Set P1.4 (AUX3) to output
+    P1OUT |= BIT4;                     // Enable TCA9538
+
+    P3DIR |= BIT4 | BIT5;              // Set P3.4 and P3.5 (AUX1 and AUX2) to output
+    P3OUT &= ~(BIT4 | BIT5);           // Disable both motor drivers
 
     // make all outputs low
-    i2c_transmit(0x01, 0x00);   //0x02 for TCA9539
-    _delay_cycles(800);         // 100us delay;
+    i2c_write(TCA_ADDR, 0x01, 0x00);   //0x02 for TCA9539
 
     //configure output
-    i2c_transmit(0x03, 0x00);   //0x06 for TCA9539
-    _delay_cycles(800);         // 100us delay;
+    i2c_write(TCA_ADDR, 0x03, 0x00);   //0x06 for TCA9539
 }
 
 void prep_inst(uint8_t cmd, uint8_t len) {
@@ -107,14 +108,13 @@ void drv_mot(uint8_t data) {
 
     // enable both motor drivers
     P3OUT |= (BIT4 | BIT5);
-    i2c_transmit(0x01, data); //0x02 for TCA9539
+    i2c_write(TCA_ADDR, 0x01, data); //0x02 for TCA9539
     __delay_cycles(DELAY);
 }
 
 void dsbl_mot() {
 
-    i2c_transmit(0x01, 0x00); //0x02 for TCA9539
-    __delay_cycles(DELAY);
+    i2c_write(TCA_ADDR, 0x01, 0x00); //0x02 for TCA9539
     // disable both motor drivers
     P3OUT &= ~(BIT4 | BIT5);
 }
