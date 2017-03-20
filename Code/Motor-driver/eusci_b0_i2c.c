@@ -30,7 +30,6 @@ void i2c_write(uint8_t slv_addr, uint8_t reg_addr, uint8_t data){
     UCB0I2CSA = slv_addr;                   // set slave address
     UCB0CTLW0 |= UCTR | UCTXSTT;            // transmitter mode and START condition.
 
-    //while(!(UCB0IFG & UCTXIFG0));
     while (UCB0CTLW0 & UCTXSTT);
     UCB0TXBUF = reg_addr;
     while(!(UCB0IFG & UCTXIFG0));
@@ -50,12 +49,9 @@ uint8_t i2c_read(uint8_t slv_addr, uint8_t reg_addr){
     UCB0CTLW0 |= UCTR | UCTXSTT;            // transmitter mode and START condition.
 
     while (UCB0CTLW0 & UCTXSTT);
-    //while(!(UCB0IFG & UCTXIFG0));           //  while (UCB0CTLW0 & UCTXSTT); // make sure data is shifted out
     UCB0TXBUF = reg_addr;
     while(!(UCB0IFG & UCTXIFG0));
 
-    //while (UCB0CTLW0 & UCTXSTT);            //Wait until the acknowlege message has been received
-    //while(UCB0STAT & UCBBUSY);
     UCB0CTLW0 &= ~UCTR;                     // receiver mode
     UCB0CTLW0 |= UCTXSTT;                   // START condition
 
@@ -66,7 +62,6 @@ uint8_t i2c_read(uint8_t slv_addr, uint8_t reg_addr){
     data = UCB0RXBUF;
 
     while(UCB0CTLW0 & UCTXSTP);
-    //__delay_cycles(100);
 
     return data;
 }
