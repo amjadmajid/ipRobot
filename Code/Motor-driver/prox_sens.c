@@ -16,10 +16,36 @@ void prox_init(){
     // enable MAX44000
     //P1OUT |= BIT4;
 
-    //Set led drive current to 100 mA
-    i2c_write(MAX_ADDR, 0x03, 0x0E);
-    //Set main configuration register to PROX only
-    i2c_write(MAX_ADDR, 0x01, 0x34);
+    //Read the interrupt Status register
+    i2c_read(MAX_ADDR, 0x00);
+
+    //Required because four msb are 0 on startup.
+    i2c_write(MAX_ADDR, 0x02, 0xF1);
+
+    //Set led drive current to 110 mA
+    i2c_write(MAX_ADDR, 0x03, 0x0F);
+
+    //Set main configuration register to ALS + PROX
+    i2c_write(MAX_ADDR, 0x01, 0x30);
+
+}
+
+int16_t als_read() {
+
+    uint8_t data;
+    uint16_t als_data;
+
+    data = i2c_read(MAX_ADDR, 0x04);        // Als Data Register High
+
+    if (data & 0x40) {                      // if the overflow bit is set
+        return -1;
+    }
+
+    als_data = (data << 8);
+    data = i2c_read(MAX_ADDR, 0x05);        // Als Data Register Low
+    als_data |= data;
+
+    return als_data;
 }
 
 uint8_t prox_read() {
