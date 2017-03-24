@@ -7,6 +7,7 @@
 #include <stdint.h>
 #include "global.h"
 #include "motor_ctrl.h"
+#include "prox_sens.h"
 
 // Note: INFOD has a length of 128 bytes
 NVvar * fram = (NVvar *) 0x1800;

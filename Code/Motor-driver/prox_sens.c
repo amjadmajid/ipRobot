@@ -20,7 +20,7 @@ void prox_init(){
     i2c_read(MAX_ADDR, 0x00);
 
     //Required because four msb are 0 on startup.
-    i2c_write(MAX_ADDR, 0x02, 0xF1);
+    i2c_write(MAX_ADDR, 0x02, 0xF3);
 
     //Set led drive current to 110 mA
     i2c_write(MAX_ADDR, 0x03, 0x0F);
