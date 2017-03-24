@@ -6,6 +6,7 @@
 #include <msp430.h>
 #include <stdint.h>
 #include "global.h"
+#include "eusci_b0_i2c.h"
 #include "motor_ctrl.h"
 #include "prox_sens.h"
 

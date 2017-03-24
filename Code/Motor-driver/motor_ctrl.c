@@ -20,8 +20,6 @@ void swap(pi **r, pi **s) {
 
 void drv_init() {
 
-    i2c_init();
-
     P1DIR |= BIT4;                     // Set P1.4 (AUX3) to output
     P1OUT |= BIT4;                     // Enable TCA9538
 
