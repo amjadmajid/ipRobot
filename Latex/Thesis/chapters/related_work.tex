@@ -1,0 +1,23 @@
+\chapter{Related Work}
+\label{chp:related_work}
+
+\section{Battery-powered robotic platforms}
+\label{lab:s1}
+
+
+Hardware modularity is a way to make the robot adapt its resources to different environments and sensing operations.
+By separating out power, computation, motor control and sensing a verity of capabilities can be tested \cite{RN13, RN2}.
+Microrobots typically use infrared-based neighbor to neighbor distance sensing and communication \cite{RN3}.
+While controlling a swarm or collective is mainly accomplished by means of active low power transceivers \cite{RN13, RN2}. 
+
+Choosing the right locomotion resource can depend on different factors, moving in the most energy efficient way on a particular surface is often the determining factor.
+On a flat surface, robots commonly use a two-wheeled differential drive design to not only move but allow for steering as well \cite{RN13, RN2}. 
+In other designs overall cost is a decisive factor, Kilobot uses two vibrating motors for locomotion.
+When the motors are activated the centripetal forces will generate a forward movement \cite{RN3}.
+The GRITSBot does not use conventional DC motors, requiring encoders to estimate their speed. 
+Instead by using stepper motors the speed can be set by changing the delay between steps. 
+Estimating it's position therefore is reduced to simply counting steps \cite{RN2}. 
+
+\section{Methods of energy harvesting for robotic platforms}
+\label{lab:s2}
+

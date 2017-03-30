@@ -1,0 +1,53 @@
+\documentclass[a4paper, 9pt, oneside]{article}
+\usepackage[top=1in, bottom=1.5in, left=1in, right=1in]{geometry}
+
+\setcounter{secnumdepth}{5}
+\setcounter{tocdepth}{5}
+
+\usepackage{graphicx}
+\usepackage[english]{babel}
+\usepackage[none]{hyphenat}
+\usepackage{float}
+\usepackage{amsmath}
+\usepackage{multicol}
+\usepackage{subfiles}
+\usepackage{multirow}
+%\usepackage[font={small}]{caption}
+
+%\usepackage{titlesec}
+% change section title size
+%\titleformat{\section}{\LARGE\bfseries}
+%\titleformat{\subsection}{\Large\bfseries}
+%\titleformat*{\subsubsection}{\large\bfseries}
+
+\begin{document}
+	\begin{multicols}{2}
+		[
+		\begin{center}
+		{\Large{\textbf{A Intermittently Powered Battery-Free Robot}}} \\
+		%\vspace{0.1em}
+		%{\Large{\textbf{Report}}} \\
+		\vspace{0.5em}
+		%By: Koen Schaper (4078306)\\
+		\today				
+		\end{center}
+		]
+		%\input{pages/frontpage}
+		%\setcounter{page}{1}
+		
+		\subfile{pages/abstract}
+		\subfile{pages/introduction}
+		\subfile{pages/problem}
+		
+		\subfile{pages/related_work}
+		\subfile{pages/conclusion}
+		
+		\bibliographystyle{IEEEtran}
+		\bibliography{IEEEabrv,bibtex}
+		
+		%\appendix
+		%\subfile{pages/appendices}
+
+	\end{multicols}
+
+\end{document}
