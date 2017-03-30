@@ -8,6 +8,11 @@
 #include <stdint.h>
 #include "particle_filter.h"
 
+/* libfixmath from:
+ * https://github.com/PetteriAimonen/libfixmath
+ */
+#include "libfixmath/fix16.h"
+
 #pragma NOINIT(map)
 ConstMap map;
 #pragma NOINIT(parr)
