@@ -2,9 +2,9 @@
 %2345678901234567890123456789012345678901234567890123456789012345678901234567890
 %        1         2         3         4         5         6         7         8
 
-%\documentclass[letterpaper, 10 pt, conference]{ieeeconf}  % Comment this line out if you need a4paper
+\documentclass[letterpaper, 10 pt, conference]{ieeeconf}  % Comment this line out if you need a4paper
 
-\documentclass[a4paper, 10pt, conference]{ieeeconf}       % Use this line for a4 paper
+%\documentclass[a4paper, 10pt, conference]{ieeeconf}       % Use this line for a4 paper
 
 \IEEEoverridecommandlockouts                              % This command is only needed if 
                                                           % you want to use the \thanks command
@@ -39,7 +39,6 @@ Intermittently-powered Battery-free Robot
 
 
 \begin{document}
-\bstctlcite{IEEEexample:BSTcontrol}
 
 \maketitle
 \thispagestyle{empty}
@@ -49,7 +48,7 @@ Intermittently-powered Battery-free Robot
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\begin{abstract}
 
-%This electronic document is a “live” template. The various components of your paper [title, text, heads, etc.] are already %defined on the style sheet, as illustrated by the portions given in this document.
+% Limit abstract to 1500 characters!c
 
 %\end{abstract}
 
@@ -57,9 +56,10 @@ Intermittently-powered Battery-free Robot
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{INTRODUCTION}
 
-%- "Sectionize" the paper (sub-sections to ease the reading; sections you certainly need is "existing autonomous robots", "methods of energy harvesting for robotic and actuation properties", "types of actuation and their physical properties")
-%- pose research statement in the introduction
-%- focus on proper related work on autonomous robots (you already doing it, but looking at the list of papers you read the list is not complete here)
+%- "Sectionize" the paper sub-sections to ease the reading; sections you certainly need is:
+ "existing autonomous robots", 
+ "methods of energy harvesting for robotic and actuation properties", 
+ "types of actuation and their physical properties")
 
 % Make people interested with the first sentence
 %Intermittently powered robot research platforms, that rely on harvested power are currently non existent.
@@ -67,78 +67,46 @@ Intermittently-powered Battery-free Robot
 Low cost robotic platforms have been developed to tackle a variety of challenges anonymously.
 Miniature robots can be used for inspection in difficult to reach places, operating like mobile sensing units.
 Hardware modularity is a way to make the robot adapt its resources to different environments and sensing operations.
-By separating out power, computation, motor control and sensing a verity of capabilities can be tested \cite{RN13, RN2}.
-Microrobots typically use infrared-based neighbor to neighbor distance sensing and communication \cite{RN3}.
-While controlling a swarm or collective is mainly accomplished by means of active low power transceivers \cite{RN13, RN2}. 
+By separating out power, computation, motor control and sensing a verity of capabilities can be tested \cite{TinyTeRP, GRITSBot}.
+Microrobots typically use infrared-based neighbor to neighbor distance sensing and communication \cite{Kilobot}.
+While controlling a swarm or collective is mainly accomplished by means of active low power transceivers \cite{TinyTeRP, GRITSBot}. 
 
 %Single motor robot 1STAR complicated autonomy and everything is a turn
 
 Choosing the right locomotion resource can depend on different factors, moving in the most energy efficient way on a particular surface is often the determining factor.
-On a flat surface, robots commonly use a two-wheeled differential drive design to not only move but allow for steering as well \cite{RN13, RN2}. 
+On a flat surface, robots commonly use a two-wheeled differential drive design to not only move but allow for steering as well \cite{TinyTeRP, GRITSBot}. 
 In other designs overall cost is a decisive factor, Kilobot uses two vibrating motors for locomotion.
-When the motors are activated the centripetal forces will generate a forward movement \cite{RN3}.
+When the motors are activated the centripetal forces will generate a forward movement \cite{Kilobot}.
 The GRITSBot does not use conventional DC motors, requiring encoders to estimate their speed. 
 Instead by using stepper motors the speed can be set by changing the delay between steps. 
-Estimating it's position therefore is reduced to simply counting steps \cite{RN2}. 
+Estimating it's position therefore is reduced to simply counting steps \cite{GRITSBot}. 
 
-%Why new robotic platform is designed to research intermittently powered
-
-% Start running when battery full or motion planning.
-% The robotics community foccusses on persisten operation!!
-% Assume operation is only posible when there is sufficient energy to complete a task.
-
-% 1. more efficient components
-% 2. mission planning to complete task with energy budget (solar map construction)
-% 3. quick recharge or replace battery
-% 4. harvest energy from example solar to complement to the vehicles own power-supply
+%Compare the intermittently powered robotic platform with existing work
 
 The robotic community has a long lasting interest in persistent autonomous solutions.
 Advancement in technology provides more efficient components, but mainly reduce the energy conversion efficiency and the energy required for computation.
 While generally the biggest energy consumers are electric motors, required for locomotion.
 The operation time is limited by the energy capacity of the robot's battery.
 
-Typically the operation time is extended by regularly checking the remaining energy in the battery and move to a recharging station before the robot runs out of energy \cite{RN2, RN3}.
-As an alternative to quickly recharging, the battery can also be swapped automatically when the robot moves into the docking station \cite{RN33}.
-Another work shows a robot that is able to swap it's primary battery using a six degree-of-freedom manipulator, used to grab the dead battery and plug it into a wireless recharging charging station \cite{RN32}.
-In these cases the robot is highly reliant on there docking stations to allow for continuous autonomous operation.
-%this will break if 
+Typically the operation time is extended by regularly checking the remaining energy in the battery and move to a recharging station before the robot runs out of energy \cite{GRITSBot, Kilobot}.
+As an alternative to quickly recharging, the battery can also be swapped automatically when the robot moves into the docking station \cite{AutoBat}.
+Another work shows a robot that is able to swap it's primary battery using a six degree-of-freedom manipulator, used to grab the dead battery and plug it into a wireless recharging charging station \cite{BatSwap}.
+In these cases the robots are highly reliant on there docking stations to allow for continuous autonomous operation.
 This can be problematic if the robot is not able to reach it's station before running out of energy.
 
+
+
 Other work researches persistent operation by harvesting renewable energy, particularly solar energy to complement to the robots internal energy source.
-To capture the optimal amount of solar energy along the way, a map of the expected solar power can be used to compute the optimal path. To distinguish sunny or shaded two methods are proposed in \cite{RN42}, one being a simple datadriven Gaussian Process and the other estimates the geometry of the environment as a latent variable.
+To capture the optimal amount of solar energy along the way, a map of the expected solar power can be used to compute the optimal path. To distinguish sunny or shaded two methods are proposed in \cite{SolMap}, one being a simple datadriven Gaussian Process and the other estimates the geometry of the environment as a latent variable.
 Energy aware path planning is commonly used in combination with mission planning.
-In \cite{RN30}, an analysis of the solar radiation is used to generate a time-optimized motion plan and power schedule using a cascaded particle swarm optimization algorithm.
+In \cite{PlanUGV}, an analysis of the solar radiation is used to generate a time-optimized motion plan and power schedule using a cascaded particle swarm optimization algorithm.
+
+% Improve research statement
+% Challenges in porting algorithms for localization
 
 All the previous work assumes that a operation is only possible when there is sufficient energy to complete a task. 
 This research will explore the feasibility of a battery-less robot, allowing persistent operation while having a very small and intermittent source of energy.
 Intermittently powering robots creates new challenges in control, navigation and collaboration.
-
-%Challenges in porting algorithms for localization
-
-%Alternative energy source required since rf is not efficient 
-%Especially when trying to combine communication with energy harvesting
-%Compare sources
-%Combining sources to improve operational time difficult to do
-
-
-%%% OLD %%%
-
-%Wireless Sensor Networks (WSN) are commonly used measure verity of different environmental conditions.
-%The conditions measured can range from temperature, light humidity, to more complex sensing which requires additional computation.
-%%In resent years the devices used for this telemetry have become low cost and battery less.
-%Fully programmable platforms have been developed to exploring the combination of sensing and computation, while operating battery-less by making use of energy harvesting \cite{RN9}.
-%The energy collected from RF signals is very minimal and decreases with the distance of the device to the source.
-%RF energy can be rather intermittent in terms of availability, it requires the source to transmit.
-%Other sources available for exploration are often limited by the application. Secondly, most sources can be scarce or completely absent during prolonged time intervals of the day as well \cite{RN15}.
-
-%To allow more complex sensing, the energy budged needs to be evaluated carefully.
-%Harvesting more energy increases the charge time but also increases the operation time.
-%Most applications are not programmed to operate intermittently and therefore require enough energy to finish a single sensing operation. 
-%To store the energy an appropriate size storage capacitor needs to be selected \cite{RN10}.
-%A way to reduce the required energy is to communicate without active radios, but instead use an existing electromagnetic wave produced by a remote emitter. 
-%Backscatter communication uses the wave and creates a signal by modulating the impedance of the antenna, causing a change in the amount of energy reflected back to the emitter \cite{RN9, RN15, RN10}.
-%Even though WSN make it possible to cover big areas for sensing they are physically bound to a fixed location.
-%Which in turn makes them "static" and require human intervention to make them cover new areas or change their location.
 
 %\section{CONCLUSIONS}
 
@@ -162,11 +130,10 @@ Intermittently powering robots creates new challenges in control, navigation and
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\section*{APPENDIX}
 
-%Appendixes should appear before the acknowledgment.
+
 
 %\section*{ACKNOWLEDGMENT}
 
-%The preferred spelling of the word “acknowledgment” in America is without an “e” after the “g”. Avoid the stilted expression, “One of us (R. B. G.) thanks . . .”  Instead, try “R. B. G. thanks”. Put sponsor acknowledgments in the unnumbered footnote on the first page.
 
 
 
