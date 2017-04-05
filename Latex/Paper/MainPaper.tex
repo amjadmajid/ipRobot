@@ -21,6 +21,7 @@
 %\usepackage{times} % assumes new font selection scheme installed
 %\usepackage{amsmath} % assumes amsmath package installed
 %\usepackage{amssymb}  % assumes amsmath package installed
+\usepackage{threeparttable, tablefootnote}
 
 \title{\LARGE \bf
 Intermittently-powered Battery-free Robot
@@ -63,7 +64,7 @@ Intermittently-powered Battery-free Robot
 % "types of actuation and their physical properties")
 
 % Make people interested with the first sentence
-%Intermittently powered robot research platforms, that rely on harvested power are currently non existent.
+% Intermittently powered robot research platforms, that purely rely on harvested power are currently non existent.
 
 Low cost robotic platforms have been developed to tackle a variety of challenges anonymously.
 Miniature robots can be used for inspection in difficult to reach places, operating like mobile sensing units.
@@ -75,49 +76,54 @@ While controlling a swarm or collective is mainly accomplished by means of activ
 % Locomotion type
 
 Choosing the right locomotion resource can depend on different factors, moving in the most energy efficient way on a particular surface is often the determining factor.
-On a flat surface, robots commonly use a two-wheeled differential drive design to not only move but allow for steering as well \cite{sabelhaus_icra_2013}, \cite{pickem_icra_2015}. 
-In other designs overall cost is a decisive factor, Kilobot uses two vibrating motors for locomotion.
-When the motors are activated the centripetal forces will generate a forward movement \cite{rubenstein_icra_2012}.
+On a flat surface, robots commonly use a two-wheeled differential drive design to not only move but allow for steering as well \cite{sabelhaus_icra_2013}, \cite{pickem_icra_2015}.
 The GRITSBot does not use conventional DC motors, requiring encoders to estimate their speed. 
 Instead by using stepper motors the speed can be set by changing the delay between steps. 
-Estimating it's position therefore is reduced to simply counting steps \cite{pickem_icra_2015}. 
+Estimating it's position therefore is reduced to simply counting steps \cite{pickem_icra_2015}.  
+In other designs overall cost is a decisive factor, Kilobot uses two vibrating motors for locomotion.
+When the motors are activated the centripetal forces will generate a forward movement, which can be explained using the slip-stick principle \cite{rubenstein_icra_2012}.
 
-% Locomotion with ambient power (Feedback loop on energy availability
+\cite{karpelson_icra_2014}
 
-The robotic community has a long lasting interest in persistent autonomous solutions.
-Advancement in technology provides more efficient components, but mainly reduce the energy conversion efficiency and the energy required for computation.
-While generally the biggest energy consumers are electric motors, required for locomotion.
-The operation time is limited by the energy capacity of the robot's battery.
+
+% Locomotion with ambient power (Feedback loop on energy availability)
+
+%The robotic community has a long lasting interest in persistent autonomous solutions.
+%Advancement in technology provides more efficient components, but mainly reduce the energy conversion efficiency and the energy required for computation.
+%While generally the biggest energy consumers are electric motors, required for locomotion.
+%The operation time is limited by the energy capacity of the robot's battery.
 
 % Battery replenishment [docking station, battery swap, wireless power (?)]
 
 Typically the operation time is extended by regularly checking the remaining energy in the battery and move to a recharging station before the robot runs out of energy \cite{pickem_icra_2015}, \cite{rubenstein_icra_2012}.
 As an alternative to quickly recharging, the battery can also be swapped automatically when the robot moves into the docking station \cite{kemal_mech_2015}.
 Another work shows a robot that is able to swap it's primary battery using a six degree-of-freedom manipulator, used to grab the dead battery and plug it into a wireless recharging charging station \cite{zhang_conel_2013}.
-In these cases the robots are highly reliant on there docking stations to allow for continuous autonomous operation.
-This can be problematic if the robot is not able to reach it's station before running out of energy.
+Using direct wireless power to replace or supplement to a batteries energy is shown in \cite{karpelson_icra_2014}, however the robot can only operate or recharge while remaining in close proximity to a transmitter. 
+In these cases the robots are highly reliant on an infrastructure to allow for continuous autonomous operation.
+This can be a severe constraint if the robot moves out of reach or needs to operate in a area where this infrastructure is not present.
+
+Other work researches persistent operation by harvesting renewable energy, particularly solar energy to complement to the robots internal energy source.
+
+% motion planning based on energy availability
+
+To capture the optimal amount of solar energy along the way, a map of the expected solar power can be used to compute the optimal path. To distinguish sunny or shaded two methods are proposed in \cite{plonski_tranro_2016}, one being a simple datadriven Gaussian Process and the other estimates the geometry of the environment as a latent variable.
+Energy aware path planning is commonly used in combination with mission planning.
+In \cite{kaplan_icra_2016}, an analysis of the solar radiation is used to generate a time-optimized motion plan and power schedule using a cascaded particle swarm optimization algorithm.
 
 % Charging the Kilobot will take 10 hours in 
 % Scalable collective check part kilobot
 % Not only charging but also programming and activation!
 
-% motion planning based on energy availability
+% Part about battery vs supercap or combo
 
-Other work researches persistent operation by harvesting renewable energy, particularly solar energy to complement to the robots internal energy source.
-To capture the optimal amount of solar energy along the way, a map of the expected solar power can be used to compute the optimal path. To distinguish sunny or shaded two methods are proposed in \cite{plonski_transro_2016}, one being a simple datadriven Gaussian Process and the other estimates the geometry of the environment as a latent variable.
-Energy aware path planning is commonly used in combination with mission planning.
-In \cite{kaplan_icra_2016}, an analysis of the solar radiation is used to generate a time-optimized motion plan and power schedule using a cascaded particle swarm optimization algorithm.
-
-% Part about replacing battery with a supercap
-% - Environmental hazzard
-% - Temperature battery vs supercapacitor
-
-% https://www.supercaptech.com/battery-vs-supercapacitor
 % Supercap almost infinite cycles
 % No special charging circuit required except of over voltage protect
 % No heating or explosion risk
 % Can be charged at sub zero temperatures
 % Cost per capacity biggest disadvantage
+
+% Hybrid Supercapacitor-battery Power-supply Optimization for Energy Efficiency \cite{mirhoseini_date_2011}
+% Reincarnation in the Ambiance: Devices and Networks with Energy Harvesting \cite{prasad_comst_2014}
 
 % Improve research statement
 % Challenges in porting algorithms for localization
@@ -127,27 +133,63 @@ This research will explore the feasibility of a battery-less robot, allowing per
 Intermittently powering robots creates new challenges in control, navigation and collaboration.
 
 \section{Related Work}
-% Transiently-powered systems
+% - Transiently-powered systems (part about wisp etc)
 
-% Solar powered locomotion
+In resent years the devices used for this telemetry have become low cost and battery less.
+Fully programmable platforms have been developed to exploring the combination of sensing, computation and communication, while operating battery-less by making use of RF energy harvesting \cite{WISPPAPER}.
+%The energy collected from RF signals is very minimal and decreases with the distance of the device to the source.
+%RF energy can be rather intermittent in terms of availability, it requires the source to transmit.
+%Other sources available for exploration are often limited by the application. Secondly, most sources can be scarce or completely absent during prolonged time intervals of the day as well \cite{RN15}.
+
+%To allow more complex sensing, the energy budged needs to be evaluated carefully.
+%Harvesting more energy increases the charge time but also increases the operation time.
+%Most applications are not programmed to operate intermittently and therefore require enough energy to finish a single sensing operation. 
+%To store the energy an appropriate size storage capacitor needs to be selected \cite{RN10}.
+%A way to reduce the required energy is to communicate without active radios, but instead use an existing electromagnetic wave produced by a remote emitter. 
+%Backscatter communication uses the wave and creates a signal by modulating the impedance of the antenna, causing a change in the amount of energy reflected back to the emitter \cite{RN9, RN15, RN10}.
+%Even though WSN make it possible to cover big areas for sensing they are physically bound to a fixed location.
+%Which in turn makes them "static" and require human intervention to make them cover new areas or change their location.
+
+% On the Limits of Effective Hybrid Micro-energy Harvesting on Mobile {CRFID} Sensors \cite{gummerson_mobisys_2010}
+
+% - Solar powered locomotion
+
+% - Provide overview table robots smaller than 15*15cm
 
 % For each of these cases you need to provide numbers: 
-
-% Provide overview table robots smaller than 15*15cm
-% size of the robot,
-% average motion speed, 
-% weight, year of production, 
-% time to die, 
-% size of battery, 
-% reference, 
-% sensory type on board, 
-% type of energy management (from your list in this section), 
 % level of autonomy (does the robot does all by itself or relies on external processing)
+% does autonomy fall under 
+% charging time
+
+% Add missing "new" robots
+
+\begin{table*}[t]
+	\centering
+	\begin{threeparttable}
+		\caption{An comparison of small robotic platforms}
+		\label{tab:1}
+ 		\begin{tabular}{l l l l l l l l l} 
+			\hline
+ 			Robot & Cost & Scalability & Odomentry & Sensors & Locomotion & Size [cm] & Weight [g] & Battery life [h] \\ 
+ 			\hline
+ 			IPR & TBD & charge, program & stepper motors & distance & wheel, 3cm/s & 3 & 15g & 0.0001\\
+ 			Zooids \cite{legoc_uist_2016} & \$50 & ?? & none/external & touch, MORE & wheel, 50cm/s & 2.6 & 12 & 1-2 \\ 
+ 			GRITSBot \cite{pickem_icra_2015} & \$50\textsuperscript{1} & charge, program & stepper motors & distance, earing, & wheel 25cm/s & 3 & ?? & 1-5 \\
+ 			 & & calibrate & & 3d accel., 3d gyro \\
+ 			Kilobot \cite{rubenstein_icra_2012} & \$50\textsuperscript{1} & charge, program & other agents & distance, ambient light & vibration, 1cm/s & 3.3 & ?? & 3-24\\
+ 			TinyTerp \cite{sabelhaus_icra_2013} & \$50 & none & none/extrnal & 3d gyro, 3d accel. & wheel, 50cm/s & 1.8 & ?? & 1\\
+			\hline
+		\end{tabular}
+		\begin{tablenotes}
+			\item [1] Cost of parts
+		\end{tablenotes}
+	\end{threeparttable}
+\end{table*}
 
 \section{Design Requirements}
-% for Transienltly-powered Locomotion
+% - for Transienltly-powered Locomotion
 
-% Case study of warehouse/greenhouse inspection
+% - Case study of warehouse/greenhouse inspection
 
 % Short dutycycle charging and discharging (result of capacitor size)
 % To demonstrate intermittent operation!!
@@ -165,11 +207,19 @@ Should the subsections more or less reflect the columns in the table?
 
 \subsection{Software}
 
+% how to calibrate dutycyle (ie determine wheelslip)
+
 \section{Localization Algorithm}
 % Implementation of particle filter in transient domain, analysis of implementation - time to task completion
 
-\section{Results}
-% Speed of movement - outdoors/indoors/varying light sources/varying solar panels, accuracy of motion path, accuracy of localization, video of robot movement), 
+\section{Experimental Results}
+% power measurement of individiual parts
+% Speed of movement 
+% outdoors/indoors/varying light sources/varying solar panels
+% comparison with battery powered robot
+% accuracy of motion path 
+% accuracy of localization 
+% video of robot movement
 
 \section{Limitations and Future Work}
 
@@ -179,7 +229,7 @@ Should the subsections more or less reflect the columns in the table?
 
 %A conclusion section is not required. Although a conclusion may review the main points of the paper, do not replicate the abstract as the conclusion. A conclusion might elaborate on the importance of the work or suggest applications and extensions. 
 
-%\addtolength{\textheight}{-12cm}   % This command serves to balance the column lengths
+\addtolength{\textheight}{-12cm}   % This command serves to balance the column lengths
                                   % on the last page of the document manually. It shortens
                                   % the textheight of the last page by a suitable amount.
                                   % This command does not take effect until the next page
