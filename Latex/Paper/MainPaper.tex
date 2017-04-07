@@ -22,6 +22,7 @@
 %\usepackage{amsmath} % assumes amsmath package installed
 %\usepackage{amssymb}  % assumes amsmath package installed
 \usepackage{threeparttable, tablefootnote}
+%\usepackage{flushend}
 
 \title{\LARGE \bf
 Intermittently-powered Battery-free Robot
@@ -80,19 +81,12 @@ On a flat surface, robots commonly use a two-wheeled differential drive design t
 The GRITSBot does not use conventional DC motors, requiring encoders to estimate their speed. 
 Instead by using stepper motors the speed can be set by changing the delay between steps. 
 Estimating it's position therefore is reduced to simply counting steps \cite{pickem_icra_2015}.  
-In other designs overall cost is a decisive factor, Kilobot uses two vibrating motors for locomotion.
+Overall cost can be a decisive factor, therefore the Kilobot uses two vibrating motors for locomotion combined with three thin legs.
 When the motors are activated the centripetal forces will generate a forward movement, which can be explained using the slip-stick principle \cite{rubenstein_icra_2012}.
-
-\cite{karpelson_icra_2014}
-
+Other locomotion types are biologically inspired, the HARM-VP is small scale piezoelectric driven quadrupled robot\cite{baisch_iros_2013}.
+Each leg as two degrees of freedom and move up and down as well as forward and backward.
 
 % Locomotion with ambient power (Feedback loop on energy availability)
-
-%The robotic community has a long lasting interest in persistent autonomous solutions.
-%Advancement in technology provides more efficient components, but mainly reduce the energy conversion efficiency and the energy required for computation.
-%While generally the biggest energy consumers are electric motors, required for locomotion.
-%The operation time is limited by the energy capacity of the robot's battery.
-
 % Battery replenishment [docking station, battery swap, wireless power (?)]
 
 Typically the operation time is extended by regularly checking the remaining energy in the battery and move to a recharging station before the robot runs out of energy \cite{pickem_icra_2015}, \cite{rubenstein_icra_2012}.
@@ -102,17 +96,15 @@ Using direct wireless power to replace or supplement to a batteries energy is sh
 In these cases the robots are highly reliant on an infrastructure to allow for continuous autonomous operation.
 This can be a severe constraint if the robot moves out of reach or needs to operate in a area where this infrastructure is not present.
 
-Other work researches persistent operation by harvesting renewable energy, particularly solar energy to complement to the robots internal energy source.
+%Other work researches persistent operation by harvesting renewable energy, particularly solar energy to complement to the robots internal energy source.
 
 % motion planning based on energy availability
 
 To capture the optimal amount of solar energy along the way, a map of the expected solar power can be used to compute the optimal path. To distinguish sunny or shaded two methods are proposed in \cite{plonski_tranro_2016}, one being a simple datadriven Gaussian Process and the other estimates the geometry of the environment as a latent variable.
 Energy aware path planning is commonly used in combination with mission planning.
-In \cite{kaplan_icra_2016}, an analysis of the solar radiation is used to generate a time-optimized motion plan and power schedule using a cascaded particle swarm optimization algorithm.
+In \cite{kaplan_iros_2016}, an analysis of the solar radiation is used to generate a time-optimized motion plan and power schedule using a cascaded particle swarm optimization algorithm.
 
-% Charging the Kilobot will take 10 hours in 
-% Scalable collective check part kilobot
-% Not only charging but also programming and activation!
+%Planning Routes of Continuous Illumination and Traversable Slope using Connected Component Analysis \cite{otten_icra_2015}
 
 % Part about battery vs supercap or combo
 
@@ -122,11 +114,17 @@ In \cite{kaplan_icra_2016}, an analysis of the solar radiation is used to genera
 % Can be charged at sub zero temperatures
 % Cost per capacity biggest disadvantage
 
-% Hybrid Supercapacitor-battery Power-supply Optimization for Energy Efficiency \cite{mirhoseini_date_2011}
-% Reincarnation in the Ambiance: Devices and Networks with Energy Harvesting \cite{prasad_comst_2014}
+Comparing batteries with super-capacitors there are some 
+
+
+Reincarnation in the Ambiance: Devices and Networks with Energy Harvesting \cite{prasad_comst_2014}
+
+
+
 
 % Improve research statement
 % Challenges in porting algorithms for localization
+% 
 
 All the previous work assumes that a operation is only possible when there is sufficient energy to complete a task. 
 This research will explore the feasibility of a battery-less robot, allowing persistent operation while having a very small and intermittent source of energy.
@@ -173,7 +171,7 @@ Fully programmable platforms have been developed to exploring the combination of
  			Robot & Cost & Scalability & Odomentry & Sensors & Locomotion & Size [cm] & Weight [g] & Battery life [h] \\ 
  			\hline
  			IPR & TBD & charge, program & stepper motors & distance & wheel, 3cm/s & 3 & 15g & 0.0001\\
- 			Zooids \cite{legoc_uist_2016} & \$50 & ?? & none/external & touch, MORE & wheel, 50cm/s & 2.6 & 12 & 1-2 \\ 
+ 			Zooids \cite{legoc_uist_2016} & \$50 & ?? & none/external & position, touch & wheel, 50cm/s & 2.6 & 12 & 1-2 \\ 
  			GRITSBot \cite{pickem_icra_2015} & \$50\textsuperscript{1} & charge, program & stepper motors & distance, earing, & wheel 25cm/s & 3 & ?? & 1-5 \\
  			 & & calibrate & & 3d accel., 3d gyro \\
  			Kilobot \cite{rubenstein_icra_2012} & \$50\textsuperscript{1} & charge, program & other agents & distance, ambient light & vibration, 1cm/s & 3.3 & ?? & 3-24\\
@@ -223,6 +221,10 @@ Should the subsections more or less reflect the columns in the table?
 
 \section{Limitations and Future Work}
 
+% Scalable collective check part kilobot
+% Not only charging but also programming and activation!
+
+% different locomotion types?
 
 \section{Conclusions}
 
@@ -255,6 +257,8 @@ Should the subsections more or less reflect the columns in the table?
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newpage
 
 \bibliographystyle{IEEEtran}
 \bibliography{IEEEabrv,bibtex}
