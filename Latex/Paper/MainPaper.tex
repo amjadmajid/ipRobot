@@ -22,7 +22,8 @@
 %\usepackage{amsmath} % assumes amsmath package installed
 %\usepackage{amssymb}  % assumes amsmath package installed
 \usepackage{threeparttable, tablefootnote}
-%\usepackage{flushend}
+\usepackage{tabularx}
+\usepackage{flushend}
 
 \title{\LARGE \bf
 Intermittently-powered Battery-free Robot
@@ -57,24 +58,21 @@ Intermittently-powered Battery-free Robot
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction}
-% Problem statement and research contribution
-
-%- "Sectionize" the paper sub-sections to ease the reading; sections you certainly need is:
-% "existing autonomous robots", 
-% "methods of energy harvesting for robotic and actuation properties", 
-% "types of actuation and their physical properties")
 
 % Make people interested with the first sentence
 % Intermittently powered robot research platforms, that purely rely on harvested power are currently non existent.
 
+% Existing autonomous robots
+
 Low cost robotic platforms have been developed to tackle a variety of challenges anonymously.
 Miniature robots can be used for inspection in difficult to reach places, operating like mobile sensing units.
 Hardware modularity is a way to make the robot adapt its resources to different environments and sensing operations.
-By separating out power, computation, motor control and sensing a verity of capabilities can be tested \cite{sabelhaus_icra_2013}, \cite{pickem_icra_2015}.
-Microrobots typically use infrared-based neighbor to neighbor distance sensing and communication \cite{rubenstein_icra_2012}.
-While controlling a swarm or collective is mainly accomplished by means of active low power transceivers \cite{sabelhaus_icra_2013}, \cite{pickem_icra_2015}. 
+By separating out power, computation, motor control and sensing a verity of capabilities can be tested \cite{sabelhaus_icra_2013}, \cite{pickem_icra_2015}, \cite{kim_iros_2016}.
+Microrobots typically use infrared-based neighbor to neighbor distance sensing and communication \cite{rubenstein_icra_2012}, \cite{pickem_icra_2015}, \cite{kim_iros_2016}.
+While controlling a swarm or collective is mainly accomplished by means of active low power transceivers \cite{sabelhaus_icra_2013}, \cite{pickem_icra_2015}, \cite{kim_iros_2016}. 
 
 % Locomotion type
+% tell somthing about their accuracy!
 
 Choosing the right locomotion resource can depend on different factors, moving in the most energy efficient way on a particular surface is often the determining factor.
 On a flat surface, robots commonly use a two-wheeled differential drive design to not only move but allow for steering as well \cite{sabelhaus_icra_2013}, \cite{pickem_icra_2015}.
@@ -103,26 +101,10 @@ This can be a severe constraint if the robot moves out of reach or needs to oper
 To capture the optimal amount of solar energy along the way, a map of the expected solar power can be used to compute the optimal path. To distinguish sunny or shaded two methods are proposed in \cite{plonski_tranro_2016}, one being a simple datadriven Gaussian Process and the other estimates the geometry of the environment as a latent variable.
 Energy aware path planning is commonly used in combination with mission planning.
 In \cite{kaplan_iros_2016}, an analysis of the solar radiation is used to generate a time-optimized motion plan and power schedule using a cascaded particle swarm optimization algorithm.
-
-%Planning Routes of Continuous Illumination and Traversable Slope using Connected Component Analysis \cite{otten_icra_2015}
-
-% Part about battery vs supercap or combo
-
-% Supercap almost infinite cycles
-% No special charging circuit required except of over voltage protect
-% No heating or explosion risk
-% Can be charged at sub zero temperatures
-% Cost per capacity biggest disadvantage
-
-Comparing batteries with super-capacitors there are some 
+By combining maps of lighting and ground slope a solar-powered robot can be kept illuminated continuously. A connected component analysis is used to plan a optimal route on traversable slopes, as described by \cite{otten_icra_2015}.
 
 
-Reincarnation in the Ambiance: Devices and Networks with Energy Harvesting \cite{prasad_comst_2014}
-
-
-
-
-% Improve research statement
+% Problem statement and research contribution
 % Challenges in porting algorithms for localization
 % 
 
@@ -131,26 +113,36 @@ This research will explore the feasibility of a battery-less robot, allowing per
 Intermittently powering robots creates new challenges in control, navigation and collaboration.
 
 \section{Related Work}
+
+% - Batteries vs supercaps
+
+Comparing li-ion batteries with super-capacitors there are some big differences.
+Super-capacitors do not need any special charging scheme and circuity for charging, except for overcharging protection.
+Secondly, super-capacitors do not require any particular current profile, the energy can be stored at any rate and when the energy is required it can be extracted at any power level.
+Operating a li-ion battery outside of it's recommended operating conditions can severely reduce a batteries lifetime and result in overheating or even explosion of the battery.
+Batteries will seldom withstand more than one thousand complete charge/discharge cycles.
+Using super-capacitors under extreme condition's they are not likely to explode but instead rupture.
+While the biggest disadvantages of super-capacitors is their low energy density and high price, their lifetime is typically hundred thousands of charge/discharge cycles.
+
+Li-Ion Battery-Supercapacitor Hybrid Storage System for a Long Lifetime, Photovoltaic-Based Wireless Sensor Network	\cite{ongaro_pwre_2012}
+Reincarnation in the Ambiance: Devices and Networks with Energy Harvesting \cite{prasad_comst_2014}
+
+% - Energy harvesting
+
+%Other sources available for exploration are often limited by the application. Secondly, most sources can be scarce or completely absent during prolonged time intervals of the day as well \cite{RN15}. 
+
+
 % - Transiently-powered systems (part about wisp etc)
 
-In resent years the devices used for this telemetry have become low cost and battery less.
-Fully programmable platforms have been developed to exploring the combination of sensing, computation and communication, while operating battery-less by making use of RF energy harvesting \cite{WISPPAPER}.
-%The energy collected from RF signals is very minimal and decreases with the distance of the device to the source.
-%RF energy can be rather intermittent in terms of availability, it requires the source to transmit.
-%Other sources available for exploration are often limited by the application. Secondly, most sources can be scarce or completely absent during prolonged time intervals of the day as well \cite{RN15}.
+Fully programmable RFID platforms have been developed to exploring the combination of sensing, computation and communication, while allowing battery-less operation by harvesting RF energy \cite{sample_transim_2008}.
+The amount of energy collected from RF signals is very small and decreases with the distance of the device to the transmitter.
+The harvested energy is typically stored in a capacitor, where larger capacitors can buffer more energy and smaller capacitors have the advantage of shorter charge times \cite{gummerson_mobisys_2010}.
+For longer, complex operations the energy budged needs to be evaluated carefully.
+To store the energy an appropriate size storage capacitor needs to be selected \cite{naderiparizi_rfid_2015}.
 
-%To allow more complex sensing, the energy budged needs to be evaluated carefully.
-%Harvesting more energy increases the charge time but also increases the operation time.
-%Most applications are not programmed to operate intermittently and therefore require enough energy to finish a single sensing operation. 
-%To store the energy an appropriate size storage capacitor needs to be selected \cite{RN10}.
 %A way to reduce the required energy is to communicate without active radios, but instead use an existing electromagnetic wave produced by a remote emitter. 
 %Backscatter communication uses the wave and creates a signal by modulating the impedance of the antenna, causing a change in the amount of energy reflected back to the emitter \cite{RN9, RN15, RN10}.
-%Even though WSN make it possible to cover big areas for sensing they are physically bound to a fixed location.
-%Which in turn makes them "static" and require human intervention to make them cover new areas or change their location.
 
-% On the Limits of Effective Hybrid Micro-energy Harvesting on Mobile {CRFID} Sensors \cite{gummerson_mobisys_2010}
-
-% - Solar powered locomotion
 
 % - Provide overview table robots smaller than 15*15cm
 
@@ -166,18 +158,18 @@ Fully programmable platforms have been developed to exploring the combination of
 	\begin{threeparttable}
 		\caption{An comparison of small robotic platforms}
 		\label{tab:1}
- 		\begin{tabular}{l l l l l l l l l} 
+ 		\begin{tabularx}{500pt}{l l X l X l l l l} 
 			\hline
  			Robot & Cost & Scalability & Odomentry & Sensors & Locomotion & Size [cm] & Weight [g] & Battery life [h] \\ 
  			\hline
- 			IPR & TBD & charge, program & stepper motors & distance & wheel, 3cm/s & 3 & 15g & 0.0001\\
+ 			IPR & TBD & charge, program & stepper motors & distance & wheel, 3cm/s & 3 & 15 & 0.0001\\
+ 			mROBerTO \cite{kim_iros_2016} & \$60\textsuperscript{1} & program & non/external & light, range, gyro, camera, accel., compass, distance, bearing & motor shaft, 15cm/s & 1.5 & ?? & 1.5\\
  			Zooids \cite{legoc_uist_2016} & \$50 & ?? & none/external & position, touch & wheel, 50cm/s & 2.6 & 12 & 1-2 \\ 
- 			GRITSBot \cite{pickem_icra_2015} & \$50\textsuperscript{1} & charge, program & stepper motors & distance, earing, & wheel 25cm/s & 3 & ?? & 1-5 \\
- 			 & & calibrate & & 3d accel., 3d gyro \\
+ 			GRITSBot \cite{pickem_icra_2015} & \$50\textsuperscript{1} & charge, program, calibrate & stepper motors & distance, earing, 3d accel., 3d gyro & wheel 25cm/s & 3 & ?? & 1-5 \\
  			Kilobot \cite{rubenstein_icra_2012} & \$50\textsuperscript{1} & charge, program & other agents & distance, ambient light & vibration, 1cm/s & 3.3 & ?? & 3-24\\
  			TinyTerp \cite{sabelhaus_icra_2013} & \$50 & none & none/extrnal & 3d gyro, 3d accel. & wheel, 50cm/s & 1.8 & ?? & 1\\
 			\hline
-		\end{tabular}
+		\end{tabularx}
 		\begin{tablenotes}
 			\item [1] Cost of parts
 		\end{tablenotes}
@@ -198,10 +190,18 @@ Fully programmable platforms have been developed to exploring the combination of
 
 \section{Robot Design}
 
-Should the subsections more or less reflect the columns in the table?
+% - Size and weight/energy availability/speed trade-off model and 
+% - Should the subsections more or less reflect the columns in the table?
 
-\subsection{Hardware}
-% Size and weight/energy availability/speed trade-off model and 
+
+\subsection{Computation and Sensing}
+
+\subsection{Locomotion}
+
+% why selected stepper motors (based on gritsbot design)
+% didel or precision microdrives
+
+\subsection{Energy Harvesting}
 
 \subsection{Software}
 
@@ -257,8 +257,6 @@ Should the subsections more or less reflect the columns in the table?
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\newpage
 
 \bibliographystyle{IEEEtran}
 \bibliography{IEEEabrv,bibtex}
