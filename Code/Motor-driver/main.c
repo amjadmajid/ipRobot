@@ -40,6 +40,7 @@ int main(void) {
     const uint8_t inst_len[3] = {143, 14, 101}; //, 10, 50, 10, 50, 10, 50, 10};
 
     init();
+    i2c_init();
 
     while(1) {
 
