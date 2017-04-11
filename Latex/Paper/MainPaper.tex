@@ -92,9 +92,7 @@ As an alternative to quickly recharging, the battery can also be swapped automat
 Another work shows a robot that is able to swap it's primary battery using a six degree-of-freedom manipulator, used to grab the dead battery and plug it into a wireless recharging charging station \cite{zhang_conel_2013}.
 Using direct wireless power to replace or supplement to a batteries energy is shown in \cite{karpelson_icra_2014}, however the robot can only operate or recharge while remaining in close proximity to a transmitter. 
 In these cases the robots are highly reliant on an infrastructure to allow for continuous autonomous operation.
-This can be a severe constraint if the robot moves out of reach or needs to operate in a area where this infrastructure is not present.
-
-%Other work researches persistent operation by harvesting renewable energy, particularly solar energy to complement to the robots internal energy source.
+This can be a severe constraint if the robot moves out of reach or needs to operate in a area where this infrastructure is not present. Persistent operation can also be achieved by harvesting renewable energy, particularly solar energy to complement to the robots internal energy source. To remove weight from the robot, in \cite{bruhwiler_iros_2015} the solar energy is used directly without any type of energy buffer. A drawback of of this is that the incoming energy should already greater or equal to the energy required for operation. 
 
 % motion planning based on energy availability
 
@@ -196,12 +194,60 @@ To store the energy an appropriate size storage capacitor needs to be selected \
 
 \subsection{Computation and Sensing}
 
+The robot is designed around a modified WISP 5.0, utilizing the processor and backscatter communication.
+It's based around a Texas Instruments MSP430FR5969 ultra low power microcontroller, operating at 16 MHz and featuring 64 KB FRAM, 2 KB SRAM and 40 IO. 
+
+Some of the RF energy harvesting components are removed in order to allow an external harvester to supply the power to the system by harvesting solar energy. 
+
+The mainboard is the platform that connects everything together.
+Most reference designs are extendable but this adds complexity, while weight and size are the main constraints of this robot design.
+All the sensors can be interfaced trough a I2C connection.
+To conserve as much power as possible each sensor can be enabled and disabled using dedicated pins.
+
+Because the wisp has only limited accessible GPIO ports available, an I/O Expander is used to interface both H-Bridge motor drivers.
+Each H-Bridge requires 5 input connections, one for enabling the device and four connections for control.
+A eight bit I2C I/O Expander is used supply a interface to the four control connections of the H-Bridge, in turn controlling each set of output ports.
+
 \subsection{Locomotion}
 
 % why selected stepper motors (based on gritsbot design)
 % didel or precision microdrives
 
+Mounted directly under the mainboard of the IPR, two stepper motors can be found in differential drive configuration.
+The IPR is to small to install wheel encoders, while small stepper motors are commonly used in digital camera's.
+This design was inspired by the GRITSBot \cite{pickem_icra_2015}.
+
+The direction of current flow through each of the coil pairs of stepper motor controls the rotation direction.
+The way a stepper motor is constructed requires it to pulse each of the four connections in a fixed pattern in order to rotate it forward or backward.
+In this case the speed of the pulses determines the rotational speed of the stepper motor.
+
+% something about the wheels used
+% mainly effective on flat services.
+% static front leg
+% tell somthing about speed of the robot
+
+% heavy components placed above wheels
+
+
 \subsection{Energy Harvesting}
+
+% RF harvesting seems prommesing
+% better to only use RF for communication and harvest energy from another source \cite{konstantioulos}
+% wispcam long time to charge
+
+The solar energy harvesting system is based around a Texas Instruments BQ25570. 
+It includes a nano power boost charger with maximum power point tracking to extract the optimal amount of energy from the solar panel. 
+% Why is this size capacitor chosen?
+This harvested energy is stored in a supercapactor from AVX, chosen for it's low leakage current and small size.
+%The energy stored in supercap is equal to E = 0.5CV^2
+The voltage in a capacitor decreases fast while energy is consumed, a voltage regular is required to supply a stable voltage to the connected loads.
+The TI BQ25570 has a buck converter to efficiently convert the capacitor voltage to a stable 2.2 Volt.
+
+
+% The buck converter can supply up to 110mA of output current
+% Powering both motors and MCU should not exceed this current limit.
+
+
 
 \subsection{Software}
 
