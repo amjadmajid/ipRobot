@@ -216,6 +216,41 @@
 <wire x1="1.13" y1="0.45" x2="1.13" y2="-0.45" width="0.3048" layer="21"/>
 <wire x1="-1.125" y1="-2.3" x2="1.125" y2="-2.3" width="0.3048" layer="21"/>
 </package>
+<package name="PINHEAD_1X05-1.27MM">
+<wire x1="3.429" y1="0.9017" x2="3.429" y2="-0.9017" width="0.1524" layer="21"/>
+<wire x1="-3.429" y1="-0.9017" x2="-3.429" y2="0.9017" width="0.1524" layer="21"/>
+<wire x1="-3.429" y1="-0.9144" x2="3.429" y2="-0.9144" width="0.1524" layer="21"/>
+<wire x1="-3.429" y1="0.9144" x2="3.429" y2="0.9144" width="0.1524" layer="21"/>
+<pad name="1" x="-2.54" y="0" drill="0.6" shape="square" rot="R90"/>
+<pad name="2" x="-1.27" y="0" drill="0.6" rot="R90"/>
+<pad name="3" x="0" y="0" drill="0.6" rot="R90"/>
+<pad name="4" x="1.27" y="0" drill="0.6" rot="R90"/>
+<pad name="5" x="2.54" y="0" drill="0.6" rot="R90"/>
+<text x="-3.2512" y="1.5113" size="1.27" layer="25" ratio="10">&gt;NAME</text>
+<text x="-3.175" y="-2.8575" size="1.27" layer="27">&gt;VALUE</text>
+</package>
+<package name="PINHEAD_WISP3X8-1.27MM">
+<wire x1="-3.429" y1="-0.9017" x2="-3.429" y2="0.9017" width="0.1524" layer="21"/>
+<wire x1="-3.429" y1="-0.9144" x2="7.239" y2="-0.9144" width="0.1524" layer="21"/>
+<wire x1="-3.429" y1="0.9144" x2="7.239" y2="0.9144" width="0.1524" layer="21"/>
+<pad name="GND2" x="-2.54" y="0" drill="0.6" shape="square" rot="R90"/>
+<pad name="VREG" x="-1.27" y="0" drill="0.6" rot="R90"/>
+<pad name="AUX3" x="0" y="0" drill="0.6" rot="R90"/>
+<pad name="AUX2" x="1.27" y="0" drill="0.6" rot="R90"/>
+<pad name="AUX1" x="2.54" y="0" drill="0.6" rot="R90"/>
+<text x="-2.2352" y="1.5113" size="1.27" layer="25" ratio="10">&gt;NAME</text>
+<wire x1="-2.7813" y1="1.397" x2="-4.5847" y2="1.397" width="0.1524" layer="21"/>
+<wire x1="-4.5847" y1="5.715" x2="-2.7813" y2="5.715" width="0.1524" layer="21"/>
+<wire x1="-4.5974" y1="5.715" x2="-4.5974" y2="1.397" width="0.1524" layer="21"/>
+<wire x1="-2.7686" y1="5.715" x2="-2.7686" y2="1.397" width="0.1524" layer="21"/>
+<pad name="GND1" x="-3.683" y="4.826" drill="0.6" shape="square"/>
+<pad name="I2C_SCL" x="-3.683" y="3.556" drill="0.6" rot="R90"/>
+<pad name="I2C_SDA" x="-3.683" y="2.286" drill="0.6"/>
+<pad name="UART_RX" x="3.81" y="0" drill="0.6" rot="R90"/>
+<pad name="UART_TX" x="5.08" y="0" drill="0.6" rot="R90"/>
+<pad name="VBOOST" x="6.35" y="0" drill="0.6" rot="R90"/>
+<wire x1="7.239" y1="0.9017" x2="7.239" y2="-0.9017" width="0.1524" layer="21"/>
+</package>
 </packages>
 <symbols>
 <symbol name="BGM250">
@@ -280,6 +315,41 @@
 <vertex x="-2.413" y="-2.921"/>
 </polygon>
 </symbol>
+<symbol name="PINHEAD_PINHD5">
+<wire x1="-6.35" y1="-7.62" x2="1.27" y2="-7.62" width="0.4064" layer="94"/>
+<wire x1="1.27" y1="-7.62" x2="1.27" y2="7.62" width="0.4064" layer="94"/>
+<wire x1="1.27" y1="7.62" x2="-6.35" y2="7.62" width="0.4064" layer="94"/>
+<wire x1="-6.35" y1="7.62" x2="-6.35" y2="-7.62" width="0.4064" layer="94"/>
+<pin name="1" x="-2.54" y="5.08" visible="pad" length="short" direction="pas" function="dot"/>
+<pin name="2" x="-2.54" y="2.54" visible="pad" length="short" direction="pas" function="dot"/>
+<pin name="3" x="-2.54" y="0" visible="pad" length="short" direction="pas" function="dot"/>
+<pin name="4" x="-2.54" y="-2.54" visible="pad" length="short" direction="pas" function="dot"/>
+<pin name="5" x="-2.54" y="-5.08" visible="pad" length="short" direction="pas" function="dot"/>
+<text x="-6.35" y="8.255" size="1.778" layer="95">&gt;NAME</text>
+<text x="-6.35" y="-10.16" size="1.778" layer="96">&gt;VALUE</text>
+</symbol>
+<symbol name="PINHEAD_WISP3X8">
+<wire x1="1.524" y1="-2.794" x2="9.144" y2="-2.794" width="0.4064" layer="94"/>
+<wire x1="9.144" y1="-2.794" x2="9.144" y2="7.366" width="0.4064" layer="94"/>
+<wire x1="9.144" y1="7.366" x2="1.524" y2="7.366" width="0.4064" layer="94"/>
+<wire x1="1.524" y1="7.366" x2="1.524" y2="-2.794" width="0.4064" layer="94"/>
+<pin name="GND1" x="5.334" y="4.826" visible="pad" length="short" direction="pas" function="dot"/>
+<pin name="I2C_SCL" x="5.334" y="2.286" visible="pad" length="short" direction="pas" function="dot"/>
+<pin name="I2C_SDA" x="5.334" y="-0.254" visible="pad" length="short" direction="pas" function="dot"/>
+<text x="10.414" y="-2.54" size="1.778" layer="95">&gt;NAME</text>
+<wire x1="27.94" y1="-11.43" x2="27.94" y2="-3.81" width="0.4064" layer="94"/>
+<wire x1="27.94" y1="-3.81" x2="5.08" y2="-3.81" width="0.4064" layer="94"/>
+<wire x1="5.08" y1="-3.81" x2="5.08" y2="-11.43" width="0.4064" layer="94"/>
+<wire x1="5.08" y1="-11.43" x2="27.94" y2="-11.43" width="0.4064" layer="94"/>
+<pin name="GND2" x="7.62" y="-7.62" visible="pad" length="short" direction="pas" function="dot" rot="R90"/>
+<pin name="VREG" x="10.16" y="-7.62" visible="pad" length="short" direction="pas" function="dot" rot="R90"/>
+<pin name="AUX3" x="12.7" y="-7.62" visible="pad" length="short" direction="pas" function="dot" rot="R90"/>
+<pin name="AUX2" x="15.24" y="-7.62" visible="pad" length="short" direction="pas" function="dot" rot="R90"/>
+<pin name="AUX1" x="17.78" y="-7.62" visible="pad" length="short" direction="pas" function="dot" rot="R90"/>
+<pin name="UART_RX" x="20.32" y="-7.62" visible="pad" length="short" direction="pas" function="dot" rot="R90"/>
+<pin name="UART_TX" x="22.86" y="-7.62" visible="pad" length="short" direction="pas" function="dot" rot="R90"/>
+<pin name="VBOOST" x="25.4" y="-7.62" visible="pad" length="short" direction="pas" function="dot" rot="R90"/>
+</symbol>
 </symbols>
 <devicesets>
 <deviceset name="BGM250">
@@ -340,6 +410,50 @@
 <connects>
 <connect gate="G$1" pin="A" pad="A"/>
 <connect gate="G$1" pin="C" pad="C"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="PINHEAD_PINHD-1X5-1.27MM" prefix="JP">
+<gates>
+<gate name="G$1" symbol="PINHEAD_PINHD5" x="0" y="0"/>
+</gates>
+<devices>
+<device name="" package="PINHEAD_1X05-1.27MM">
+<connects>
+<connect gate="G$1" pin="1" pad="1"/>
+<connect gate="G$1" pin="2" pad="2"/>
+<connect gate="G$1" pin="3" pad="3"/>
+<connect gate="G$1" pin="4" pad="4"/>
+<connect gate="G$1" pin="5" pad="5"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="WISP_HEADER">
+<gates>
+<gate name="G$1" symbol="PINHEAD_WISP3X8" x="-10.16" y="2.54"/>
+</gates>
+<devices>
+<device name="" package="PINHEAD_WISP3X8-1.27MM">
+<connects>
+<connect gate="G$1" pin="AUX1" pad="AUX1"/>
+<connect gate="G$1" pin="AUX2" pad="AUX2"/>
+<connect gate="G$1" pin="AUX3" pad="AUX3"/>
+<connect gate="G$1" pin="GND1" pad="GND1"/>
+<connect gate="G$1" pin="GND2" pad="GND2"/>
+<connect gate="G$1" pin="I2C_SCL" pad="I2C_SCL"/>
+<connect gate="G$1" pin="I2C_SDA" pad="I2C_SDA"/>
+<connect gate="G$1" pin="UART_RX" pad="UART_RX"/>
+<connect gate="G$1" pin="UART_TX" pad="UART_TX"/>
+<connect gate="G$1" pin="VBOOST" pad="VBOOST"/>
+<connect gate="G$1" pin="VREG" pad="VREG"/>
 </connects>
 <technologies>
 <technology name=""/>
