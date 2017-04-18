@@ -6084,7 +6084,7 @@ Source: AVX .. aphvc.pdf</description>
 </classes>
 <parts>
 <part name="P1" library="robot_pcb2" deviceset="WISP_HEADER" device=""/>
-<part name="U1" library="robot_pcb2" deviceset="BGM250" device=""/>
+<part name="U1" library="robot_pcb2" deviceset="BGM250" device="" value="BMG250"/>
 <part name="GND1" library="Wisp5_Harvester_Motor-driver" deviceset="GND" device=""/>
 <part name="GND2" library="Wisp5_Harvester_Motor-driver" deviceset="GND" device=""/>
 <part name="GND3" library="Wisp5_Harvester_Motor-driver" deviceset="GND" device=""/>
