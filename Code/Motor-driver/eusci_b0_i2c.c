@@ -63,38 +63,9 @@ uint8_t i2c_read(uint8_t slv_addr, uint8_t reg_addr){
     return data;
 }
 
-uint8_t i2c_read2(uint8_t slv_addr, uint8_t reg_addr){
+void i2c_read_multi(uint8_t slv_addr, uint8_t reg_addr, uint8_t l, uint8_t *arr){
 
-    uint8_t data = 0;
-
-    //while(UCB0STAT & UCBBUSY);
-    //__no_operation();
-
-    UCB0I2CSA = slv_addr;                   // set slave address
-    UCB0CTLW0 |= UCTR | UCTXSTT;            // transmitter mode and START condition.
-
-    while(UCB0CTLW0 & UCTXSTT);
-    UCB0TXBUF = reg_addr;
-    while(!(UCB0IFG & UCTXIFG0));
-
-    UCB0CTLW0 &= ~UCTR;                     // receiver mode
-    UCB0CTLW0 |= UCTXSTT;                   // START condition
-
-    while(UCB0CTLW0 & UCTXSTT);            // make sure start has been cleared
-    UCB0CTLW0 |= UCTXSTP;                   // STOP condition
-
-    while(!(UCB0IFG & UCRXIFG0));
-    data = UCB0RXBUF;
-
-    while(UCB0CTLW0 & UCTXSTP);
-
-    return data;
-}
-
-uint8_t i2c_read_rs(uint8_t slv_addr, uint8_t reg_addr){
-
-    uint8_t data = 0;
-    volatile uint8_t tmp = 0;
+    uint8_t i;
 
     while(UCB0STAT & UCBBUSY);
     UCB0I2CSA = slv_addr;                   // set slave address
@@ -109,13 +80,14 @@ uint8_t i2c_read_rs(uint8_t slv_addr, uint8_t reg_addr){
 
     while(UCB0CTLW0 & UCTXSTT);             // make sure start has been cleared
 
-    UCB0CTLW0 |= UCTXSTT;            // transmitter mode and START condition.
-    while(!(UCB0IFG & UCRXIFG0));
-    data = UCB0RXBUF;
+    for (i = 0; i < l; i++) {
 
-    while(UCB0CTLW0 & UCTXSTT);             // make sure start has been cleared
-    while(!(UCB0IFG & UCRXIFG0));
-    tmp = UCB0RXBUF;
+        while(!(UCB0IFG & UCRXIFG0));
+        if(i == l - 1){
+            UCB0CTLW0 |= UCTXSTP;           // STOP condition
+        }
+        arr[i] = UCB0RXBUF;
+    }
 
-    return data;
+    while(UCB0CTLW0 & UCTXSTP);
 }

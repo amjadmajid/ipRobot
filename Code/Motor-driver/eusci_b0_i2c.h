@@ -13,7 +13,6 @@
 void i2c_init();
 void i2c_write(uint8_t slv_addr, uint8_t reg_addr, uint8_t data);
 uint8_t i2c_read(uint8_t slv_addr, uint8_t reg_addr);
-uint8_t i2c_read2(uint8_t slv_addr, uint8_t reg_addr);
-uint8_t i2c_read_rs(uint8_t slv_addr, uint8_t reg_addr);
+void i2c_read_multi(uint8_t slv_addr, uint8_t reg_addr, uint8_t l, uint8_t *arr);
 
 #endif /* EUSCI_B0_I2C_H_ */

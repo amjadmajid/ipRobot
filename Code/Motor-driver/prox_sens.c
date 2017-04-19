@@ -32,18 +32,19 @@ void prox_init(){
 
 int16_t als_read() {
 
-    uint8_t data;
+    uint8_t data[2];
     uint16_t als_data;
 
-    data = i2c_read(MAX_ADDR, 0x04);        // Als Data Register High
+    i2c_read_multi(MAX_ADDR, 0x04, 2, data);   // read Als data high register followed by the Als data low register
 
-    if (data & 0x40) {                      // if the overflow bit is set
+    if (data[0] & 0x40) {                      // if the overflow bit is set
         return -1;
     }
 
-    als_data = (data << 8);
-    data = i2c_read(MAX_ADDR, 0x05);        // Als Data Register Low
-    als_data |= data;
+    als_data = (data[0] << 8);
+    als_data |= data[1];
+
+    __no_operation();
 
     return als_data;
 }
