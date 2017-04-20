@@ -2,3 +2,7 @@ Code/*
 Code/*/
 !Code/Motor-driver/
 Code/Motor-driver/Debug/
+Code/Motor-driver/Debug__TI/
+Code/Motor-driver/Debug__GNU/
+!Code/Python
+Code/Python/.idea

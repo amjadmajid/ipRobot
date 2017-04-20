@@ -20,11 +20,11 @@ void drv_init() {
 
     // make all outputs low
     i2c_transmit(0x02, 0x00);   //0x01 for TCA9538
-    _delay_cycles(800);         // 100us delay;
+    __delay_cycles(800);         // 100us delay;
 
     //configure output
     i2c_transmit(0x06, 0x00);   //0x03 for TCA9538
-    _delay_cycles(800);         // 100us delay;
+    __delay_cycles(800);         // 100us delay;
 }
 
 void prep_inst(uint8_t cmd, uint8_t len) {
