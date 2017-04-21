@@ -4,11 +4,16 @@
  *  Author: Koen Schaper
  */
 
-#include <msp430.h>
 #include <stdint.h>
 #include "particle_filter.h"
 #include "const_map.h"
+
+#ifdef PC
+#include <stdlib.h>
+#include <time.h>
+#else
 #include "msp_lib.h"
+#endif
 
 /* libfixmath from:
  * https://github.com/PetteriAimonen/libfixmath
@@ -17,6 +22,16 @@
 
 extern ConstMap map;
 PartArray parr;
+
+#ifdef PC
+void init_rand(){
+    srand(time(NULL));
+}
+
+uint16_t get_rand(){
+    return rand();
+}
+#endif
 
 // initialize x number of particles in non wall area's
 void part_init(uint8_t num_parts){
@@ -36,6 +51,10 @@ void part_init(uint8_t num_parts){
         parr.parts[i].y = y;
         parr.parts[i].wgt = 1;
     }
+}
+
+PartArray* get_parts(){
+    return &parr;
 }
 
 // update all particle position according to steps done in certain direction

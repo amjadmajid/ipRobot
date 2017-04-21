@@ -16,7 +16,7 @@ typedef struct Particle {
 
 typedef struct PartArray {
     uint8_t num_parts;
-    struct Particle parts[63];
+    struct Particle parts[250];
 }PartArray;
 
 uint8_t is_wall(uint8_t x, uint8_t y);
