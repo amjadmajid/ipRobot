@@ -15,3 +15,6 @@ const_map: cons_map.o
 
 cons_map.o: $(CFILEDIR)const_map.c
 	$(CC) $(CFLAGS) $(CFILEDIR)const_map.c
+	
+clean:
+	del /s *.o *.dll
