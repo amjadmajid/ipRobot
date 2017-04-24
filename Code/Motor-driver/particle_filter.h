@@ -9,9 +9,10 @@
 #define PARTICLE_FILTER_H_
 
 typedef struct Particle {
-    uint8_t x;
-    uint8_t y;
-    uint8_t wgt;
+    float x;
+    float y;
+    float t;
+    float w;
 }Particle;
 
 typedef struct PartArray {
@@ -19,9 +20,10 @@ typedef struct PartArray {
     struct Particle parts[250];
 }PartArray;
 
-uint8_t is_wall(uint8_t x, uint8_t y);
 void part_init(uint8_t num_parts);
-uint8_t move(uint8_t dist, uint8_t ang);
+float gaussian(float mean, float stddev);
+void motion_model(uint8_t left, uint8_t right);
+uint8_t move(uint8_t dist, float ang);
 void resample(uint8_t dcnt);
 
 #endif /* PARTICLE_FILTER_H_ */
