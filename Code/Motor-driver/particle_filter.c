@@ -64,7 +64,7 @@ PartArray* get_parts(){
  * The Marsaglia polar method
  * https://en.wikipedia.org/wiki/Marsaglia_polar_method
  */
-float gaussian(float mean, float stddev){
+float rand_n(){
 
     static float extra;
     static uint8_t cache = 0;
@@ -72,7 +72,7 @@ float gaussian(float mean, float stddev){
 
     if (cache) {
         cache = 0;
-        z = extra * stddev + mean;
+        z = extra; //* stddev + mean;
     }
     else {
         do {
@@ -84,52 +84,76 @@ float gaussian(float mean, float stddev){
       t = sqrt(-2.0 * log(s) / s);
       extra = v * t;
       cache = 1;
-      z = u * t * stddev + mean;
+      z = u * t; //* stddev + mean;
    }
    return z;
 }
 
-// for now only converts wheel odometry into
-void motion_model(uint8_t left, uint8_t right){
-
-}
-
 // update all particle position according to steps done in certain direction
-uint8_t move(uint8_t dist, float ang){
+float move(float dist, float ang){
 
-    uint8_t i, dcnt = 0;
-    int8_t x, y, xn, yn;
-
-    xn = cos(ang)*dist;
-    yn = sin(ang)*dist;
+    uint8_t i;
+    float dr, tr, x, y, t, w;
 
     for(i=0; i<parr.num_parts; i++){
-        if(parr.parts[i].w > 0){
-            x = parr.parts[i].x + xn;
-            y = parr.parts[i].y + yn;
+        // Model error
+        dr = ang; //gaussian(ang, 0);
+        tr = dist; //gaussian(dist, 0);
 
-            if(is_wall(x, y)){
-                parr.parts[i].w = 0;
-                dcnt++;
-            } else {
-                parr.parts[i].x = x;
-                parr.parts[i].y = y;
-            }
+        t = parr.parts[i].t + dr;
+        x = parr.parts[i].x + (tr * cos(dr));
+        y = parr.parts[i].y + (tr * sin(dr));
+
+        if(is_wall(x, y)){
+            parr.parts[i].w = 0;
+        } else {
+            parr.parts[i].x = x;
+            parr.parts[i].y = y;
+            parr.parts[i].t = t;
+            w += parr.parts[i].w;
         }
     }
-    return dcnt;
+    return w;
+}
+
+
+// normalize particle weight and compute Neff
+float update(float w){
+    float wn, neff;
+    int i;
+    wn = 1.0 / (w);
+    for (i=0; i<parr.num_parts; i++){
+        if(parr.parts[i].w > 0){
+            parr.parts[i].w = parr.parts[i].w * wn;
+            neff += parr.parts[i].w * parr.parts[i].w;
+        }
+    }
+    return 1/neff;
 }
 
 // "random" increase particle weight (only with died amount of particles)
-void resample(uint8_t dcnt){
+/*
+ * Low variance resampling
+ */
+void resample(){
 
-    uint8_t i, j;
+    uint8_t m, M, i, j;
+    float r, w, U;
+    M = parr.num_parts;
+    r = rand_n() / M;
+    w = parr.parts[1].w;
+    i = 1, j = 1;
+    PartArray temp;
+    temp.num_parts = M;
 
-    for(i=0; i<dcnt; i++){
-        do{
-            j = get_rand() % parr.num_parts;
-        } while(parr.parts[j].w == 0);
-        // make this change consistent ?
-        parr.parts[j].w++;
+    for(m=1; m < M; m++){
+        U = (r + (m - 1) / M);
+        while(U > w){
+            i = i + 1;
+            w = w + parr.parts[i].w;
+        }
+        temp.parts[j] = parr.parts[i];
+        j = j + 1;
     }
+    parr = temp;
 }

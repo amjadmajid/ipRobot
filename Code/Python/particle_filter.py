@@ -70,10 +70,10 @@ ffi.cdef('''
     
     void part_init(uint8_t num_parts);
     PartArray* get_parts();
-    float gaussian(float mean, float stddev);
-    void motion_model(uint8_t left, uint8_t right);
-    uint8_t move(uint8_t dist, float ang);
-    void resample(uint8_t dcnt);
+    float rand_n();
+    float move(float dist, float ang);
+    float update(float w);
+    void resample();
 ''')
 
 def init_part():
@@ -98,40 +98,64 @@ def plot_part():
             x_arr.append(particles.parts[p].x)
             y_arr.append(particles.parts[p].y)
             w_arr.append(particles.parts[p].w)
-        # print 'x = ' + str(particles.parts[p].x) + ', y = ' + str(particles.parts[p].y) + ', w = ' + str(particles.parts[p].w)
+        print 'x = ' + str(particles.parts[p].x) + ', y = ' + str(particles.parts[p].y) + ', w = ' + str(particles.parts[p].w)
 
     plt.plot(x_arr, y_arr, 'r.')
-    print len(w_arr)
+
+
+def draw_line(x, y, t):
+    r = 5  # or whatever fits you
+    plt.arrow(x, y, r * math.cos(t), r * math.sin(t), head_width=2, head_length=1, fc='k', ec='k')
+
+
+def plot_bot():
+    plt.plot(bot[0], bot[1], 'bo')
+    draw_line(bot[0], bot[1], bot[2])
+
+
+def move_bot(dist, ang):
+    bot[2] += ang
+    bot[0] += dist*math.cos(bot[2])
+    bot[1] += dist*math.sin(bot[2])
+
+
+bot = [10, 70, 0]
 
 pf.const_map_init()
 
 plt.figure(1)
-plt.subplot(221)
 
 init_part()
 
 plot_maze()
 plot_part()
+plot_bot()
 
-plt.subplot(222)
 
-print 'dead = ' + str(pf.move(10, 0.5 * math.pi))
+def simulate(dist, ang):
+    sp = pf.move(dist, ang)
+    print 'sp = ' + str(sp)
+    neff = pf.update(sp)
+    print 'neff = ' + str(neff)
+    if neff < 0.5*240:
+        pf.resample()
+    move_bot(dist, ang)
 
-plot_maze()
-plot_part()
+    plot_maze()
+    plot_part()
 
-plt.subplot(223)
+    plot_bot()
 
-print 'dead = ' + str(pf.move(10, 0.5 * math.pi))
+for i in range(2,6*8):
+    plt.figure(i+1)
+    simulate(1, 0)
 
-plot_maze()
-plot_part()
+plt.figure(6*8+1)
+simulate(8, 1.5 *math.pi)
 
-plt.subplot(224)
-
-print 'dead = ' + str(pf.move(10, 0.5 * math.pi))
-
-plot_maze()
-plot_part()
+#for i in range(7, 10):
+#    plt.figure(i + 1)
+#    simulate(8, 0)
 
 plt.show()
+

@@ -21,9 +21,9 @@ typedef struct PartArray {
 }PartArray;
 
 void part_init(uint8_t num_parts);
-float gaussian(float mean, float stddev);
-void motion_model(uint8_t left, uint8_t right);
-uint8_t move(uint8_t dist, float ang);
-void resample(uint8_t dcnt);
+float rand_n();
+float move(float dist, float ang);
+float update(float w);
+void resample();
 
 #endif /* PARTICLE_FILTER_H_ */
