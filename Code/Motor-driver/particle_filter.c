@@ -97,8 +97,8 @@ float move(float dist, float ang){
 
     for(i=0; i<parr.num_parts; i++){
         // Model error
-        dr = ang; //gaussian(ang, 0);
-        tr = dist; //gaussian(dist, 0);
+        dr = rand_n(ang, ((float)M_PI/180)*2);
+        tr = rand_n(dist, 0.01);
 
         t = parr.parts[i].t + dr;
         x = parr.parts[i].x + (tr * cos(t));
@@ -133,7 +133,7 @@ float update(float w){
 /*
  * Low variance resampling
  */
-float resample(){
+void resample(){
 
     uint8_t m, M, i;
     float r, w, u;
