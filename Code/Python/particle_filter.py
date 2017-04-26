@@ -66,11 +66,11 @@ ffi.cdef('''
     }PartArray;
     
     void init_rand();
-    uint16_t get_rand();
+    float get_rand();
     
     void part_init(uint8_t num_parts);
     PartArray* get_parts();
-    float rand_n();
+    float rand_n(float mu, float sigma);
     float move(float dist, float ang);
     float update(float w);
     void resample();
@@ -146,16 +146,25 @@ def simulate(dist, ang):
 
     plot_bot()
 
-for i in range(2,6*8):
+
+for i in range(2,5*8):
     plt.figure(i+1)
     simulate(1, 0)
 
-plt.figure(6*8+1)
-simulate(8, 1.5 *math.pi)
+# rotation
+plt.figure(5*8+1)
+simulate(1, 1.5 *math.pi)
 
-#for i in range(7, 10):
-#    plt.figure(i + 1)
-#    simulate(8, 0)
+for i in range(5*8+1, (5*8+1)+20):
+    plt.figure(i + 1)
+    simulate(1, 0)
+
+# rotation
+plt.figure((5*8+1) + 20 + 1)
+simulate(1, 0.5 *math.pi)
+
+for i in range((5*8+1)+ 22, (5*8+1)+42):
+    plt.figure(i + 1)
+    simulate(1, 0)
 
 plt.show()
-

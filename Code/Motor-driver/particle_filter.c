@@ -29,8 +29,8 @@ void init_rand(){
     srand(time(NULL));
 }
 
-uint16_t get_rand(){
-    return rand();
+float get_rand(){
+    return ((float)rand() / RAND_MAX);
 }
 #endif
 
@@ -44,8 +44,8 @@ void part_init(uint8_t num_parts){
 
     for(i=0; i<num_parts; i++){
         do {
-            x = get_rand() % map.x_size;
-            y = get_rand() % map.y_size;
+            x = get_rand() * map.x_size;
+            y = get_rand() * map.y_size;
         } while(is_wall(x, y));
         // make these changes consistent ?
         parr.parts[i].x = x;
@@ -64,7 +64,7 @@ PartArray* get_parts(){
  * The Marsaglia polar method
  * https://en.wikipedia.org/wiki/Marsaglia_polar_method
  */
-float rand_n(){
+float rand_n(float mu, float sigma){
 
     static float extra;
     static uint8_t cache = 0;
@@ -72,19 +72,19 @@ float rand_n(){
 
     if (cache) {
         cache = 0;
-        z = extra; //* stddev + mean;
+        z = extra * sigma + mu;
     }
     else {
         do {
-         u = 2.0 * get_rand() / RAND_MAX - 1.0;
-         v = 2.0 * get_rand() / RAND_MAX - 1.0;
+         u = 2.0 * get_rand() - 1.0;
+         v = 2.0 * get_rand() - 1.0;
          s = u * u + v * v;
       } while(s >= 1.0 || s == 0.0);
 
       t = sqrt(-2.0 * log(s) / s);
       extra = v * t;
       cache = 1;
-      z = u * t; //* stddev + mean;
+      z = u * t * sigma + mu;
    }
    return z;
 }
@@ -101,8 +101,8 @@ float move(float dist, float ang){
         tr = dist; //gaussian(dist, 0);
 
         t = parr.parts[i].t + dr;
-        x = parr.parts[i].x + (tr * cos(dr));
-        y = parr.parts[i].y + (tr * sin(dr));
+        x = parr.parts[i].x + (tr * cos(t));
+        y = parr.parts[i].y + (tr * sin(t));
 
         if(is_wall(x, y)){
             parr.parts[i].w = 0;
@@ -123,10 +123,8 @@ float update(float w){
     int i;
     wn = 1.0 / (w);
     for (i=0; i<parr.num_parts; i++){
-        if(parr.parts[i].w > 0){
-            parr.parts[i].w = parr.parts[i].w * wn;
-            neff += parr.parts[i].w * parr.parts[i].w;
-        }
+        parr.parts[i].w = parr.parts[i].w * wn;
+        neff += parr.parts[i].w * parr.parts[i].w;
     }
     return 1/neff;
 }
@@ -135,25 +133,24 @@ float update(float w){
 /*
  * Low variance resampling
  */
-void resample(){
+float resample(){
 
-    uint8_t m, M, i, j;
-    float r, w, U;
+    uint8_t m, M, i;
+    float r, w, u;
     M = parr.num_parts;
-    r = rand_n() / M;
-    w = parr.parts[1].w;
-    i = 1, j = 1;
+    r = get_rand() / M;
+    w = parr.parts[0].w;
+    i = 0;
     PartArray temp;
     temp.num_parts = M;
 
-    for(m=1; m < M; m++){
-        U = (r + (m - 1) / M);
-        while(U > w){
-            i = i + 1;
+    for(m=0; m < M; m++){
+        u = (r + (float)m / M);
+        while(u > w){
+            i += 1;
             w = w + parr.parts[i].w;
         }
-        temp.parts[j] = parr.parts[i];
-        j = j + 1;
+        temp.parts[m] = parr.parts[i];
     }
     parr = temp;
 }

@@ -21,7 +21,7 @@ typedef struct PartArray {
 }PartArray;
 
 void part_init(uint8_t num_parts);
-float rand_n();
+float rand_n(float mu, float sigma);
 float move(float dist, float ang);
 float update(float w);
 void resample();
