@@ -13,38 +13,38 @@
 
 void gyro_init(){
 
-    volatile uint8_t status;
-
     // enable BMG250
     //P2OUT |= BIT1; //P2.1 (UART_RX)
 
-    //Set to normal mode (requires typically 55ms)
+    //Software reset
+    //i2c_write(BMG_ADDR, 0x7E, 0xB6);
+
+    //__delay_cycles(100000);
+
+    //Set to normal mode
     i2c_write(BMG_ADDR, 0x7E, 0x15);
 
-    __delay_cycles(440);
+    //Wait for normal mode (requires typically 55ms)
+    __delay_cycles(400000);
 
-    //Read PMU_STATUS
-    status = i2c_read(BMG_ADDR, 0x03);
+    //while(!(i2c_read(BMG_ADDR, 0x03) & 0x04));
 
-    __no_operation();
-
-    //Self test
-    //i2c_write(BMG_ADDR, 0xD6, 0x10);
-
-    //__delay_cycles(1000000);
-
-    //Read STATUS
-    //status = i2c_read(BMG_ADDR, 0x1B);
-
-    __no_operation();
+    //Set angular rate measurement range to 250deg/s
+    i2c_write(BMG_ADDR, 0x43, 0x03);
 
     //Start automatic offset compensation
     i2c_write(BMG_ADDR, 0x7E, 0x03);
 
-    //Wait for completion
-    while(!(i2c_read(BMG_ADDR, 0x1B) & 0x08))
+    //Wait for completion (max 250ms)
+    while(!(i2c_read(BMG_ADDR, 0x1B) & 0x08));
 
+    //Enable FOC?
+    i2c_write(BMG_ADDR, 0x77, (i2c_read(BMG_ADDR, 0x77) | 0x80));
 
+    //Remove stall data, clear data ready bit
+    gyro_read();
+
+    __delay_cycles(80000);
 }
 
 uint16_t gyro_read() {
@@ -52,9 +52,13 @@ uint16_t gyro_read() {
     uint8_t data[6];
     uint16_t ret;
 
+    //Check if data ready bit is set
+    while(!(i2c_read(BMG_ADDR, 0x1B)) & 0x40);
+
     i2c_read_multi(BMG_ADDR, 0x12, 6, data);
 
     // Only return z-axis data!
     ret = data[5] << 8;
-    return (ret | data[4]);
+    ret |= data[4];
+    return ret;
 }
