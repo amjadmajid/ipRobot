@@ -47,13 +47,13 @@ void gyro_init(){
     __delay_cycles(80000);
 }
 
-uint16_t gyro_read() {
+int16_t gyro_read() {
 
     uint8_t data[6];
-    uint16_t ret;
+    int16_t ret;
 
     //Check if data ready bit is set
-    while(!(i2c_read(BMG_ADDR, 0x1B)) & 0x40);
+    while(!(i2c_read(BMG_ADDR, 0x1B) & 0x40));
 
     i2c_read_multi(BMG_ADDR, 0x12, 6, data);
 

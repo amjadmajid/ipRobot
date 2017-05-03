@@ -66,7 +66,6 @@ uint8_t i2c_read(uint8_t slv_addr, uint8_t reg_addr){
 void i2c_read_multi(uint8_t slv_addr, uint8_t reg_addr, uint8_t l, uint8_t *arr){
 
     uint8_t i;
-    volatile uint8_t del;
 
     while(UCB0STAT & UCBBUSY);
     UCB0I2CSA = slv_addr;                   // set slave address
@@ -83,18 +82,12 @@ void i2c_read_multi(uint8_t slv_addr, uint8_t reg_addr, uint8_t l, uint8_t *arr)
 
     for (i = 0; i < l; i++) {
 
-        while(!(UCB0IFG & UCRXIFG0));
         if(i == l - 1){
             UCB0CTLW0 |= UCTXSTP;           // STOP condition
         }
+        while(!(UCB0IFG & UCRXIFG0));
         arr[i] = UCB0RXBUF;
     }
 
     while(UCB0CTLW0 & UCTXSTP);
-
-    //The first time using multi read, an extra register byte is returned.
-    //This makes the successive reads, read "old" data.
-    if(UCB0IFG & UCRXIFG0){
-        del = UCB0RXBUF;
-    }
 }
