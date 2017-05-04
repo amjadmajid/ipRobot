@@ -8,7 +8,7 @@
 #ifndef MOTOR_CTRL_H_
 #define MOTOR_CTRL_H_
 
-#define DELAY 200000
+#define DELAY 320000 // 25 Hz
 #define TCA_ADDR 112 // both TCA9538 address pins to GND (116 for TCA9539)
 
 extern pi *pi_or;
