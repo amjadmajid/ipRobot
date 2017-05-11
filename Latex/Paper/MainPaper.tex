@@ -197,37 +197,45 @@ To store the energy an appropriate size storage capacitor needs to be selected \
 The robot is designed around a modified WISP 5.0, utilizing the processor and backscatter communication.
 It's based around a Texas Instruments MSP430FR5969 ultra low power microcontroller, operating at 16 MHz and featuring 64 KB FRAM, 2 KB SRAM and 40 IO. 
 
-Some of the RF energy harvesting components are removed in order to allow an external harvester to supply the power to the system by harvesting solar energy. 
+%The harvester IC is removed from the WISP in order to allow an external harvester to supply the power to the system by harvesting solar energy. 
 
 The mainboard is the platform that connects everything together.
 Most reference designs are extendable but this adds complexity, while weight and size are the main constraints of this robot design.
 All the sensors can be interfaced trough a I2C connection.
 To conserve as much power as possible each sensor can be enabled and disabled using dedicated pins.
 
-Because the wisp has only limited accessible GPIO ports available, an I/O Expander is used to interface both H-Bridge motor drivers.
+For avoidance of obstacles, a Maxim Integrated MAX44000 proximity sensor was added of the robot facing forward.
+This sensor can measure the amount of ambient light as well.
+In addition the robot has a Bosch BMG250 Mems Gyroscope to measure yaw angle change and correct when necessary.
+
+% Explain in more detail (like Tiny TERP)
+
+Because the WISP has only limited accessible GPIO ports available, an Texas Instruments TCA9538 8-Bit I2C I/O Expander is used to interface with both Texas Instruments DRV8836 Dual Low-Voltage H-Bridges.	
 Each H-Bridge requires 5 input connections, one for enabling the device and four connections for control.
-A eight bit I2C I/O Expander is used supply a interface to the four control connections of the H-Bridge, in turn controlling each set of output ports.
+The I/O Expander is used supply a interface to the control connections of the H-Bridges, in turn controlling the current trough the coils of the stepper motors.
 
 \subsection{Locomotion}
 
 % why selected stepper motors (based on gritsbot design)
 % didel or precision microdrives
+%Constraint to use of the robot: mainly effective on flat services
 
 Mounted directly under the mainboard of the IPR, two stepper motors can be found in differential drive configuration.
+An additional single front leg acts as third point of support.
 The IPR is to small to install wheel encoders, while small stepper motors are commonly used in digital camera's.
 This design was inspired by the GRITSBot \cite{pickem_icra_2015}.
 
 The direction of current flow through each of the coil pairs of stepper motor controls the rotation direction.
-The way a stepper motor is constructed requires it to pulse each of the four connections in a fixed pattern in order to rotate it forward or backward.
+The bipolar stepper motor used, requires a pulse trough each of the four connections in a fixed pattern in order to rotate it forward or backward.
 In this case the speed of the pulses determines the rotational speed of the stepper motor.
+Increasing the rotational speed of the stepper motor decreases the torque output of the motor.
+Therefore the speed is limited by the amount of torque required to overcome the rolling resistance of the wheels.
+% The weight of the robot influences the drag / rolling resistance.
 
-% something about the wheels used
-% mainly effective on flat services.
-% static front leg
-% tell somthing about speed of the robot
+% Current required to move ?
 
-% heavy components placed above wheels
-
+The wheels are laser cut from PMMA (Polymethyl methacrylate) and are press-fitted on the axles of the motors.
+Wire shrink is used to create a very basic tire, to give the wheels some extra grip on the flat surface.
 
 \subsection{Energy Harvesting}
 
@@ -235,37 +243,83 @@ In this case the speed of the pulses determines the rotational speed of the step
 % better to only use RF for communication and harvest energy from another source \cite{konstantioulos}
 % wispcam long time to charge
 
+Photovoltaic cells used for indoor and outdoor energy harvesting, commonly have a different spectral sensitivity depending on the nature of their sources.
+Solar cells used in indoor applications need to have a high spectral sensitivity in the range of visible light (400 to 700nm).
+While for outdoor applications have a spectral sensitivity range can be broader, including near infrared  (500 nm to 1100 nm).
+Triple junction solar cells harvest in some cases up to 50\% of there energy out of the near infrared range.
+% reference to paper tudelft!
+
+% http://www.chip1stop.com/web/RUS/en/tutorialContents.do?page=009
+
 The solar energy harvesting system is based around a Texas Instruments BQ25570. 
 It includes a nano power boost charger with maximum power point tracking to extract the optimal amount of energy from the solar panel. 
 % Why is this size capacitor chosen?
-This harvested energy is stored in a supercapactor from AVX, chosen for it's low leakage current and small size.
-%The energy stored in supercap is equal to E = 0.5CV^2
-The voltage in a capacitor decreases fast while energy is consumed, a voltage regular is required to supply a stable voltage to the connected loads.
-The TI BQ25570 has a buck converter to efficiently convert the capacitor voltage to a stable 2.2 Volt.
+This harvested energy is stored in a 22mF - 4.5V supercapactor from AVX, chosen for it's low leakage current and small size.
+The energy stored in supercap is a function of the capacitance and voltage difference between the plates, being equal to:
 
+\begin{equation}
+\label{eq:cap1}
+E = \frac{1}{2}CV^{2}
+\end{equation}
 
-% The buck converter can supply up to 110mA of output current
+However, to be able to use the energy stored in the capacitor efficiently a voltage regular is required to supply a stable voltage to the connected loads.
+The regulated output voltage is a lower threshold of the energy that can be used from the capacitor, rewriting Equation \ref{eq:cap1} results in the following equation:
+
+\begin{equation}
+\label{eq:cap2}
+E = \frac{1}{2}C(V_{max} - V_{min})^{2}
+\end{equation}
+
+The Texas Insturments BQ25570 has a buck converter to efficiently regulate the capacitor voltage down to a system voltage of 2.2 Volt.
+
+% The maximum speed that can be reached is dependent on the voltage supplied to the motors.
+% The current consumed by the motors also decreases with a lower voltaged supplied. 
+% The buck converter can supply up to 110mA of output current.
 % Powering both motors and MCU should not exceed this current limit.
-
-
 
 \subsection{Software}
 
-% how to calibrate dutycyle (ie determine wheelslip)
+% General library for reading and writing to i2c.
+
+% How program consistency (ie progress) is maintained given the intermittend nature of the robot.
+
+% A operating system for intermittend devices
 
 \section{Localization Algorithm}
-% Implementation of particle filter in transient domain, analysis of implementation - time to task completion
+
+% 
+
+% Motion model
+
+% Implementation of particle filter in transient domain, 
+
+% analysis of implementation 
+
+% - time to task completion
 
 \section{Experimental Results}
-% power measurement of individiual parts
-% Speed of movement 
+
+% How to calibrate pulse frequency
+% (ie determine max speed before motor has not enough torque to overcome the rolling resistance?)
+
+% Table with power consumption of each component at 2.2v ?? only active or also standy?
+% Get operation time give power consumption time?
+
 % outdoors/indoors/varying light sources/varying solar panels
+
 % comparison with battery powered robot
+
 % accuracy of motion path 
+
 % accuracy of localization 
+
 % video of robot movement
 
 \section{Limitations and Future Work}
+
+% Use custom pcb with MCU + communication circuit instead of WISP
+
+% Use ambient light sensor input to do path planning
 
 % Scalable collective check part kilobot
 % Not only charging but also programming and activation!
