@@ -226,13 +226,20 @@ The IPR is to small to install wheel encoders, while small stepper motors are co
 This design was inspired by the GRITSBot \cite{pickem_icra_2015}.
 
 The direction of current flow through each of the coil pairs of stepper motor controls the rotation direction.
-The bipolar stepper motor used, requires a pulse trough each of the four connections in a fixed pattern in order to rotate it forward or backward.
-In this case the speed of the pulses determines the rotational speed of the stepper motor.
+The bipolar stepper motor used, requires current to be pulsed trough each of the four connections, in a fixed pattern, in order to rotate it forward or backward.
+The outputs of the MCU cannot supply enough current to drive a bipolar stepper motor a dual H-bridge is required, one H-bridge for each coil.
+The H-bridge controls the precise stepping of the stepper motor by allowing to control the current direction trough each coil.
+Stepper motors can be operated in different excitation modes, half-step, one-phase and two-phase full step.
+
+For the robot one-phase full step is used because it energizes one of the two coils at a time.
+This way the stepper only consumes less current compared to half-step and two-phase full step.
+The buck converter is can only supply 110mA of current, when a single coil is enabled each motor consumes approximately 40mA of constant current.
+
+The current trough the coils is constant, so the faster the stepper motor changes step the more energy can be transformed into forward movement.
+% copied from above
 Increasing the rotational speed of the stepper motor decreases the torque output of the motor.
 Therefore the speed is limited by the amount of torque required to overcome the rolling resistance of the wheels.
-% The weight of the robot influences the drag / rolling resistance.
-
-% Current required to move ?
+The main factor that influences the rolling resistance is the weight of the robot and the surface it's driving on.
 
 The wheels are laser cut from PMMA (Polymethyl methacrylate) and are press-fitted on the axles of the motors.
 Wire shrink is used to create a very basic tire, to give the wheels some extra grip on the flat surface.
@@ -287,7 +294,6 @@ The Texas Insturments BQ25570 has a buck converter to efficiently regulate the c
 
 \section{Localization Algorithm}
 
-% 
 
 % Motion model
 
@@ -301,6 +307,37 @@ The Texas Insturments BQ25570 has a buck converter to efficiently regulate the c
 
 % How to calibrate pulse frequency
 % (ie determine max speed before motor has not enough torque to overcome the rolling resistance?)
+
+To find the maximum speed at which the stepper motor can turn the speed is increased until the robot is not able to move forward with every step.
+
+Running the stepper motors at maximum speed will mean that there is always one of the coils is energized.
+By increasing the delay between successive pulses, decreasing the duty cycle, the motor speed can be reduced. 
+% (with minimal energy consumption) 
+% add duty cycle graph
+
+
+
+% Movement open loop
+Open loop motion control of a robot often results in undesired drift in the position estimation.
+Often being a result of unbalances or misalignment in the construction of the robot.
+
+Stepper motors have high torque at low speeds, which allows them to accelerate hard from standstill.
+Combining this with non-uniform drag of the wheels can result in one wheel slipping more than the other and the robot making an unwanted turn. 
+Secondly a possible error can come from misalignment of the stator coil energized and the rotor.
+This can only happen when the wheels are moved, not by the motor, after 4 steps the stator and rotor of both motors should be in sync again.
+
+A measure for the angular error can be described by the Abbe Error, the magnification of the angular error over distance.
+
+\begin{equation}
+	E = L * sin(\theta)
+\end{equation}
+
+To find the position estimation error, the robot was put to the test.
+
+
+
+
+
 
 % Table with power consumption of each component at 2.2v ?? only active or also standy?
 % Get operation time give power consumption time?
