@@ -28,11 +28,16 @@ PartArray parr;
 void init_rand(){
     srand(time(NULL));
 }
+// only used to give Python access
+PartArray* get_parts(){
+    return &parr;
+}
+#endif
 
 float get_rand(){
     return ((float)rand() / RAND_MAX);
 }
-#endif
+
 
 // initialize x number of particles in non wall area's
 void part_init(uint8_t num_parts){
@@ -55,10 +60,6 @@ void part_init(uint8_t num_parts){
     }
 }
 
-// only used to give Python access
-PartArray* get_parts(){
-    return &parr;
-}
 
 /*
  * The Marsaglia polar method
@@ -88,6 +89,7 @@ float rand_n(float mu, float sigma){
    }
    return z;
 }
+
 
 // update all particle position according to steps done in certain direction
 float move(float dist, float ang){
@@ -129,10 +131,8 @@ float update(float w){
     return 1/neff;
 }
 
-// "random" increase particle weight (only with died amount of particles)
-/*
- * Low variance resampling
- */
+
+// low variance resampling (only resample if Neff is smaller than value x)
 void resample(){
 
     uint8_t m, M, i;

@@ -14,6 +14,6 @@
 
 #define RAND_MAX 0xFFFF
 
-uint16_t get_rand();
+uint16_t rand();
 
 #endif /* MSP_LIB_H_ */
