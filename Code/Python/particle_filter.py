@@ -1,12 +1,17 @@
-import os
-from subprocess import Popen
+import subprocess
 from cffi import FFI
 import math
 import matplotlib.pyplot as plt
 
-fn = os.path.join(os.path.dirname(__file__), 'make.bat')
-bat = Popen(fn)
-bat.wait()
+p = subprocess.Popen(
+    ["mingw32-make.exe", "clean"],
+    stdin=subprocess.PIPE)
+p.wait()
+
+p = subprocess.Popen(
+    ["mingw32-make.exe"],
+    stdin=subprocess.PIPE)
+p.wait()
 
 ffi = FFI()
 pf = ffi.dlopen('./particle_filter.dll')
