@@ -18,19 +18,76 @@ void i2c_init(){
     UCB0CTL1 |= UCSWRST;                    // put eUSCI_B in reset state
     UCB0CTLW0 |= UCMODE_3 | UCMST | UCSYNC; // I2C, master, sync
     UCB0BRW = 0x000A;                       // baud rate = SMCLK / 10 = 100khz
-    UCB0CTLW1 = UCASTP_2;                   // automatic STOP assertion
-    UCB0TBCNT = DATA_SIZE;                  // TX 2 bytes of data
-    UCB0I2CSA = SLAVE_ADDR;                 // slave address
     UCB0CTL1 &= ~UCSWRST;                   // eUSCI_B in operational state
 }
 
-void i2c_transmit(uint8_t cmd, uint8_t data){
+void i2c_write(uint8_t slv_addr, uint8_t reg_addr, uint8_t data){
 
+    while(UCB0STAT & UCBBUSY);
+
+    UCB0I2CSA = slv_addr;                   // set slave address
     UCB0CTLW0 |= UCTR | UCTXSTT;            // transmitter mode and START condition.
 
-    while(!(UCB0IFG & UCTXIFG0));
-    UCB0TXBUF = cmd;
+    while (UCB0CTLW0 & UCTXSTT);
+    UCB0TXBUF = reg_addr;
     while(!(UCB0IFG & UCTXIFG0));
     UCB0TXBUF = data;
+    while(!(UCB0IFG & UCTXIFG0));
+
+    UCB0CTLW0 |= UCTXSTP;
     while(UCB0CTLW0 & UCTXSTP);             // wait for stop
+}
+
+uint8_t i2c_read(uint8_t slv_addr, uint8_t reg_addr){
+
+    uint8_t data = 0;
+
+    while(UCB0STAT & UCBBUSY);
+    UCB0I2CSA = slv_addr;                   // set slave address
+    UCB0CTLW0 |= UCTR | UCTXSTT;            // transmitter mode and START condition.
+
+    while(UCB0CTLW0 & UCTXSTT);
+    UCB0TXBUF = reg_addr;
+    while(!(UCB0IFG & UCTXIFG0));
+
+    UCB0CTLW0 &= ~UCTR;                     // receiver mode
+    UCB0CTLW0 |= UCTXSTT;                   // START condition
+
+    while(UCB0CTLW0 & UCTXSTT);             // make sure start has been cleared
+    UCB0CTLW0 |= UCTXSTP;                   // STOP condition
+    while(!(UCB0IFG & UCRXIFG0));
+    data = UCB0RXBUF;
+
+    while(UCB0CTLW0 & UCTXSTP);
+
+    return data;
+}
+
+void i2c_read_multi(uint8_t slv_addr, uint8_t reg_addr, uint8_t l, uint8_t *arr){
+
+    uint8_t i;
+
+    while(UCB0STAT & UCBBUSY);
+    UCB0I2CSA = slv_addr;                   // set slave address
+    UCB0CTLW0 |= UCTR | UCTXSTT;            // transmitter mode and START condition.
+
+    while(UCB0CTLW0 & UCTXSTT);
+    UCB0TXBUF = reg_addr;
+    while(!(UCB0IFG & UCTXIFG0));
+
+    UCB0CTLW0 &= ~UCTR;                     // receiver mode
+    UCB0CTLW0 |= UCTXSTT;                   // START condition
+
+    while(UCB0CTLW0 & UCTXSTT);             // make sure start has been cleared
+
+    for (i = 0; i < l; i++) {
+
+        if(i == l - 1){
+            UCB0CTLW0 |= UCTXSTP;           // STOP condition
+        }
+        while(!(UCB0IFG & UCRXIFG0));
+        arr[i] = UCB0RXBUF;
+    }
+
+    while(UCB0CTLW0 & UCTXSTP);
 }

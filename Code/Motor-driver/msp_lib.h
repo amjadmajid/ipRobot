@@ -8,6 +8,10 @@
 #ifndef MSP_LIB_H_
 #define MSP_LIB_H_
 
+#ifndef M_PI
+#define M_PI 3.14159265358979323846
+#endif
+
 #define RAND_MAX 0xFFFF
 
 uint16_t get_rand();
