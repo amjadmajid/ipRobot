@@ -5,12 +5,14 @@
 
 #include <msp430.h>
 #include <stdint.h>
+#include <stdlib.h>
 #include "global.h"
 #include "eusci_b0_i2c.h"
 #include "motor_ctrl.h"
-#include "gyro_sens.h"
 #include "prox_sens.h"
+#include "const_map.h"
 #include "particle_filter.h"
+#include "msp_lib.h"
 
 // Note: INFOD has a length of 128 bytes
 NVvar * fram = (NVvar *) 0x1800;
@@ -39,7 +41,7 @@ int main(void) {
 
     const uint8_t len = 1;
     const uint8_t inst_cmd[1] = {0x01}; // 0x03, 0x01, 0x03, 0x01, 0x03, 0x01, 0x03};
-    const uint8_t inst_len[1] = {220}; //, 10, 50, 10, 50, 10, 50, 10};
+    const uint8_t inst_len[1] = {120}; //, 10, 50, 10, 50, 10, 50, 10};
 
     init();
 
@@ -48,10 +50,12 @@ int main(void) {
         if(fram->cp_nr == 0x00) {
             while(1) {
                 if((P2IN & BIT1)==0){
-                    __delay_cycles(16000000);
+                    __delay_cycles(8000000);
                     break;
                 }
             }
+            const_map_init();
+            part_init(100);
             fram->inst = 0;
             pi_or->cnt = 0;
             fram->cp_nr = 0x01;
@@ -60,7 +64,6 @@ int main(void) {
         if(!DEBUG){
             i2c_init();
             drv_init();
-            gyro_init();
         }
         while(fram->inst < len){
             prep_inst(inst_cmd[fram->inst], inst_len[fram->inst]);

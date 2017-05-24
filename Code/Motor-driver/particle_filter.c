@@ -5,24 +5,24 @@
  */
 
 #include <stdint.h>
-#include <math.h>
+#include <stdlib.h>
 #include "particle_filter.h"
 #include "const_map.h"
 
+#ifndef __BSD_VISIBLE
+#define __BSD_VISIBLE
+#endif
+#include <math.h>
+
 #ifdef PC
-#include <stdlib.h>
 #include <time.h>
 #else
 #include "msp_lib.h"
 #endif
 
-/* libfixmath from:
- * https://github.com/PetteriAimonen/libfixmath
- */
-#include "libfixmath/fix16.h"
-
 extern ConstMap map;
-PartArray parr;
+#pragma PERSISTENT(parr);
+PartArray parr = {0};
 
 #ifdef PC
 void init_rand(){
@@ -34,10 +34,6 @@ PartArray* get_parts(){
 }
 #endif
 
-float get_rand(){
-    return ((float)rand() / RAND_MAX);
-}
-
 
 // initialize x number of particles in non wall area's
 void part_init(uint8_t num_parts){
@@ -45,12 +41,17 @@ void part_init(uint8_t num_parts){
     uint8_t i;
     uint8_t x, y;
 
+    #ifndef PC
+    // initialize rand
+    srand(get_seed());
+    #endif
+
     parr.num_parts = num_parts;
 
     for(i=0; i<num_parts; i++){
         do {
-            x = get_rand() * map.x_size;
-            y = get_rand() * map.y_size;
+            x = (rand() / (float)RAND_MAX) * map.x_size;
+            y = (rand() / (float)RAND_MAX) * map.y_size;
         } while(is_wall(x, y));
         // make these changes consistent ?
         parr.parts[i].x = x;
@@ -77,8 +78,8 @@ float rand_n(float mu, float sigma){
     }
     else {
         do {
-         u = 2.0 * get_rand() - 1.0;
-         v = 2.0 * get_rand() - 1.0;
+         u = 2.0 * (rand() / (float)RAND_MAX) - 1.0;
+         v = 2.0 * (rand() / (float)RAND_MAX) - 1.0;
          s = u * u + v * v;
       } while(s >= 1.0 || s == 0.0);
 
@@ -138,7 +139,7 @@ void resample(){
     uint8_t m, M, i;
     float r, w, u;
     M = parr.num_parts;
-    r = get_rand() / M;
+    r = (rand() / (float)RAND_MAX) / M;
     w = parr.parts[0].w;
     i = 0;
     PartArray temp;

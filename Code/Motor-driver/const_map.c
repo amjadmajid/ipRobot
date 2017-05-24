@@ -8,7 +8,8 @@
 #include <stdint.h>
 #include "const_map.h"
 
-ConstMap map;
+#pragma PERSISTENT(map);
+ConstMap map = {0};
 
 // put constrained map in nv mem (only run once)
 void const_map_init() {

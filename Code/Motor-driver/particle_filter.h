@@ -17,7 +17,7 @@ typedef struct Particle {
 
 typedef struct PartArray {
     uint8_t num_parts;
-    struct Particle parts[250];
+    struct Particle parts[100];
 }PartArray;
 
 void part_init(uint8_t num_parts);
