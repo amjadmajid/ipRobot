@@ -82,7 +82,7 @@ float rand_n(float mu, float sigma){
          s = u * u + v * v;
       } while(s >= 1.0 || s == 0.0);
 
-      t = sqrt(-2.0 * log(s) / s);
+      t = sqrtf(-2.0 * logf(s) / s);
       extra = v * t;
       cache = 1;
       z = u * t * sigma + mu;
@@ -103,8 +103,8 @@ float move(float dist, float ang){
         tr = rand_n(dist, 0.01);
 
         t = parr.parts[i].t + dr;
-        x = parr.parts[i].x + (tr * cos(t));
-        y = parr.parts[i].y + (tr * sin(t));
+        x = parr.parts[i].x + (tr * cosf(t));
+        y = parr.parts[i].y + (tr * sinf(t));
 
         if(is_wall(x, y)){
             parr.parts[i].w = 0;
