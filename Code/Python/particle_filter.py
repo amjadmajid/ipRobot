@@ -87,7 +87,7 @@ def init_part():
     pf.init_rand()
 
     #pf.part_init.argtypes = [c_int]
-    pf.part_init(240)
+    pf.part_init(num_part)
 
 
 def plot_part():
@@ -103,7 +103,8 @@ def plot_part():
             x_arr.append(particles.parts[p].x)
             y_arr.append(particles.parts[p].y)
             w_arr.append(particles.parts[p].w)
-        print 'x = ' + str(particles.parts[p].x) + ', y = ' + str(particles.parts[p].y) + ', w = ' + str(particles.parts[p].w)
+        #print 'x = ' + str(particles.parts[p].x) + ', y = ' + str(particles.parts[p].y) + ', w = ' + str(particles.parts[p].w)
+
 
     plt.plot(x_arr, y_arr, 'r.')
 
@@ -130,6 +131,8 @@ pf.const_map_init()
 
 plt.figure(1)
 
+num_part = 100
+
 init_part()
 
 plot_maze()
@@ -139,11 +142,12 @@ plot_bot()
 
 def simulate(dist, ang):
     sp = pf.move(dist, ang)
-    print 'sp = ' + str(sp)
+    #print 'sp = ' + str(sp)
     neff = pf.update(sp)
-    print 'neff = ' + str(neff)
-    if neff < 0.5*240:
+    #print 'neff = ' + str(neff)
+    if neff < 0.5*num_part:
         pf.resample()
+        print "resample!"
     move_bot(dist, ang)
 
     plot_maze()
