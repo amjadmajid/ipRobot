@@ -89,10 +89,10 @@ Each leg as two degrees of freedom and move up and down as well as forward and b
 
 Typically the operation time is extended by regularly checking the remaining energy in the battery and move to a recharging station before the robot runs out of energy~\cite{pickem_icra_2015, rubenstein_icra_2012}.
 As an alternative to quickly recharging, the battery can also be swapped automatically when the robot moves into the docking station~\cite{kemal_mech_2015}.
-Another work shows a robot that is able to swap it's primary battery using a six degree-of-freedom manipulator, used to grab the dead battery and plug it into a wireless recharging charging station \cite{zhang_conel_2013}.
+Another work shows a robot which is able to swap it's primary battery using a six degree-of-freedom manipulator, used to grab the dead battery and plug it into a wireless recharging charging station \cite{zhang_conel_2013}.
 Using direct wireless power to replace or supplement to a batteries energy is shown in~\cite{karpelson_icra_2014}, however the robot can only operate or recharge while remaining in close proximity to a transmitter. 
 In these cases the robots are highly reliant on an infrastructure to allow for continuous autonomous operation.
-This can be a severe constraint if the robot moves out of reach or needs to operate in a area where this infrastructure is not present. Persistent operation can also be achieved by harvesting renewable energy, particularly solar energy to complement to the robots internal energy source. To remove weight from the robot, in \cite{bruhwiler_iros_2015} the solar energy is used directly without any type of energy buffer. A drawback of of this is that the incoming energy should already greater or equal to the energy required for operation. 
+This can be a severe constraint if the robot moves out of reach or needs to operate in a area where this infrastructure is not present. Persistent operation can also be achieved by harvesting renewable energy, particularly solar energy to complement to the robots internal energy source. To remove weight from the robot, in \cite{bruhwiler_iros_2015} the solar energy is used directly without any type of energy buffer. A drawback of this method is that the incoming solar energy should already greater or equal to the energy required for operation. 
 
 % motion planning based on energy availability
 
@@ -106,7 +106,7 @@ By combining maps of lighting and ground slope a solar-powered robot can be kept
 % Challenges in porting algorithms for localization
 % 
 
-All the previous work assumes that a operation is only possible when there is sufficient energy to complete a task. 
+All the previous work assumes that an operation is only possible when there is sufficient energy to complete a task. 
 This research will explore the feasibility of a battery-less robot, allowing persistent operation while having a very small and intermittent source of energy.
 Intermittently powering robots creates new challenges in control, navigation and collaboration.
 
@@ -314,11 +314,7 @@ The Texas Insturments BQ25570 has a buck converter to efficiently regulate the c
 To find the maximum speed at which the stepper motor can turn the speed is increased until the robot is not able to move forward with every step.
 
 Running the stepper motors at maximum speed will mean that there is always one of the coils is energized.
-By increasing the delay between successive pulses, decreasing the duty cycle, the motor speed can be reduced. 
-% (with minimal energy consumption) 
-% add duty cycle graph
-
-
+By increasing the delay between successive pulses, increasing the on time of a specific coil, the motor speed can be reduced. 
 
 % Movement open loop
 Open loop motion control of a robot often results in undesired drift in the position estimation.
