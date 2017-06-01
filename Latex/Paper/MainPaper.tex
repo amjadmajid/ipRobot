@@ -62,7 +62,8 @@ Intermittently-powered Battery-free Robot
 % Make people interested with the first sentence
 % Intermittently powered robot research platforms, that purely rely on harvested power are currently non existent.
 
-% Existing autonomous robots
+
+% Existing robotic platforms
 
 Low cost robotic platforms have been developed to tackle a variety of challenges anonymously.
 Miniature robots can be used for inspection in difficult to reach places, operating like mobile sensing units.
@@ -82,7 +83,7 @@ Estimating it's position therefore is reduced to simply counting steps~\cite{pic
 Overall cost can be a decisive factor, therefore the Kilobot uses two vibrating motors for locomotion combined with three thin legs.
 When the motors are activated the centripetal forces will generate a forward movement, which can be explained using the slip-stick principle~\cite{rubenstein_icra_2012}.
 Other locomotion types are biologically inspired, the HARM-VP is small scale piezoelectric driven quadrupled robot~\cite{baisch_iros_2013}.
-Each leg as two degrees of freedom and move up and down as well as forward and backward.
+Each leg as two degrees of freedom, it can move up and down, as well as forward and backward.
 
 % Locomotion with ambient power (Feedback loop on energy availability)
 % Battery replenishment [docking station, battery swap, wireless power (?)]
@@ -92,7 +93,7 @@ As an alternative to quickly recharging, the battery can also be swapped automat
 Another work shows a robot which is able to swap it's primary battery using a six degree-of-freedom manipulator, used to grab the dead battery and plug it into a wireless recharging charging station \cite{zhang_conel_2013}.
 Using direct wireless power to replace or supplement to a batteries energy is shown in~\cite{karpelson_icra_2014}, however the robot can only operate or recharge while remaining in close proximity to a transmitter. 
 In these cases the robots are highly reliant on an infrastructure to allow for continuous autonomous operation.
-This can be a severe constraint if the robot moves out of reach or needs to operate in a area where this infrastructure is not present. Persistent operation can also be achieved by harvesting renewable energy, particularly solar energy to complement to the robots internal energy source. To remove weight from the robot, in \cite{bruhwiler_iros_2015} the solar energy is used directly without any type of energy buffer. A drawback of this method is that the incoming solar energy should already greater or equal to the energy required for operation. 
+This can be a severe constraint if the robot moves out of reach or needs to operate in a area where this infrastructure is not present. Persistent operation can also be achieved by harvesting renewable energy, particularly solar energy to complement to the robots internal energy source. To remove weight from the robot, in \cite{bruhwiler_iros_2015} the solar energy is used directly without any type of energy buffer. A drawback of this method is that the incoming solar energy should already greater or equal to the energy required for operation. This approach has been tested for basic locomotion and did not combine any form of sensing and control.
 
 % motion planning based on energy availability
 
@@ -106,9 +107,30 @@ By combining maps of lighting and ground slope a solar-powered robot can be kept
 % Challenges in porting algorithms for localization
 % 
 
-All the previous work assumes that an operation is only possible when there is sufficient energy to complete a task. 
+All the previous work assumes that an operation is only possible when there is sufficient energy to complete a task or move to a charging station.
 This research will explore the feasibility of a battery-less robot, allowing persistent operation while having a very small and intermittent source of energy.
 Intermittently powering robots creates new challenges in control, navigation and collaboration.
+
+% Research question:
+% has energy available for short periods of time, would it be possible to do some form of actuation?
+
+% How to enable intermittently powered robots to complete a complex task autonomously?
+% What are the limits of intermittently powered robots to complete a complex task autonomously?
+
+What are the limits of a intermittently powered device to achieve locomotion?
+
+% Contributions
+
+The contributions of the paper are as follows:
+
+\begin{enumerate}
+\item A novel battery-less robot design, were the robot purely runs of harvested energy. Which includes computation, sensing and short range communication.
+
+\item Development of a persistent algorithms for autonomous navigation and localization.
+
+\item A evaluation of the battery-less robot compared to a battery powered robot in terms of, weight, speed of movement, navigation and localization accuracy.
+\end{enumerate}
+ 
 
 \section{Related Work}
 
@@ -122,7 +144,7 @@ Super-capacitors do not need any special charging scheme and circuity for chargi
 Secondly, super-capacitors do not require any particular current profile, the energy can be stored at any rate and when the energy is required it can be extracted at any power level.
 Operating a li-ion battery outside of it's recommended operating conditions can severely reduce a batteries lifetime and result in overheating or even explosion of the battery.
 Batteries will seldom withstand more than one thousand complete charge/discharge cycles.
-Using super-capacitors under extreme condition's they are not likely to explode but instead rupture.
+Super-capacitors used under extreme condition's, are not likely to explode but instead rupture.
 While the biggest disadvantages of super-capacitors is their low energy density and high price, their lifetime is typically hundred thousands of charge/discharge cycles.
 
 Li-Ion Battery-Supercapacitor Hybrid Storage System for a Long Lifetime, Photovoltaic-Based Wireless Sensor Network	\cite{ongaro_pwre_2012}
@@ -159,41 +181,58 @@ To store the energy an appropriate size storage capacitor needs to be selected~\
 	\begin{threeparttable}
 		\caption{An comparison of small robotic platforms}
 		\label{tab:1}
- 		\begin{tabularx}{500pt}{l l X l X l l l l} 
+ 		\begin{tabularx}{500pt}{l l X X l l l l} 
 			\hline
- 			Robot & Cost & Scalability & Odomentry & Sensors & Locomotion & Size [cm] & Weight [g] & Battery life [h] \\ 
+ 			Robot & Cost & Scalability & Sensors & Locomotion & Size [cm] & Weight [g] & Battery life \\ 
  			\hline
- 			IPR & TBD & charge, program & stepper motors & distance & wheel, 3cm/s & 3 & 15 & 0.0001\\
- 			mROBerTO \cite{kim_iros_2016} & \$60\textsuperscript{1} & program & non/external & light, range, gyro, camera, accel., compass, distance, bearing & motor shaft, 15cm/s & 1.5 & ?? & 1.5\\
- 			Zooids \cite{legoc_uist_2016} & \$50 & ?? & none/external & position, touch & wheel, 50cm/s & 2.6 & 12 & 1-2 \\ 
- 			GRITSBot \cite{pickem_icra_2015} & \$50\textsuperscript{1} & charge, program, calibrate & stepper motors & distance, earing, 3d accel., 3d gyro & wheel 25cm/s & 3 & ?? & 1-5 \\
- 			Kilobot \cite{rubenstein_icra_2012} & \$50\textsuperscript{1} & charge, program & other agents & distance, ambient light & vibration, 1cm/s & 3.3 & ?? & 3-24\\
- 			TinyTerp \cite{sabelhaus_icra_2013} & \$50 & none & none/extrnal & 3d gyro, 3d accel. & wheel, 50cm/s & 1.8 & ?? & 1\\
+ 			IPR & TBD & charge, program & gyro & wheel, 3cm/s & 4.0 & 15 & 1s\\
+ 			HAMR-VP\textsuperscript{1} \cite{bruhwiler_iros_2015} & NS & none & gyroscope, optical mouse & legged, 1cm/s & 4.4 & 2.3 & 3m \\
+ 			Roverables \cite{dementyev_uist_2016} & NS & charge & wheel, distance, optical encoders & wheel, ?? & 4.0 & ?? & 45m \\ 
+ 			Zooids \cite{legoc_uist_2016} & \$50 & ?? & position, touch & wheel, 50cm/s & 2.6 & 12 & 1-2h \\ 
+ 			mROBerTO \cite{kim_iros_2016} & \$60\textsuperscript{1} & program & light, range, gyro, camera, accel., compass, distance, bearing & motor shaft, 15cm/s & 1.5 & ?? & 1.5h\\
+ 			GRITSBot \cite{pickem_icra_2015} & \$50\textsuperscript{2} & charge, program, calibrate & distance, bearing, 3d accel., 3d gyro & wheel 25cm/s & 3 & ?? & 1-5h \\
+ 			Kilobot \cite{rubenstein_icra_2012} & \$50\textsuperscript{2} & charge, program & distance, ambient light & vibration, 1cm/s & 3.3 & ?? & 3-24h\\
+ 			TinyTerp \cite{sabelhaus_icra_2013} & \$50 & none & 3d gyro, 3d accel. & wheel, 50cm/s & 1.8 & ?? & 1h\\
 			\hline
 		\end{tabularx}
 		\begin{tablenotes}
-			\item [1] Cost of parts
+			\item [1] Modified to include on-board power, sensing and control.
+			\item [2] Cost of parts
 		\end{tablenotes}
 	\end{threeparttable}
 \end{table*}
 
 \section{Design Requirements}
+% - Case study of warehouse/greenhouse inspection
 % - for Transienltly-powered Locomotion
 
-% - Case study of warehouse/greenhouse inspection
+Things to take into consideration:
+- Trade off between charge time and operation time.
+- Weight of the robot
+- Power consumption of individual components
+- Enable individual components
+- Lower voltage decreases power consuption.
 
-% Short dutycycle charging and discharging (result of capacitor size)
+- single mainboard design
+
+% Short dutycycle charging and discharging (result of capacitor size)s
 % To demonstrate intermittent operation!!
+
 
 % - Accurate locomotion
 % - Range measurements
 % - Wireless communication with a global host
+
+
+
 
 \section{Robot Design}
 
 % - Size and weight/energy availability/speed trade-off model and 
 % - Should the subsections more or less reflect the columns in the table?
 
+
+% include stepper motor vs optical sensors ref roverables power consumption optical encoders
 
 \subsection{Computation and Sensing}
 
