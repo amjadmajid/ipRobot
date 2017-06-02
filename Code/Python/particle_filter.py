@@ -156,24 +156,40 @@ def simulate(dist, ang):
     plot_bot()
 
 
-for i in range(2,5*8):
+for i in range(2,21):
     plt.figure(i+1)
     simulate(1, 0)
 
 # rotation
-plt.figure(5*8+1)
+plt.figure(21 + 1)
 simulate(1, 1.5 *math.pi)
 
-for i in range(5*8+1, (5*8+1)+20):
+for i in range(21+1, (21 + 1)+20):
     plt.figure(i + 1)
     simulate(1, 0)
 
 # rotation
-plt.figure((5*8+1) + 20 + 1)
-simulate(1, 0.5 *math.pi)
+plt.figure(42 + 1)
+simulate(1, 1.5 * math.pi)
 
-for i in range((5*8+1)+ 22, (5*8+1)+42):
+for i in range(43, (43) + 20):
     plt.figure(i + 1)
     simulate(1, 0)
 
+# rotation
+plt.figure(63 + 1)
+simulate(1, 0.5 * math.pi)
+
+for i in range(64, 64 + 40):
+    plt.figure(i + 1)
+    simulate(1, 0)
+'''
+# rotation
+plt.figure((5*8+1) + 20 + 1)
+simulate(1, 0.5 *math.pi)
+
+for i in range((5*8+1) + 22, (5*8+1)+42):
+    plt.figure(i + 1)
+    simulate(1, 0)
+'''
 plt.show()
