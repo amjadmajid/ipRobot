@@ -67,7 +67,7 @@ pa_stop = '0x53A1'  # 0x539E
 # raw_input("Press Enter to continue...")
 
 p = subprocess.Popen(
-    ["MSP430Flasher.exe", "-g", "-r", "[output.hex,0x4400-0x5420]", "-z", "[VCC]"],
+    ["MSP430Flasher.exe", "-g", "-r", "[output.hex,0x4400-0x5420]", "-z", "[VCC=2200]"],
     stdin=subprocess.PIPE)
 
 p.communicate("n\n")
@@ -122,11 +122,6 @@ plt.figure(1)
 plot_maze()
 
 plt.plot(x_arr, y_arr, 'r.')
-
-test = 0
-for x in w_arr:
-    if x <= 0:
-        test += 1
 
 print w_arr
 
