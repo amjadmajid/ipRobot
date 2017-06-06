@@ -10,7 +10,6 @@
 #include "global.h"
 #include "motor_ctrl.h"
 #include "eusci_b0_i2c.h"
-#include "particle_filter.h"
 
 void swap(pi **r, pi **s) {
 
@@ -34,14 +33,12 @@ void drv_init() {
     i2c_write(TCA_ADDR, 0x03, 0x00);   //0x06 for TCA9539
 }
 
-void prep_inst(uint8_t cmd, uint8_t len) {
+void prep_inst(uint8_t cmd) {
 
     const uint8_t lstates[4] = {0x0C, 0x03, 0x08, 0x02};  // P0 = DA, P1 = PA, P2 = DB, P3 = PB
     const uint8_t rstates[4] = {0x02, 0x08, 0x03, 0x0C};  // P4 = DA, P1 = PA, P2 = DB, P3 = PB
 
-    float temp = 1;
-
-    uint8_t cnt = pi_or->cnt;
+    //uint8_t cnt = pi_or->cnt;
     int8_t lstate = pi_or->lstate;
     int8_t rstate = pi_or->rstate;
 
@@ -81,7 +78,7 @@ void prep_inst(uint8_t cmd, uint8_t len) {
 
     }
 
-    while(cnt < len) {
+    /*while(cnt < len) { */
         lstate = lstate + ladd;
         rstate = rstate + radd;
         if (lstate > 3) {
@@ -99,16 +96,11 @@ void prep_inst(uint8_t cmd, uint8_t len) {
         *pi_wc = *pi_or;
         pi_wc->lstate = lstate;
         pi_wc->rstate = rstate;
-        pi_wc->cnt = ++cnt;
+        /*pi_wc->cnt = ++cnt; */
         swap(&pi_or, &pi_wc);
 
-        temp = move(0.2355*2, 0);
-        temp = update(temp);
-        if(temp < 0.5*100){
-            resample();
-        }
-    }
-    pi_or->cnt = 0;
+    /*}
+    pi_or->cnt = 0; */
 }
 
 void drv_mot(uint8_t data) {

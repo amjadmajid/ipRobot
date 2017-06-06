@@ -7,6 +7,12 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include "global.h"
+
+#ifndef __BSD_VISIBLE
+#define __BSD_VISIBLE
+#endif
+#include <math.h>
+
 #include "eusci_b0_i2c.h"
 #include "motor_ctrl.h"
 #include "prox_sens.h"
@@ -39,9 +45,20 @@ void init(void) {
 
 int main(void) {
 
-    const uint8_t len = 1;
-    const uint8_t inst_cmd[1] = {0x01}; // 0x03, 0x01, 0x03, 0x01, 0x03, 0x01, 0x03};
-    const uint8_t inst_len[1] = {120}; //, 10, 50, 10, 50, 10, 50, 10};
+    /* inst len should be <= 4 */
+    /*const uint8_t len = 16;
+    const uint8_t inst_cmd[16] = {0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01}; // 0x03, 0x01, 0x03, 0x01, 0x03, 0x01, 0x03};
+    const uint8_t inst_len[16] = {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4}; //, 10, 50, 10, 50, 10, 50, 10}; */
+
+    float temp = 1;
+    float ang = 0;
+    uint8_t len = 25;
+    uint8_t cnt;
+    uint8_t i;
+    uint8_t prox;
+    const uint8_t num_part = 100;
+    const uint8_t prox_thres = 50;
+    const uint8_t step_size  = 4;
 
     init();
 
@@ -55,19 +72,45 @@ int main(void) {
                 }
             }
             const_map_init();
-            part_init(100);
+            part_init(num_part);
             fram->inst = 0;
-            pi_or->cnt = 0;
+            //pi_or->cnt = 0;
+            cnt = 0;
             fram->cp_nr = 0x01;
         }
 
         if(!DEBUG){
             i2c_init();
+            prox_init();
             drv_init();
         }
-        while(fram->inst < len){
-            prep_inst(inst_cmd[fram->inst], inst_len[fram->inst]);
-            fram->inst++;
+
+        for(cnt=0; cnt < len; cnt++){
+
+            prox = prox_read();
+
+            if(prox < prox_thres){
+                for(i=0; i < step_size; i++){
+                    prep_inst(0x01); // forward
+                }
+                ang = 0;
+            }
+            else{
+                for(i=0; i < 13; i++){
+                    prep_inst(0x03); // turn right
+                }
+                for(i=0; i < step_size; i++){
+                    prep_inst(0x01); // forward
+                }
+                ang = 0.5 *M_PI;
+            }
+
+            temp = move(0.2355 * 2 * step_size, ang);
+            temp = update(temp);
+            if(temp < 0.5*num_part){
+                resample();
+            }
+            //fram->inst++;
         }
 
         if(!DEBUG)

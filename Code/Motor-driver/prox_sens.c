@@ -23,7 +23,7 @@ void prox_init(){
     i2c_write(MAX_ADDR, 0x02, 0xF3);
 
     //Set led drive current to 110 mA
-    i2c_write(MAX_ADDR, 0x03, 0x0F);
+    i2c_write(MAX_ADDR, 0x03, 0x0B);
 
     //Set main configuration register to ALS + PROX
     i2c_write(MAX_ADDR, 0x01, 0x30);
