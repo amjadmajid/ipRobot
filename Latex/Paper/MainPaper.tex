@@ -24,6 +24,7 @@
 \usepackage{threeparttable, tablefootnote}
 \usepackage{tabularx}
 \usepackage{flushend}
+\usepackage{textcomp}
 
 \title{\LARGE \bf
 Intermittently-powered Battery-free Robot
@@ -114,10 +115,9 @@ Intermittently powering robots creates new challenges in control, navigation and
 % Research question:
 % has energy available for short periods of time, would it be possible to do some form of actuation?
 
-% How to enable intermittently powered robots to complete a complex task autonomously?
 % What are the limits of intermittently powered robots to complete a complex task autonomously?
-
-What are the limits of a intermittently powered device to achieve locomotion?
+% What are the limits of a intermittently powered device to achieve locomotion?
+How to enable an intermittently powered robot to complete a complex task autonomously?
 
 % Contributions
 
@@ -275,7 +275,7 @@ Stepper motors can be operated in different excitation modes, half-step, one-pha
 
 For the robot one-phase full step is used because it energizes one of the two coils at a time.
 This way the stepper only consumes less current compared to half-step and two-phase full step.
-The buck converter is can only supply 110mA of current, when a single coil is enabled each motor consumes approximately 40mA of constant current.
+The buck converter is can only supply 110mA of current, when a single coil is enabled each motor consumes approximately 40mA of current.
 
 The current trough the coils is constant, so the faster the stepper motor changes step the more energy can be transformed into forward movement.
 % copied from above
@@ -338,11 +338,57 @@ The Texas Insturments BQ25570 has a buck converter to efficiently regulate the c
 \section{Localization Algorithm}
 
 
+\subsection{Particle filter}
+% Implementation of particle filter in transient domain.
+
 % Motion model
 
-% Implementation of particle filter in transient domain, 
+After the robot reformed a movement, the particles are updated according to the motion model.
+%The robot cannot do curved movements, curves are simplified to sequential turn and forward movements.
+The stepper motors allow precise movement per step.
+Assuming that the robot is commanded to do a specific movement, this can be used to estimate the actual movement and can be used by the motion model.
+The model does not update every particle directly with the estimated movement, but adds some rotational noise and translational noise.
+This error was modeled by a normal distribution centered around zero with the variance determined by two system parameters.
+
+
+% gausian distribution:
+Box muller is a method to generate pairs of normal distributed random numbers using pseudo-random number sampling.
+Two uniformly distributed random numbers are the source, which are mapped to two normally distributed random numbers.
+The (Marsaglia) polar method is even more efficient, while it does not require the sine and cosine operations. 
+
+% Prediction step
+After every prediction step the weight of each particle is updated.
+When a particle violates the map constraints, it's weight is set to zero.
+
+% Update step
+The update step is 
+
+The update step is also used to compute the effective sample size.
+This a a measure to determine if weight variance between particles becomes to large.
+When this happens resampling is preformed.
+
+\begin{equation}
+\label{eq:cap1}
+Neff = \frac{1}{\sum\limits_{i=1}^M (w_t^i)^2 }
+\end{equation}
+
+There are a variety of resampling methods available, but the computational power limits the number of methods that can be used.
+Low variance resampling is used obtain a new set of particles by selecting particles from the old set.
+The probability of selecting a particle from the old set is equal to it's weight.
+Particles that violate the map constrains are therefore not picked. 
+
+All the "non-dead" particles have the same importance weight, low variance resampling makes sure that none of these particles are lost.
+
+LVR works by choosing a random number r and select those particles that correspond to $u = r + (m - 1) \cdot M^{-1}$ where m = 1,...,M.
 
 % analysis of implementation 
+
+
+
+% - number of particles
+% - neff value to do resampling
+% - compare methods for obtaining a gausian distribution
+% - low variance resampling, are there any others?
 
 % - time to task completion
 
@@ -374,12 +420,37 @@ A measure for the angular error can be described by the Abbe Error, the magnific
 To find the position estimation error, the robot was put to the test.
 
 
-
-
-
-
 % Table with power consumption of each component at 2.2v ?? only active or also standy?
 % Get operation time give power consumption time?
+% power consuption active vs standby
+
+Tell why this is important, 
+% false: harvested energy should be greater than power consumed in standby 
+% because output converter is only enabled when threshold is reached 
+
+\begin{table*}[t]
+	\centering
+	\caption{Power consumption of each individual component at 2.2v}
+	\label{tab:1}
+ 	\begin{tabular}{l l l} 
+		\hline
+		\\[-1em]
+ 		Part & Active Current & Standby Current\\ 
+ 		\hline
+ 		\\[-1em]
+ 		Proximity sensor & 432\textmu A & 0.1\textmu A \\	
+		Microcontroller @ 8Mhz & 1mA & N/A \\
+ 		IO Expander & 4\textmu A & 0.7\textmu A \\
+		H-bridge & 1.2mA & 10nA \\
+		H-bridge & 1.2mA & 10nA \\
+		Stepper motor & 39mA & N/A \\
+		Stepper motor & 39mA & N/A \\
+		\hline
+		\\[-1em]
+		Total & xx & xx \\
+	\end{tabular}
+\end{table*}
+
 
 % outdoors/indoors/varying light sources/varying solar panels
 
