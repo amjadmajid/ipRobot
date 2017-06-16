@@ -63,6 +63,50 @@ Intermittently-powered Battery-free Robot
 % Make people interested with the first sentence
 % Intermittently powered robot research platforms, that purely rely on harvested power are currently non existent.
 
+% The fundementals of the problem.
+Most problems for computation under an intermittent source of energy have already been solved.
+In intermittent computation the general idea is to split your program into blocks of code, ensuring that these blocks can be re-executed and therefore keeping a consistent state of the program.
+
+In communication, IO is used to exchange messages.
+Extra information is added to the message to verify it's correctness.
+In case a message is not correct a request can be done to resend it, which can be seen as re-executing?.
+
+%Checking the consistency of a message in communication is standard practice, because especially in wireless communication the possibility of receiving an incomplete or wrong message can be received.
+%If a power interrupt occurs this can be detected through a receive timeout or waiting for acknowledgment timeout.
+%Challenges cans still be found in syncing the time intervals that transceiver and receiver are on.
+
+Input signals can only be captured while the micro-controller is powered.
+On edge cases were the input is read and a power interrupt is received, the validity of the input can be questioned.
+To be sure the input should be discarded.
+
+However using a micro-controller output to control another device operating under an intermittent power supply provides new challenges.
+
+With intermittent output control it's hard to say if a action can be redone, while the progress when dying is uncertain.
+The assumption is made that in general the output is on for long enough to complete the action.
+Therefore only two point's in time can be certain, before doing the action and after the action.
+During execution of the action, the progress can not be determined. % gray area
+
+
+
+% Tell something about errors when combined with differential drive robots. (check experiment results section)
+Differential drive robots are known to be problematic when it comes to accurate odomentry.
+To solve this closed loop control, is used to correct for the drift.
+
+% Differential stepper motor
+– At start: discrepancy between coil + direction of current and position of magnet.
+(This error can be larger or smaller depending on the state of the left and right motor)
+– Both motor coils are not energized at “exactly” the same time.
+(The non energized wheel could lose position)
+% Ip differental motor - Robot
+– Wheel does not stay in position when motor is deenergized (can be a positive or negative error)
+
+– Uneven wheel slip
+– Front leg more drag on one side
+– Uneven weight distribution
+– Unbalance in driveline, motor to pcb or motor shaft → wheel
+
+
+
 
 % Existing robotic platforms
 
