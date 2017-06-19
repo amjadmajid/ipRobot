@@ -55,13 +55,9 @@ int main(void) {
     const uint8_t rstates[4] = {0x02, 0x08, 0x03, 0x0C};  // P4 = DA, P1 = PA, P2 = DB, P3 = PB
     const uint8_t num_steps = 212;
 
-    uint8_t i;
+    //uint8_t i;
 
     init();
-    if(!DEBUG){
-        i2c_init();
-        drv_init();
-    }
 
     while(1) {
 
@@ -86,6 +82,11 @@ int main(void) {
         }
 
         __delay_cycles(16000000); */
+
+        if(!DEBUG){
+            i2c_init();
+            drv_init();
+        }
 
         while(fram.cnt_a < num_steps){
 
