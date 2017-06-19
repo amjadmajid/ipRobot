@@ -71,40 +71,29 @@ In communication, IO is used to exchange messages.
 Extra information is added to the message to verify it's correctness.
 In case a message is not correct a request can be done to resend it, which can be seen as re-executing?.
 
-%Checking the consistency of a message in communication is standard practice, because especially in wireless communication the possibility of receiving an incomplete or wrong message can be received.
-%If a power interrupt occurs this can be detected through a receive timeout or waiting for acknowledgment timeout.
-%Challenges cans still be found in syncing the time intervals that transceiver and receiver are on.
-
 Input signals can only be captured while the micro-controller is powered.
-On edge cases were the input is read and a power interrupt is received, the validity of the input can be questioned.
-To be sure the input should be discarded.
+On edge cases were energy is depleted while the input is read, the validity of the input can be questioned.
+When the device wakes up from a depleted state, in the case the input was time depended it should discarded.
 
-However using a micro-controller output to control another device operating under an intermittent power supply provides new challenges.
+However using a micro-controller to control another device operating under an intermittent power supply provides new challenges.
+With intermittent output control it can be doubtful if an output operation can be redone, while the progress when dying is uncertain.
+The assumption is made that in general the output is on for long enough to complete the operation.
+Therefore only two point's in time can be certain, before and after doing the output operation.
+During execution of the output operation, the progress can not be determined. % gray area
 
-With intermittent output control it's hard to say if a action can be redone, while the progress when dying is uncertain.
-The assumption is made that in general the output is on for long enough to complete the action.
-Therefore only two point's in time can be certain, before doing the action and after the action.
-During execution of the action, the progress can not be determined. % gray area
+% Expain the problem of counting before or after
+Counting a completed output operation is commonly done when it has been finished.
+What can happen is that the output operation has been finished while the energy has been fully depleted and a completed output operation has not been counted.
+This will imply that an extra unwanted output operation will be preformed.
+On the other hand when output operations are counted before they are actually computed, it can happen that an operation is counted while not being finished.
+As a result less operations will be counted than actually preformed.
 
 
+% % Tell something about errors when combined with differential drive robots. (check experiment results section)
+% Differential drive robots are known to be problematic to  accurate odometry.
 
-% Tell something about errors when combined with differential drive robots. (check experiment results section)
-Differential drive robots are known to be problematic when it comes to accurate odomentry.
-To solve this closed loop control, is used to correct for the drift.
-
-% Differential stepper motor
-– At start: discrepancy between coil + direction of current and position of magnet.
-(This error can be larger or smaller depending on the state of the left and right motor)
-– Both motor coils are not energized at “exactly” the same time.
-(The non energized wheel could lose position)
-% Ip differental motor - Robot
-– Wheel does not stay in position when motor is deenergized (can be a positive or negative error)
-
-– Uneven wheel slip
-– Front leg more drag on one side
-– Uneven weight distribution
-– Unbalance in driveline, motor to pcb or motor shaft → wheel
-
+%A common solution is to use closed loop control, where additional sensors are used to correct for the drift.
+%However most of the sensors return the change in position while the robot is moving like wheel encoders, gyroscopes, accelerometers and motor current sensors.
 
 
 
@@ -405,9 +394,7 @@ After every prediction step the weight of each particle is updated.
 When a particle violates the map constraints, it's weight is set to zero.
 
 % Update step
-The update step is 
-
-The update step is also used to compute the effective sample size.
+The update step is used to compute the effective sample size as well.
 This a a measure to determine if weight variance between particles becomes to large.
 When this happens resampling is preformed.
 
@@ -462,6 +449,20 @@ A measure for the angular error can be described by the Abbe Error, the magnific
 \end{equation}
 
 To find the position estimation error, the robot was put to the test.
+
+
+% Differential stepper motor
+– At start: discrepancy between coil + direction of current and position of magnet.
+(This error can be larger or smaller depending on the state of the left and right motor)
+– Both motor coils are not energized at “exactly” the same time.
+(The non energized wheel could lose position)
+% Ip differental motor - Robot
+– Wheel does not stay in position when motor is deenergized (can be a positive or negative error)
+
+– Uneven wheel slip
+– Front leg more drag on one side
+– Uneven weight distribution
+– Unbalance in driveline, motor to pcb or motor shaft → wheel
 
 
 % Table with power consumption of each component at 2.2v ?? only active or also standy?
