@@ -88,60 +88,24 @@ This will imply that an extra unwanted output operation will be preformed.
 On the other hand when output operations are counted before they are actually computed, it can happen that an operation is counted while not being finished.
 As a result less operations will be counted than actually preformed.
 
+% Simple example blinking led?
 
-% % Tell something about errors when combined with differential drive robots. (check experiment results section)
-% Differential drive robots are known to be problematic to  accurate odometry.
+% Link to robotics
 
-%A common solution is to use closed loop control, where additional sensors are used to correct for the drift.
-%However most of the sensors return the change in position while the robot is moving like wheel encoders, gyroscopes, accelerometers and motor current sensors.
+The current robotic community assumes that a stable energy supply is a requirement to allow long term persistent autonomous operation of robots.
+Batteries are generally the stable energy source of choice, while different solutions have been proposed to recharge them.
+Other solutions require the robot to be in close proximity to an energy source.
 
 
-
-% Existing robotic platforms
-
-Low cost robotic platforms have been developed to tackle a variety of challenges anonymously.
-Miniature robots can be used for inspection in difficult to reach places, operating like mobile sensing units.
-Hardware modularity is a way to make the robot adapt its resources to different environments and sensing operations.
-By separating out power, computation, motor control and sensing a verity of capabilities can be tested~\cite{sabelhaus_icra_2013, pickem_icra_2015, kim_iros_2016}.
-Microrobots typically use infrared-based neighbor to neighbor distance sensing and communication~\cite{rubenstein_icra_2012, pickem_icra_2015, kim_iros_2016}.
-While controlling a swarm or collective is mainly accomplished by means of active low power transceivers~\cite{sabelhaus_icra_2013, pickem_icra_2015, kim_iros_2016}. 
-
-% Locomotion type
-% tell somthing about their accuracy!
-
-Choosing the right locomotion resource can depend on different factors, moving in the most energy efficient way on a particular surface is often the determining factor.
-On a flat surface, robots commonly use a two-wheeled differential drive design to not only move but allow for steering as well~\cite{sabelhaus_icra_2013, pickem_icra_2015}.
-The GRITSBot does not use conventional DC motors, requiring encoders to estimate their speed. 
-Instead by using stepper motors the speed can be set by changing the delay between steps. 
-Estimating it's position therefore is reduced to simply counting steps~\cite{pickem_icra_2015}.  
-Overall cost can be a decisive factor, therefore the Kilobot uses two vibrating motors for locomotion combined with three thin legs.
-When the motors are activated the centripetal forces will generate a forward movement, which can be explained using the slip-stick principle~\cite{rubenstein_icra_2012}.
-Other locomotion types are biologically inspired, the HARM-VP is small scale piezoelectric driven quadrupled robot~\cite{baisch_iros_2013}.
-Each leg as two degrees of freedom, it can move up and down, as well as forward and backward.
-
-% Locomotion with ambient power (Feedback loop on energy availability)
-% Battery replenishment [docking station, battery swap, wireless power (?)]
-
-Typically the operation time is extended by regularly checking the remaining energy in the battery and move to a recharging station before the robot runs out of energy~\cite{pickem_icra_2015, rubenstein_icra_2012}.
-As an alternative to quickly recharging, the battery can also be swapped automatically when the robot moves into the docking station~\cite{kemal_mech_2015}.
-Another work shows a robot which is able to swap it's primary battery using a six degree-of-freedom manipulator, used to grab the dead battery and plug it into a wireless recharging charging station \cite{zhang_conel_2013}.
-Using direct wireless power to replace or supplement to a batteries energy is shown in~\cite{karpelson_icra_2014}, however the robot can only operate or recharge while remaining in close proximity to a transmitter. 
-In these cases the robots are highly reliant on an infrastructure to allow for continuous autonomous operation.
-This can be a severe constraint if the robot moves out of reach or needs to operate in a area where this infrastructure is not present. Persistent operation can also be achieved by harvesting renewable energy, particularly solar energy to complement to the robots internal energy source. To remove weight from the robot, in \cite{bruhwiler_iros_2015} the solar energy is used directly without any type of energy buffer. A drawback of this method is that the incoming solar energy should already greater or equal to the energy required for operation. This approach has been tested for basic locomotion and did not combine any form of sensing and control.
-
-% motion planning based on energy availability
-
-To capture the optimal amount of solar energy along the way, a map of the expected solar power can be used to compute the optimal path. To distinguish sunny or shaded two methods are proposed in \cite{plonski_tranro_2016}, one being a simple datadriven Gaussian Process and the other estimates the geometry of the environment as a latent variable.
-Energy aware path planning is commonly used in combination with mission planning.
-In \cite{kaplan_iros_2016}, an analysis of the solar radiation is used to generate a time-optimized motion plan and power schedule using a cascaded particle swarm optimization algorithm.
-By combining maps of lighting and ground slope a solar-powered robot can be kept illuminated continuously. A connected component analysis is used to plan a optimal route on traversable slopes, as described by \cite{otten_icra_2015}.
-
+Most autonomous robots have some kind of odometry to allow them to navigate terrain autonomously.
+A common solution is to use closed loop control, where additional sensors are used to correct for the drift.
+However most of the sensors return the change in position while the robot is moving like wheel encoders, gyroscopes, accelerometers and motor current sensors.
+% No abslute sensor data but always relative.
 
 % Problem statement and research contribution
 % Challenges in porting algorithms for localization
 % 
-
-All the previous work assumes that an operation is only possible when there is sufficient energy to complete a task or move to a charging station.
+All the previous work assumes that an operation is only possible when there is sufficient energy to complete a task.
 This research will explore the feasibility of a battery-less robot, allowing persistent operation while having a very small and intermittent source of energy.
 Intermittently powering robots creates new challenges in control, navigation and collaboration.
 
@@ -167,7 +131,20 @@ The contributions of the paper are as follows:
 
 \section{Related Work}
 
-% - Batteries vs supercaps
+\subsection{Transiently-powered systems}
+
+Fully programmable RFID platforms have been developed to exploring the combination of sensing, computation and communication, while allowing battery-less operation by harvesting RF energy~\cite{sample_transim_2008}.
+The amount of energy collected from RF signals is very small and decreases with the distance of the device to the transmitter.
+The harvested energy is typically stored in a capacitor, where larger capacitors can buffer more energy and smaller capacitors have the advantage of shorter charge times~\cite{gummerson_mobisys_2010}.
+For longer, complex operations the energy budged needs to be evaluated carefully.
+To store the energy an appropriate size storage capacitor needs to be selected~\cite{naderiparizi_rfid_2015}.
+
+%A way to reduce the required energy is to communicate without active radios, but instead use an existing electromagnetic wave produced by a remote emitter. 
+%Backscatter communication uses the wave and creates a signal by modulating the impedance of the antenna, causing a change in the amount of energy reflected back to the emitter \cite{RN9, RN15, RN10}.
+
+
+\subsection{Batteries vs Supercaps}
+
 "Low-hanging fruit is nowhere to be seen in fields as crucial as digital electronics, biomedical devices, or space technology."
 \cite{zachary_spec_2016}
 
@@ -187,17 +164,45 @@ Reincarnation in the Ambiance: Devices and Networks with Energy Harvesting \cite
 
 %Other sources available for exploration are often limited by the application. Secondly, most sources can be scarce or completely absent during prolonged time intervals of the day as well \cite{RN15}. 
 
+\subsection{Small robotic platforms}
 
-% - Transiently-powered systems (part about wisp etc)
+Low cost robotic platforms have been developed to tackle a variety of challenges anonymously.
+Miniature robots can be used for inspection in difficult to reach places, operating like mobile sensing units.
+Hardware modularity is a way to make the robot adapt its resources to different environments and sensing operations.
+By separating out power, computation, motor control and sensing a verity of capabilities can be tested~\cite{sabelhaus_icra_2013, pickem_icra_2015, kim_iros_2016}.
+Microrobots typically use infrared-based neighbor to neighbor distance sensing and communication~\cite{rubenstein_icra_2012, pickem_icra_2015, kim_iros_2016}.
+While controlling a swarm or collective is mainly accomplished by means of active low power transceivers~\cite{sabelhaus_icra_2013, pickem_icra_2015, kim_iros_2016}. 
 
-Fully programmable RFID platforms have been developed to exploring the combination of sensing, computation and communication, while allowing battery-less operation by harvesting RF energy~\cite{sample_transim_2008}.
-The amount of energy collected from RF signals is very small and decreases with the distance of the device to the transmitter.
-The harvested energy is typically stored in a capacitor, where larger capacitors can buffer more energy and smaller capacitors have the advantage of shorter charge times~\cite{gummerson_mobisys_2010}.
-For longer, complex operations the energy budged needs to be evaluated carefully.
-To store the energy an appropriate size storage capacitor needs to be selected~\cite{naderiparizi_rfid_2015}.
+\subsection{Locomotion}
+% tell somthing about their accuracy!
 
-%A way to reduce the required energy is to communicate without active radios, but instead use an existing electromagnetic wave produced by a remote emitter. 
-%Backscatter communication uses the wave and creates a signal by modulating the impedance of the antenna, causing a change in the amount of energy reflected back to the emitter \cite{RN9, RN15, RN10}.
+Choosing the right locomotion resource can depend on different factors, moving in the most energy efficient way on a particular surface is often the determining factor.
+On a flat surface, robots commonly use a two-wheeled differential drive design to not only move but allow for steering as well~\cite{sabelhaus_icra_2013, pickem_icra_2015}.
+The GRITSBot does not use conventional DC motors, requiring encoders to estimate their speed. 
+Instead by using stepper motors the speed can be set by changing the delay between steps. 
+Estimating it's position therefore is reduced to simply counting steps~\cite{pickem_icra_2015}.  
+Overall cost can be a decisive factor, therefore the Kilobot uses two vibrating motors for locomotion combined with three thin legs.
+When the motors are activated the centripetal forces will generate a forward movement, which can be explained using the slip-stick principle~\cite{rubenstein_icra_2012}.
+Other locomotion types are biologically inspired, the HARM-VP is small scale piezoelectric driven quadrupled robot~\cite{baisch_iros_2013}.
+Each leg as two degrees of freedom, it can move up and down, as well as forward and backward.
+
+\subsection{Continuous operation} 
+%Battery replenishment
+
+Typically the operation time is extended by regularly checking the remaining energy in the battery and move to a recharging station before the robot runs out of energy~\cite{pickem_icra_2015, rubenstein_icra_2012}.
+As an alternative to quickly recharging, the battery can also be swapped automatically when the robot moves into the docking station~\cite{kemal_mech_2015}.
+Another work shows a robot which is able to swap it's primary battery using a six degree-of-freedom manipulator, used to grab the dead battery and plug it into a wireless recharging charging station \cite{zhang_conel_2013}.
+Using direct wireless power to replace or supplement to a batteries energy is shown in~\cite{karpelson_icra_2014}, however the robot can only operate or recharge while remaining in close proximity to a transmitter. 
+In these cases the robots are highly reliant on an infrastructure to allow for continuous autonomous operation.
+This can be a severe constraint if the robot moves out of reach or needs to operate in a area where this infrastructure is not present. Persistent operation can also be achieved by harvesting renewable energy, particularly solar energy to complement to the robots internal energy source. To remove weight from the robot, in \cite{bruhwiler_iros_2015} the solar energy is used directly without any type of energy buffer. A drawback of this method is that the incoming solar energy should already greater or equal to the energy required for operation. This approach has been tested for basic locomotion and did not combine any form of sensing and control.
+
+\subsection{Path planning based on energy availability}
+
+To capture the optimal amount of solar energy along the way, a map of the expected solar power can be used to compute the optimal path. To distinguish sunny or shaded two methods are proposed in \cite{plonski_tranro_2016}, one being a simple datadriven Gaussian Process and the other estimates the geometry of the environment as a latent variable.
+Energy aware path planning is commonly used in combination with mission planning.
+In \cite{kaplan_iros_2016}, an analysis of the solar radiation is used to generate a time-optimized motion plan and power schedule using a cascaded particle swarm optimization algorithm.
+By combining maps of lighting and ground slope a solar-powered robot can be kept illuminated continuously. A connected component analysis is used to plan a optimal route on traversable slopes, as described by \cite{otten_icra_2015}.
+
 
 
 % - Provide overview table robots smaller than 15*15cm
