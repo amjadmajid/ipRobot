@@ -1,0 +1,24 @@
+Intermettently powered devices
+
+## Simple version of the problem:
+
+How to blinking intermettently powered ELD hundard times with x % accuracy?
+
+# Problem description:
+Intermettently powered devices can die any time, which leads to losing the progress state of the device.
+For the problem of blinking an LED 100 times, one might think that it is possible to use a counter and save its value
+after/before each LED blink in the non-volatile memory. This is an ill solution for the following problem. Imagine that
+a counter is placed before the LED.  Although with very high chance you will increase the counter and the LED will blink, 
+but with a non-negiligeable probablity you will increase the counter and the device will die before blinking the LED. 
+Likewise, if the counter is placed after the LED, the LED might blink and the device die before increasing the counter. 
+
+## The more complicated version of the problem
+How to moving an intermettenly powered micro-robot from position A to B?
+
+
+
+
+##### Just an idea about a possible solution !!
+1- keeping two counters before and after the LED.
+2- keeping two counters before and after the LED. Exchange the position of these counters to randomize the error on them
+3- combine 1 and 2 (four counters)
