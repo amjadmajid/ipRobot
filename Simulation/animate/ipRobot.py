@@ -74,13 +74,16 @@ def animate_move(i):
         cntr_alter_rob+=robot
         
         ax1.clear()
-        plt.plot( range(cntr_before), [1] * cntr_before , range(cntr_before_rob), [1.2] * cntr_before_rob, \
-         range(cntr_alter), [1.5] * cntr_alter , range(cntr_alter_rob), [1.7] * cntr_alter_rob, \
-         range(cntr_alter), [2.2] * cntr_alter , range(cntr_alter_rob), [2.2] * cntr_alter_rob )
+        plt.plot( range(cntr_before), [1] * cntr_before, \
+                  range(cntr_before_rob), [1.2] * cntr_before_rob, \
+                  range(cntr_alter), [1.5] * cntr_alter, \
+                  range(cntr_alter_rob), [1.7] * cntr_alter_rob )
+        plt.yticks([1, 1.2, 1.5, 1.7], ['Cnt Before', 'CB Robot', 'Cnt Alter', 'CA Robot'])
+        plt.ylim(0.9, 1.8)
 
 
 a = animation.FuncAnimation(fig, animate_move, interval=10)
-plt.show();
+plt.show()
 
 
 
