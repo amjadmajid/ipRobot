@@ -1,3 +1,6 @@
+Interminttent communication:
+https://arxiv.org/pdf/1312.1421v1.pdf
+
 Solar harvesting toy: Solarbotics SolarSpeeder v2.0
 https://solarbotics.com/product/k_ss/
 
