@@ -1,0 +1,70 @@
+\documentclass[11pt,twoside,a4paper]{article}
+
+\usepackage{mathtools}
+\usepackage{amsmath}
+
+\begin{document}
+
+%The actuation is modeled as a continuous operation in time C = {P, I} which consists of a set of periods P = {1,...n} and a randomly distributed set of power interrupts I.
+%At the beginning of each period there is a checkpoint, where you assume that the next period will be finished 
+
+
+\section{Assumptions:}
+ 
+\begin{itemize}
+\item Constant power usage during actuation
+\item Pact \textgreater\textgreater\phantom Pcomp therefore Pcomp is neglectible
+\item Start with a full energy buffer
+\item Variating input power ie. incomming energy during actuation
+%\item 
+\end{itemize}
+
+\section{Variables:}
+
+P = period \\% = t' - t
+N = number of checkpoints / periods \\
+n $\in$ N \\
+%M = total number of power interrupts \\
+%m $\in$ M \\
+length period = $ t_{p} = t' - t / N $
+
+\section{Model:}
+
+\begin{equation}
+I_{\text{}} = t_{\text{x}} + \lambda e^{-\lambda y} \text{ with: y = random variable}
+\end{equation}
+
+\begin{equation}
+\epsilon_{\text{p}}(n) =
+    \begin{cases}
+      t_{\text{p}} - I_{\text{}}, & \text{if } I \text{ in } P(n)  \\
+      0, & \text{otherwise}
+    \end{cases}
+\end{equation}
+
+\begin{equation}
+\epsilon_{\text{avg}} = \frac{1}{n}\sum_{n=1}^{N} \epsilon_{\text{p}}(n) 
+\end{equation}
+
+
+\section{Model motor error}
+
+Assumptions: \\
+\begin{itemize}
+\item Assume 1 motor or the two motors behave equal
+\item Stepper motor high speed $->$ low torque, applied force only just bigger than friction force.
+\item Denergizing the motor will bring the robot to a almost immediate stop.
+\item Assume counting before doing the action.
+\item Error in physical steps not doing the action but counted = 3
+\item After every power interrupt the error is equal to 3
+\end{itemize}
+
+\noindent
+Model should also capture the relation between: \\
+\begin{itemize}
+\item Number of interrupts
+\item Speed
+\item Error, difference between software count and movement in one step due to pi
+\end{itemize}
+
+\end{document}

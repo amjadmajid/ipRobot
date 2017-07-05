@@ -22,4 +22,5 @@
 *.mtc1
 *.out
 *.synctex.gz
-*/*.pdf
+*.pdf
+!Thesis/pics/*.pdf
