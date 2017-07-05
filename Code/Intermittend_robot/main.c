@@ -11,6 +11,7 @@
 
 typedef struct NVvar {
     uint8_t cp;
+    uint8_t cnt_m;
     uint8_t cnt_b;
     uint8_t cnt_a;
 }NVvar;
@@ -46,7 +47,9 @@ int main(void) {
 
     const uint8_t lstates[4] = {0x0C, 0x03, 0x08, 0x02};  // P0 = DA, P1 = PA, P2 = DB, P3 = PB
     const uint8_t rstates[4] = {0x02, 0x08, 0x03, 0x0C};  // P4 = DA, P1 = PA, P2 = DB, P3 = PB
-    const uint8_t num_steps = 212;
+    const uint8_t num_steps = 136; // 32cm
+    const uint8_t num_cp = 22;
+    uint8_t cnt = 0;
 
     init();
 
@@ -59,6 +62,7 @@ int main(void) {
                     break;
                 }
             }
+            fram.cnt_m = 0;
             fram.cnt_b = 0;
             fram.cnt_a = 0;
             fram.cp = 0x01;
@@ -69,13 +73,18 @@ int main(void) {
             drv_init();
         }
 
-        while(fram.cnt_a < num_steps){
+        while(fram.cnt_a < num_cp){
             fram.cnt_b++;
+            /* Begin "atomic" operation */
+            for(cnt=0; cnt < (num_steps / num_cp); cnt++){
 
-            if(!DEBUG)
-                drv_mot(lstates[(fram.cnt_a % 4)] | (rstates[(fram.cnt_a % 4)] << 4));
-                __delay_cycles(DELAY);
-
+                if(!DEBUG){
+                    drv_mot(lstates[(fram.cnt_m % 4)] | (rstates[(fram.cnt_m % 4)] << 4));
+                    __delay_cycles(DELAY);
+                }
+                fram.cnt_m++;
+            }
+            /* End "atomic" operation */
             fram.cnt_a++;
         }
         if(!DEBUG)
