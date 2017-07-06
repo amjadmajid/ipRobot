@@ -3,14 +3,16 @@
 \usepackage{mathtools}
 \usepackage{amsmath}
 
+\setlength{\parindent}{0pt}
+
 \begin{document}
 
 %The actuation is modeled as a continuous operation in time C = {P, I} which consists of a set of periods P = {1,...n} and a randomly distributed set of power interrupts I.
 %At the beginning of each period there is a checkpoint, where you assume that the next period will be finished 
 
 
-\section{Assumptions:}
- 
+
+Assumptions: \ 
 \begin{itemize}
 \item Constant power usage during actuation
 \item Pact \textgreater\textgreater\phantom Pcomp therefore Pcomp is neglectible
@@ -19,33 +21,70 @@
 %\item 
 \end{itemize}
 
-\section{Variables:}
 
-P = period \\% = t' - t
-N = number of checkpoints / periods \\
-n $\in$ N \\
+Variables: \\
+ % / periods \\
 %M = total number of power interrupts \\
 %m $\in$ M \\
-length period = $ t_{p} = t' - t / N $
+%length period = $ t_{p} = t' - t / N $
 
 \section{Model:}
 
+
+Assume $t_{charge} > t_{discharge}$ (otherwise no duty cycling): 
+
 \begin{equation}
-I_{\text{}} = t_{\text{x}} + \lambda e^{-\lambda y} \text{ with: y = random variable}
+E_{charged} = \int_{0}^{t_{\text{charged}}} P_{\text{in}}(t) \mathrm{d}t + \int_{t_{\text{charged}}}^{t_{\text{discharged}}} P_{\text{in}}(t)  \mathrm{d}t
+\end{equation}
+
+%If the storage element is a capacitor:
+
+%\begin{equation}
+%E_{charged} = \int_{0}^{t_{\text{charged}}} P_{\text{in}}(t) \mathrm{d}t + \int_{t_{\text{charged}}}^{t_{\text{discharged}}} %P_{\text{in}}(t)  \mathrm{d}t
+%\end{equation}
+
+%\begin{equation}
+%E_{charged} = \frac{1}{2}C(V_{\text{max}}^2 - V_{\text{min}}^2) + \int_{t_{\text{discharged}}}^{t_{\text{charged}}} P_{\text{in}}(t)  \mathrm{d}t
+%\end{equation}
+
+\begin{equation}
+E_{load} = \int_{t_\text{charged}}^{t_{\text{discharged}}} P_{\text{load}}(t) \mathrm{d}t 
+\end{equation}
+
+	
+Assumed constant power used during actuation:
+
+\begin{equation}
+E_{load} = P_{\text{load}}(t_{\text{discharged}} - t_{\text{charged}})
 \end{equation}
 
 \begin{equation}
-\epsilon_{\text{p}}(n) =
+t_{\text{int}} = t_{\text{charged}} + t_{\text{discharged}}
+\end{equation}
+
+%\begin{equation}
+%D = \frac{t_{\text{discharge}}}{{t_{\text{charge}} + t_\text{discharge}}} 
+%\end{equation}
+
+Assume a set of checkpoints N with n $\in$ N \\
+
+\begin{equation}
+t_{\text{cnt}}(n) = t_{\text{charged}} + n\cdot{}t_{\text{cnt period}}
+\end{equation}
+
+\begin{equation}
+n = floor(\frac{t_{\text{int}} - t_{\text{discharge}}}{t_{\text{discharge}}})
+\end{equation}
+
+\begin{equation}
+\epsilon_{\text{cnt}}(n) =
     \begin{cases}
-      t_{\text{p}} - I_{\text{}}, & \text{if } I \text{ in } P(n)  \\
-      0, & \text{otherwise}
+      t_{\text{cnt}}(n+1) - t_{\text{int}}, & \text{if } \text{counting before} \\
+      t_{\text{int}} - t_{\text{cnt}}(n), & \text{if } \text{counting after}
     \end{cases}
 \end{equation}
 
-\begin{equation}
-\epsilon_{\text{avg}} = \frac{1}{n}\sum_{n=1}^{N} \epsilon_{\text{p}}(n) 
-\end{equation}
-
+\newpage
 
 \section{Model motor error}
 
@@ -59,7 +98,7 @@ Assumptions: \\
 \item After every power interrupt the error is equal to 3
 \end{itemize}
 
-\noindent
+
 Model should also capture the relation between: \\
 \begin{itemize}
 \item Number of interrupts
