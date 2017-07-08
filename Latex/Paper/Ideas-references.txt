@@ -1,0 +1,20 @@
+Interminttent communication:
+https://arxiv.org/pdf/1312.1421v1.pdf
+
+Solar harvesting toy: Solarbotics SolarSpeeder v2.0
+https://solarbotics.com/product/k_ss/
+
+Self-driving potato
+https://www.youtube.com/watch?v=oNjPHcIzQkM
+
+Braitenberg vehicle
+
+Robotic wireless sensor networks:
+https://arxiv.org/pdf/1705.05415.pdf
+
+Intermittend control: 
+https://arxiv.org/pdf/1705.08228.pdf
+
+Bio degradeable batteries:
+http://www.energyharvestingjournal.com/articles/11125/metal-free-biotically-degradable-battery-for-single-use-applications
+http://mems.seas.upenn.edu/publications/2014/AMEMSEnabledBiodegradableBatteryForPoweringTransientImplantableDevices.pdf 

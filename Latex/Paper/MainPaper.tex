@@ -1,0 +1,570 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%2345678901234567890123456789012345678901234567890123456789012345678901234567890
+%        1         2         3         4         5         6         7         8
+
+\documentclass[letterpaper, 10 pt, conference]{ieeeconf}  % Comment this line out if you need a4paper
+
+%\documentclass[a4paper, 10pt, conference]{ieeeconf}       % Use this line for a4 paper
+
+\IEEEoverridecommandlockouts                              % This command is only needed if 
+                                                          % you want to use the \thanks command
+
+\overrideIEEEmargins                                      % Needed to meet printer requirements.
+
+% See the \addtolength command later in the file to balance the column lengths
+% on the last page of the document
+
+% The following packages can be found on http:\\www.ctan.org
+%\usepackage{graphics} % for pdf, bitmapped graphics files
+%\usepackage{epsfig} % for postscript graphics files
+%\usepackage{mathptmx} % assumes new font selection scheme installed
+%\usepackage{times} % assumes new font selection scheme installed
+%\usepackage{amsmath} % assumes amsmath package installed
+%\usepackage{amssymb}  % assumes amsmath package installed
+\usepackage{threeparttable, tablefootnote}
+\usepackage{tabularx}
+\usepackage{flushend}
+\usepackage{textcomp}
+
+\title{\LARGE \bf
+Intermittently-powered Battery-free Robot
+}
+
+
+\author{Koen Schaper$^{1}$ %and Bernard D. Researcher$^{2}$% <-this % stops a space
+%\thanks{*This work was not supported by any organization}% <-this % stops a space
+%\thanks{$^{1}$Albert Author is with Faculty of Electrical Engineering, Mathematics and Computer Science,
+%        University of Twente, 7500 AE Enschede, The Netherlands
+%        {\tt\small albert.author@papercept.net}}%
+%\thanks{$^{2}$Bernard D. Researcheris with the Department of Electrical Engineering, Wright State University,
+%        Dayton, OH 45435, USA
+%        {\tt\small b.d.researcher@ieee.org}}%
+}
+
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+\pagestyle{empty}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{abstract}
+
+% Limit abstract to 1500 characters!
+
+%\end{abstract}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+
+% Make people interested with the first sentence
+% Intermittently powered robot research platforms, that purely rely on harvested power are currently non existent.
+
+Normally devices require a steady energy supply, were they operate for long periods of time without energy supply depletion. 
+This continuous power model is not concerned with any kind of interrupt due to loss of energy, while it always assumes a stable energy supply that allows persistent operation.
+Other devices lack the luxury of having this energy supply stability.
+When this kind of device would operate under the continuous model, it could leave the device in an inconsistent state when a power interrupt occurs.
+A solution could be to estimate the energy budget between every power interrupt and make sure that the execution of a task will finish before running out of energy.
+However this would imply a custom implementation for each specific application. 
+A more general solution is required to emulate continuous operation under a intermittent source of energy.
+
+The intermittent power model clearly differs from the continuous power model, since it has periods with and without energy availability.
+Energy harvesters create this intermittent availability of energy.
+While energy is being harvested the device is off and the energy is stored in a small buffer.
+When a certain energy threshold is reached the connected device is activated and able to operate for a short period of time.
+In different areas, problems related to the use of the intermittent power model have already been observed.
+For computation under an intermittent source of energy, a variety of solutions have been proposed.
+In intermittent computation the general idea is to split a program into blocks of code, ensuring that these blocks can be re-executed and therefore keeping a consistent state of the program.
+Two way communication typically implements a closed loop were the messages are validated after being send.
+
+
+Using a micro-controller to control another device operating under an intermittent power supply provides new challenges.
+When a power interrupt occurs the progress can be uncertain and it can be doubtful if an output operation can be redone.
+In the continuous power model the assumption is made that the output is enabled for long enough to complete the operation.
+But operation under the intermittent power model only two point's in time can be certain, before and after doing the output operation.
+During execution of the output operation, the progress can not be determined. % gray area
+Extending one period by adding multiple operations together increases the uncertainty because of a greater possible error.
+%Extending the duration of a output operation could increase the possible error.
+
+% Expain the problem of counting before or after
+Counting a completed output operation is commonly done when it has been finished.
+What can happen is that the output operation has been finished while the energy has been fully depleted and a completed output operation has not been counted.
+This will imply that an extra unwanted output operation will be preformed.
+On the other hand when output operations are counted before they are actually computed, it can happen that an operation is counted while not being finished.
+As a result less operations will be counted than actually preformed.
+
+% Simple example blinking led?
+
+% Link to robotics
+
+The current robotic community assumes that a stable energy supply is a requirement to allow long term persistent autonomous operation of robots.
+Batteries are generally the stable energy source of choice, while different solutions have been proposed to recharge them.
+Other solutions require the robot to be in close proximity to an energy source.
+
+
+Most autonomous robots have some kind of odometry to allow them to navigate terrain autonomously.
+A common solution is to use closed loop control, where additional sensors are used to correct for the drift.
+However most of the sensors return the change in position while the robot is moving like wheel encoders, gyroscopes, accelerometers and motor current sensors.
+% No abslute sensor data but always relative.
+
+% Problem statement and research contribution
+% Challenges in porting algorithms for localization
+% 
+All the previous work assumes that an operation is only possible when there is sufficient energy to complete a task.
+This research will explore the feasibility of a battery-less robot, allowing persistent operation while having a very small and intermittent source of energy.
+Intermittently powering robots creates new challenges in control, navigation and collaboration.
+
+% Research question:
+% has energy available for short periods of time, would it be possible to do some form of actuation?
+
+% What are the limits of intermittently powered robots to complete a complex task autonomously?
+% What are the limits of a intermittently powered device to achieve locomotion?
+How to enable an intermittently powered robot to complete a complex task autonomously?
+
+% Contributions
+
+The contributions of the paper are as follows:
+
+\begin{enumerate}
+\item A novel battery-less robot design, were the robot purely runs of harvested energy. Which includes computation, sensing and short range communication.
+
+\item Development of a persistent algorithms for autonomous navigation and localization.
+
+\item A evaluation of the battery-less robot compared to a battery powered robot in terms of, weight, speed of movement, navigation and localization accuracy.
+\end{enumerate}
+ 
+
+\section{Related Work}
+
+\subsection{Transiently-powered systems}
+
+Fully programmable RFID platforms have been developed to exploring the combination of sensing, computation and communication, while allowing battery-less operation by harvesting RF energy~\cite{sample_transim_2008}.
+The amount of energy collected from RF signals is very small and decreases with the distance of the device to the transmitter.
+The harvested energy is typically stored in a capacitor, where larger capacitors can buffer more energy and smaller capacitors have the advantage of shorter charge times~\cite{gummerson_mobisys_2010}.
+For longer, complex operations the energy budged needs to be evaluated carefully.
+To store the energy an appropriate size storage capacitor needs to be selected~\cite{naderiparizi_rfid_2015}.
+
+%A way to reduce the required energy is to communicate without active radios, but instead use an existing electromagnetic wave produced by a remote emitter. 
+%Backscatter communication uses the wave and creates a signal by modulating the impedance of the antenna, causing a change in the amount of energy reflected back to the emitter \cite{RN9, RN15, RN10}.
+
+
+\subsection{Batteries vs Supercaps}
+
+"Low-hanging fruit is nowhere to be seen in fields as crucial as digital electronics, biomedical devices, or space technology."
+\cite{zachary_spec_2016}
+
+
+Comparing li-ion batteries with super-capacitors there are some big differences.
+Super-capacitors do not need any special charging scheme and circuity for charging, except for overcharging protection.
+Secondly, super-capacitors do not require any particular current profile, the energy can be stored at any rate and when the energy is required it can be extracted at any power level.
+Operating a li-ion battery outside of it's recommended operating conditions can severely reduce a batteries lifetime and result in overheating or even explosion of the battery.
+Batteries will seldom withstand more than one thousand complete charge/discharge cycles.
+Super-capacitors used under extreme condition's, are not likely to explode but instead rupture.
+While the biggest disadvantages of super-capacitors is their low energy density and high price, their lifetime is typically hundred thousands of charge/discharge cycles.
+
+Li-Ion Battery-Supercapacitor Hybrid Storage System for a Long Lifetime, Photovoltaic-Based Wireless Sensor Network	\cite{ongaro_pwre_2012}
+Reincarnation in the Ambiance: Devices and Networks with Energy Harvesting \cite{prasad_comst_2014}
+
+% - Energy harvesting
+
+%Other sources available for exploration are often limited by the application. Secondly, most sources can be scarce or completely absent during prolonged time intervals of the day as well \cite{RN15}. 
+
+\subsection{Small robotic platforms}
+
+Low cost robotic platforms have been developed to tackle a variety of challenges anonymously.
+Miniature robots can be used for inspection in difficult to reach places, operating like mobile sensing units.
+Hardware modularity is a way to make the robot adapt its resources to different environments and sensing operations.
+By separating out power, computation, motor control and sensing a verity of capabilities can be tested~\cite{sabelhaus_icra_2013, pickem_icra_2015, kim_iros_2016}.
+Microrobots typically use infrared-based neighbor to neighbor distance sensing and communication~\cite{rubenstein_icra_2012, pickem_icra_2015, kim_iros_2016}.
+While controlling a swarm or collective is mainly accomplished by means of active low power transceivers~\cite{sabelhaus_icra_2013, pickem_icra_2015, kim_iros_2016}. 
+
+\subsection{Locomotion}
+% tell somthing about their accuracy!
+
+Choosing the right locomotion resource can depend on different factors, moving in the most energy efficient way on a particular surface is often the determining factor.
+On a flat surface, robots commonly use a two-wheeled differential drive design to not only move but allow for steering as well~\cite{sabelhaus_icra_2013, pickem_icra_2015}.
+The GRITSBot does not use conventional DC motors, requiring encoders to estimate their speed. 
+Instead by using stepper motors the speed can be set by changing the delay between steps. 
+Estimating it's position therefore is reduced to simply counting steps~\cite{pickem_icra_2015}.  
+Overall cost can be a decisive factor, therefore the Kilobot uses two vibrating motors for locomotion combined with three thin legs.
+When the motors are activated the centripetal forces will generate a forward movement, which can be explained using the slip-stick principle~\cite{rubenstein_icra_2012}.
+Other locomotion types are biologically inspired, the HARM-VP is small scale piezoelectric driven quadrupled robot~\cite{baisch_iros_2013}.
+Each leg as two degrees of freedom, it can move up and down, as well as forward and backward.
+
+\subsection{Continuous operation} 
+%Battery replenishment
+
+Typically the operation time is extended by regularly checking the remaining energy in the battery and move to a recharging station before the robot runs out of energy~\cite{pickem_icra_2015, rubenstein_icra_2012}.
+As an alternative to quickly recharging, the battery can also be swapped automatically when the robot moves into the docking station~\cite{kemal_mech_2015}.
+Another work shows a robot which is able to swap it's primary battery using a six degree-of-freedom manipulator, used to grab the dead battery and plug it into a wireless recharging charging station \cite{zhang_conel_2013}.
+Using direct wireless power to replace or supplement to a batteries energy is shown in~\cite{karpelson_icra_2014}, however the robot can only operate or recharge while remaining in close proximity to a transmitter. 
+In these cases the robots are highly reliant on an infrastructure to allow for continuous autonomous operation.
+This can be a severe constraint if the robot moves out of reach or needs to operate in a area where this infrastructure is not present. Persistent operation can also be achieved by harvesting renewable energy, particularly solar energy to complement to the robots internal energy source. To remove weight from the robot, in \cite{bruhwiler_iros_2015} the solar energy is used directly without any type of energy buffer. A drawback of this method is that the incoming solar energy should already greater or equal to the energy required for operation. This approach has been tested for basic locomotion and did not combine any form of sensing and control.
+
+\subsection{Path planning based on energy availability}
+
+To capture the optimal amount of solar energy along the way, a map of the expected solar power can be used to compute the optimal path. To distinguish sunny or shaded two methods are proposed in \cite{plonski_tranro_2016}, one being a simple datadriven Gaussian Process and the other estimates the geometry of the environment as a latent variable.
+Energy aware path planning is commonly used in combination with mission planning.
+In \cite{kaplan_iros_2016}, an analysis of the solar radiation is used to generate a time-optimized motion plan and power schedule using a cascaded particle swarm optimization algorithm.
+By combining maps of lighting and ground slope a solar-powered robot can be kept illuminated continuously. A connected component analysis is used to plan a optimal route on traversable slopes, as described by \cite{otten_icra_2015}.
+
+
+
+% - Provide overview table robots smaller than 15*15cm
+
+% For each of these cases you need to provide numbers: 
+% level of autonomy (does the robot does all by itself or relies on external processing)
+% does autonomy fall under 
+% charging time
+
+% Add missing "new" robots
+
+\begin{table*}[t]
+	\centering
+	\begin{threeparttable}
+		\caption{An comparison of small robotic platforms}
+		\label{tab:1}
+ 		\begin{tabularx}{500pt}{l l X X l l l l} 
+			\hline
+ 			Robot & Cost & Scalability & Sensors & Locomotion & Size [cm] & Weight [g] & Battery life \\ 
+ 			\hline
+ 			IPR & TBD & charge, program & gyro & wheel, 3cm/s & 4.0 & 15 & 1s\\
+ 			HAMR-VP\textsuperscript{1} \cite{bruhwiler_iros_2015} & NS & none & gyroscope, optical mouse & legged, 1cm/s & 4.4 & 2.3 & 3m \\
+ 			Roverables \cite{dementyev_uist_2016} & NS & charge & wheel, distance, optical encoders & wheel, ?? & 4.0 & ?? & 45m \\ 
+ 			Zooids \cite{legoc_uist_2016} & \$50 & ?? & position, touch & wheel, 50cm/s & 2.6 & 12 & 1-2h \\ 
+ 			mROBerTO \cite{kim_iros_2016} & \$60\textsuperscript{1} & program & light, range, gyro, camera, accel., compass, distance, bearing & motor shaft, 15cm/s & 1.5 & ?? & 1.5h\\
+ 			GRITSBot \cite{pickem_icra_2015} & \$50\textsuperscript{2} & charge, program, calibrate & distance, bearing, 3d accel., 3d gyro & wheel 25cm/s & 3 & ?? & 1-5h \\
+ 			Kilobot \cite{rubenstein_icra_2012} & \$50\textsuperscript{2} & charge, program & distance, ambient light & vibration, 1cm/s & 3.3 & ?? & 3-24h\\
+ 			TinyTerp \cite{sabelhaus_icra_2013} & \$50 & none & 3d gyro, 3d accel. & wheel, 50cm/s & 1.8 & ?? & 1h\\
+			\hline
+		\end{tabularx}
+		\begin{tablenotes}
+			\item [1] Modified to include on-board power, sensing and control.
+			\item [2] Cost of parts
+		\end{tablenotes}
+	\end{threeparttable}
+\end{table*}
+
+\section{Design Requirements}
+% - Case study of warehouse/greenhouse inspection
+% - for Transienltly-powered Locomotion
+
+Things to take into consideration:
+- Trade off between charge time and operation time.
+- Weight of the robot
+- Power consumption of individual components
+- Enable individual components
+- Lower voltage decreases power consuption.
+
+- single mainboard design
+
+% Short dutycycle charging and discharging (result of capacitor size)s
+% To demonstrate intermittent operation!!
+
+
+% - Accurate locomotion
+% - Range measurements
+% - Wireless communication with a global host
+
+
+
+
+\section{Robot Design}
+
+% - Size and weight/energy availability/speed trade-off model and 
+% - Should the subsections more or less reflect the columns in the table?
+
+
+% include stepper motor vs optical sensors ref roverables power consumption optical encoders
+
+\subsection{Computation and Sensing}
+
+The robot is designed around a modified WISP 5.0, utilizing the processor and backscatter communication.
+It's based around a Texas Instruments MSP430FR5969 ultra low power microcontroller, operating at 16 MHz and featuring 64 KB FRAM, 2 KB SRAM and 40 IO. 
+
+%The harvester IC is removed from the WISP in order to allow an external harvester to supply the power to the system by harvesting solar energy. 
+
+The mainboard is the platform that connects everything together.
+Most reference designs are extendable but this adds complexity, while weight and size are the main constraints of this robot design.
+All the sensors can be interfaced trough a I2C connection.
+To conserve as much power as possible each sensor can be enabled and disabled using dedicated pins.
+
+For avoidance of obstacles, a Maxim Integrated MAX44000 proximity sensor was added of the robot facing forward.
+This sensor can measure the amount of ambient light as well.
+In addition the robot has a Bosch BMG250 Mems Gyroscope to measure yaw angle change and correct when necessary.
+
+% Explain in more detail (like Tiny TERP)
+
+Because the WISP has only limited accessible GPIO ports available, an Texas Instruments TCA9538 8-Bit I2C I/O Expander is used to interface with both Texas Instruments DRV8836 Dual Low-Voltage H-Bridges.	
+Each H-Bridge requires 5 input connections, one for enabling the device and four connections for control.
+The I/O Expander is used supply a interface to the control connections of the H-Bridges, in turn controlling the current trough the coils of the stepper motors.
+
+\subsection{Locomotion}
+
+% why selected stepper motors (based on gritsbot design)
+% didel or precision microdrives
+%Constraint to use of the robot: mainly effective on flat services
+
+Mounted directly under the mainboard of the IPR, two stepper motors can be found in differential drive configuration.
+An additional single front leg acts as third point of support.
+The IPR is to small to install wheel encoders, while small stepper motors are commonly used in digital camera's.
+This design was inspired by the GRITSBot~\cite{pickem_icra_2015}.
+
+The direction of current flow through each of the coil pairs of stepper motor controls the rotation direction.
+The bipolar stepper motor used, requires current to be pulsed trough each of the four connections, in a fixed pattern, in order to rotate it forward or backward.
+The outputs of the MCU cannot supply enough current to drive a bipolar stepper motor a dual H-bridge is required, one H-bridge for each coil.
+The H-bridge controls the precise stepping of the stepper motor by allowing to control the current direction trough each coil.
+Stepper motors can be operated in different excitation modes, half-step, one-phase and two-phase full step.
+
+For the robot one-phase full step is used because it energizes one of the two coils at a time.
+This way the stepper only consumes less current compared to half-step and two-phase full step.
+The buck converter is can only supply 110mA of current, when a single coil is enabled each motor consumes approximately 40mA of current.
+
+The current trough the coils is constant, so the faster the stepper motor changes step the more energy can be transformed into forward movement.
+% copied from above
+Increasing the rotational speed of the stepper motor decreases the torque output of the motor.
+Therefore the speed is limited by the amount of torque required to overcome the rolling resistance of the wheels.
+The main factor that influences the rolling resistance is the weight of the robot and the surface it's driving on.
+
+The wheels are laser cut from PMMA (Polymethyl methacrylate) and are press-fitted on the axles of the motors.
+Wire shrink is used to create a very basic tire, to give the wheels some extra grip on the flat surface.
+
+\subsection{Energy Harvesting}
+
+% RF harvesting seems prommesing
+% better to only use RF for communication and harvest energy from another source \cite{konstantioulos}
+% wispcam long time to charge
+
+Photovoltaic cells used for indoor and outdoor energy harvesting, commonly have a different spectral sensitivity depending on the nature of their sources.
+Solar cells used in indoor applications need to have a high spectral sensitivity in the range of visible light (400 to 700nm).
+While for outdoor applications have a spectral sensitivity range can be broader, including near infrared  (500 nm to 1100 nm).
+Triple junction solar cells harvest in some cases up to 50\% of there energy out of the near infrared range.
+% reference to paper tudelft!
+
+% http://www.chip1stop.com/web/RUS/en/tutorialContents.do?page=009
+
+The solar energy harvesting system is based around a Texas Instruments BQ25570. 
+It includes a nano power boost charger with maximum power point tracking to extract the optimal amount of energy from the solar panel. 
+% Why is this size capacitor chosen?
+This harvested energy is stored in a 22mF - 4.5V supercapactor from AVX, chosen for it's low leakage current and small size.
+The energy stored in supercap is a function of the capacitance and voltage difference between the plates, being equal to:
+
+\begin{equation}
+\label{eq:cap1}
+E = \frac{1}{2}CV^{2}
+\end{equation}
+
+However, to be able to use the energy stored in the capacitor efficiently a voltage regular is required to supply a stable voltage to the connected loads.
+The regulated output voltage is a lower threshold of the energy that can be used from the capacitor.
+Lowering the output voltage allows for more energy to be used from the supercapacitor, but in general also lowers the power consumption of individual components. Rewriting Equation \ref{eq:cap1} results in Equation \ref{eq:cap2}:
+
+\begin{equation}
+\label{eq:cap2}
+E = \frac{1}{2}C(V_{max} - V_{min})^{2}
+\end{equation}
+
+The Texas Insturments BQ25570 has a buck converter to efficiently regulate the capacitor voltage down to a system voltage of 2.2 Volt.
+
+% The maximum speed that can be reached is dependent on the voltage supplied to the motors.
+% The current consumed by the motors also decreases with a lower voltaged supplied. 
+% The buck converter can supply up to 110mA of output current.
+% Powering both motors and MCU should not exceed this current limit.
+
+\subsection{Software}
+
+% General library for reading and writing to i2c.
+
+% How program consistency (ie progress) is maintained given the intermittend nature of the robot.
+
+% A operating system for intermittend devices
+
+\section{Localization Algorithm}
+
+
+\subsection{Particle filter}
+% Implementation of particle filter in transient domain.
+
+% Motion model
+
+After the robot reformed a movement, the particles are updated according to the motion model.
+%The robot cannot do curved movements, curves are simplified to sequential turn and forward movements.
+The stepper motors allow precise movement per step.
+Assuming that the robot is commanded to do a specific movement, this can be used to estimate the actual movement and can be used by the motion model.
+The model does not update every particle directly with the estimated movement, but adds some rotational noise and translational noise.
+This error was modeled by a normal distribution centered around zero with the variance determined by two system parameters.
+
+
+% gausian distribution:
+Box muller is a method to generate pairs of normal distributed random numbers using pseudo-random number sampling.
+Two uniformly distributed random numbers are the source, which are mapped to two normally distributed random numbers.
+The (Marsaglia) polar method is even more efficient, while it does not require the sine and cosine operations. 
+
+% Prediction step
+After every prediction step the weight of each particle is updated.
+When a particle violates the map constraints, it's weight is set to zero.
+
+% Update step
+The update step is used to compute the effective sample size as well.
+This a a measure to determine if weight variance between particles becomes to large.
+When this happens resampling is preformed.
+
+\begin{equation}
+\label{eq:cap1}
+Neff = \frac{1}{\sum\limits_{i=1}^M (w_t^i)^2 }
+\end{equation}
+
+There are a variety of resampling methods available, but the computational power limits the number of methods that can be used.
+Low variance resampling is used obtain a new set of particles by selecting particles from the old set.
+The probability of selecting a particle from the old set is equal to it's weight.
+Particles that violate the map constrains are therefore not picked. 
+
+All the "non-dead" particles have the same importance weight, low variance resampling makes sure that none of these particles are lost.
+
+LVR works by choosing a random number r and select those particles that correspond to $u = r + (m - 1) \cdot M^{-1}$ where m = 1,...,M.
+
+% analysis of implementation 
+
+
+
+% - number of particles
+% - neff value to do resampling
+% - compare methods for obtaining a gausian distribution
+% - low variance resampling, are there any others?
+
+% - time to task completion
+
+\section{Experimental Results}
+
+% How to calibrate pulse frequency
+% (ie determine max speed before motor has not enough torque to overcome the rolling resistance?)
+
+To find the maximum speed at which the stepper motor can turn the speed is increased until the robot is not able to move forward with every step.
+
+Running the stepper motors at maximum speed will mean that there is always one of the coils is energized.
+By increasing the delay between successive pulses, increasing the on time of a specific coil, the motor speed can be reduced. 
+
+% Movement open loop
+Open loop motion control of a robot often results in undesired drift in the position estimation.
+Often being a result of unbalances or misalignment in the construction of the robot.
+
+Stepper motors have high torque at low speeds, which allows them to accelerate hard from standstill.
+Combining this with non-uniform drag of the wheels can result in one wheel slipping more than the other and the robot making an unwanted turn. 
+Secondly a possible error can come from misalignment of the stator coil energized and the rotor.
+This can only happen when the wheels are moved, not by the motor, after 4 steps the stator and rotor of both motors should be in sync again.
+
+A measure for the angular error can be described by the Abbe Error, the magnification of the angular error over distance.
+
+\begin{equation}
+	E = L * sin(\theta)
+\end{equation}
+
+To find the position estimation error, the robot was put to the test.
+
+
+% Differential stepper motor
+– At start: discrepancy between coil + direction of current and position of magnet.
+(This error can be larger or smaller depending on the state of the left and right motor)
+– Both motor coils are not energized at “exactly” the same time.
+(The non energized wheel could lose position)
+% Ip differental motor - Robot
+– Wheel does not stay in position when motor is deenergized (can be a positive or negative error)
+
+– Uneven wheel slip
+– Front leg more drag on one side
+– Uneven weight distribution
+– Unbalance in driveline, motor to pcb or motor shaft → wheel
+
+
+% Table with power consumption of each component at 2.2v ?? only active or also standy?
+% Get operation time give power consumption time?
+% power consuption active vs standby
+
+Tell why this is important, 
+% false: harvested energy should be greater than power consumed in standby 
+% because output converter is only enabled when threshold is reached 
+
+\begin{table*}[t]
+	\centering
+	\caption{Power consumption of each individual component at 2.2v}
+	\label{tab:1}
+ 	\begin{tabular}{l l l} 
+		\hline
+		\\[-1em]
+ 		Part & Active Current & Standby Current\\ 
+ 		\hline
+ 		\\[-1em]
+ 		Proximity sensor & 432\textmu A & 0.1\textmu A \\	
+		Microcontroller @ 8Mhz & 1mA & N/A \\
+ 		IO Expander & 4\textmu A & 0.7\textmu A \\
+		H-bridge & 1.2mA & 10nA \\
+		H-bridge & 1.2mA & 10nA \\
+		Stepper motor & 39mA & N/A \\
+		Stepper motor & 39mA & N/A \\
+		\hline
+		\\[-1em]
+		Total & xx & xx \\
+	\end{tabular}
+\end{table*}
+
+
+% outdoors/indoors/varying light sources/varying solar panels
+
+% comparison with battery powered robot
+
+% accuracy of motion path 
+
+% accuracy of localization 
+
+% video of robot movement
+
+\section{Limitations and Future Work}
+
+% Use custom pcb with MCU + communication circuit instead of WISP
+
+% Use ambient light sensor input to do path planning
+
+% Scalable collective check part kilobot
+% Not only charging but also programming and activation!
+
+% different locomotion types?
+
+\section{Conclusions}
+
+
+%A conclusion section is not required. Although a conclusion may review the main points of the paper, do not replicate the abstract as the conclusion. A conclusion might elaborate on the importance of the work or suggest applications and extensions. 
+
+\addtolength{\textheight}{-12cm}   % This command serves to balance the column lengths
+                                  % on the last page of the document manually. It shortens
+                                  % the textheight of the last page by a suitable amount.
+                                  % This command does not take effect until the next page
+                                  % so it should come on the page before the last. Make
+                                  % sure that you do not shorten the textheight too much.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\section*{APPENDIX}
+
+
+
+%\section*{ACKNOWLEDGMENT}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\bibliographystyle{IEEEtran}
+\bibliography{IEEEabrv,bibtex}
+
+
+\end{document}

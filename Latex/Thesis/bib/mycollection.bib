@@ -1,0 +1,285 @@
+@comment{
+  An article from a journal or a magazine
+
+  required fields: author, title, journal, year
+  optional fields: volume, number, pages, month, note
+}
+
+@Article{b,
+  author    =   "a",
+  title     =   "b",
+  journal   =   "",
+  year      =   "",
+  volume    =   "",
+  number    =   "",
+  pages     =   "",
+  month     =   "",
+  note      =   ""
+}
+
+@comment{
+  A book with an explicit publisher
+
+  required fields: author XOR editor, title, publisher, year
+  optional fields: volume XOR number, series, address, edition, month, note
+}
+
+@Book{a,
+  author    = "z",
+  editor    = "",
+  title     = "",
+  publisher = "",
+  year      = "",
+  volume    = "",
+  number    = "",
+  series    = "",
+  address   = "",
+  edition   = "",
+  month     = "",
+  note      = ""
+}
+
+@comment{
+  A work that is printed and bound, but without a named publisher or sponsoring institution
+                                                                                                                                                             
+  required fields: title
+  optional fields: author, howpublished, address, month, year, note
+}
+                                                                                                                                                             
+@Booklet{,
+  title        = "",
+  author       = "",
+  howpublished = "",
+  address      = "",
+  month        = "",
+  year         = "",
+  note         = ""
+}
+
+@comment{
+  The same as inproceedings, included for scribe compatability
+
+  required fields: author, title, booktitle, year
+  optional fields: editor, volume XOR number, series, pages, address, month, organization, publisher, note
+}
+                                                                                                                                                             
+@Conference{,
+  author       =   "",
+  title        =   "",
+  booktitle    =   "",
+  year         =   "",
+  editor       =   "",
+  volume       =   "",
+  number       =   "",
+  series       =   "",
+  pages        =   "",
+  address      =   "",
+  month        =   "",
+  organization =   "",
+  publisher    =   "",
+  note         =   ""
+}
+
+@comment{
+  A part of a book, which may be a chapter (or section or whatever) and/or a range of pages
+
+  required fields: author XOR editor, title, chapter and/or pages, publisher, year
+  optional fields: volume XOR number, series, type, address, edition, month, note
+}
+
+@InBook{,
+  author    =   "",
+  editor    =   "",
+  title     =   "",
+  chapter   =   "",
+  pages     =   "",
+  publisher =   "",
+  year      =   "",
+  volume    =   "",
+  number    =   "",
+  series    =   "",
+  type      =   "",
+  address   =   "",
+  edition   =   "",
+  month     =   "",
+  note      =   ""
+}
+
+@comment{
+  A part of a book having its own title
+
+  required fields: author, title, booktitle, publisher, year
+  optional fields: editor, volume XOR number, series, type, chapter, pages, address, edition, month, note
+}
+
+@InCollection{,
+  author       = "",
+  title        = "",
+  booktitle    = "",
+  publisher    = "",
+  year         = "",
+  editor       = "",
+  volume       = "",
+  number       = "",
+  series       = "",
+  type         = "",
+  chapter      = "",
+  pages        = "",
+  address      = "",
+  edition      = "",
+  month        = "",
+  note         = ""
+}
+
+@comment{
+  An article in a conference proceedings
+
+  required fields: author, title, booktitle, year
+  optional fields: editor, volume XOR number, series, pages, address, month, organization, publisher, note
+}
+
+@InProceedings{,
+  author       =   "",
+  title        =   "",
+  booktitle    =   "",
+  year         =   "",
+  editor       =   "",
+  volume       =   "",
+  number       =   "",
+  series       =   "",
+  pages        =   "",
+  address      =   "",
+  month        =   "",
+  organization =   "",
+  publisher    =   "",
+  note         =   ""
+}
+
+@comment{
+  Technical documentation
+
+  required fields: title
+  optional fields: author, organization, address, edition, month, year, note
+}
+
+@Manual{,
+  title        = "",
+  author       = "",
+  organization = "",
+  address      = "",
+  edition      = "",
+  month        = "",
+  year         = "",
+  note         = ""
+}
+
+@comment{
+  Use this type when nothing else fits
+
+  required fields: -
+  optional fields: author, title, howpublished, month, year, note
+
+  key can be used as a sorting criterion
+}
+
+@Misc{,
+  key           = "",
+  author        = "",
+  title         = "",
+  howpublished  = "",
+  month         = "",
+  year          = "",
+  note          = ""
+}
+
+@comment{
+  A Master's thesis
+
+  required fields: author, title, school, year
+  optional fields: type, address, month, note
+}
+
+@MastersThesis{,
+  author    =   "",
+  title     =   "",
+  school    =   "",
+  year      =   "",
+  type      =   "{MSc thesis}",
+  address   =   "",
+  month     =   "",
+  note      =   ""
+}
+
+@comment{
+  A PhD thesis
+
+  required fields: author, title, school, year
+  optional fields: type, address, month, note
+}
+
+@PhDThesis{,
+  author    =   "",
+  title     =   "",
+  school    =   "",
+  year      =   "",
+  type      =   "{PhD thesis}",
+  address   =   "",
+  month     =   "",
+  note      =   ""
+}
+
+@comment{
+  The proceedings of a conference
+
+  required fields: title, year
+  optional fields: editor, volume XOR number, series, address, month, organization, publisher, note
+}
+
+@Proceedings{,
+  title        =    "",
+  year         =    "",
+  editor       =    "",
+  volume       =    "",
+  number       =    "",
+  series       =    "",
+  address      =    "",
+  month        =    "",
+  organization =    "",
+  publisher    =    "",
+  note         =    ""
+}
+
+@comment{
+  A report published by a school or other institution, usually numbered with a series
+
+  required fields: author, title, institution, year
+  optional fields: type, number, address, month, note
+}
+
+@TechReport{,
+  author      =  "",
+  title       =  "",
+  institution =  "",
+  year        =  "",
+  type        =  "",
+  number      =  "",
+  address     =  "",
+  month       =  "",
+  note        =  ""
+}
+
+@comment{
+  A document having an author and title, but not formally published
+
+  required fields: author, title, note
+  optional fields: month, year
+}
+
+@UnPublished{,
+  author  = "",
+  title   = "",
+  note    = "",
+  month   = "",
+  year    = ""
+}
+
