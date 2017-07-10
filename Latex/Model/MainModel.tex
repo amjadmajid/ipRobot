@@ -11,7 +11,7 @@ Main question what does effect the randomization of the error??
 	
 \begin{itemize}
 \item Motors do not consume the same amount of Energy between each checkpoint due to non-constant Power consumption. ( Due to variating torque applied to the motor)?
-\item If a timer is used than checkpoint not always in the same spot, this may also vary the Energy consumed (Probably only if a lot of computation is done for a single checkpoint)?
+\item If a timer is used than checkpoint not always in the same spot, this may also vary the Energy consumed (Probably only if a lot of computation is done in the ISR for a single checkpoint)?
 \item Delay between issuing and actually doing the action, same holds for stopping
 \end{itemize}
 
@@ -23,77 +23,45 @@ Assumptions: \
 \item Start with a full energy buffer
 \item During the active period the energy in the storage device is not increased (device not charged)
 \item The energy storage device is perfect in terms of leakage
+\item Check-pointing is a atomic operation
 %
 %\item Pact \textgreater\textgreater\phantom Pcomp therefore Pcomp is neglectible (while check pointing takes a finite amount of time which is dominated by the actuation event)
 
 \end{itemize}
 
 
-Variables: \\
+Variables: \
 \begin{itemize}
 \item The length of the total actuation event is equal to L.
 \item The harvested energy is stored in a storage device (Super capacitor), with capacity C.
-\item The energy used by actuation step between two checkpoints is equal to E.
-\item Check pointing is done with a fixed interval n
-\item The amount of power consumed in the time steps t, are independent and normally distributed with an average power consumption $\mu_p$ and a standard deviation $\sigma_p$.
+%\item The energy used by actuation step between two checkpoints is equal to E
+\item The amount of energy consumed in the time steps T, are independent and normally distributed with an average power consumption $\mu_p$ and a standard deviation $\sigma_p$ ($E_t = N(\mu_p,\sigma_p^2)$).
+\item Check pointing is done with a fixed interval $t_{cp} = nT$
 \end{itemize}
+
+\newpage
 
 \section{Model:}
 
-
-Assume $t_{charge} > t_{discharge}$ (otherwise no duty cycling): 
+The energy used in a single check-pointing interval:
 
 \begin{equation}
-E_{charged} = \int_{0}^{t_{\text{charged}}} P_{\text{in}}(t) \mathrm{d}t + \int_{t_{\text{charged}}}^{t_{\text{discharged}}} P_{\text{in}}(t)  \mathrm{d}t
+E_{\text{cp}} = nE_t = N(n\cdot{}\mu_p, n\cdot{}\sigma_p^2)
 \end{equation}
 
-%If the storage element is a capacitor:
-
-%\begin{equation}
-%E_{charged} = \int_{0}^{t_{\text{charged}}} P_{\text{in}}(t) \mathrm{d}t + \int_{t_{\text{charged}}}^{t_{\text{discharged}}} %P_{\text{in}}(t)  \mathrm{d}t
-%\end{equation}
-
-%\begin{equation}
-%E_{charged} = \frac{1}{2}C(V_{\text{max}}^2 - V_{\text{min}}^2) + \int_{t_{\text{discharged}}}^{t_{\text{charged}}} P_{\text{in}}(t)  \mathrm{d}t
-%\end{equation}
+Power interrupt if $E_{tot}$ \textgreater $C$
 
 \begin{equation}
-E_{load} = \int_{t_\text{charged}}^{t_{\text{discharged}}} P_{\text{load}}(t) \mathrm{d}t 
-\end{equation}
-
-	
-Assumed constant power used during actuation:
-
-\begin{equation}
-E_{load} = P_{\text{load}}(t_{\text{discharged}} - t_{\text{charged}})
-\end{equation}
-
-%\begin{equation}
-%t_{\text{int}} = t_{\text{charged}} + t_{\text{discharged}}
-%\end{equation}
-
-%\begin{equation}
-%D = \frac{t_{\text{discharge}}}{{t_{\text{charge}} + t_\text{discharge}}} 
-%\end{equation}
-
-%Assume a set of checkpoints N with n $\in$ N \\
-
-%\begin{equation}
-%t_{\text{cnt}}(n) = t_{\text{charged}} + n\cdot{}t_{\text{cnt period}}
-%\end{equation}
-
-\begin{equation}
-n = floor(\frac{t_{\text{int}} - t_{\text{discharge}}}{t_{\text{discharge}}})
+E_{\text{tot}}= \sum_{n=1}^{\infty} E_{t}(n)
 \end{equation}
 
 \begin{equation}
 \epsilon_{\text{cnt}} =
     \begin{cases}
-      (n+1)\cdot{}t_{\text{cnt period}} - t_{\text{discharge}}, & \text{if } \text{counting before} \\
-      t_{\text{discharge}} - n\cdot{}t_{\text{cnt\_period}}, & \text{if } \text{counting after}
+      t_{\text{int}} mod(n), & \text{if } \text{counting before} \\
+      t_{\text{int}} mod(n + 1), & \text{if } \text{counting after}
     \end{cases}
 \end{equation}
-
 \newpage
 
 \section{Model motor error}
@@ -102,7 +70,7 @@ Assumptions: \\
 \begin{itemize}
 \item Assume 1 motor or the two motors behave equal
 \item Stepper motor high speed $->$ low torque, applied force only just bigger than friction force.
-\item Denergizing the motor will bring the robot to a almost immediate stop.
+\item Denergizing the motor will bring the robot to a almost immediate stop
 \item Assume counting before doing the action.
 \item Error in physical steps not doing the action but counted = 3
 \item After every power interrupt the error is equal to 3
