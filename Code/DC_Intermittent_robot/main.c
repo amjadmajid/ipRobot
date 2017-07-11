@@ -20,12 +20,6 @@ typedef struct NVvar {
 #pragma PERSISTENT(fram);
 NVvar fram = {0};
 
-void swap(NVvar *pa, NVvar *pb){
-    NVvar temp = *pa;
-    *pa = *pb;
-    *pb = temp;
-}
-
 void init(void) {
 
     WDTCTL = WDTPW | WDTHOLD;               // Stop watchdog timer
