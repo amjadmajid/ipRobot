@@ -9,7 +9,7 @@
 
 #define DEBUG 0
 
-#define DELAY 400000
+#define DELAY 250
 
 typedef struct NVvar {
     uint8_t cp;
@@ -36,17 +36,43 @@ void init(void) {
     P2DIR &= ~(BIT1);                       // Set P2.1 (UART_RX) to input
     P2OUT |= BIT1;                          // Set pull up resistor on input
     P2REN |= BIT1;                          // Enable pull up resistor for button to keep pin high until pressed
+
+    P4DIR |= BIT0;
+    P4OUT &= ~(BIT0);
 }
 
 int main(void) {
 
+    const int x = 2000;
+    int i;
     const uint8_t num_steps = 136; // 32cm
     const uint8_t num_cp = 22;
     uint8_t cnt = 0;
 
     init();
 
-    while(1) {
+    while(1){
+        while(1){
+            if((P2IN & BIT1)==0){
+                __delay_cycles(8000000);
+                break;
+            }
+        }
+        i2c_init();
+        drv_init();
+
+        for(i=0; i<x; i++){
+            drv_mot();
+            //P4OUT |= BIT0;
+            __delay_cycles(1*DELAY);
+            //P4OUT &= ~(BIT0);
+            dsbl_mot();
+            __delay_cycles(15*DELAY);
+        }
+    }
+
+
+    /* while(1) {
 
         if(fram.cp == 0x00) {
             while(1) {
@@ -67,7 +93,7 @@ int main(void) {
 
         while(fram.cnt_a < num_cp){
             fram.cnt_b++;
-            /* Begin "atomic" operation */
+            // Begin "atomic" operation
             for(cnt=0; cnt < (num_steps / num_cp); cnt++){
 
                 if(!DEBUG){
@@ -76,13 +102,13 @@ int main(void) {
                     dsbl_mot();
                 }
             }
-            /* End "atomic" operation */
+            // End "atomic" operation
             fram.cnt_a++;
         }
         if(!DEBUG)
             dsbl_mot();
         fram.cp = 0x00;
-    }
+    } */
 
     return 0;
 }

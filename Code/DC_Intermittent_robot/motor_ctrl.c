@@ -15,8 +15,8 @@ void drv_init() {
     P1DIR |= BIT4;                      // Set P1.4 (AUX3) to output
     P1OUT |= BIT4;                      // Enable TCA9538
 
-    P3DIR |= BIT5;                      // Only enable DRV2  // Set P3.4 and P3.5 (AUX1 and AUX2) to output
-    P3OUT &= ~(BIT5);                   //                   // Disable both motor drivers
+    P3DIR |= BIT4 | BIT5;                      // Only enable DRV2  // Set P3.4 and P3.5 (AUX1 and AUX2) to output
+    P3OUT &= ~(BIT4 |BIT5);                   //                   // Disable both motor drivers
 
     // make all outputs low
     i2c_write(TCA_ADDR, 0x01, 0x00);   //0x02 for TCA9539
@@ -24,6 +24,7 @@ void drv_init() {
     //configure output
     i2c_write(TCA_ADDR, 0x03, 0x00);   //0x06 for TCA9539
 
+    /*
     //configure motor ctrl(Timer0_A0)
     TA0CCTL0 = CCIE;                                // TACCR0 interrupt enabled
     TA0CCR0 = 500;                                  // PWM frequency = 2kHz
@@ -33,23 +34,24 @@ void drv_init() {
 
     TA0CTL = TASSEL__SMCLK | MC__UP | TACLR;        // SMCLK, up mode, clear TAR
 
-    //__bis_SR_register(GIE);            //enable interrupts
+    __bis_SR_register(GIE);            //enable interrupts */
 }
 
 void drv_mot() {
 
     // enable right motor driver
-    P3OUT |= BIT5;
-    // frowards or backwards
-    //i2c_write(TCA_ADDR, 0x01, (3 << 6));
-    i2c_write(TCA_ADDR, 0x01, (1 << 6));
+    P3OUT |= (BIT4 | BIT5);
+    // backwards
+    i2c_write(TCA_ADDR, 0x01, 0xAA);
+    // forward
+    //i2c_write(TCA_ADDR, 0x01, 0xFF);
 }
 
 void dsbl_mot() {
 
     i2c_write(TCA_ADDR, 0x01, 0x00);
     // disable right motor driver
-    P3OUT &= ~(BIT5);
+    P3OUT &= ~(BIT4 | BIT5);
 }
 
 // Timer0_A0 interrupt service routine
