@@ -30,7 +30,7 @@ void init(void) {
     CSCTL0_H = CSKEY_H;                     // Unlock clock registers
     CSCTL1 = DCOFSEL_6;                     // Set DCO to 8MHz
     CSCTL2 = SELA__VLOCLK | SELS__DCOCLK | SELM__DCOCLK;
-    CSCTL3 = DIVA__1 | DIVS__8 | DIVM__1;   // Set all dividers
+    CSCTL3 = DIVA__1 | DIVS__4 | DIVM__1;   // Set all dividers
     CSCTL0_H = 0;                           // Lock CS registers
 
     P2DIR &= ~(BIT1);                       // Set P2.1 (UART_RX) to input

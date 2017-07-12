@@ -17,7 +17,7 @@ void i2c_init(){
     // I2C default uses SMCLK
     UCB0CTL1 |= UCSWRST;                    // put eUSCI_B in reset state
     UCB0CTLW0 |= UCMODE_3 | UCMST | UCSYNC; // I2C, master, sync
-    UCB0BRW = 0x000A;                       // baud rate = SMCLK / 10 = 100khz
+    UCB0BRW = 0x0005;                       // baud rate = SMCLK / 5 = 400khz
     UCB0CTL1 &= ~UCSWRST;                   // eUSCI_B in operational state
 }
 
