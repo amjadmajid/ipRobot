@@ -43,11 +43,11 @@ void init(void) {
 
 int main(void) {
 
-    const int x = 2000;
+    /* const int x = 2000;
     int i;
     const uint8_t num_steps = 136; // 32cm
     const uint8_t num_cp = 22;
-    uint8_t cnt = 0;
+    uint8_t cnt = 0; */
 
     init();
 
@@ -61,14 +61,17 @@ int main(void) {
         i2c_init();
         drv_init();
 
-        for(i=0; i<x; i++){
+        __delay_cycles(8000000);
+        dsbl_tim();
+
+        /*for(i=0; i<x; i++){
             drv_mot();
             //P4OUT |= BIT0;
-            __delay_cycles(1*DELAY);
+            //__delay_cycles(3*DELAY);
             //P4OUT &= ~(BIT0);
             dsbl_mot();
-            __delay_cycles(15*DELAY);
-        }
+            //__delay_cycles(15*DELAY);
+        }*/
     }
 
 

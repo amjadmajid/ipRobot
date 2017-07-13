@@ -13,5 +13,6 @@
 void drv_init();
 void drv_mot();
 void dsbl_mot();
+void dsbl_tim();
 
 #endif /* MOTOR_CTRL_H_ */

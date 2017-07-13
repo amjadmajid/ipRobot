@@ -24,13 +24,13 @@ void drv_init() {
     //configure output
     i2c_write(TCA_ADDR, 0x03, 0x00);   //0x06 for TCA9539
 
-    /*
+
     //configure motor ctrl(Timer0_A0)
     TA0CCTL0 = CCIE;                                // TACCR0 interrupt enabled
-    TA0CCR0 = 500;                                  // PWM frequency = 2kHz
+    TA0CCR0 = 2000;                                 // PWM frequency = 1kHz
     //configure motor ctrl (Timer0_A1)
     TA0CCTL1 = CCIE;
-    TA0CCR1 = 250;                                  // Dutycycle = 50%
+    TA0CCR1 = 400;                                 // Dutycycle = 50% (cannot be smaller than 400)
 
     TA0CTL = TASSEL__SMCLK | MC__UP | TACLR;        // SMCLK, up mode, clear TAR
 
@@ -54,6 +54,12 @@ void dsbl_mot() {
     P3OUT &= ~(BIT4 | BIT5);
 }
 
+void dsbl_tim(){
+    TA0CCTL0 &= ~CCIE;
+    TA0CCTL1 &= ~CCIE;
+    dsbl_mot();
+}
+
 // Timer0_A0 interrupt service routine
 #if defined(__TI_COMPILER_VERSION__) || defined(__IAR_SYSTEMS_ICC__)
 #pragma vector = TIMER0_A0_VECTOR
@@ -64,7 +70,6 @@ void __attribute__ ((interrupt(TIMER0_A0_VECTOR))) Timer0_A0_ISR (void)
 #error Compiler not supported!
 #endif
 {
-    //TA0CCR0 += 106;                         // Add Offset to TA0CCR0
     drv_mot();
 }
 
