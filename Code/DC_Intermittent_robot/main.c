@@ -9,8 +9,6 @@
 
 #define DEBUG 0
 
-#define DELAY 250
-
 typedef struct NVvar {
     uint8_t cp;
     uint8_t cnt_b;
@@ -43,39 +41,13 @@ void init(void) {
 
 int main(void) {
 
-    /* const int x = 2000;
-    int i;
-    const uint8_t num_steps = 136; // 32cm
-    const uint8_t num_cp = 22;
-    uint8_t cnt = 0; */
+    const uint8_t run_time = 5; // 32cm
+    const uint8_t num_cp = 10;
+    uint8_t cnt = 0;
 
     init();
 
-    while(1){
-        while(1){
-            if((P2IN & BIT1)==0){
-                __delay_cycles(8000000);
-                break;
-            }
-        }
-        i2c_init();
-        drv_init();
-
-        __delay_cycles(8000000);
-        dsbl_tim();
-
-        /*for(i=0; i<x; i++){
-            drv_mot();
-            //P4OUT |= BIT0;
-            //__delay_cycles(3*DELAY);
-            //P4OUT &= ~(BIT0);
-            dsbl_mot();
-            //__delay_cycles(15*DELAY);
-        }*/
-    }
-
-
-    /* while(1) {
+    while(1) {
 
         if(fram.cp == 0x00) {
             while(1) {
@@ -92,18 +64,18 @@ int main(void) {
         if(!DEBUG){
             i2c_init();
             drv_init();
+            drv_mot();
         }
+
+
 
         while(fram.cnt_a < num_cp){
             fram.cnt_b++;
             // Begin "atomic" operation
-            for(cnt=0; cnt < (num_steps / num_cp); cnt++){
 
-                if(!DEBUG){
-                    drv_mot();
-                    __delay_cycles(DELAY);
-                    dsbl_mot();
-                }
+
+                __delay_cycles((run_time*8000000)/num_cp);
+
             }
             // End "atomic" operation
             fram.cnt_a++;
@@ -111,7 +83,7 @@ int main(void) {
         if(!DEBUG)
             dsbl_mot();
         fram.cp = 0x00;
-    } */
+    }
 
     return 0;
 }

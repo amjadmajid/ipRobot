@@ -24,7 +24,7 @@ void drv_init() {
     //configure output
     i2c_write(TCA_ADDR, 0x03, 0x00);   //0x06 for TCA9539
 
-
+    /*
     //configure motor ctrl(Timer0_A0)
     TA0CCTL0 = CCIE;                                // TACCR0 interrupt enabled
     TA0CCR0 = 2000;                                 // PWM frequency = 1kHz
@@ -42,9 +42,9 @@ void drv_mot() {
     // enable right motor driver
     P3OUT |= (BIT4 | BIT5);
     // backwards
-    i2c_write(TCA_ADDR, 0x01, 0xAA);
+    //i2c_write(TCA_ADDR, 0x01, 0xAA);
     // forward
-    //i2c_write(TCA_ADDR, 0x01, 0xFF);
+    i2c_write(TCA_ADDR, 0x01, 0xFF);
 }
 
 void dsbl_mot() {
