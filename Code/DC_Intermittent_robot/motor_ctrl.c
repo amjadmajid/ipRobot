@@ -10,13 +10,15 @@
 #include "motor_ctrl.h"
 #include "eusci_b0_i2c.h"
 
+uint16_t cnt = 0;
+
 void drv_init() {
 
     P1DIR |= BIT4;                      // Set P1.4 (AUX3) to output
     P1OUT |= BIT4;                      // Enable TCA9538
 
-    P3DIR |= BIT4 | BIT5;                      // Only enable DRV2  // Set P3.4 and P3.5 (AUX1 and AUX2) to output
-    P3OUT &= ~(BIT4 |BIT5);                   //                   // Disable both motor drivers
+    P3DIR |= BIT4 | BIT5;              // Set P3.4 and P3.5 (AUX1 and AUX2) to output
+    P3OUT &= ~(BIT4 |BIT5);            // Disable both motor drivers
 
     // make all outputs low
     i2c_write(TCA_ADDR, 0x01, 0x00);   //0x02 for TCA9539
@@ -30,7 +32,7 @@ void drv_init() {
     TA0CCR0 = 2000;                                 // PWM frequency = 1kHz
     //configure motor ctrl (Timer0_A1)
     TA0CCTL1 = CCIE;
-    TA0CCR1 = 400;                                 // Dutycycle = 50% (cannot be smaller than 400)
+    TA0CCR1 = 200;                                  // Dutycycle = 10% (cannot be smaller than 200 and not bigger than 1800)
 
     TA0CTL = TASSEL__SMCLK | MC__UP | TACLR;        // SMCLK, up mode, clear TAR
 
@@ -42,9 +44,9 @@ void drv_mot() {
     // enable right motor driver
     P3OUT |= (BIT4 | BIT5);
     // backwards
-    //i2c_write(TCA_ADDR, 0x01, 0xAA);
+    //i2c_write(TCA_ADDR, 0x01, 0x0A);
     // forward
-    i2c_write(TCA_ADDR, 0x01, 0xFF);
+    i2c_write(TCA_ADDR, 0x01, 0x0F);
 }
 
 void dsbl_mot() {
@@ -87,6 +89,13 @@ void __attribute__ ((interrupt(TIMER0_A1_VECTOR))) TIMER0_A1_ISR (void)
   {
     case TA0IV_NONE:   break;               // No interrupt
     case TA0IV_TACCR1:
+        /* ramp pwm in 160 steps 10% -> 90% (200 -> 1800)
+        *  over a time of 160ms
+        */
+        if(cnt < 160){
+            TA0CCR1 += 10;
+            cnt++;
+        }
         dsbl_mot();
         break;
     case TA0IV_TACCR2: break;               // CCR2
