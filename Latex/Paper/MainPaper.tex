@@ -304,33 +304,15 @@ The I/O Expander is used supply a interface to the control connections of the H-
 
 \subsection{Locomotion}
 
-% why selected stepper motors (based on gritsbot design)
-% didel or precision microdrives
-%Constraint to use of the robot: mainly effective on flat services
+Two 6mm geared dc motors from Precision Microdrives are mounted in a 3d printed frame, directly under the mainboard of the IPR.
+The motors are mounted diagonally opposite from each other making the robot as compact as possible.
+A small wheel is mounted directly on the motor shaft and in the other  diagonally opposite corners a free running wheel is mounted to the frame.
+The speed of each motor can be controlled individually using a dual H-bridge, this differential drive configuration allows the robot to steer.
 
-Mounted directly under the mainboard of the IPR, two stepper motors can be found in differential drive configuration.
-An additional single front leg acts as third point of support.
-The IPR is to small to install wheel encoders, while small stepper motors are commonly used in digital camera's.
-This design was inspired by the GRITSBot~\cite{pickem_icra_2015}.
-
-The direction of current flow through each of the coil pairs of stepper motor controls the rotation direction.
-The bipolar stepper motor used, requires current to be pulsed trough each of the four connections, in a fixed pattern, in order to rotate it forward or backward.
-The outputs of the MCU cannot supply enough current to drive a bipolar stepper motor a dual H-bridge is required, one H-bridge for each coil.
-The H-bridge controls the precise stepping of the stepper motor by allowing to control the current direction trough each coil.
-Stepper motors can be operated in different excitation modes, half-step, one-phase and two-phase full step.
-
-For the robot one-phase full step is used because it energizes one of the two coils at a time.
-This way the stepper only consumes less current compared to half-step and two-phase full step.
-The buck converter is can only supply 110mA of current, when a single coil is enabled each motor consumes approximately 40mA of current.
-
-The current trough the coils is constant, so the faster the stepper motor changes step the more energy can be transformed into forward movement.
-% copied from above
-Increasing the rotational speed of the stepper motor decreases the torque output of the motor.
-Therefore the speed is limited by the amount of torque required to overcome the rolling resistance of the wheels.
-The main factor that influences the rolling resistance is the weight of the robot and the surface it's driving on.
-
-The wheels are laser cut from PMMA (Polymethyl methacrylate) and are press-fitted on the axles of the motors.
-Wire shrink is used to create a very basic tire, to give the wheels some extra grip on the flat surface.
+%The buck converter is can only supply 110mA of current.
+On average the each motor consumes 38mA while running on a flat surface, which is well within the current limit that the buck converter can supply.
+However when the motors are in not moving yet the inrush/start current is equal to the stall current, which is equal to 240mA for each motor.
+This amount of current can not be supplied by the powersupply, using PWM to soft start the motor the average current can be limited and allowing a bulk capacitor to supply the voltage.
 
 \subsection{Energy Harvesting}
 
