@@ -42,18 +42,18 @@ void drv_init() {
 void drv_mot() {
 
     // enable right motor driver
-    P3OUT |= (BIT4 | BIT5);
+    P3OUT |= (BIT4);
     // backwards
     //i2c_write(TCA_ADDR, 0x01, 0x0A);
     // forward
-    i2c_write(TCA_ADDR, 0x01, 0x0F);
+    i2c_write(TCA_ADDR, 0x01, 0x0C); // 0x0F to drive both motors
 }
 
 void dsbl_mot() {
 
     i2c_write(TCA_ADDR, 0x01, 0x00);
     // disable right motor driver
-    P3OUT &= ~(BIT4 | BIT5);
+    P3OUT &= ~(BIT4);
 }
 
 void dsbl_tim(){
