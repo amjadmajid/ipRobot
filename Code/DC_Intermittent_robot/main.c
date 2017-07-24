@@ -9,6 +9,11 @@
 
 #define DEBUG 0
 
+#define NUM_CP 80
+#define RUN_TIME 50 //in mm
+#define DELAY RUN_TIME*690000/NUM_CP
+
+
 typedef struct NVvar {
     uint8_t cp;
     uint8_t cnt_b;
@@ -41,10 +46,6 @@ void init(void) {
 
 int main(void) {
 
-    const uint8_t run_time = 5; // 32cm
-    const uint8_t num_cp = 10;
-    uint8_t cnt = 0;
-
     init();
 
     while(1) {
@@ -69,14 +70,10 @@ int main(void) {
 
 
 
-        while(fram.cnt_a < num_cp){
+        while(fram.cnt_a < NUM_CP){
             fram.cnt_b++;
             // Begin "atomic" operation
-
-
-                __delay_cycles((run_time*8000000)/num_cp);
-
-            }
+                __delay_cycles(DELAY);
             // End "atomic" operation
             fram.cnt_a++;
         }
