@@ -1,5 +1,6 @@
 #include <msp430.h> 
 #include <stdint.h>
+#include "global.h"
 #include "eusci_b0_i2c.h"
 #include "motor_ctrl.h"
 
@@ -7,21 +8,9 @@
  * main.c
  */
 
-#define DEBUG 0
-
-#define NUM_CP 80
-#define RUN_TIME 50 //in mm
-#define DELAY RUN_TIME*690000/NUM_CP
-
-
-typedef struct NVvar {
-    uint8_t cp;
-    uint8_t cnt_b;
-    uint8_t cnt_a;
-}NVvar;
-
 #pragma PERSISTENT(fram);
 NVvar fram = {0};
+uint8_t running;
 
 void init(void) {
 
@@ -57,9 +46,12 @@ int main(void) {
                     break;
                 }
             }
-            fram.cnt_b = 0;
-            fram.cnt_a = 0;
-            //fram.cp = 0x01;
+            fram.cnt = 0;
+            fram.cp = 0x01;
+        }
+
+        if(CNT_BEFORE){
+            fram.cnt++;
         }
 
         if(!DEBUG){
@@ -68,16 +60,17 @@ int main(void) {
             //drv_mot();
         }
 
-        /*while(fram.cnt_a < NUM_CP){
-            fram.cnt_b++;
+        running = 1;
+        while(running);
+        /*while(fram.cnt < NUM_CP){
             // Begin "atomic" operation
                 __delay_cycles(DELAY);
             // End "atomic" operation
-            fram.cnt_a++;
-        }
+            fram.cnt++;
+        }*/
         if(!DEBUG)
             dsbl_mot();
-        fram.cp = 0x00;*/
+        fram.cp = 0x00;
     }
 
     return 0;

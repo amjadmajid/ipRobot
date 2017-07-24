@@ -7,8 +7,10 @@
 
 #include <msp430.h>
 #include <stdint.h>
-#include "motor_ctrl.h"
+#include "global.h"
 #include "eusci_b0_i2c.h"
+#include "motor_ctrl.h"
+//#include "gyro_sens.h"
 
 uint16_t cnt = 0;
 uint8_t test = 1;
@@ -70,7 +72,6 @@ void dsbl_tim(){
     TA0CCTL0 &= ~CCIE;
     TA0CCTL1 &= ~CCIE;
     TA0CCTL2 &= ~CCIE;
-    dsbl_mot();
 }
 
 // Timer0_A0 interrupt service routine
@@ -83,7 +84,13 @@ void __attribute__ ((interrupt(TIMER0_A0_VECTOR))) Timer0_A0_ISR (void)
 #error Compiler not supported!
 #endif
 {
-    drv_mot();
+    if(fram.cnt < RUN_TIME2){
+        drv_mot();
+    } else{
+        dsbl_tim();
+        running = 0;
+    }
+    fram.cnt++;
 }
 
 // Timer0_A1 Interrupt Vector (TAIV) handler

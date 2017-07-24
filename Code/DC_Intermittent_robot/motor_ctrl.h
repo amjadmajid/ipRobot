@@ -10,6 +10,9 @@
 
 #define TCA_ADDR 112 // both TCA9538 address pins to GND (116 for TCA9539)
 
+extern NVvar fram;
+extern uint8_t running;
+
 void drv_init();
 void drv_mot();
 void dsbl_lmot();
