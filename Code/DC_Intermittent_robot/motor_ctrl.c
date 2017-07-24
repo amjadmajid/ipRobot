@@ -11,6 +11,7 @@
 #include "eusci_b0_i2c.h"
 
 uint16_t cnt = 0;
+uint8_t test = 1;
 
 void drv_init() {
 
@@ -26,27 +27,36 @@ void drv_init() {
     //configure output
     i2c_write(TCA_ADDR, 0x03, 0x00);   //0x06 for TCA9539
 
-    /*
+
     //configure motor ctrl(Timer0_A0)
     TA0CCTL0 = CCIE;                                // TACCR0 interrupt enabled
     TA0CCR0 = 2000;                                 // PWM frequency = 1kHz
     //configure motor ctrl (Timer0_A1)
     TA0CCTL1 = CCIE;
-    TA0CCR1 = 200;                                  // Dutycycle = 10% (cannot be smaller than 200 and not bigger than 1800)
+    TA0CCR1 = 400;                                  // Dutycycle = 10% (cannot be smaller than 200 and not bigger than 1800)
+
+    TA0CCTL2 = CCIE;
+    TA0CCR2 = 600;
 
     TA0CTL = TASSEL__SMCLK | MC__UP | TACLR;        // SMCLK, up mode, clear TAR
 
-    __bis_SR_register(GIE);            //enable interrupts */
+    __bis_SR_register(GIE);            //enable interrupts
 }
 
 void drv_mot() {
 
     // enable right motor driver
     P3OUT |= (BIT4);
-    // backwards
-    //i2c_write(TCA_ADDR, 0x01, 0x0A);
+    //i2c_write(TCA_ADDR, 0x01, 0x08); //0x0A
+    //i2c_write(TCA_ADDR, 0x01, 0x0B); //Dual motor
     // forward
-    i2c_write(TCA_ADDR, 0x01, 0x0C); // 0x0F to drive both motors
+    //i2c_write(TCA_ADDR, 0x01, 0x0C); // 0x0F to drive both motors
+    i2c_write(TCA_ADDR, 0x01, 0x0E); // Dual motor
+}
+
+void dsbl_lmot() {
+
+    i2c_write(TCA_ADDR, 0x01, 0x02);
 }
 
 void dsbl_mot() {
@@ -59,6 +69,7 @@ void dsbl_mot() {
 void dsbl_tim(){
     TA0CCTL0 &= ~CCIE;
     TA0CCTL1 &= ~CCIE;
+    TA0CCTL2 &= ~CCIE;
     dsbl_mot();
 }
 
@@ -92,13 +103,20 @@ void __attribute__ ((interrupt(TIMER0_A1_VECTOR))) TIMER0_A1_ISR (void)
         /* ramp pwm in 160 steps 10% -> 90% (200 -> 1800)
         *  over a time of 160ms
         */
-        if(cnt < 160){
+        /*if(cnt < 40){
             TA0CCR1 += 10;
             cnt++;
+        }*/
+        if(test == 1){
+            dsbl_lmot();
+            test = 0;
+        } else {
+            test = 1;
         }
+        break;
+    case TA0IV_TACCR2:                      // CCR2
         dsbl_mot();
         break;
-    case TA0IV_TACCR2: break;               // CCR2
     case TA0IV_3:      break;               // reserved
     case TA0IV_4:      break;               // reserved
     case TA0IV_5:      break;               // reserved

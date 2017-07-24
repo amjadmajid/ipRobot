@@ -59,18 +59,16 @@ int main(void) {
             }
             fram.cnt_b = 0;
             fram.cnt_a = 0;
-            fram.cp = 0x01;
+            //fram.cp = 0x01;
         }
 
         if(!DEBUG){
             i2c_init();
             drv_init();
-            drv_mot();
+            //drv_mot();
         }
 
-
-
-        while(fram.cnt_a < NUM_CP){
+        /*while(fram.cnt_a < NUM_CP){
             fram.cnt_b++;
             // Begin "atomic" operation
                 __delay_cycles(DELAY);
@@ -79,7 +77,7 @@ int main(void) {
         }
         if(!DEBUG)
             dsbl_mot();
-        fram.cp = 0x00;
+        fram.cp = 0x00;*/
     }
 
     return 0;

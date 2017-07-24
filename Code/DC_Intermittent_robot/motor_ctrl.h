@@ -12,6 +12,7 @@
 
 void drv_init();
 void drv_mot();
+void dsbl_lmot();
 void dsbl_mot();
 void dsbl_tim();
 
