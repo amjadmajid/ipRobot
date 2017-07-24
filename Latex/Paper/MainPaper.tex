@@ -111,7 +111,6 @@ However most of the sensors return the change in position while the robot is mov
 % No abslute sensor data but always relative.
 
 % Problem statement and research contribution
-% Challenges in porting algorithms for localization
 % 
 All the previous work assumes that an operation is only possible when there is sufficient energy to complete a task.
 This research will explore the feasibility of a battery-less robot, allowing persistent operation while having a very small and intermittent source of energy.
@@ -131,9 +130,7 @@ The contributions of the paper are as follows:
 \begin{enumerate}
 \item A novel battery-less robot design, were the robot purely runs of harvested energy. Which includes computation, sensing and short range communication.
 
-\item Development of a persistent algorithms for autonomous navigation and localization.
-
-\item A evaluation of the battery-less robot compared to a battery powered robot in terms of, weight, speed of movement, navigation and localization accuracy.
+\item A evaluation of the battery-less robot compared to a battery powered robot in terms of, weight, speed of movement and navigation accuracy.
 \end{enumerate}
  
 
@@ -155,7 +152,6 @@ To store the energy an appropriate size storage capacitor needs to be selected~\
 
 "Low-hanging fruit is nowhere to be seen in fields as crucial as digital electronics, biomedical devices, or space technology."
 \cite{zachary_spec_2016}
-
 
 Comparing li-ion batteries with super-capacitors there are some big differences.
 Super-capacitors do not need any special charging scheme and circuity for charging, except for overcharging protection.
@@ -180,19 +176,6 @@ Hardware modularity is a way to make the robot adapt its resources to different 
 By separating out power, computation, motor control and sensing a verity of capabilities can be tested~\cite{sabelhaus_icra_2013, pickem_icra_2015, kim_iros_2016}.
 Microrobots typically use infrared-based neighbor to neighbor distance sensing and communication~\cite{rubenstein_icra_2012, pickem_icra_2015, kim_iros_2016}.
 While controlling a swarm or collective is mainly accomplished by means of active low power transceivers~\cite{sabelhaus_icra_2013, pickem_icra_2015, kim_iros_2016}. 
-
-\subsection{Locomotion}
-% tell somthing about their accuracy!
-
-Choosing the right locomotion resource can depend on different factors, moving in the most energy efficient way on a particular surface is often the determining factor.
-On a flat surface, robots commonly use a two-wheeled differential drive design to not only move but allow for steering as well~\cite{sabelhaus_icra_2013, pickem_icra_2015}.
-The GRITSBot does not use conventional DC motors, requiring encoders to estimate their speed. 
-Instead by using stepper motors the speed can be set by changing the delay between steps. 
-Estimating it's position therefore is reduced to simply counting steps~\cite{pickem_icra_2015}.  
-Overall cost can be a decisive factor, therefore the Kilobot uses two vibrating motors for locomotion combined with three thin legs.
-When the motors are activated the centripetal forces will generate a forward movement, which can be explained using the slip-stick principle~\cite{rubenstein_icra_2012}.
-Other locomotion types are biologically inspired, the HARM-VP is small scale piezoelectric driven quadrupled robot~\cite{baisch_iros_2013}.
-Each leg as two degrees of freedom, it can move up and down, as well as forward and backward.
 
 \subsection{Continuous operation} 
 %Battery replenishment
@@ -248,7 +231,12 @@ By combining maps of lighting and ground slope a solar-powered robot can be kept
 	\end{threeparttable}
 \end{table*}
 
-\section{Design Requirements}
+\section{System Model}
+
+
+\section{System Implementation}
+
+\subsection{Design Requirements}
 % - Case study of warehouse/greenhouse inspection
 % - for Transienltly-powered Locomotion
 
@@ -272,7 +260,7 @@ Things to take into consideration:
 
 
 
-\section{Robot Design}
+\subsection{Robot Design}
 
 % - Size and weight/energy availability/speed trade-off model and 
 % - Should the subsections more or less reflect the columns in the table?
@@ -280,7 +268,7 @@ Things to take into consideration:
 
 % include stepper motor vs optical sensors ref roverables power consumption optical encoders
 
-\subsection{Computation and Sensing}
+\subsubsection{Computation and Sensing}
 
 The robot is designed around a modified WISP 5.0, utilizing the processor and backscatter communication.
 It's based around a Texas Instruments MSP430FR5969 ultra low power microcontroller, operating at 16 MHz and featuring 64 KB FRAM, 2 KB SRAM and 40 IO. 
@@ -298,15 +286,15 @@ In addition the robot has a Bosch BMG250 Mems Gyroscope to measure yaw angle cha
 
 % Explain in more detail (like Tiny TERP)
 
-Because the WISP has only limited accessible GPIO ports available, an Texas Instruments TCA9538 8-Bit I2C I/O Expander is used to interface with both Texas Instruments DRV8836 Dual Low-Voltage H-Bridges.	
+Because the WISP has only limited accessible GPIO ports available, an Texas Instruments TCA9538 8-Bit I2C I/O Expander is used to interface with the Texas Instruments DRV8836 Dual Low-Voltage H-Bridge.	
 Each H-Bridge requires 5 input connections, one for enabling the device and four connections for control.
-The I/O Expander is used supply a interface to the control connections of the H-Bridges, in turn controlling the current trough the coils of the stepper motors.
+The I/O Expander is used supply an interface to the control connections of the H-Bridges, in turn controlling the amount of current trough the motors.
 
-\subsection{Locomotion}
+\subsubsection{Locomotion}
 
 Two 6mm geared dc motors from Precision Microdrives are mounted in a 3d printed frame, directly under the mainboard of the IPR.
 The motors are mounted diagonally opposite from each other making the robot as compact as possible.
-A small wheel is mounted directly on the motor shaft and in the other  diagonally opposite corners a free running wheel is mounted to the frame.
+A small wheel is mounted directly on the motor shaft and in the other diagonally opposite corners a free running wheel is mounted to the frame.
 The speed of each motor can be controlled individually using a dual H-bridge, this differential drive configuration allows the robot to steer.
 
 %The buck converter is can only supply 110mA of current.
@@ -314,7 +302,7 @@ On average the each motor consumes 38mA while running on a flat surface, which i
 However when the motors are in not moving yet the inrush/start current is equal to the stall current, which is equal to 240mA for each motor.
 This amount of current can not be supplied by the powersupply, using PWM to soft start the motor the average current can be limited and allowing a bulk capacitor to supply the voltage.
 
-\subsection{Energy Harvesting}
+\subsubsection{Energy Harvesting}
 
 % RF harvesting seems prommesing
 % better to only use RF for communication and harvest energy from another source \cite{konstantioulos}
@@ -355,7 +343,7 @@ The Texas Insturments BQ25570 has a buck converter to efficiently regulate the c
 % The buck converter can supply up to 110mA of output current.
 % Powering both motors and MCU should not exceed this current limit.
 
-\subsection{Software}
+\subsubsection{Software}
 
 % General library for reading and writing to i2c.
 
@@ -363,102 +351,15 @@ The Texas Insturments BQ25570 has a buck converter to efficiently regulate the c
 
 % A operating system for intermittend devices
 
-\section{Localization Algorithm}
-
-
-\subsection{Particle filter}
-% Implementation of particle filter in transient domain.
-
-% Motion model
-
-After the robot reformed a movement, the particles are updated according to the motion model.
-%The robot cannot do curved movements, curves are simplified to sequential turn and forward movements.
-The stepper motors allow precise movement per step.
-Assuming that the robot is commanded to do a specific movement, this can be used to estimate the actual movement and can be used by the motion model.
-The model does not update every particle directly with the estimated movement, but adds some rotational noise and translational noise.
-This error was modeled by a normal distribution centered around zero with the variance determined by two system parameters.
-
-
-% gausian distribution:
-Box muller is a method to generate pairs of normal distributed random numbers using pseudo-random number sampling.
-Two uniformly distributed random numbers are the source, which are mapped to two normally distributed random numbers.
-The (Marsaglia) polar method is even more efficient, while it does not require the sine and cosine operations. 
-
-% Prediction step
-After every prediction step the weight of each particle is updated.
-When a particle violates the map constraints, it's weight is set to zero.
-
-% Update step
-The update step is used to compute the effective sample size as well.
-This a a measure to determine if weight variance between particles becomes to large.
-When this happens resampling is preformed.
-
-\begin{equation}
-\label{eq:cap1}
-Neff = \frac{1}{\sum\limits_{i=1}^M (w_t^i)^2 }
-\end{equation}
-
-There are a variety of resampling methods available, but the computational power limits the number of methods that can be used.
-Low variance resampling is used obtain a new set of particles by selecting particles from the old set.
-The probability of selecting a particle from the old set is equal to it's weight.
-Particles that violate the map constrains are therefore not picked. 
-
-All the "non-dead" particles have the same importance weight, low variance resampling makes sure that none of these particles are lost.
-
-LVR works by choosing a random number r and select those particles that correspond to $u = r + (m - 1) \cdot M^{-1}$ where m = 1,...,M.
-
-% analysis of implementation 
-
-
-
-% - number of particles
-% - neff value to do resampling
-% - compare methods for obtaining a gausian distribution
-% - low variance resampling, are there any others?
-
-% - time to task completion
-
-\section{Experimental Results}
-
-% How to calibrate pulse frequency
-% (ie determine max speed before motor has not enough torque to overcome the rolling resistance?)
-
-To find the maximum speed at which the stepper motor can turn the speed is increased until the robot is not able to move forward with every step.
-
-Running the stepper motors at maximum speed will mean that there is always one of the coils is energized.
-By increasing the delay between successive pulses, increasing the on time of a specific coil, the motor speed can be reduced. 
+\section{System Evaluation} 
 
 % Movement open loop
 Open loop motion control of a robot often results in undesired drift in the position estimation.
 Often being a result of unbalances or misalignment in the construction of the robot.
 
-Stepper motors have high torque at low speeds, which allows them to accelerate hard from standstill.
-Combining this with non-uniform drag of the wheels can result in one wheel slipping more than the other and the robot making an unwanted turn. 
-Secondly a possible error can come from misalignment of the stator coil energized and the rotor.
-This can only happen when the wheels are moved, not by the motor, after 4 steps the stator and rotor of both motors should be in sync again.
-
-A measure for the angular error can be described by the Abbe Error, the magnification of the angular error over distance.
-
-\begin{equation}
-	E = L * sin(\theta)
-\end{equation}
-
-To find the position estimation error, the robot was put to the test.
-
-
-% Differential stepper motor
-– At start: discrepancy between coil + direction of current and position of magnet.
-(This error can be larger or smaller depending on the state of the left and right motor)
-– Both motor coils are not energized at “exactly” the same time.
-(The non energized wheel could lose position)
-% Ip differental motor - Robot
-– Wheel does not stay in position when motor is deenergized (can be a positive or negative error)
-
 – Uneven wheel slip
-– Front leg more drag on one side
 – Uneven weight distribution
 – Unbalance in driveline, motor to pcb or motor shaft → wheel
-
 
 % Table with power consumption of each component at 2.2v ?? only active or also standy?
 % Get operation time give power consumption time?
@@ -470,7 +371,7 @@ Tell why this is important,
 
 \begin{table*}[t]
 	\centering
-	\caption{Power consumption of each individual component at 2.2v}
+	\caption{Power consumption of each individual component at 2.2V}
 	\label{tab:1}
  	\begin{tabular}{l l l} 
 		\hline
@@ -478,13 +379,13 @@ Tell why this is important,
  		Part & Active Current & Standby Current\\ 
  		\hline
  		\\[-1em]
- 		Proximity sensor & 432\textmu A & 0.1\textmu A \\	
+ 		Proximity sensor & 432\textmu A & 0.1\textmu A \\
+ 		Gyroscope & 650\textmu A & 3\textmu A\\	
 		Microcontroller @ 8Mhz & 1mA & N/A \\
  		IO Expander & 4\textmu A & 0.7\textmu A \\
 		H-bridge & 1.2mA & 10nA \\
-		H-bridge & 1.2mA & 10nA \\
-		Stepper motor & 39mA & N/A \\
-		Stepper motor & 39mA & N/A \\
+		DC motor & 39mA & N/A \\
+		DC motor & 39mA & N/A \\
 		\hline
 		\\[-1em]
 		Total & xx & xx \\
@@ -497,8 +398,6 @@ Tell why this is important,
 % comparison with battery powered robot
 
 % accuracy of motion path 
-
-% accuracy of localization 
 
 % video of robot movement
 
