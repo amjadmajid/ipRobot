@@ -25,52 +25,31 @@ void init(void) {
     CSCTL3 = DIVA__1 | DIVS__4 | DIVM__1;   // Set all dividers
     CSCTL0_H = 0;                           // Lock CS registers
 
-    P2DIR &= ~(BIT1);                       // Set P2.1 (UART_RX) to input
-    P2OUT |= BIT1;                          // Set pull up resistor on input
-    P2REN |= BIT1;                          // Enable pull up resistor for button to keep pin high until pressed
-
     P4DIR |= BIT0;
     P4OUT &= ~(BIT0);
 }
 
 int main(void) {
 
+    //__delay_cycles(8000000);
     init();
+    drv_init();
 
-    while(1) {
+    if(CNT_AFTER){
+        fram.cnt--;
+    }
 
-        if(fram.cp == 0x00) {
-            while(1) {
-                if((P2IN & BIT1)==0){
-                    __delay_cycles(8000000);
-                    break;
-                }
-            }
-            fram.cnt = 0;
-            fram.cp = 0x01;
-        }
+    //enbl_mot();
 
-        if(CNT_BEFORE){
-            fram.cnt++;
-        }
-
-        if(!DEBUG){
-            i2c_init();
-            drv_init();
-            //drv_mot();
-        }
-
-        running = 1;
-        while(running);
-        /*while(fram.cnt < NUM_CP){
-            // Begin "atomic" operation
-                __delay_cycles(DELAY);
-            // End "atomic" operation
-            fram.cnt++;
-        }*/
-        if(!DEBUG)
-            dsbl_mot();
-        fram.cp = 0x00;
+    running=1;
+    while(running) {
+        // DO NOTHING
+        P1OUT |= (BIT4);
+        P3OUT |= (BIT4 + BIT5);
+        __delay_cycles(400);
+        P3OUT &= ~(BIT4 + BIT5);
+        P1OUT &= ~(BIT4);
+        __delay_cycles(400);
     }
 
     return 0;

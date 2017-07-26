@@ -12,123 +12,108 @@
 #include "motor_ctrl.h"
 //#include "gyro_sens.h"
 
-uint16_t cnt = 0;
-uint8_t test = 1;
+uint8_t cnt = 0;
 
 void drv_init() {
 
-    P1DIR |= BIT4;                      // Set P1.4 (AUX3) to output
-    P1OUT |= BIT4;                      // Enable TCA9538
+    P1DIR |= BIT4;                          // Set P1.4 (AUX3) to output
+    P1OUT &= ~(BIT4);                       // Disable DRV8836
 
-    P3DIR |= BIT4 | BIT5;              // Set P3.4 and P3.5 (AUX1 and AUX2) to output
-    P3OUT &= ~(BIT4 |BIT5);            // Disable both motor drivers
+    //Motor driver config
+    P2DIR |= (BIT0 + BIT1);                 // Setup DA and DB
+    P2OUT |= (BIT1);                        // Forward
+    P2OUT &= ~(BIT0);                       //
 
-    // make all outputs low
-    i2c_write(TCA_ADDR, 0x01, 0x00);   //0x02 for TCA9539
+    P3DIR |= (BIT4 + BIT5);                 // Setup PA and PB
+    P3OUT &= ~(BIT4 + BIT5);
 
-    //configure output
-    i2c_write(TCA_ADDR, 0x03, 0x00);   //0x06 for TCA9539
+    /*P3SEL0 |= (BIT4 + BIT5);                // Option select timer output
 
+    TB0CCR0 = 2000;                           // PWM Period
+    TB0CCTL3 = OUTMOD_7;                      // CCR3 reset/set
+    TB0CCR3 = 800;                            // CCR3 PWM duty cycle left motor
+    TB0CCTL4 = OUTMOD_7;                      // CCR4 reset/set
+    TB0CCR4 = 900;                            // CCR4 PWM duty cycle right motor
+    TB0CTL = TBSSEL__SMCLK | MC__UP | TBCLR;  // SMCLK, up mode, clear TBR*/
 
-    //configure motor ctrl(Timer0_A0)
-    TA0CCTL0 = CCIE;                                // TACCR0 interrupt enabled
-    TA0CCR0 = 2000;                                 // PWM frequency = 1kHz
-    //configure motor ctrl (Timer0_A1)
-    TA0CCTL1 = CCIE;
-    TA0CCR1 = 400;                                  // Dutycycle = 10% (cannot be smaller than 200 and not bigger than 1800)
-
-    TA0CCTL2 = CCIE;
-    TA0CCR2 = 600;
-
-    TA0CTL = TASSEL__SMCLK | MC__UP | TACLR;        // SMCLK, up mode, clear TAR
-
-    __bis_SR_register(GIE);            //enable interrupts
+    /*TB0CCR0 = 20000;                           // PWM Period (1khz)
+    TB0CCR3 = 10000;                            // CCR3 PWM duty cycle left motor
+    TB0CCR4 = 11000;                            // CCR4 PWM duty cycle right motor
+    TB0CTL = TBSSEL__SMCLK | MC__UP | TBCLR;  // SMCLK, up mode, clear TBR, interrupt enable
+    */
+    //__bis_SR_register(GIE);            //enable interrupts
 }
 
-void drv_mot() {
-
-    // enable right motor driver
-    P3OUT |= (BIT4);
-    //i2c_write(TCA_ADDR, 0x01, 0x08); //0x0A
-    //i2c_write(TCA_ADDR, 0x01, 0x0B); //Dual motor
-    // forward
-    //i2c_write(TCA_ADDR, 0x01, 0x0C); // 0x0F to drive both motors
-    i2c_write(TCA_ADDR, 0x01, 0x0E); // Dual motor
+void enbl_mot() {
+    TB0CCTL0 |= CCIE;
+    TB0CCTL3 |= CCIE;
+    TB0CCTL4 |= CCIE;
 }
 
-void dsbl_lmot() {
-
-    i2c_write(TCA_ADDR, 0x01, 0x02);
+void dsbl_mot(){
+    TB0CCTL0 &= ~CCIE;
+    TB0CCTL3 &= ~CCIE;
+    TB0CCTL4 &= ~CCIE;
+    cnt = 0;                                 // To ramp again when the motors are started
 }
 
-void dsbl_mot() {
-
-    i2c_write(TCA_ADDR, 0x01, 0x00);
-    // disable right motor driver
-    P3OUT &= ~(BIT4);
-}
-
-void dsbl_tim(){
-    TA0CCTL0 &= ~CCIE;
-    TA0CCTL1 &= ~CCIE;
-    TA0CCTL2 &= ~CCIE;
-}
-
-// Timer0_A0 interrupt service routine
+// Timer0_B0 interrupt service routine
 #if defined(__TI_COMPILER_VERSION__) || defined(__IAR_SYSTEMS_ICC__)
-#pragma vector = TIMER0_A0_VECTOR
-__interrupt void Timer0_A0_ISR (void)
+#pragma vector = TIMER0_B0_VECTOR
+__interrupt void Timer0_B0_ISR (void)
 #elif defined(__GNUC__)
-void __attribute__ ((interrupt(TIMER0_A0_VECTOR))) Timer0_A0_ISR (void)
+void __attribute__ ((interrupt(TIMER0_B0_VECTOR))) Timer0_B0_ISR (void)
 #else
 #error Compiler not supported!
 #endif
 {
-    if(fram.cnt < RUN_TIME2){
-        drv_mot();
-    } else{
-        dsbl_tim();
-        running = 0;
-    }
-    fram.cnt++;
+    //if(fram.cnt < RUN_TIME2){
+        P1OUT |= (BIT4);                        // Enable DRV8836
+        P3OUT |= (BIT4 + BIT5);                 // Enable both motors
+        //fram.cnt++;
+    //} else{
+        //dsbl_mot();
+        //fram.cnt = 0;
+        //running = 0;
+    //}
 }
 
-// Timer0_A1 Interrupt Vector (TAIV) handler
+// TimerB Interrupt Vector (TBIV) handler
 #if defined(__TI_COMPILER_VERSION__) || defined(__IAR_SYSTEMS_ICC__)
-#pragma vector=TIMER0_A1_VECTOR
-__interrupt void TIMER0_A1_ISR(void)
+#pragma vector=TIMER0_B1_VECTOR
+__interrupt void TIMER0_B1_ISR(void)
 #elif defined(__GNUC__)
-void __attribute__ ((interrupt(TIMER0_A1_VECTOR))) TIMER0_A1_ISR (void)
+void __attribute__ ((interrupt(TIMER0_B1_VECTOR))) TIMER0_B1_ISR (void)
 #else
 #error Compiler not supported!
 #endif
 {
-  switch(__even_in_range(TA0IV, TA0IV_TAIFG))
+  switch(__even_in_range(TB0IV,TB0IV_TBIFG))
   {
-    case TA0IV_NONE:   break;               // No interrupt
-    case TA0IV_TACCR1:
-        /* ramp pwm in 160 steps 10% -> 90% (200 -> 1800)
-        *  over a time of 160ms
-        */
-        /*if(cnt < 40){
-            TA0CCR1 += 10;
+    case TB0IV_NONE:   break;               // No interrupt
+    case TB0IV_TBCCR1: break;               // CCR1 not used
+    case TB0IV_TBCCR2: break;               // CCR2 not used
+    case TB0IV_TBCCR3:
+        // Ramp PWM
+        /*if(cnt < 50){
+            TB0CCR3 += 20;
             cnt++;
         }*/
-        if(test == 1){
-            dsbl_lmot();
-            test = 0;
-        } else {
-            test = 1;
-        }
-        break;
-    case TA0IV_TACCR2:                      // CCR2
-        dsbl_mot();
-        break;
-    case TA0IV_3:      break;               // reserved
-    case TA0IV_4:      break;               // reserved
-    case TA0IV_5:      break;               // reserved
-    case TA0IV_6:      break;               // reserved
-    case TA0IV_TAIFG:  break;               // overflow
+        P3OUT &= ~BIT4;
+        break;                              // CCR3 not used
+    case TB0IV_TBCCR4:
+        // Ramp PWM
+        /*if(cnt < 50){
+            TB0CCR4 += 20;
+            cnt++;
+        }*/
+        P3OUT &= ~BIT5;
+        P1OUT &= ~(BIT4);                   // Disable DRV8836
+        break;                              // CCR4 not used
+    case TB0IV_TBCCR5: break;               // CCR5 not used
+    case TB0IV_TBCCR6: break;               // CCR6 not used
+    case TB0IV_TBIFG:  break;               // overflow
+
     default: break;
   }
 }

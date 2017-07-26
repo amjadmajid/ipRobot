@@ -13,13 +13,13 @@
 #define NUM_CP 80
 #define RUN_TIME 50 //in mm
 #define DELAY RUN_TIME*690000/NUM_CP
-#define RUN_TIME2 RUN_TIME*(360000/8000)
+#define RUN_TIME2 RUN_TIME*(360000/4000)
 
-#define CNT_BEFORE 1
+#define CNT_AFTER 1
 
 typedef struct NVvar {
     uint8_t cp;
-    uint16_t cnt;
+    int16_t cnt;
 }NVvar;
 
 #endif /* GLOBAL_H_ */

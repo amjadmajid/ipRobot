@@ -14,9 +14,7 @@ extern NVvar fram;
 extern uint8_t running;
 
 void drv_init();
-void drv_mot();
-void dsbl_lmot();
+void enbl_mot();
 void dsbl_mot();
-void dsbl_tim();
 
 #endif /* MOTOR_CTRL_H_ */
