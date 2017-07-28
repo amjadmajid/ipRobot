@@ -22,3 +22,6 @@ http://mems.seas.upenn.edu/publications/2014/AMEMSEnabledBiodegradableBatteryFor
 Addressable wireless actuation for multijoint folding robots and devices
 http://robotics.sciencemag.org/content/2/8/eaan1544
 http://gizmodo.com/incredible-self-folding-robots-work-without-batteries-o-1797125283
+
+Ultra-low-power Wireless Streaming Cameras
+https://arxiv.org/pdf/1707.08718.pdf
