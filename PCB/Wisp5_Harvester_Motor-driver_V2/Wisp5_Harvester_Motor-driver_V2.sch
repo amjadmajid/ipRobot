@@ -7330,6 +7330,27 @@ by exp-lbrs.ulp</description>
 <smd name="1" x="-1.47955" y="0" dx="1.4351" dy="4.3942" layer="1"/>
 <smd name="2" x="1.47955" y="0" dx="1.4351" dy="4.3942" layer="1"/>
 </package>
+<package name="12WSON">
+<wire x1="1.55" y1="-1.05" x2="1.55" y2="1.05" width="0.127" layer="21"/>
+<wire x1="-1.55" y1="1.05" x2="-1.55" y2="-1.05" width="0.127" layer="21"/>
+<smd name="1" x="-1.25" y="-0.95" dx="0.28" dy="0.5" layer="1"/>
+<smd name="2" x="-0.75" y="-0.95" dx="0.28" dy="0.5" layer="1"/>
+<smd name="3" x="-0.25" y="-0.95" dx="0.28" dy="0.5" layer="1"/>
+<smd name="4" x="0.25" y="-0.95" dx="0.28" dy="0.5" layer="1"/>
+<smd name="5" x="0.75" y="-0.95" dx="0.28" dy="0.5" layer="1"/>
+<smd name="6" x="1.25" y="-0.95" dx="0.28" dy="0.5" layer="1"/>
+<smd name="7" x="1.25" y="0.95" dx="0.28" dy="0.5" layer="1"/>
+<smd name="8" x="0.75" y="0.95" dx="0.28" dy="0.5" layer="1"/>
+<smd name="9" x="0.25" y="0.95" dx="0.28" dy="0.5" layer="1"/>
+<smd name="10" x="-0.25" y="0.95" dx="0.28" dy="0.5" layer="1"/>
+<smd name="11" x="-0.75" y="0.95" dx="0.28" dy="0.5" layer="1"/>
+<smd name="12" x="-1.25" y="0.95" dx="0.28" dy="0.5" layer="1"/>
+<smd name="TH" x="0" y="0" dx="2.2" dy="0.9" layer="1"/>
+<text x="-1.89" y="-0.99" size="0.4064" layer="25" rot="R90">&gt;NAME</text>
+<pad name="P$1" x="-0.6" y="0" drill="0.35" diameter="0.9" shape="square"/>
+<pad name="P$2" x="0.6" y="0" drill="0.35" diameter="0.9" shape="square"/>
+<wire x1="-1.94" y1="-1.24" x2="-1.93" y2="-1.24" width="0.3048" layer="21"/>
+</package>
 </packages>
 <symbols>
 <symbol name="PINHEAD_WISP3X8">
@@ -7389,6 +7410,28 @@ by exp-lbrs.ulp</description>
 <pin name="2" x="0" y="-7.62" visible="off" length="short" direction="pas" swaplevel="1" rot="R90"/>
 <text x="-1.27" y="-5.08" size="1.778" layer="95" rot="R90">&gt;NAME</text>
 <text x="3.81" y="-5.08" size="1.778" layer="96" rot="R90">&gt;VALUE</text>
+</symbol>
+<symbol name="DRV8836">
+<description>&lt;b&gt;Dual low voltage H-Bridge IC&lt;/b&gt;</description>
+<wire x1="-15.24" y1="15.24" x2="15.24" y2="15.24" width="0.254" layer="94"/>
+<wire x1="15.24" y1="15.24" x2="15.24" y2="-12.7" width="0.254" layer="94"/>
+<wire x1="15.24" y1="-12.7" x2="-15.24" y2="-12.7" width="0.254" layer="94"/>
+<wire x1="-15.24" y1="-12.7" x2="-15.24" y2="15.24" width="0.254" layer="94"/>
+<pin name="AIN1/PHASE" x="-17.78" y="7.62" length="short"/>
+<pin name="AIN2/AENBL" x="-17.78" y="5.08" length="short"/>
+<pin name="AOUT1" x="17.78" y="7.62" length="short" rot="R180"/>
+<pin name="AOUT2" x="17.78" y="5.08" length="short" rot="R180"/>
+<pin name="BIN1/BPHASE" x="-17.78" y="0" length="short"/>
+<pin name="BIN2/BENBL" x="-17.78" y="-2.54" length="short"/>
+<pin name="BOUT1" x="17.78" y="0" length="short" rot="R180"/>
+<pin name="BOUT2" x="17.78" y="-2.54" length="short" rot="R180"/>
+<pin name="GND" x="17.78" y="-7.62" length="short" rot="R180"/>
+<pin name="MODE" x="-17.78" y="-7.62" length="short"/>
+<pin name="NSLEEP" x="-17.78" y="-10.16" length="short"/>
+<pin name="TH" x="17.78" y="-10.16" length="short" rot="R180"/>
+<pin name="VCC" x="17.78" y="12.7" length="short" rot="R180"/>
+<text x="-12.7" y="17.78" size="1.778" layer="95" rot="MR180">&gt;NAME</text>
+<text x="-12.7" y="-15.24" size="1.778" layer="96">&gt;VALUE</text>
 </symbol>
 </symbols>
 <devicesets>
@@ -7466,6 +7509,34 @@ Shielded SMT Power Inductors ? LPS4018 Series</description>
 </device>
 </devices>
 </deviceset>
+<deviceset name="DRV8836" prefix="U">
+<description>&lt;b&gt;Dual low voltage H-Bridge IC&lt;/b&gt;</description>
+<gates>
+<gate name="G$1" symbol="DRV8836" x="-2.54" y="2.54"/>
+</gates>
+<devices>
+<device name="" package="12WSON">
+<connects>
+<connect gate="G$1" pin="AIN1/PHASE" pad="10"/>
+<connect gate="G$1" pin="AIN2/AENBL" pad="9"/>
+<connect gate="G$1" pin="AOUT1" pad="2"/>
+<connect gate="G$1" pin="AOUT2" pad="3"/>
+<connect gate="G$1" pin="BIN1/BPHASE" pad="8"/>
+<connect gate="G$1" pin="BIN2/BENBL" pad="7"/>
+<connect gate="G$1" pin="BOUT1" pad="4"/>
+<connect gate="G$1" pin="BOUT2" pad="5"/>
+<connect gate="G$1" pin="GND" pad="6"/>
+<connect gate="G$1" pin="MODE" pad="11"/>
+<connect gate="G$1" pin="NSLEEP" pad="12"/>
+<connect gate="G$1" pin="TH" pad="TH"/>
+<connect gate="G$1" pin="VCC" pad="1"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
 </devicesets>
 </library>
 <library name="Wisp5_Harvester_Motor-driver_V2">
@@ -7494,30 +7565,6 @@ by exp-lbrs.ulp</description>
 <wire x1="4.699" y1="0.9017" x2="4.699" y2="-0.9017" width="0.127" layer="21"/>
 <pad name="4" x="3.81" y="0" drill="0.6" rot="R90"/>
 </package>
-<package name="12WSON">
-<wire x1="-1.55" y1="-1.05" x2="1.55" y2="-1.05" width="0.127" layer="21"/>
-<wire x1="1.55" y1="-1.05" x2="1.55" y2="1.05" width="0.127" layer="21"/>
-<wire x1="1.55" y1="1.05" x2="-1.55" y2="1.05" width="0.127" layer="21"/>
-<wire x1="-1.55" y1="1.05" x2="-1.55" y2="-1.05" width="0.127" layer="21"/>
-<wire x1="-1.3" y1="-0.8" x2="-1.1" y2="-0.8" width="0.127" layer="21"/>
-<wire x1="-1.1" y1="-0.8" x2="-1.1" y2="-0.6" width="0.127" layer="21"/>
-<wire x1="-1.1" y1="-0.6" x2="-1.3" y2="-0.6" width="0.127" layer="21"/>
-<wire x1="-1.3" y1="-0.6" x2="-1.3" y2="-0.8" width="0.127" layer="21"/>
-<smd name="1" x="-1.25" y="-0.95" dx="0.28" dy="0.5" layer="1"/>
-<smd name="2" x="-0.75" y="-0.95" dx="0.28" dy="0.5" layer="1"/>
-<smd name="3" x="-0.25" y="-0.95" dx="0.28" dy="0.5" layer="1"/>
-<smd name="4" x="0.25" y="-0.95" dx="0.28" dy="0.5" layer="1"/>
-<smd name="5" x="0.75" y="-0.95" dx="0.28" dy="0.5" layer="1"/>
-<smd name="6" x="1.25" y="-0.95" dx="0.28" dy="0.5" layer="1"/>
-<smd name="7" x="1.25" y="0.95" dx="0.28" dy="0.5" layer="1"/>
-<smd name="8" x="0.75" y="0.95" dx="0.28" dy="0.5" layer="1"/>
-<smd name="9" x="0.25" y="0.95" dx="0.28" dy="0.5" layer="1"/>
-<smd name="10" x="-0.25" y="0.95" dx="0.28" dy="0.5" layer="1"/>
-<smd name="11" x="-0.75" y="0.95" dx="0.28" dy="0.5" layer="1"/>
-<smd name="12" x="-1.25" y="0.95" dx="0.28" dy="0.5" layer="1"/>
-<smd name="TH" x="0" y="0" dx="2.2" dy="0.9" layer="1"/>
-<text x="-0.8" y="-0.2" size="0.4064" layer="25">&gt;NAME</text>
-</package>
 </packages>
 <symbols>
 <symbol name="PINHEAD_PINHD2">
@@ -7541,28 +7588,6 @@ by exp-lbrs.ulp</description>
 <text x="-6.35" y="-10.16" size="1.778" layer="96">&gt;VALUE</text>
 <pin name="3" x="-2.54" y="-2.54" visible="pad" length="short" direction="pas" function="dot"/>
 <pin name="4" x="-2.54" y="-5.08" visible="pad" length="short" direction="pas" function="dot"/>
-</symbol>
-<symbol name="DRV8836">
-<description>&lt;b&gt;Dual low voltage H-Bridge IC&lt;/b&gt;</description>
-<wire x1="-15.24" y1="15.24" x2="15.24" y2="15.24" width="0.254" layer="94"/>
-<wire x1="15.24" y1="15.24" x2="15.24" y2="-12.7" width="0.254" layer="94"/>
-<wire x1="15.24" y1="-12.7" x2="-15.24" y2="-12.7" width="0.254" layer="94"/>
-<wire x1="-15.24" y1="-12.7" x2="-15.24" y2="15.24" width="0.254" layer="94"/>
-<pin name="AIN1/PHASE" x="-17.78" y="7.62" length="short"/>
-<pin name="AIN2/AENBL" x="-17.78" y="5.08" length="short"/>
-<pin name="AOUT1" x="17.78" y="7.62" length="short" rot="R180"/>
-<pin name="AOUT2" x="17.78" y="5.08" length="short" rot="R180"/>
-<pin name="BIN1/BPHASE" x="-17.78" y="0" length="short"/>
-<pin name="BIN2/BENBL" x="-17.78" y="-2.54" length="short"/>
-<pin name="BOUT1" x="17.78" y="0" length="short" rot="R180"/>
-<pin name="BOUT2" x="17.78" y="-2.54" length="short" rot="R180"/>
-<pin name="GND" x="17.78" y="-7.62" length="short" rot="R180"/>
-<pin name="MODE" x="-17.78" y="-7.62" length="short"/>
-<pin name="NSLEEP" x="-17.78" y="-10.16" length="short"/>
-<pin name="TH" x="17.78" y="-10.16" length="short" rot="R180"/>
-<pin name="VCC" x="17.78" y="12.7" length="short" rot="R180"/>
-<text x="-12.7" y="17.78" size="1.778" layer="95" rot="MR180">&gt;NAME</text>
-<text x="-12.7" y="-15.24" size="1.778" layer="96">&gt;VALUE</text>
 </symbol>
 </symbols>
 <devicesets>
@@ -7600,34 +7625,6 @@ by exp-lbrs.ulp</description>
 </device>
 </devices>
 </deviceset>
-<deviceset name="DRV8836" prefix="U">
-<description>&lt;b&gt;Dual low voltage H-Bridge IC&lt;/b&gt;</description>
-<gates>
-<gate name="G$1" symbol="DRV8836" x="-2.54" y="2.54"/>
-</gates>
-<devices>
-<device name="" package="12WSON">
-<connects>
-<connect gate="G$1" pin="AIN1/PHASE" pad="10"/>
-<connect gate="G$1" pin="AIN2/AENBL" pad="9"/>
-<connect gate="G$1" pin="AOUT1" pad="2"/>
-<connect gate="G$1" pin="AOUT2" pad="3"/>
-<connect gate="G$1" pin="BIN1/BPHASE" pad="8"/>
-<connect gate="G$1" pin="BIN2/BENBL" pad="7"/>
-<connect gate="G$1" pin="BOUT1" pad="4"/>
-<connect gate="G$1" pin="BOUT2" pad="5"/>
-<connect gate="G$1" pin="GND" pad="6"/>
-<connect gate="G$1" pin="MODE" pad="11"/>
-<connect gate="G$1" pin="NSLEEP" pad="12"/>
-<connect gate="G$1" pin="TH" pad="TH"/>
-<connect gate="G$1" pin="VCC" pad="1"/>
-</connects>
-<technologies>
-<technology name=""/>
-</technologies>
-</device>
-</devices>
-</deviceset>
 </devicesets>
 </library>
 </libraries>
@@ -7640,7 +7637,7 @@ by exp-lbrs.ulp</description>
 </class>
 </classes>
 <parts>
-<part name="U$3" library="Wisp5_Harvester_Motor-driver_V2" deviceset="DRV8836" device=""/>
+<part name="U$3" library="robot_pcb2" deviceset="DRV8836" device=""/>
 <part name="U1" library="texas" deviceset="BQ25570" device=""/>
 <part name="GND1" library="supply1" deviceset="GND" device=""/>
 <part name="GND5" library="supply1" deviceset="GND" device=""/>
