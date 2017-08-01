@@ -9980,9 +9980,9 @@ Source: http://www.vishay.com/docs/10129/hpc0201a.pdf</description>
 <label x="187.96" y="66.04" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="M2" gate="G$1" pin="1"/>
-<wire x1="180.34" y1="35.56" x2="160.02" y2="35.56" width="0.1524" layer="91"/>
-<label x="160.02" y="35.56" size="1.778" layer="95"/>
+<pinref part="M2" gate="G$1" pin="2"/>
+<wire x1="180.34" y1="33.02" x2="160.02" y2="33.02" width="0.1524" layer="91"/>
+<label x="160.02" y="33.02" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="BOUT2_M2" class="0">
@@ -9992,9 +9992,9 @@ Source: http://www.vishay.com/docs/10129/hpc0201a.pdf</description>
 <label x="187.96" y="63.5" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="M2" gate="G$1" pin="2"/>
-<wire x1="180.34" y1="33.02" x2="160.02" y2="33.02" width="0.1524" layer="91"/>
-<label x="160.02" y="33.02" size="1.778" layer="95"/>
+<pinref part="M2" gate="G$1" pin="1"/>
+<wire x1="180.34" y1="35.56" x2="160.02" y2="35.56" width="0.1524" layer="91"/>
+<label x="160.02" y="35.56" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="NSLEEP" class="0">
@@ -10004,9 +10004,9 @@ Source: http://www.vishay.com/docs/10129/hpc0201a.pdf</description>
 <label x="127" y="55.88" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="U$1" gate="G$1" pin="AUX3"/>
-<wire x1="35.56" y1="22.86" x2="35.56" y2="10.16" width="0.1524" layer="91"/>
-<label x="35.56" y="5.08" size="1.778" layer="95" rot="R90"/>
+<pinref part="U$1" gate="G$1" pin="UART_RX"/>
+<wire x1="43.18" y1="22.86" x2="43.18" y2="10.16" width="0.1524" layer="91"/>
+<label x="43.18" y="5.08" size="1.778" layer="95" rot="R90"/>
 </segment>
 </net>
 <net name="BIN2" class="0">
@@ -10016,9 +10016,9 @@ Source: http://www.vishay.com/docs/10129/hpc0201a.pdf</description>
 <label x="127" y="63.5" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="U$1" gate="G$1" pin="AUX2"/>
-<wire x1="38.1" y1="22.86" x2="38.1" y2="10.16" width="0.1524" layer="91"/>
-<label x="38.1" y="5.08" size="1.778" layer="95" rot="R90"/>
+<pinref part="U$1" gate="G$1" pin="UART_TX"/>
+<wire x1="45.72" y1="22.86" x2="45.72" y2="10.16" width="0.1524" layer="91"/>
+<label x="45.72" y="5.08" size="1.778" layer="95" rot="R90"/>
 </segment>
 </net>
 <net name="BIN1" class="0">
@@ -10028,9 +10028,9 @@ Source: http://www.vishay.com/docs/10129/hpc0201a.pdf</description>
 <label x="127" y="66.04" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="U$1" gate="G$1" pin="AUX1"/>
-<wire x1="40.64" y1="22.86" x2="40.64" y2="10.16" width="0.1524" layer="91"/>
-<label x="40.64" y="5.08" size="1.778" layer="95" rot="R90"/>
+<pinref part="U$1" gate="G$1" pin="AUX2"/>
+<wire x1="38.1" y1="22.86" x2="38.1" y2="10.16" width="0.1524" layer="91"/>
+<label x="38.1" y="5.08" size="1.778" layer="95" rot="R90"/>
 </segment>
 </net>
 <net name="AIN2" class="0">
@@ -10040,9 +10040,9 @@ Source: http://www.vishay.com/docs/10129/hpc0201a.pdf</description>
 <label x="127" y="71.12" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="U$1" gate="G$1" pin="UART_RX"/>
-<wire x1="43.18" y1="22.86" x2="43.18" y2="10.16" width="0.1524" layer="91"/>
-<label x="43.18" y="5.08" size="1.778" layer="95" rot="R90"/>
+<pinref part="U$1" gate="G$1" pin="AUX1"/>
+<wire x1="40.64" y1="22.86" x2="40.64" y2="10.16" width="0.1524" layer="91"/>
+<label x="40.64" y="5.08" size="1.778" layer="95" rot="R90"/>
 </segment>
 </net>
 <net name="AIN1" class="0">
@@ -10052,9 +10052,9 @@ Source: http://www.vishay.com/docs/10129/hpc0201a.pdf</description>
 <label x="127" y="73.66" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="U$1" gate="G$1" pin="UART_TX"/>
-<wire x1="45.72" y1="22.86" x2="45.72" y2="10.16" width="0.1524" layer="91"/>
-<label x="45.72" y="5.08" size="1.778" layer="95" rot="R90"/>
+<pinref part="U$1" gate="G$1" pin="AUX3"/>
+<wire x1="35.56" y1="22.86" x2="35.56" y2="10.16" width="0.1524" layer="91"/>
+<label x="35.56" y="5.08" size="1.778" layer="95" rot="R90"/>
 </segment>
 </net>
 <net name="GND" class="0">
