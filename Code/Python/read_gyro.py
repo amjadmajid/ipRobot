@@ -6,24 +6,22 @@ import struct
 import matplotlib.pyplot as plt
 import numpy as np
 
-num_samples = 200;
+num_samples = 200
 
-#end = format(17408 + num_samples,'#04x')
-#print end
+# Get whole lines, otherwise unhexify will crash
+num_lines = int(32 * (math.ceil(num_samples*2/32))) -1
+end = format(17408 + num_lines,'#04x')
 
 process = subprocess.Popen(
-    ["MSP430Flasher.exe", "-g", "-r", "[output.hex,0x4400-0xBB80]", "-z", "[VCC=2200]"],
+    ["MSP430Flasher.exe", "-g", "-r", "[output.hex,0x4400-" + str(end) + "]", "-z", "[VCC=2200]"],
     stdin=subprocess.PIPE)
 
 process.communicate("n\n")
 
 output = open('output.hex', 'r')
 arr = output.readlines()
-max = int(math.ceil(num_samples/8+1))
-values = arr[1:max]
-
-#for line in values:
-#    print line
+# remove end-of-file record
+values = arr[1:(len(arr)-1)]
 
 iarr = []
 
