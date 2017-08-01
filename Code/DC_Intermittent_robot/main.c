@@ -31,26 +31,25 @@ void init(void) {
 
 int main(void) {
 
-    //__delay_cycles(8000000);
     init();
     drv_init();
 
-    if(CNT_AFTER){
+    /*if(CNT_AFTER){
         fram.cnt--;
-    }
+    }*/
 
-    //enbl_mot();
+    enbl_mot();
+    forward();
+    __delay_cycles(8000000);
+    reverse();
+    __delay_cycles(8000000);
+    dsbl_mot();
 
-    running=1;
+    /*running=1;
     while(running) {
         // DO NOTHING
-        P1OUT |= (BIT4);
-        P3OUT |= (BIT4 + BIT5);
-        __delay_cycles(400);
-        P3OUT &= ~(BIT4 + BIT5);
-        P1OUT &= ~(BIT4);
-        __delay_cycles(400);
-    }
+
+    }*/
 
     return 0;
 }
