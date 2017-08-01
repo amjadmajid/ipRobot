@@ -7,7 +7,6 @@
 
 #include <msp430.h>
 #include <stdint.h>
-#include "global.h"
 #include "motor_ctrl.h"
 
 void drv_init() {
@@ -29,7 +28,7 @@ void drv_init() {
     P2SEL0 |= BIT0;                           // Option select timer output
 
     TB0CCR0 = 1000;                           // PWM Period (2khz)
-    TB0CTL = TBSSEL__SMCLK;                   // SMCLK, up mode, clear TBR
+    TB0CTL = TBSSEL__SMCLK;                   // SMCLK
 }
 
 
@@ -57,7 +56,7 @@ void forward(){
     TB0CCTL4 = OUTMOD_7;                      // CCR4 reset/set
     TB0CCR4 = 270;
 
-    TB0CTL |= MC__UP | TBCLR;
+    TB0CTL |= MC__UP | TBCLR;                 //Up mode, clear TBR
 }
 
 void reverse(){
@@ -75,5 +74,5 @@ void reverse(){
     TB0CCTL6 = OUTMOD_7;                      // CCR6 reset/set
     TB0CCR6 = 270;
 
-    TB0CTL |= MC__UP | TBCLR;
+    TB0CTL |= MC__UP | TBCLR;                 //Up mode, clear TBR
 }

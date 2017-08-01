@@ -8,9 +8,6 @@
 #ifndef MOTOR_CTRL_H_
 #define MOTOR_CTRL_H_
 
-extern NVvar fram;
-extern uint8_t running;
-
 void drv_init();
 void enbl_mot();
 void dsbl_mot();
