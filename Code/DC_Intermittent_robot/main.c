@@ -2,15 +2,19 @@
 #include <stdint.h>
 #include "global.h"
 #include "eusci_b0_i2c.h"
+#include "gyro_sens.h"
 #include "motor_ctrl.h"
 
 /*
  * main.c
  */
 
+#pragma PERSISTENT(sensor_data);
+int16_t sensor_data[200] = {0};
+
 #pragma PERSISTENT(fram);
 NVvar fram = {0};
-uint8_t running;
+//uint8_t running;
 
 void init(void) {
 
@@ -25,31 +29,51 @@ void init(void) {
     CSCTL3 = DIVA__1 | DIVS__4 | DIVM__1;   // Set all dividers
     CSCTL0_H = 0;                           // Lock CS registers
 
-    P4DIR |= BIT0;
-    P4OUT &= ~(BIT0);
+    PJDIR |= BIT6;
+    PJOUT &= ~BIT6;
 }
 
 int main(void) {
 
+    uint16_t cnt = 0;
+
     init();
+    i2c_init();
+    gyro_init();
     drv_init();
 
-    /*if(CNT_AFTER){
-        fram.cnt--;
-    }*/
+    if(fram.cp == 0){
+       fram.cp = 1;
 
-    enbl_mot();
-    forward();
-    __delay_cycles(8000000);
-    reverse();
-    __delay_cycles(8000000);
-    dsbl_mot();
+        /*if(CNT_AFTER){
+            fram.cnt--;
+        }*/
 
-    /*running=1;
-    while(running) {
-        // DO NOTHING
+        enbl_mot();
+        forward();
 
-    }*/
+        // Run at approx 100Hz
+        while(cnt < 200){
+            sensor_data[cnt] = gyro_read();
+            cnt++;
+            __delay_cycles(80000);
+        }
+        dsbl_mot();
+
+        /*__delay_cycles(8000000);
+        reverse();
+        __delay_cycles(8000000);
+        dsbl_mot(); */
+
+        /*running=1;
+        while(running) {
+            // DO NOTHING
+
+        }*/
+
+        //Enable LED to drain excess energy
+        PJOUT |= BIT6;
+    }
 
     return 0;
 }
