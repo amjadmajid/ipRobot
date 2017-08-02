@@ -11,7 +11,8 @@
 void drv_init();
 void enbl_mot();
 void dsbl_mot();
-void forward();
+void forward(uint16_t sl, uint16_t sr);
+void set_fspeed(uint16_t sl, uint16_t sr);
 void reverse();
 
 #endif /* MOTOR_CTRL_H_ */

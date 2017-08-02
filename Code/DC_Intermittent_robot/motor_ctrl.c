@@ -41,7 +41,7 @@ void dsbl_mot(){
     TB0CTL |= MC__STOP;
 }
 
-void forward(){
+void forward(uint16_t sl, uint16_t sr){
 
     TB0CTL |= MC__STOP;
 
@@ -51,12 +51,17 @@ void forward(){
 
     //Left motor
     TB0CCTL1 = OUTMOD_7;                      // CCR1 reset/set
-    TB0CCR1 = 200;
+    TB0CCR1 = sl;
     //Right motor
     TB0CCTL4 = OUTMOD_7;                      // CCR4 reset/set
-    TB0CCR4 = 270;
+    TB0CCR4 = sr;
 
     TB0CTL |= MC__UP | TBCLR;                 //Up mode, clear TBR
+}
+
+void set_fspeed(uint16_t sl, uint16_t sr){
+    TB0CCR1 = sl;
+    TB0CCR4 = sr;
 }
 
 void reverse(){
