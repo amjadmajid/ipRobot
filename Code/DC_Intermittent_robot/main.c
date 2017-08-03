@@ -9,8 +9,10 @@
  * main.c
  */
 
+#define RAMP 1
+
 #pragma PERSISTENT(sensor_data);
-int16_t sensor_data[400] = {0};
+int16_t sensor_data[200] = {0};
 
 #pragma PERSISTENT(fram);
 NVvar fram = {0};
@@ -34,10 +36,10 @@ void init(void) {
 
     int main(void) {
 
-    const uint16_t lspeed = 800;
-    uint16_t rspeed = 800;
+    uint16_t lspeed = 200;
+    uint16_t rspeed = 200;
     const float Kp = 0.23;
-    const float Kd = 0.14;
+    const float Kd = 0.15;
 
     uint16_t cnt = 0;
     int16_t data = 0;
@@ -59,17 +61,21 @@ void init(void) {
         enbl_mot();
         forward(lspeed, rspeed);
 
-        // Run at approx 400Hz
-        while(cnt < 400){
+        // Run at approx 100Hz
+        while(cnt < 200){
             data = gyro_read();
             omega = data / 131.0;
             derr = omega - prev;
+            if(cnt < 100 && RAMP){
+                lspeed += 5;
+                rspeed += 5;
+            }
             rspeed = rspeed - (Kp*omega + Kd*derr);
             set_fspeed(lspeed, rspeed);
-            sensor_data[cnt] = data;
+            sensor_data[cnt] = rspeed;
             prev = omega;
             cnt++;
-            __delay_cycles(20000);
+            __delay_cycles(80000);
         }
         dsbl_mot();
 

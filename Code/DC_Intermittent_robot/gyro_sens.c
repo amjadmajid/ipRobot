@@ -28,8 +28,8 @@ void gyro_init(){
     __delay_cycles(400000);
     //while(!(i2c_read(BMG_ADDR, 0x03) & 0x04));
 
-    //Set data rate to 400Hz and bandwidth to 42.8Hz
-    i2c_write(BMG_ADDR, 0x42, 0x2A);
+    //Set data rate to 200Hz and bandwidth to 21.4Hz
+    //i2c_write(BMG_ADDR, 0x42, 0x29);
 
     //Set angular rate measurement range to 250deg/s
     i2c_write(BMG_ADDR, 0x43, 0x03);
