@@ -10,7 +10,7 @@
  */
 
 #pragma PERSISTENT(sensor_data);
-int16_t sensor_data[200] = {0};
+int16_t sensor_data[400] = {0};
 
 #pragma PERSISTENT(fram);
 NVvar fram = {0};
@@ -34,12 +34,15 @@ void init(void) {
 
     int main(void) {
 
-    const uint16_t speed = 300;
-    const float Kp = 0.34*(speed/200);
+    const uint16_t lspeed = 300;
+    uint16_t rspeed = 300;
+    const float Kp = 0.14;
+    const float Kd = 0.8;
 
     uint16_t cnt = 0;
-    uint16_t data = 0;
+    int16_t data = 0;
     float omega = 0;
+    float prev = 0, derr = 0;
 
     init();
     i2c_init();
@@ -47,23 +50,26 @@ void init(void) {
     drv_init();
 
     if(fram.cp == 0){
-       fram.cp = 0;
+       fram.cp = 1;
 
         /*if(CNT_AFTER){
             fram.cnt--;
         }*/
 
         enbl_mot();
-        forward(speed, speed);
+        forward(lspeed, rspeed);
 
-        // Run at approx 100Hz
-        while(cnt < 100){
+        // Run at approx 400Hz
+        while(cnt < 400){
             data = gyro_read();
             omega = data / 131.0;
-            set_fspeed(speed, (speed + (Kp*omega)));
+            derr = omega - prev;
+            rspeed = rspeed - (Kp*omega + Kd*derr);
+            set_fspeed(lspeed, rspeed);
             sensor_data[cnt] = data;
+            prev = omega;
             cnt++;
-            __delay_cycles(80000);
+            __delay_cycles(20000);
         }
         dsbl_mot();
 
