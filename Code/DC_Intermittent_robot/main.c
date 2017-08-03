@@ -34,10 +34,10 @@ void init(void) {
 
     int main(void) {
 
-    const uint16_t lspeed = 300;
-    uint16_t rspeed = 300;
-    const float Kp = 0.14;
-    const float Kd = 0.8;
+    const uint16_t lspeed = 800;
+    uint16_t rspeed = 800;
+    const float Kp = 0.23;
+    const float Kd = 0.14;
 
     uint16_t cnt = 0;
     int16_t data = 0;

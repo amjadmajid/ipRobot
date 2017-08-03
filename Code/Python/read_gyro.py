@@ -6,7 +6,7 @@ import struct
 import matplotlib.pyplot as plt
 import numpy as np
 
-num_samples = 200
+num_samples = 400
 
 # Get whole lines, otherwise unhexify will crash
 num_lines = int(32 * (math.ceil(num_samples*2/32))) -1
@@ -53,5 +53,5 @@ print tarr
 x = np.linspace(0, num_samples, num_samples)
 
 plt.figure(1)
-plt.plot(x, tarr)
+plt.plot(warr)
 plt.show()

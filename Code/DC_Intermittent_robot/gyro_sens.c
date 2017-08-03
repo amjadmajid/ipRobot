@@ -45,8 +45,6 @@ void gyro_init(){
 
     //Remove stall data, clear data ready bit
     gyro_read();
-
-    __delay_cycles(80000);
 }
 
 int16_t gyro_read() {
