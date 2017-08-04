@@ -34,12 +34,12 @@ void init(void) {
     PJOUT &= ~BIT6;
 }
 
-    int main(void) {
+int main(void) {
 
     uint16_t lspeed = 200;
     uint16_t rspeed = 200;
-    const float Kp = 0.23;
-    const float Kd = 0.15;
+    const float Kp = 0.26;
+    const float Kd = 0.18;
 
     uint16_t cnt = 0;
     int16_t data = 0;
@@ -72,7 +72,7 @@ void init(void) {
             }
             rspeed = rspeed - (Kp*omega + Kd*derr);
             set_fspeed(lspeed, rspeed);
-            sensor_data[cnt] = rspeed;
+            sensor_data[cnt] = data;
             prev = omega;
             cnt++;
             __delay_cycles(80000);
