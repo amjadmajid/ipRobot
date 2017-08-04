@@ -20,7 +20,12 @@ process = subprocess.Popen(
 process.communicate("n\n")
 
 if process.returncode != 0:
-    print "\n ERROR: The debugger is already in use!"
+    if process.returncode == 11:
+        print "\n ERROR: The debugger is already in use!"
+    elif process.returncode == 16:
+        print "\n ERROR: The device is wrong or not connected!"
+    else:
+        print "\n ERROR: Unknown"
     quit(1)
 
 output = open('output.hex', 'r')
