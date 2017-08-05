@@ -8799,6 +8799,7 @@ Source: http://www.vishay.com/docs/10129/hpc0201a.pdf</description>
 <wire x1="0.67945" y1="1.94945" x2="-0.67945" y2="1.94945" width="0.127" layer="21"/>
 <smd name="1" x="-1.47955" y="0" dx="1.4351" dy="4.3942" layer="1"/>
 <smd name="2" x="1.47955" y="0" dx="1.4351" dy="4.3942" layer="1"/>
+<text x="-2.54" y="2.54" size="1.27" layer="21">&gt;Name</text>
 </package>
 </packages>
 <symbols>
@@ -9891,7 +9892,7 @@ Shielded SMT Power Inductors ? LPS4018 Series</description>
 </class>
 </classes>
 <parts>
-<part name="U$3" library="Wisp5_Harvester_Motor-driver_V2" deviceset="DRV8836" device=""/>
+<part name="U3" library="Wisp5_Harvester_Motor-driver_V2" deviceset="DRV8836" device=""/>
 <part name="U1" library="Wisp5_Harvester_Motor-driver_V2" deviceset="BQ25570" device=""/>
 <part name="GND1" library="Wisp5_Harvester_Motor-driver_V2" deviceset="GND" device=""/>
 <part name="GND5" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
@@ -9908,8 +9909,8 @@ Shielded SMT Power Inductors ? LPS4018 Series</description>
 <part name="GND11" library="Wisp5_Harvester_Motor-driver_V2" deviceset="GND" device=""/>
 <part name="R2" library="resistor" library_urn="urn:adsk.eagle:library:348" deviceset="R-EU_" device="R0805" value="5.36M"/>
 <part name="R1" library="resistor" library_urn="urn:adsk.eagle:library:348" deviceset="R-EU_" device="R0805" value="7.50M"/>
-<part name="L1" library="Wisp5_Harvester_Motor-driver_V2" deviceset="COILCRAFT-LPS4018" device="" value="22uH"/>
-<part name="L2" library="Wisp5_Harvester_Motor-driver_V2" deviceset="COILCRAFT-LPS4018" device="" value="10uH"/>
+<part name="L1" library="Wisp5_Harvester_Motor-driver_V2" deviceset="COILCRAFT-LPS4018" device=""/>
+<part name="L2" library="Wisp5_Harvester_Motor-driver_V2" deviceset="COILCRAFT-LPS4018" device=""/>
 <part name="C8" library="Wisp5_Harvester_Motor-driver_V2" deviceset="C-EU" device="C1210" value="220uF"/>
 <part name="R6" library="resistor" library_urn="urn:adsk.eagle:library:348" deviceset="R-EU_" device="R0805" value="6.04M"/>
 <part name="R7" library="resistor" library_urn="urn:adsk.eagle:library:348" deviceset="R-EU_" device="R0805" value="3.01M"/>
@@ -9923,8 +9924,8 @@ Shielded SMT Power Inductors ? LPS4018 Series</description>
 <part name="GND13" library="Wisp5_Harvester_Motor-driver_V2" deviceset="GND" device=""/>
 <part name="C1" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="C-EU" device="C0805" value="0.1uF"/>
 <part name="VIN/GND" library="Wisp5_Harvester_Motor-driver_V2" deviceset="PINHEAD_PINHD-1X2-1.27MM" device=""/>
-<part name="U$1" library="Wisp5_Harvester_Motor-driver_V2" deviceset="WISP_HEADER" device=""/>
-<part name="U$2" library="Wisp5_Harvester_Motor-driver_V2" deviceset="BGM250" device=""/>
+<part name="WISP" library="Wisp5_Harvester_Motor-driver_V2" deviceset="WISP_HEADER" device=""/>
+<part name="U2" library="Wisp5_Harvester_Motor-driver_V2" deviceset="BGM250" device=""/>
 <part name="GND2" library="Wisp5_Harvester_Motor-driver_V2" deviceset="GND" device=""/>
 <part name="GND3" library="Wisp5_Harvester_Motor-driver_V2" deviceset="GND" device=""/>
 <part name="GND4" library="Wisp5_Harvester_Motor-driver_V2" deviceset="GND" device=""/>
@@ -9942,13 +9943,13 @@ Shielded SMT Power Inductors ? LPS4018 Series</description>
 <plain>
 </plain>
 <instances>
-<instance part="U$3" gate="G$1" x="160.02" y="66.04"/>
+<instance part="U3" gate="G$1" x="160.02" y="66.04"/>
 <instance part="R3" gate="G$1" x="2.54" y="40.64" rot="R90"/>
 <instance part="R4" gate="G$1" x="10.16" y="40.64" rot="R90"/>
 <instance part="GND13" gate="1" x="185.42" y="53.34"/>
 <instance part="C1" gate="G$1" x="205.74" y="71.12"/>
-<instance part="U$1" gate="G$1" x="22.86" y="30.48"/>
-<instance part="U$2" gate="G$1" x="73.66" y="71.12"/>
+<instance part="WISP" gate="G$1" x="22.86" y="30.48"/>
+<instance part="U2" gate="G$1" x="73.66" y="71.12"/>
 <instance part="GND2" gate="1" x="45.72" y="68.58"/>
 <instance part="GND3" gate="1" x="27.94" y="43.18"/>
 <instance part="GND4" gate="1" x="99.06" y="53.34"/>
@@ -9966,7 +9967,7 @@ Shielded SMT Power Inductors ? LPS4018 Series</description>
 <nets>
 <net name="AOUT1_M1" class="0">
 <segment>
-<pinref part="U$3" gate="G$1" pin="AOUT1"/>
+<pinref part="U3" gate="G$1" pin="AOUT1"/>
 <wire x1="177.8" y1="73.66" x2="187.96" y2="73.66" width="0.1524" layer="91"/>
 <label x="187.96" y="73.66" size="1.778" layer="95"/>
 </segment>
@@ -9978,7 +9979,7 @@ Shielded SMT Power Inductors ? LPS4018 Series</description>
 </net>
 <net name="AOUT2_M1" class="0">
 <segment>
-<pinref part="U$3" gate="G$1" pin="AOUT2"/>
+<pinref part="U3" gate="G$1" pin="AOUT2"/>
 <wire x1="177.8" y1="71.12" x2="187.96" y2="71.12" width="0.1524" layer="91"/>
 <label x="187.96" y="71.12" size="1.778" layer="95"/>
 </segment>
@@ -9990,7 +9991,7 @@ Shielded SMT Power Inductors ? LPS4018 Series</description>
 </net>
 <net name="BOUT1_M2" class="0">
 <segment>
-<pinref part="U$3" gate="G$1" pin="BOUT1"/>
+<pinref part="U3" gate="G$1" pin="BOUT1"/>
 <wire x1="177.8" y1="66.04" x2="187.96" y2="66.04" width="0.1524" layer="91"/>
 <label x="187.96" y="66.04" size="1.778" layer="95"/>
 </segment>
@@ -10002,7 +10003,7 @@ Shielded SMT Power Inductors ? LPS4018 Series</description>
 </net>
 <net name="BOUT2_M2" class="0">
 <segment>
-<pinref part="U$3" gate="G$1" pin="BOUT2"/>
+<pinref part="U3" gate="G$1" pin="BOUT2"/>
 <wire x1="177.8" y1="63.5" x2="187.96" y2="63.5" width="0.1524" layer="91"/>
 <label x="187.96" y="63.5" size="1.778" layer="95"/>
 </segment>
@@ -10014,70 +10015,70 @@ Shielded SMT Power Inductors ? LPS4018 Series</description>
 </net>
 <net name="NSLEEP" class="0">
 <segment>
-<pinref part="U$3" gate="G$1" pin="NSLEEP"/>
+<pinref part="U3" gate="G$1" pin="NSLEEP"/>
 <wire x1="142.24" y1="55.88" x2="132.08" y2="55.88" width="0.1524" layer="91"/>
 <label x="127" y="55.88" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="U$1" gate="G$1" pin="UART_RX"/>
+<pinref part="WISP" gate="G$1" pin="UART_RX"/>
 <wire x1="43.18" y1="22.86" x2="43.18" y2="10.16" width="0.1524" layer="91"/>
 <label x="43.18" y="5.08" size="1.778" layer="95" rot="R90"/>
 </segment>
 </net>
 <net name="BIN2" class="0">
 <segment>
-<pinref part="U$3" gate="G$1" pin="BIN2/BENBL"/>
+<pinref part="U3" gate="G$1" pin="BIN2/BENBL"/>
 <wire x1="142.24" y1="63.5" x2="132.08" y2="63.5" width="0.1524" layer="91"/>
 <label x="127" y="63.5" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="U$1" gate="G$1" pin="UART_TX"/>
+<pinref part="WISP" gate="G$1" pin="UART_TX"/>
 <wire x1="45.72" y1="22.86" x2="45.72" y2="10.16" width="0.1524" layer="91"/>
 <label x="45.72" y="5.08" size="1.778" layer="95" rot="R90"/>
 </segment>
 </net>
 <net name="BIN1" class="0">
 <segment>
-<pinref part="U$3" gate="G$1" pin="BIN1/BPHASE"/>
+<pinref part="U3" gate="G$1" pin="BIN1/BPHASE"/>
 <wire x1="142.24" y1="66.04" x2="132.08" y2="66.04" width="0.1524" layer="91"/>
 <label x="127" y="66.04" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="U$1" gate="G$1" pin="AUX2"/>
+<pinref part="WISP" gate="G$1" pin="AUX2"/>
 <wire x1="38.1" y1="22.86" x2="38.1" y2="10.16" width="0.1524" layer="91"/>
 <label x="38.1" y="5.08" size="1.778" layer="95" rot="R90"/>
 </segment>
 </net>
 <net name="AIN2" class="0">
 <segment>
-<pinref part="U$3" gate="G$1" pin="AIN2/AENBL"/>
+<pinref part="U3" gate="G$1" pin="AIN2/AENBL"/>
 <wire x1="142.24" y1="71.12" x2="132.08" y2="71.12" width="0.1524" layer="91"/>
 <label x="127" y="71.12" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="U$1" gate="G$1" pin="AUX1"/>
+<pinref part="WISP" gate="G$1" pin="AUX1"/>
 <wire x1="40.64" y1="22.86" x2="40.64" y2="10.16" width="0.1524" layer="91"/>
 <label x="40.64" y="5.08" size="1.778" layer="95" rot="R90"/>
 </segment>
 </net>
 <net name="AIN1" class="0">
 <segment>
-<pinref part="U$3" gate="G$1" pin="AIN1/PHASE"/>
+<pinref part="U3" gate="G$1" pin="AIN1/PHASE"/>
 <wire x1="142.24" y1="73.66" x2="132.08" y2="73.66" width="0.1524" layer="91"/>
 <label x="127" y="73.66" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="U$1" gate="G$1" pin="AUX3"/>
+<pinref part="WISP" gate="G$1" pin="AUX3"/>
 <wire x1="35.56" y1="22.86" x2="35.56" y2="10.16" width="0.1524" layer="91"/>
 <label x="35.56" y="5.08" size="1.778" layer="95" rot="R90"/>
 </segment>
 </net>
 <net name="GND" class="0">
 <segment>
-<pinref part="U$3" gate="G$1" pin="GND"/>
+<pinref part="U3" gate="G$1" pin="GND"/>
 <wire x1="177.8" y1="58.42" x2="180.34" y2="58.42" width="0.1524" layer="91"/>
 <wire x1="180.34" y1="58.42" x2="180.34" y2="55.88" width="0.1524" layer="91"/>
-<pinref part="U$3" gate="G$1" pin="TH"/>
+<pinref part="U3" gate="G$1" pin="TH"/>
 <wire x1="180.34" y1="55.88" x2="177.8" y2="55.88" width="0.1524" layer="91"/>
 <wire x1="180.34" y1="58.42" x2="185.42" y2="58.42" width="0.127" layer="91"/>
 <wire x1="185.42" y1="58.42" x2="185.42" y2="55.88" width="0.127" layer="91"/>
@@ -10091,11 +10092,11 @@ Shielded SMT Power Inductors ? LPS4018 Series</description>
 <segment>
 <pinref part="GND2" gate="1" pin="GND"/>
 <wire x1="45.72" y1="71.12" x2="45.72" y2="73.66" width="0.1524" layer="91"/>
-<pinref part="U$2" gate="G$1" pin="SDO"/>
+<pinref part="U2" gate="G$1" pin="SDO"/>
 <wire x1="45.72" y1="73.66" x2="55.88" y2="73.66" width="0.1524" layer="91"/>
 </segment>
 <segment>
-<pinref part="U$1" gate="G$1" pin="GND1"/>
+<pinref part="WISP" gate="G$1" pin="GND1"/>
 <wire x1="28.194" y1="35.306" x2="20.32" y2="35.306" width="0.1524" layer="91"/>
 <wire x1="20.32" y1="35.306" x2="20.32" y2="48.26" width="0.1524" layer="91"/>
 <pinref part="GND3" gate="1" pin="GND"/>
@@ -10103,11 +10104,11 @@ Shielded SMT Power Inductors ? LPS4018 Series</description>
 <wire x1="27.94" y1="48.26" x2="27.94" y2="45.72" width="0.1524" layer="91"/>
 </segment>
 <segment>
-<pinref part="U$2" gate="G$1" pin="GND"/>
+<pinref part="U2" gate="G$1" pin="GND"/>
 <wire x1="76.2" y1="55.88" x2="81.28" y2="55.88" width="0.1524" layer="91"/>
 <pinref part="GND4" gate="1" pin="GND"/>
 <wire x1="81.28" y1="55.88" x2="93.98" y2="55.88" width="0.1524" layer="91"/>
-<pinref part="U$2" gate="G$1" pin="GNDIO"/>
+<pinref part="U2" gate="G$1" pin="GNDIO"/>
 <wire x1="93.98" y1="55.88" x2="99.06" y2="55.88" width="0.1524" layer="91"/>
 <wire x1="73.66" y1="55.88" x2="73.66" y2="53.34" width="0.1524" layer="91"/>
 <wire x1="73.66" y1="53.34" x2="81.28" y2="53.34" width="0.1524" layer="91"/>
@@ -10118,7 +10119,7 @@ Shielded SMT Power Inductors ? LPS4018 Series</description>
 <junction x="93.98" y="55.88"/>
 </segment>
 <segment>
-<pinref part="U$1" gate="G$1" pin="GND2"/>
+<pinref part="WISP" gate="G$1" pin="GND2"/>
 <pinref part="GND8" gate="1" pin="GND"/>
 <wire x1="30.48" y1="22.86" x2="30.48" y2="15.24" width="0.1524" layer="91"/>
 <wire x1="30.48" y1="15.24" x2="25.4" y2="15.24" width="0.1524" layer="91"/>
@@ -10128,7 +10129,7 @@ Shielded SMT Power Inductors ? LPS4018 Series</description>
 <wire x1="119.38" y1="58.42" x2="119.38" y2="60.96" width="0.1524" layer="91"/>
 <wire x1="119.38" y1="60.96" x2="139.7" y2="60.96" width="0.1524" layer="91"/>
 <wire x1="139.7" y1="60.96" x2="139.7" y2="58.42" width="0.1524" layer="91"/>
-<pinref part="U$3" gate="G$1" pin="MODE"/>
+<pinref part="U3" gate="G$1" pin="MODE"/>
 <wire x1="139.7" y1="58.42" x2="142.24" y2="58.42" width="0.1524" layer="91"/>
 </segment>
 <segment>
@@ -10146,12 +10147,12 @@ Shielded SMT Power Inductors ? LPS4018 Series</description>
 </net>
 <net name="VREG" class="0">
 <segment>
-<pinref part="U$1" gate="G$1" pin="VREG"/>
+<pinref part="WISP" gate="G$1" pin="VREG"/>
 <wire x1="33.02" y1="22.86" x2="33.02" y2="10.16" width="0.1524" layer="91"/>
 <label x="33.02" y="5.08" size="1.778" layer="95" rot="R90"/>
 </segment>
 <segment>
-<pinref part="U$3" gate="G$1" pin="VCC"/>
+<pinref part="U3" gate="G$1" pin="VCC"/>
 <wire x1="177.8" y1="78.74" x2="187.96" y2="78.74" width="0.1524" layer="91"/>
 <wire x1="187.96" y1="78.74" x2="205.74" y2="78.74" width="0.127" layer="91"/>
 <pinref part="C1" gate="G$1" pin="1"/>
@@ -10159,7 +10160,7 @@ Shielded SMT Power Inductors ? LPS4018 Series</description>
 <label x="187.96" y="78.74" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="U$2" gate="G$1" pin="CSB"/>
+<pinref part="U2" gate="G$1" pin="CSB"/>
 <wire x1="76.2" y1="83.82" x2="76.2" y2="86.36" width="0.1524" layer="91"/>
 <wire x1="76.2" y1="86.36" x2="81.28" y2="86.36" width="0.1524" layer="91"/>
 <label x="76.2" y="86.36" size="1.778" layer="95"/>
@@ -10173,7 +10174,7 @@ Shielded SMT Power Inductors ? LPS4018 Series</description>
 <label x="2.54" y="48.26" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="U$2" gate="G$1" pin="VDD"/>
+<pinref part="U2" gate="G$1" pin="VDD"/>
 <wire x1="91.44" y1="66.04" x2="93.98" y2="66.04" width="0.1524" layer="91"/>
 <label x="99.06" y="66.04" size="1.778" layer="95"/>
 <pinref part="C2" gate="G$1" pin="1"/>
@@ -10181,7 +10182,7 @@ Shielded SMT Power Inductors ? LPS4018 Series</description>
 <junction x="93.98" y="66.04"/>
 </segment>
 <segment>
-<pinref part="U$2" gate="G$1" pin="VDDIO"/>
+<pinref part="U2" gate="G$1" pin="VDDIO"/>
 <wire x1="71.12" y1="55.88" x2="71.12" y2="48.26" width="0.1524" layer="91"/>
 <label x="76.2" y="48.26" size="1.778" layer="95"/>
 <wire x1="71.12" y1="48.26" x2="81.28" y2="48.26" width="0.1524" layer="91"/>
@@ -10195,7 +10196,7 @@ Shielded SMT Power Inductors ? LPS4018 Series</description>
 </net>
 <net name="VBOOST" class="0">
 <segment>
-<pinref part="U$1" gate="G$1" pin="VBOOST"/>
+<pinref part="WISP" gate="G$1" pin="VBOOST"/>
 <wire x1="48.26" y1="22.86" x2="48.26" y2="10.16" width="0.1524" layer="91"/>
 <label x="48.26" y="5.08" size="1.778" layer="95" rot="R90"/>
 </segment>
@@ -10207,7 +10208,7 @@ Shielded SMT Power Inductors ? LPS4018 Series</description>
 </net>
 <net name="SCL" class="0">
 <segment>
-<pinref part="U$1" gate="G$1" pin="I2C_SCL"/>
+<pinref part="WISP" gate="G$1" pin="I2C_SCL"/>
 <pinref part="R4" gate="G$1" pin="1"/>
 <wire x1="10.16" y1="35.56" x2="10.16" y2="33.02" width="0.1524" layer="91"/>
 <wire x1="10.16" y1="33.02" x2="28.194" y2="33.02" width="0.1524" layer="91"/>
@@ -10220,7 +10221,7 @@ Shielded SMT Power Inductors ? LPS4018 Series</description>
 <pinref part="MAX44000" gate="G$1" pin="3"/>
 </segment>
 <segment>
-<pinref part="U$2" gate="G$1" pin="CSX"/>
+<pinref part="U2" gate="G$1" pin="CSX"/>
 <wire x1="73.66" y1="83.82" x2="73.66" y2="91.44" width="0.1524" layer="91"/>
 <wire x1="73.66" y1="91.44" x2="63.5" y2="91.44" width="0.1524" layer="91"/>
 <label x="63.5" y="91.44" size="1.778" layer="95"/>
@@ -10230,7 +10231,7 @@ Shielded SMT Power Inductors ? LPS4018 Series</description>
 <segment>
 <pinref part="R3" gate="G$1" pin="1"/>
 <wire x1="2.54" y1="35.56" x2="2.54" y2="30.48" width="0.1524" layer="91"/>
-<pinref part="U$1" gate="G$1" pin="I2C_SDA"/>
+<pinref part="WISP" gate="G$1" pin="I2C_SDA"/>
 <wire x1="2.54" y1="30.48" x2="28.194" y2="30.48" width="0.1524" layer="91"/>
 <wire x1="28.194" y1="30.48" x2="28.194" y2="30.226" width="0.1524" layer="91"/>
 <label x="12.7" y="30.48" size="1.778" layer="95"/>
@@ -10241,7 +10242,7 @@ Shielded SMT Power Inductors ? LPS4018 Series</description>
 <pinref part="MAX44000" gate="G$1" pin="4"/>
 </segment>
 <segment>
-<pinref part="U$2" gate="G$1" pin="SDX"/>
+<pinref part="U2" gate="G$1" pin="SDX"/>
 <wire x1="71.12" y1="83.82" x2="71.12" y2="86.36" width="0.1524" layer="91"/>
 <wire x1="71.12" y1="86.36" x2="63.5" y2="86.36" width="0.1524" layer="91"/>
 <label x="63.5" y="86.36" size="1.778" layer="95"/>

@@ -6,9 +6,9 @@
 <setting alwaysvectorfont="no"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="10" unitdist="mil" unit="mil" style="lines" multiple="1" display="yes" altdistance="1" altunitdist="mil" altunit="mil"/>
+<grid distance="1" unitdist="mm" unit="mm" style="lines" multiple="1" display="yes" altdistance="0.1" altunitdist="mm" altunit="mm"/>
 <layers>
-<layer number="1" name="Top" color="4" fill="1" visible="no" active="yes"/>
+<layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
 <layer number="16" name="Bottom" color="1" fill="1" visible="yes" active="yes"/>
 <layer number="17" name="Pads" color="2" fill="1" visible="yes" active="yes"/>
 <layer number="18" name="Vias" color="2" fill="1" visible="yes" active="yes"/>
@@ -18,7 +18,7 @@
 <layer number="22" name="bPlace" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="23" name="tOrigins" color="15" fill="1" visible="yes" active="yes"/>
 <layer number="24" name="bOrigins" color="15" fill="1" visible="yes" active="yes"/>
-<layer number="25" name="tNames" color="7" fill="1" visible="no" active="yes"/>
+<layer number="25" name="tNames" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="26" name="bNames" color="7" fill="1" visible="no" active="yes"/>
 <layer number="27" name="tValues" color="7" fill="1" visible="no" active="yes"/>
 <layer number="28" name="bValues" color="7" fill="1" visible="no" active="yes"/>
@@ -148,6 +148,10 @@
 <wire x1="30" y1="26.58579375" x2="26.58579375" y2="30" width="0" layer="20" curve="90"/>
 <wire x1="26.58579375" y1="30" x2="3.41420625" y2="30" width="0" layer="20"/>
 <wire x1="3.41420625" y1="30" x2="0" y2="26.58579375" width="0" layer="20" curve="90"/>
+<text x="5" y="1" size="0.8" layer="25" ratio="14">IPR board v2.0 by Koen Schaper</text>
+<text x="15.3" y="11.2" size="0.8" layer="25">U2</text>
+<text x="7.1" y="19" size="0.8" layer="25">L1</text>
+<text x="20" y="21.7" size="0.8" layer="25">L2</text>
 </plain>
 <libraries>
 <library name="rcl" urn="urn:adsk.eagle:library:334">
@@ -1506,6 +1510,7 @@ by exp-lbrs.ulp</description>
 <wire x1="0.67945" y1="1.94945" x2="-0.67945" y2="1.94945" width="0.127" layer="21"/>
 <smd name="1" x="-1.47955" y="0" dx="1.4351" dy="4.3942" layer="1"/>
 <smd name="2" x="1.47955" y="0" dx="1.4351" dy="4.3942" layer="1"/>
+<text x="-2.54" y="2.54" size="1.27" layer="21">&gt;Name</text>
 </package>
 </packages>
 </library>
@@ -2782,39 +2787,113 @@ Please make sure your boards conform to these design rules.</description>
 </pass>
 </autorouter>
 <elements>
-<element name="C1" library="rcl" library_urn="urn:adsk.eagle:library:334" package="C0805" value="0.1uF" x="19.206" y="7.594" rot="R270"/>
-<element name="C2" library="rcl" library_urn="urn:adsk.eagle:library:334" package="C0805" value="0.1uF" x="10.366" y="11.919" rot="R180"/>
-<element name="C3" library="rcl" library_urn="urn:adsk.eagle:library:334" package="C0805" value="4.7uF" x="27.29" y="22.69" rot="R90"/>
-<element name="C4" library="rcl" library_urn="urn:adsk.eagle:library:334" package="C0805" value="0.1uF" x="27.31" y="17.86" rot="R270"/>
-<element name="C5" library="rcl" library_urn="urn:adsk.eagle:library:334" package="C0805" value="10nF" x="20.54" y="24.01"/>
-<element name="C6" library="rcl" library_urn="urn:adsk.eagle:library:334" package="C0805" value="4.7uF" x="19.69" y="14.552" rot="R90"/>
-<element name="C7" library="rcl" library_urn="urn:adsk.eagle:library:334" package="C0805" value="0.1 uF" x="22.8638" y="14.5466" rot="R90"/>
-<element name="C8" library="Wisp5_Harvester_Motor-driver_V2" package="C1210" value="220uF" x="5.02" y="11.79" rot="R180"/>
-<element name="C9" library="Wisp5_Harvester_Motor-driver_V2" package="BZ05_S-STYLE" value="BZ054B223ZSBBQ" x="14.94" y="16.84" rot="MR0"/>
-<element name="L1" library="Wisp5_Harvester_Motor-driver_V2" package="LPS4018" value="22uH" x="22.11" y="19.28" rot="R270"/>
-<element name="L2" library="Wisp5_Harvester_Motor-driver_V2" package="LPS4018" value="10uH" x="9.095" y="16.541" rot="R270"/>
-<element name="M1" library="Wisp5_Harvester_Motor-driver_V2" package="PINHEAD_1X02-1.27MM" value="PINHEAD_PINHD-1X2-1.27MM" x="2.6018" y="6.7754" rot="R90"/>
-<element name="M2" library="Wisp5_Harvester_Motor-driver_V2" package="PINHEAD_1X02-1.27MM" value="PINHEAD_PINHD-1X2-1.27MM" x="27.376" y="6.789" rot="R90"/>
-<element name="R1" library="resistor" library_urn="urn:adsk.eagle:library:348" package="R0805" value="7.50M" x="8.65" y="24.121" rot="R180"/>
-<element name="R10" library="resistor" library_urn="urn:adsk.eagle:library:348" package="R0805" value="6.98M" x="3.585" y="16.5"/>
-<element name="R2" library="resistor" library_urn="urn:adsk.eagle:library:348" package="R0805" value="5.36M" x="8.65" y="26.992"/>
-<element name="R3" library="resistor" library_urn="urn:adsk.eagle:library:348" package="R0805" value="10K" x="3.41" y="3.314" rot="R180"/>
-<element name="R4" library="resistor" library_urn="urn:adsk.eagle:library:348" package="R0805" value="10K" x="9.384" y="7.474" rot="R270"/>
-<element name="R6" library="resistor" library_urn="urn:adsk.eagle:library:348" package="R0805" value="6.04M" x="8.6728" y="21.3184" rot="R180"/>
-<element name="R7" library="resistor" library_urn="urn:adsk.eagle:library:348" package="R0805" value="3.01M" x="3.558" y="25.8"/>
-<element name="R8" library="resistor" library_urn="urn:adsk.eagle:library:348" package="R0805" value="3.65M" x="3.558" y="22.646"/>
-<element name="R9" library="resistor" library_urn="urn:adsk.eagle:library:348" package="R0805" value="5.76M" x="3.558" y="19.546"/>
-<element name="U$1" library="Wisp5_Harvester_Motor-driver_V2" package="PINHEAD_WISP3X8-1.27MM" value="WISP_HEADER" x="5.4737" y="2.032"/>
-<element name="U$2" library="Wisp5_Harvester_Motor-driver_V2" package="LGA14L" value="BGM250" x="15" y="13.984" rot="R180"/>
-<element name="U$3" library="Wisp5_Harvester_Motor-driver_V2" package="12WSON" value="DRV8836" x="15" y="8" rot="R180"/>
-<element name="U1" library="Wisp5_Harvester_Motor-driver_V2" package="VQFN20" value="BQ25570" x="15" y="21" rot="R180"/>
-<element name="VBAT/GND" library="Wisp5_Harvester_Motor-driver_V2" package="PINHEAD_1X02-1.27MM" value="PINHEAD_PINHD-1X2-1.27MM" x="26.14" y="3.306"/>
-<element name="VIN/GND" library="Wisp5_Harvester_Motor-driver_V2" package="PINHEAD_1X02-1.27MM" value="PINHEAD_PINHD-1X2-1.27MM" x="26.138" y="26.992" rot="R180"/>
-<element name="MAX44000" library="Wisp5_Harvester_Motor-driver_V2" package="PINHEAD_1X04-1.27MM" value="PINHEAD_PINHD-1X4-1.27MM" x="13.1" y="27.1"/>
+<element name="C1" library="rcl" library_urn="urn:adsk.eagle:library:334" package="C0805" value="0.1uF" x="19.206" y="7.594" smashed="yes" rot="R270">
+<attribute name="NAME" x="20.476" y="8.164" size="0.8" layer="25" rot="R270"/>
+<attribute name="VALUE" x="16.666" y="8.864" size="0.8" layer="27" rot="R270"/>
+</element>
+<element name="C2" library="rcl" library_urn="urn:adsk.eagle:library:334" package="C0805" value="0.1uF" x="10.366" y="11.919" smashed="yes" rot="R180">
+<attribute name="NAME" x="10.936" y="13.849" size="0.8" layer="25" rot="R180"/>
+<attribute name="VALUE" x="11.636" y="14.459" size="0.8" layer="27" rot="R180"/>
+</element>
+<element name="C3" library="rcl" library_urn="urn:adsk.eagle:library:334" package="C0805" value="4.7uF" x="27.29" y="22.69" smashed="yes" rot="R90">
+<attribute name="NAME" x="26.02" y="21.42" size="0.8" layer="25" rot="R90"/>
+<attribute name="VALUE" x="29.83" y="21.42" size="0.8" layer="27" rot="R90"/>
+</element>
+<element name="C4" library="rcl" library_urn="urn:adsk.eagle:library:334" package="C0805" value="0.1uF" x="27.31" y="17.86" smashed="yes" rot="R270">
+<attribute name="NAME" x="25.38" y="18.43" size="0.8" layer="25" rot="R270"/>
+<attribute name="VALUE" x="24.77" y="19.13" size="0.8" layer="27" rot="R270"/>
+</element>
+<element name="C5" library="rcl" library_urn="urn:adsk.eagle:library:334" package="C0805" value="10nF" x="20.54" y="24.01" smashed="yes">
+<attribute name="NAME" x="19.87" y="25.28" size="0.8" layer="25"/>
+<attribute name="VALUE" x="19.27" y="21.47" size="0.8" layer="27"/>
+</element>
+<element name="C6" library="rcl" library_urn="urn:adsk.eagle:library:334" package="C0805" value="4.7uF" x="19.69" y="14.552" smashed="yes" rot="R90">
+<attribute name="NAME" x="18.52" y="13.882" size="0.8" layer="25" rot="R90"/>
+<attribute name="VALUE" x="22.23" y="13.282" size="0.8" layer="27" rot="R90"/>
+</element>
+<element name="C7" library="rcl" library_urn="urn:adsk.eagle:library:334" package="C0805" value="0.1 uF" x="22.8638" y="14.5466" smashed="yes" rot="R90">
+<attribute name="NAME" x="21.6938" y="13.8766" size="0.8" layer="25" rot="R90"/>
+<attribute name="VALUE" x="25.4038" y="13.2766" size="0.8" layer="27" rot="R90"/>
+</element>
+<element name="C8" library="Wisp5_Harvester_Motor-driver_V2" package="C1210" value="220uF" x="5.02" y="11.79" smashed="yes" rot="R180">
+<attribute name="NAME" x="5.525" y="14.285" size="0.8" layer="25" rot="R180"/>
+<attribute name="VALUE" x="6.925" y="14.965" size="0.8" layer="27" rot="R180"/>
+</element>
+<element name="C9" library="Wisp5_Harvester_Motor-driver_V2" package="BZ05_S-STYLE" value="BZ054B223ZSBBQ" x="14.94" y="16.84" smashed="yes" rot="MR0">
+<attribute name="NAME" x="24.94" y="24.84" size="0.8" layer="26" rot="MR0"/>
+<attribute name="VALUE" x="24.94" y="7.34" size="0.8" layer="28" rot="MR0"/>
+</element>
+<element name="L1" library="Wisp5_Harvester_Motor-driver_V2" package="LPS4018" value="" x="22.11" y="19.28" smashed="yes" rot="R270"/>
+<element name="L2" library="Wisp5_Harvester_Motor-driver_V2" package="LPS4018" value="" x="9.095" y="16.541" smashed="yes" rot="R270"/>
+<element name="M1" library="Wisp5_Harvester_Motor-driver_V2" package="PINHEAD_1X02-1.27MM" value="PINHEAD_PINHD-1X2-1.27MM" x="2.6018" y="6.7754" smashed="yes" rot="R90">
+<attribute name="NAME" x="4.6905" y="5.8942" size="0.8" layer="25" ratio="10" rot="R90"/>
+</element>
+<element name="M2" library="Wisp5_Harvester_Motor-driver_V2" package="PINHEAD_1X02-1.27MM" value="PINHEAD_PINHD-1X2-1.27MM" x="27.376" y="6.789" smashed="yes" rot="R90">
+<attribute name="NAME" x="26.0647" y="6.0078" size="0.8" layer="25" ratio="10" rot="R90"/>
+</element>
+<element name="R1" library="resistor" library_urn="urn:adsk.eagle:library:348" package="R0805" value="7.50M" x="8.65" y="24.121" smashed="yes" rot="R180">
+<attribute name="NAME" x="9.4" y="25.9" size="0.8" layer="25" rot="R180"/>
+<attribute name="VALUE" x="9.285" y="26.661" size="0.8" layer="27" rot="R180"/>
+</element>
+<element name="R10" library="resistor" library_urn="urn:adsk.eagle:library:348" package="R0805" value="6.98M" x="3.585" y="16.5" smashed="yes">
+<attribute name="NAME" x="2.65" y="17.67" size="0.8" layer="25"/>
+<attribute name="VALUE" x="2.95" y="13.96" size="0.8" layer="27"/>
+</element>
+<element name="R2" library="resistor" library_urn="urn:adsk.eagle:library:348" package="R0805" value="5.36M" x="8.65" y="26.992" smashed="yes">
+<attribute name="NAME" x="8.015" y="28.162" size="0.8" layer="25"/>
+<attribute name="VALUE" x="8.015" y="24.452" size="0.8" layer="27"/>
+</element>
+<element name="R3" library="resistor" library_urn="urn:adsk.eagle:library:348" package="R0805" value="10K" x="3.41" y="3.314" smashed="yes" rot="R180">
+<attribute name="NAME" x="4.045" y="5.244" size="0.8" layer="25" rot="R180"/>
+<attribute name="VALUE" x="4.045" y="5.854" size="0.8" layer="27" rot="R180"/>
+</element>
+<element name="R4" library="resistor" library_urn="urn:adsk.eagle:library:348" package="R0805" value="10K" x="9.384" y="7.474" smashed="yes" rot="R270">
+<attribute name="NAME" x="10.654" y="8.109" size="0.8" layer="25" rot="R270"/>
+<attribute name="VALUE" x="6.844" y="8.109" size="0.8" layer="27" rot="R270"/>
+</element>
+<element name="R6" library="resistor" library_urn="urn:adsk.eagle:library:348" package="R0805" value="6.04M" x="8.6728" y="21.3184" smashed="yes" rot="R180">
+<attribute name="NAME" x="9.3078" y="23.1484" size="0.8" layer="25" rot="R180"/>
+<attribute name="VALUE" x="9.3078" y="23.8584" size="0.8" layer="27" rot="R180"/>
+</element>
+<element name="R7" library="resistor" library_urn="urn:adsk.eagle:library:348" package="R0805" value="3.01M" x="3.558" y="25.8" smashed="yes">
+<attribute name="NAME" x="2.923" y="27.07" size="0.8" layer="25"/>
+<attribute name="VALUE" x="2.923" y="23.26" size="0.8" layer="27"/>
+</element>
+<element name="R8" library="resistor" library_urn="urn:adsk.eagle:library:348" package="R0805" value="3.65M" x="3.558" y="22.646" smashed="yes">
+<attribute name="NAME" x="2.923" y="23.816" size="0.8" layer="25"/>
+<attribute name="VALUE" x="2.923" y="20.106" size="0.8" layer="27"/>
+</element>
+<element name="R9" library="resistor" library_urn="urn:adsk.eagle:library:348" package="R0805" value="5.76M" x="3.558" y="19.546" smashed="yes">
+<attribute name="NAME" x="2.923" y="20.716" size="0.8" layer="25"/>
+<attribute name="VALUE" x="2.923" y="17.006" size="0.8" layer="27"/>
+</element>
+<element name="WISP" library="Wisp5_Harvester_Motor-driver_V2" package="PINHEAD_WISP3X8-1.27MM" value="WISP_HEADER" x="5.4737" y="2.032" smashed="yes">
+<attribute name="NAME" x="8.1" y="4.5" size="0.8" layer="25" ratio="10"/>
+</element>
+<element name="U2" library="Wisp5_Harvester_Motor-driver_V2" package="LGA14L" value="BGM250" x="15" y="13.984" smashed="yes" rot="R180">
+<attribute name="NAME" x="16.638" y="11.976" size="0.8" layer="27" ratio="15" rot="R180"/>
+<attribute name="VALUE" x="16.638" y="16.634" size="0.8" layer="27" ratio="15" rot="R180"/>
+</element>
+<element name="U3" library="Wisp5_Harvester_Motor-driver_V2" package="12WSON" value="DRV8836" x="15" y="8" smashed="yes" rot="R180">
+<attribute name="NAME" x="13.456" y="5.59" size="0.8" layer="25"/>
+</element>
+<element name="U1" library="Wisp5_Harvester_Motor-driver_V2" package="VQFN20" value="BQ25570" x="15" y="21" smashed="yes" rot="R180">
+<attribute name="NAME" x="16.884" y="18.6" size="0.8" layer="25" rot="R180"/>
+<attribute name="VALUE" x="16.984" y="24.0682" size="0.8" layer="27" rot="R180"/>
+</element>
+<element name="VBAT/GND" library="Wisp5_Harvester_Motor-driver_V2" package="PINHEAD_1X02-1.27MM" value="PINHEAD_PINHD-1X2-1.27MM" x="26.14" y="3.306" smashed="yes">
+<attribute name="NAME" x="23.3588" y="4.6173" size="0.8" layer="25" ratio="10"/>
+</element>
+<element name="VIN/GND" library="Wisp5_Harvester_Motor-driver_V2" package="PINHEAD_1X02-1.27MM" value="PINHEAD_PINHD-1X2-1.27MM" x="26.138" y="26.992" smashed="yes" rot="R180">
+<attribute name="NAME" x="27.8192" y="25.7807" size="0.8" layer="25" ratio="10" rot="R180"/>
+</element>
+<element name="MAX44000" library="Wisp5_Harvester_Motor-driver_V2" package="PINHEAD_1X04-1.27MM" value="PINHEAD_PINHD-1X4-1.27MM" x="13.1" y="27.1" smashed="yes">
+<attribute name="NAME" x="12.2188" y="24.9113" size="0.8" layer="25" ratio="10"/>
+</element>
 </elements>
 <signals>
 <signal name="AOUT1_M1">
-<contactref element="U$3" pad="2"/>
+<contactref element="U3" pad="2"/>
 <contactref element="M1" pad="1"/>
 <via x="16.999440625" y="10.1535125" extent="1-16" drill="0.35"/>
 <wire x1="3.556" y1="6.858" x2="7.0801125" y2="10.6615125" width="0.254" layer="16"/>
@@ -2828,7 +2907,7 @@ Please make sure your boards conform to these design rules.</description>
 <wire x1="16.491440625" y1="10.6615125" x2="16.999440625" y2="10.1535125" width="0.254" layer="16"/>
 </signal>
 <signal name="AOUT2_M1">
-<contactref element="U$3" pad="3"/>
+<contactref element="U3" pad="3"/>
 <contactref element="M1" pad="2"/>
 <wire x1="15.25" y1="9" x2="15.25" y2="9.499278125" width="0.254" layer="1"/>
 <wire x1="15.25" y1="9.499278125" x2="16.064709375" y2="10.273475" width="0.254" layer="1"/>
@@ -2844,7 +2923,7 @@ Please make sure your boards conform to these design rules.</description>
 <wire x1="17.5551125" y1="10.857675" x2="17.69915625" y2="10.71363125" width="0.254" layer="1"/>
 </signal>
 <signal name="BOUT1_M2">
-<contactref element="U$3" pad="4"/>
+<contactref element="U3" pad="4"/>
 <contactref element="M2" pad="2"/>
 <wire x1="14.75" y1="9" x2="14.75" y2="9.5778625" width="0.254" layer="1"/>
 <wire x1="14.75" y1="9.5778625" x2="16.67036875" y2="11.47283125" width="0.254" layer="1"/>
@@ -2855,7 +2934,7 @@ Please make sure your boards conform to these design rules.</description>
 <via x="25.146" y="7.874" extent="1-16" drill="0.35"/>
 </signal>
 <signal name="BOUT2_M2">
-<contactref element="U$3" pad="5"/>
+<contactref element="U3" pad="5"/>
 <contactref element="M2" pad="1"/>
 <wire x1="14.25" y1="9" x2="14.25" y2="9.678" width="0.254" layer="1"/>
 <wire x1="14.25" y1="9.678" x2="16.51" y2="11.938" width="0.254" layer="1"/>
@@ -2863,8 +2942,8 @@ Please make sure your boards conform to these design rules.</description>
 <wire x1="22.227" y1="11.938" x2="27.376" y2="6.789" width="0.254" layer="1"/>
 </signal>
 <signal name="NSLEEP">
-<contactref element="U$3" pad="12"/>
-<contactref element="U$1" pad="UART_RX"/>
+<contactref element="U3" pad="12"/>
+<contactref element="WISP" pad="UART_RX"/>
 <wire x1="14.2367" y1="3.302" x2="14.2367" y2="3.3147" width="0.254" layer="1"/>
 <wire x1="14.8336" y1="4.2418" x2="14.2367" y2="3.3147" width="0.254" layer="1"/>
 <via x="14.8336" y="4.2418" extent="1-16" drill="0.35"/>
@@ -2877,8 +2956,8 @@ Please make sure your boards conform to these design rules.</description>
 <wire x1="16.51" y1="6.477" x2="17.018" y2="6.477" width="0.254" layer="1"/>
 </signal>
 <signal name="BIN2">
-<contactref element="U$3" pad="7"/>
-<contactref element="U$1" pad="UART_TX"/>
+<contactref element="U3" pad="7"/>
+<contactref element="WISP" pad="UART_TX"/>
 <wire x1="13.75" y1="7" x2="13.75" y2="6.13" width="0.254" layer="1"/>
 <wire x1="13.75" y1="6.13" x2="12.954" y2="5.334" width="0.254" layer="1"/>
 <via x="12.954" y="5.334" extent="1-16" drill="0.35"/>
@@ -2889,21 +2968,21 @@ Please make sure your boards conform to these design rules.</description>
 <wire x1="13.3096" y1="4.9784" x2="16.256" y2="4.9784" width="0.254" layer="16"/>
 </signal>
 <signal name="BIN1">
-<contactref element="U$3" pad="8"/>
-<contactref element="U$1" pad="AUX2"/>
+<contactref element="U3" pad="8"/>
+<contactref element="WISP" pad="AUX2"/>
 <wire x1="11.6967" y1="3.302" x2="14.25" y2="5.6013" width="0.254" layer="1"/>
 <wire x1="14.25" y1="5.6013" x2="14.25" y2="7" width="0.254" layer="1"/>
 </signal>
 <signal name="AIN2">
-<contactref element="U$3" pad="9"/>
-<contactref element="U$1" pad="AUX1"/>
+<contactref element="U3" pad="9"/>
+<contactref element="WISP" pad="AUX1"/>
 <wire x1="14.75" y1="7" x2="14.75" y2="5.3393" width="0.254" layer="1"/>
 <wire x1="14.75" y1="5.3393" x2="12.9667" y2="3.556" width="0.254" layer="1"/>
 <wire x1="12.9667" y1="3.556" x2="12.9667" y2="3.302" width="0.254" layer="1"/>
 </signal>
 <signal name="AIN1">
-<contactref element="U$3" pad="10"/>
-<contactref element="U$1" pad="AUX3"/>
+<contactref element="U3" pad="10"/>
+<contactref element="WISP" pad="AUX3"/>
 <wire x1="15.25" y1="7" x2="15.25" y2="6.34" width="0.254" layer="1"/>
 <wire x1="15.25" y1="6.34" x2="15.494" y2="5.715" width="0.254" layer="1"/>
 <via x="15.494" y="5.715" extent="1-16" drill="0.35"/>
@@ -2919,16 +2998,16 @@ Please make sure your boards conform to these design rules.</description>
 <wire x1="15.3460375" y1="5.5670375" x2="15.494" y2="5.715" width="0.254" layer="16"/>
 </signal>
 <signal name="GND">
-<contactref element="U$3" pad="6"/>
-<contactref element="U$3" pad="TH"/>
+<contactref element="U3" pad="6"/>
+<contactref element="U3" pad="TH"/>
 <contactref element="C1" pad="2"/>
-<contactref element="U$2" pad="1"/>
-<contactref element="U$1" pad="GND1"/>
-<contactref element="U$2" pad="7"/>
-<contactref element="U$2" pad="6"/>
+<contactref element="U2" pad="1"/>
+<contactref element="WISP" pad="GND1"/>
+<contactref element="U2" pad="7"/>
+<contactref element="U2" pad="6"/>
 <contactref element="C2" pad="2"/>
-<contactref element="U$1" pad="GND2"/>
-<contactref element="U$3" pad="11"/>
+<contactref element="WISP" pad="GND2"/>
+<contactref element="U3" pad="11"/>
 <contactref element="VBAT/GND" pad="1"/>
 <contactref element="VIN/GND" pad="1"/>
 <contactref element="C5" pad="2"/>
@@ -2989,23 +3068,23 @@ Please make sure your boards conform to these design rules.</description>
 <wire x1="14.478" y1="16.002" x2="15.0114" y2="16.002" width="0.254" layer="1"/>
 <wire x1="15.0114" y1="16.002" x2="15.0114" y2="15.148" width="0.254" layer="1"/>
 <wire x1="15.0114" y1="15.148" x2="15" y2="15.134" width="0.254" layer="1"/>
-<contactref element="U$3" pad="P$1"/>
-<contactref element="U$3" pad="P$2"/>
+<contactref element="U3" pad="P$1"/>
+<contactref element="U3" pad="P$2"/>
 <wire x1="15.75" y1="7" x2="15.75" y2="7.85" width="0.254" layer="1"/>
 <wire x1="15.75" y1="7.85" x2="15.6" y2="8" width="0.254" layer="1"/>
 <wire x1="13.75" y1="9" x2="13.75" y2="8.65" width="0.254" layer="1"/>
 <wire x1="13.75" y1="8.65" x2="14.4" y2="8" width="0.254" layer="1"/>
 </signal>
 <signal name="VREG">
-<contactref element="U$1" pad="VREG"/>
-<contactref element="U$3" pad="1"/>
+<contactref element="WISP" pad="VREG"/>
+<contactref element="U3" pad="1"/>
 <contactref element="C1" pad="1"/>
-<contactref element="U$2" pad="12"/>
+<contactref element="U2" pad="12"/>
 <contactref element="R3" pad="2"/>
 <contactref element="R4" pad="2"/>
-<contactref element="U$2" pad="8"/>
+<contactref element="U2" pad="8"/>
 <contactref element="C2" pad="1"/>
-<contactref element="U$2" pad="5"/>
+<contactref element="U2" pad="5"/>
 <contactref element="U1" pad="14"/>
 <contactref element="L2" pad="2"/>
 <contactref element="C8" pad="1"/>
@@ -3093,7 +3172,7 @@ Please make sure your boards conform to these design rules.</description>
 <wire x1="9.144" y1="3.3147" x2="9.144" y2="4.9138625" width="0.4064" layer="16"/>
 </signal>
 <signal name="VBOOST">
-<contactref element="U$1" pad="VBOOST"/>
+<contactref element="WISP" pad="VBOOST"/>
 <contactref element="VBAT/GND" pad="2"/>
 <wire x1="16.7767" y1="3.302" x2="23.368" y2="3.302" width="0.4064" layer="1"/>
 <wire x1="23.368" y1="3.302" x2="25.146" y2="5.08" width="0.4064" layer="1"/>
@@ -3103,10 +3182,10 @@ Please make sure your boards conform to these design rules.</description>
 <wire x1="27.432" y1="3.328" x2="27.41" y2="3.306" width="0.254" layer="1"/>
 </signal>
 <signal name="SCL">
-<contactref element="U$1" pad="I2C_SCL"/>
+<contactref element="WISP" pad="I2C_SCL"/>
 <contactref element="R4" pad="1"/>
 <contactref element="MAX44000" pad="3"/>
-<contactref element="U$2" pad="13"/>
+<contactref element="U2" pad="13"/>
 <wire x1="9.384" y1="8.424" x2="7.886" y2="6.842" width="0.254" layer="1"/>
 <wire x1="7.886" y1="6.842" x2="6.7437" y2="6.858" width="0.254" layer="1"/>
 <wire x1="6.7437" y1="6.858" x2="10.414" y2="6.858" width="0.254" layer="16"/>
@@ -3130,9 +3209,9 @@ Please make sure your boards conform to these design rules.</description>
 </signal>
 <signal name="SDA">
 <contactref element="R3" pad="1"/>
-<contactref element="U$1" pad="I2C_SDA"/>
+<contactref element="WISP" pad="I2C_SDA"/>
 <contactref element="MAX44000" pad="4"/>
-<contactref element="U$2" pad="14"/>
+<contactref element="U2" pad="14"/>
 <wire x1="4.36" y1="3.314" x2="4.9416" y2="3.3114" width="0.254" layer="1"/>
 <wire x1="4.9416" y1="3.3114" x2="6.7437" y2="5.588" width="0.254" layer="1"/>
 <wire x1="15.5" y1="11.944" x2="15.5" y2="12.834" width="0.254" layer="1"/>
