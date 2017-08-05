@@ -8,7 +8,7 @@
 </settings>
 <grid distance="10" unitdist="mil" unit="mil" style="lines" multiple="1" display="yes" altdistance="1" altunitdist="mil" altunit="mil"/>
 <layers>
-<layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
+<layer number="1" name="Top" color="4" fill="1" visible="no" active="yes"/>
 <layer number="16" name="Bottom" color="1" fill="1" visible="yes" active="yes"/>
 <layer number="17" name="Pads" color="2" fill="1" visible="yes" active="yes"/>
 <layer number="18" name="Vias" color="2" fill="1" visible="yes" active="yes"/>
@@ -18,12 +18,12 @@
 <layer number="22" name="bPlace" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="23" name="tOrigins" color="15" fill="1" visible="yes" active="yes"/>
 <layer number="24" name="bOrigins" color="15" fill="1" visible="yes" active="yes"/>
-<layer number="25" name="tNames" color="7" fill="1" visible="yes" active="yes"/>
-<layer number="26" name="bNames" color="7" fill="1" visible="yes" active="yes"/>
-<layer number="27" name="tValues" color="7" fill="1" visible="yes" active="yes"/>
-<layer number="28" name="bValues" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="25" name="tNames" color="7" fill="1" visible="no" active="yes"/>
+<layer number="26" name="bNames" color="7" fill="1" visible="no" active="yes"/>
+<layer number="27" name="tValues" color="7" fill="1" visible="no" active="yes"/>
+<layer number="28" name="bValues" color="7" fill="1" visible="no" active="yes"/>
 <layer number="29" name="tStop" color="7" fill="3" visible="no" active="yes"/>
-<layer number="30" name="bStop" color="7" fill="6" visible="no" active="yes"/>
+<layer number="30" name="bStop" color="7" fill="6" visible="yes" active="yes"/>
 <layer number="31" name="tCream" color="7" fill="4" visible="no" active="yes"/>
 <layer number="32" name="bCream" color="7" fill="5" visible="no" active="yes"/>
 <layer number="33" name="tFinish" color="6" fill="3" visible="no" active="yes"/>
@@ -1389,7 +1389,6 @@ by exp-lbrs.ulp</description>
 <rectangle x1="1.44" y1="0.79" x2="2.09" y2="1.21" layer="29" rot="R180"/>
 <rectangle x1="1.44" y1="-0.71" x2="2.09" y2="-0.29" layer="29" rot="R180"/>
 <rectangle x1="1.44" y1="-1.21" x2="2.09" y2="-0.79" layer="29" rot="R180"/>
-<rectangle x1="-1.05" y1="-1.05" x2="1.05" y2="1.05" layer="29"/>
 <rectangle x1="-0.93" y1="0.19" x2="-0.19" y2="0.93" layer="31"/>
 <rectangle x1="1.44" y1="-0.075" x2="2.02" y2="0.075" layer="31" rot="R180"/>
 <rectangle x1="1.44" y1="0.425" x2="2.02" y2="0.575" layer="31" rot="R180"/>
@@ -1429,11 +1428,11 @@ by exp-lbrs.ulp</description>
 <smd name="18" x="0" y="1.725" dx="0.28" dy="0.85" layer="1" roundness="100" stop="no" cream="no"/>
 <smd name="19" x="-0.5" y="1.725" dx="0.28" dy="0.85" layer="1" roundness="100" stop="no" cream="no"/>
 <smd name="20" x="-1" y="1.725" dx="0.28" dy="0.85" layer="1" roundness="100" stop="no" cream="no"/>
-<smd name="PWR_PAD" x="0" y="0" dx="2.05" dy="2.05" layer="1" stop="no" cream="no"/>
-<pad name="PWR_PAD1" x="0" y="0.5" drill="0.35" shape="square" stop="no" first="yes"/>
-<pad name="PWR_PAD2" x="0.5" y="0" drill="0.35" shape="square" stop="no"/>
-<pad name="PWR_PAD3" x="0" y="-0.5" drill="0.35" shape="square" stop="no"/>
-<pad name="PWR_PAD4" x="-0.5" y="0" drill="0.35" shape="square" stop="no"/>
+<smd name="PWR_PAD" x="0" y="0" dx="2.05" dy="2.05" layer="1" cream="no"/>
+<pad name="PWR_PAD1" x="0" y="0.5" drill="0.35" shape="square" first="yes"/>
+<pad name="PWR_PAD2" x="0.5" y="0" drill="0.35" shape="square"/>
+<pad name="PWR_PAD3" x="0" y="-0.5" drill="0.35" shape="square"/>
+<pad name="PWR_PAD4" x="-0.5" y="0" drill="0.35" shape="square"/>
 <text x="-1.884" y="2.4" size="0.6096" layer="25">&gt;NAME</text>
 <text x="-1.984" y="-3.0682" size="0.6096" layer="27">&gt;VALUE</text>
 <wire x1="-2.486" y1="2.2336" x2="-2.5114" y2="2.2336" width="0.4064" layer="21"/>
@@ -1466,8 +1465,8 @@ by exp-lbrs.ulp</description>
 <smd name="12" x="-1.25" y="1" dx="0.28" dy="0.6" layer="1"/>
 <smd name="TH" x="0" y="0" dx="2.2" dy="0.9" layer="1"/>
 <text x="-1.89" y="-1.044" size="0.6096" layer="25" rot="R90">&gt;NAME</text>
-<pad name="P$1" x="-0.6" y="0" drill="0.35" diameter="0.9" shape="square" stop="no"/>
-<pad name="P$2" x="0.6" y="0" drill="0.35" diameter="0.9" shape="square" stop="no"/>
+<pad name="P$1" x="-0.6" y="0" drill="0.35" diameter="0.9" shape="square"/>
+<pad name="P$2" x="0.6" y="0" drill="0.35" diameter="0.9" shape="square"/>
 <wire x1="-2.04" y1="-1.494" x2="-2.03" y2="-1.494" width="0.4064" layer="21"/>
 <wire x1="-1.5" y1="1" x2="-1.5" y2="-1" width="0" layer="51"/>
 <wire x1="-1.5" y1="-1" x2="1.5" y2="-1" width="0" layer="51"/>
@@ -2607,7 +2606,7 @@ for trimmer refence see : &lt;u&gt;www.electrospec-inc.com/cross_references/trim
 <class number="0" name="default" width="0" drill="0">
 </class>
 </classes>
-<designrules name="LaenPCBOrder">
+<designrules name="LaenPCBOrder *">
 <description language="de">&lt;b&gt;EAGLE Design Rules&lt;/b&gt;
 &lt;p&gt;
 Die Standard-Design-Rules sind so gewählt, dass sie für 
@@ -2671,7 +2670,7 @@ Please make sure your boards conform to these design rules.</description>
 <param name="mlMaxStopFrame" value="3mil"/>
 <param name="mlMinCreamFrame" value="0mil"/>
 <param name="mlMaxCreamFrame" value="0mil"/>
-<param name="mlViaStopLimit" value="0mil"/>
+<param name="mlViaStopLimit" value="14mil"/>
 <param name="srRoundness" value="0"/>
 <param name="srMinRoundness" value="0mil"/>
 <param name="srMaxRoundness" value="0mil"/>
@@ -3077,21 +3076,21 @@ Please make sure your boards conform to these design rules.</description>
 <wire x1="3.048" y1="1.778" x2="5.588" y2="1.778" width="0.254" layer="1"/>
 <wire x1="5.588" y1="1.778" x2="6.096" y2="2.286" width="0.254" layer="1"/>
 <via x="6.096" y="2.286" extent="1-16" drill="0.35"/>
-<wire x1="6.096" y1="2.286" x2="6.096" y2="4.318" width="0.254" layer="16"/>
-<wire x1="6.096" y1="4.318" x2="6.5326" y2="4.7546" width="0.254" layer="16"/>
+<wire x1="6.096" y1="2.286" x2="6.0706" y2="4.191" width="0.254" layer="16"/>
+<wire x1="6.0706" y1="4.191" x2="6.5326" y2="4.7546" width="0.254" layer="16"/>
 <wire x1="6.5326" y1="4.7546" x2="8.7074" y2="4.7546" width="0.254" layer="16"/>
-<wire x1="8.8302625" y1="4.6317375" x2="8.7074" y2="4.7546" width="0.254" layer="16"/>
-<wire x1="8.8302625" y1="4.6317375" x2="9.144" y2="4.318" width="0.254" layer="16"/>
-<wire x1="9.144" y1="4.318" x2="9.144" y2="3.3147" width="0.254" layer="16"/>
-<wire x1="9.144" y1="3.3147" x2="9.1567" y2="3.302" width="0.254" layer="16"/>
-<wire x1="9.384" y1="6.524" x2="9.384" y2="5.066" width="0.254" layer="1"/>
-<wire x1="9.384" y1="5.066" x2="9.144" y2="4.826" width="0.254" layer="1"/>
-<wire x1="9.144" y1="4.826" x2="9.144" y2="4.9304" width="0.254" layer="1"/>
-<via x="9.144" y="4.9304" extent="1-16" drill="0.35"/>
-<wire x1="9.144" y1="4.9304" x2="9.128925" y2="4.9304" width="0.254" layer="16"/>
-<wire x1="9.128925" y1="4.9304" x2="8.8302625" y2="4.6317375" width="0.254" layer="16"/>
+<wire x1="9.125425" y1="4.9324375" x2="9.1350625" y2="4.9365375" width="0.254" layer="16"/>
+<wire x1="9.125425" y1="4.9324375" x2="8.7074" y2="4.7546" width="0.254" layer="16"/>
+<wire x1="9.1567" y1="3.302" x2="9.144" y2="3.3147" width="0.254" layer="16"/>
 <wire x1="11.938" y1="14.986" x2="9.17045" y2="14.986" width="0.254" layer="1"/>
 <wire x1="9.17045" y1="14.986" x2="9.095" y2="15.06145" width="0.254" layer="1"/>
+<wire x1="9.384" y1="6.524" x2="9.384" y2="5.066" width="0.4064" layer="1"/>
+<wire x1="9.384" y1="5.066" x2="9.144" y2="4.826" width="0.4064" layer="1"/>
+<wire x1="9.144" y1="4.826" x2="9.144" y2="4.9138625" width="0.4064" layer="1"/>
+<wire x1="9.144" y1="4.9138625" x2="9.125425" y2="4.9324375" width="0.4064" layer="1"/>
+<via x="9.125425" y="4.9324375" extent="1-16" drill="0.35"/>
+<wire x1="9.144" y1="4.9138625" x2="9.125425" y2="4.9324375" width="0.4064" layer="16"/>
+<wire x1="9.144" y1="3.3147" x2="9.144" y2="4.9138625" width="0.4064" layer="16"/>
 </signal>
 <signal name="VBOOST">
 <contactref element="U$1" pad="VBOOST"/>
