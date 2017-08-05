@@ -6,7 +6,7 @@
 <setting alwaysvectorfont="no"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="1" unitdist="mm" unit="mm" style="lines" multiple="1" display="yes" altdistance="0.1" altunitdist="mm" altunit="mm"/>
+<grid distance="50" unitdist="mil" unit="mil" style="lines" multiple="1" display="yes" altdistance="5" altunitdist="mil" altunit="mil"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
 <layer number="16" name="Bottom" color="1" fill="1" visible="yes" active="yes"/>
@@ -159,7 +159,7 @@ by exp-lbrs.ulp</description>
 </package>
 <package name="LPS4018">
 <description>Coilcraft LPS4018 series inductor package.</description>
-<circle x="-2.54" y="0" radius="0.254" width="0" layer="21"/>
+<circle x="-2.7" y="0" radius="0.254" width="0" layer="21"/>
 <wire x1="-0.67945" y1="-1.94945" x2="0.67945" y2="-1.94945" width="0.127" layer="21"/>
 <wire x1="0.67945" y1="1.94945" x2="-0.67945" y2="1.94945" width="0.127" layer="21"/>
 <smd name="1" x="-1.47955" y="0" dx="1.4351" dy="4.3942" layer="1"/>
@@ -3286,26 +3286,30 @@ Source: VISHAY wscwsn.pdf</description>
 <text x="-8.75" y="-5.15" size="1.27" layer="27">&gt;VALUE</text>
 </package>
 <package name="PINHEAD_WISP3X8-1.27MM">
-<wire x1="-3.429" y1="-0.9017" x2="-3.429" y2="0.9017" width="0.1524" layer="21"/>
-<wire x1="-3.429" y1="-0.9144" x2="7.239" y2="-0.9144" width="0.1524" layer="21"/>
-<wire x1="-3.429" y1="0.9144" x2="7.239" y2="0.9144" width="0.1524" layer="21"/>
-<wire x1="-2.7813" y1="1.397" x2="-4.5847" y2="1.397" width="0.1524" layer="21"/>
-<wire x1="-4.5847" y1="5.715" x2="-2.7813" y2="5.715" width="0.1524" layer="21"/>
-<wire x1="-4.5974" y1="5.715" x2="-4.5974" y2="1.397" width="0.1524" layer="21"/>
-<wire x1="-2.7686" y1="5.715" x2="-2.7686" y2="1.397" width="0.1524" layer="21"/>
-<wire x1="7.239" y1="0.9017" x2="7.239" y2="-0.9017" width="0.1524" layer="21"/>
-<pad name="AUX1" x="2.54" y="0" drill="0.6" rot="R90"/>
-<pad name="AUX2" x="1.27" y="0" drill="0.6" rot="R90"/>
-<pad name="AUX3" x="0" y="0" drill="0.6" rot="R90"/>
-<pad name="GND1" x="-3.683" y="4.826" drill="0.6" shape="square"/>
-<pad name="GND2" x="-2.54" y="0" drill="0.6" shape="square" rot="R90"/>
-<pad name="I2C_SCL" x="-3.683" y="3.556" drill="0.6" rot="R90"/>
-<pad name="I2C_SDA" x="-3.683" y="2.286" drill="0.6"/>
-<pad name="UART_RX" x="3.81" y="0" drill="0.6" rot="R90"/>
-<pad name="UART_TX" x="5.08" y="0" drill="0.6" rot="R90"/>
-<pad name="VBOOST" x="6.35" y="0" drill="0.6" rot="R90"/>
-<pad name="VREG" x="-1.27" y="0" drill="0.6" rot="R90"/>
-<text x="-2.2352" y="1.5113" size="1.27" layer="25" ratio="10">&gt;NAME</text>
+<wire x1="1.524" y1="0.3683" x2="1.524" y2="2.1717" width="0.1524" layer="21"/>
+<wire x1="1.524" y1="0.3556" x2="12.192" y2="0.3556" width="0.1524" layer="21"/>
+<wire x1="1.524" y1="2.1844" x2="12.192" y2="2.1844" width="0.1524" layer="21"/>
+<wire x1="2.1717" y1="2.667" x2="0.3683" y2="2.667" width="0.1524" layer="21"/>
+<wire x1="0.3683" y1="6.985" x2="2.1717" y2="6.985" width="0.1524" layer="21"/>
+<wire x1="0.3556" y1="6.985" x2="0.3556" y2="2.667" width="0.1524" layer="21"/>
+<wire x1="2.1844" y1="6.985" x2="2.1844" y2="2.667" width="0.1524" layer="21"/>
+<wire x1="12.192" y1="2.1717" x2="12.192" y2="0.3683" width="0.1524" layer="21"/>
+<pad name="AUX1" x="7.493" y="1.27" drill="0.6" rot="R90"/>
+<pad name="AUX2" x="6.223" y="1.27" drill="0.6" rot="R90"/>
+<pad name="AUX3" x="4.953" y="1.27" drill="0.6" rot="R90"/>
+<pad name="GND1" x="1.27" y="6.096" drill="0.6" shape="square"/>
+<pad name="GND2" x="2.413" y="1.27" drill="0.6" shape="square" rot="R90"/>
+<pad name="I2C_SCL" x="1.27" y="4.826" drill="0.6" rot="R90"/>
+<pad name="I2C_SDA" x="1.27" y="3.556" drill="0.6"/>
+<pad name="UART_RX" x="8.763" y="1.27" drill="0.6" rot="R90"/>
+<pad name="UART_TX" x="10.033" y="1.27" drill="0.6" rot="R90"/>
+<pad name="VBOOST" x="11.303" y="1.27" drill="0.6" rot="R90"/>
+<pad name="VREG" x="3.683" y="1.27" drill="0.6" rot="R90"/>
+<text x="2.8448" y="3.0353" size="1.27" layer="25" ratio="10">&gt;NAME</text>
+<wire x1="0" y1="0" x2="0" y2="18.415" width="0" layer="48"/>
+<wire x1="0" y1="18.415" x2="19.05" y2="18.415" width="0" layer="48"/>
+<wire x1="19.05" y1="18.415" x2="19.05" y2="0" width="0" layer="48"/>
+<wire x1="19.05" y1="0" x2="0" y2="0" width="0" layer="48"/>
 </package>
 <package name="VQFN20">
 <circle x="-1.44" y="0" radius="0.21" width="0" layer="29"/>
@@ -3528,6 +3532,31 @@ Source: VISHAY wscwsn.pdf</description>
 <wire x1="0.9128" y1="-1.3216" x2="1.5756" y2="-1.3216" width="0.127" layer="21"/>
 <wire x1="1.5756" y1="-1.1414" x2="1.5756" y2="-1.3216" width="0.127" layer="21"/>
 </package>
+<package name="12WSON">
+<wire x1="1.55" y1="-0.95" x2="1.55" y2="0.95" width="0.127" layer="21"/>
+<wire x1="-1.55" y1="0.95" x2="-1.55" y2="-0.95" width="0.127" layer="21"/>
+<smd name="1" x="-1.25" y="-1" dx="0.28" dy="0.6" layer="1"/>
+<smd name="2" x="-0.75" y="-1" dx="0.28" dy="0.6" layer="1"/>
+<smd name="3" x="-0.25" y="-1" dx="0.28" dy="0.6" layer="1"/>
+<smd name="4" x="0.25" y="-1" dx="0.28" dy="0.6" layer="1"/>
+<smd name="5" x="0.75" y="-1" dx="0.28" dy="0.6" layer="1"/>
+<smd name="6" x="1.25" y="-1" dx="0.28" dy="0.6" layer="1"/>
+<smd name="7" x="1.25" y="1" dx="0.28" dy="0.6" layer="1"/>
+<smd name="8" x="0.75" y="1" dx="0.28" dy="0.6" layer="1"/>
+<smd name="9" x="0.25" y="1" dx="0.28" dy="0.6" layer="1"/>
+<smd name="10" x="-0.25" y="1" dx="0.28" dy="0.6" layer="1"/>
+<smd name="11" x="-0.75" y="1" dx="0.28" dy="0.6" layer="1"/>
+<smd name="12" x="-1.25" y="1" dx="0.28" dy="0.6" layer="1"/>
+<smd name="TH" x="0" y="0" dx="2.2" dy="0.9" layer="1"/>
+<text x="-1.89" y="-1.044" size="0.6096" layer="25" rot="R90">&gt;NAME</text>
+<pad name="P$1" x="-0.6" y="0" drill="0.35" diameter="0.9" shape="square" stop="no"/>
+<pad name="P$2" x="0.6" y="0" drill="0.35" diameter="0.9" shape="square" stop="no"/>
+<wire x1="-2.04" y1="-1.494" x2="-2.03" y2="-1.494" width="0.4064" layer="21"/>
+<wire x1="-1.5" y1="1" x2="-1.5" y2="-1" width="0" layer="51"/>
+<wire x1="-1.5" y1="-1" x2="1.5" y2="-1" width="0" layer="51"/>
+<wire x1="1.5" y1="-1" x2="1.5" y2="1" width="0" layer="51"/>
+<wire x1="1.5" y1="1" x2="-1.5" y2="1" width="0" layer="51"/>
+</package>
 </packages>
 <symbols>
 <symbol name="BZ05_S-STYLE">
@@ -3698,6 +3727,28 @@ Source: VISHAY wscwsn.pdf</description>
 <text x="-12.7" y="8.382" size="1.778" layer="95">&gt;NAME</text>
 <text x="-12.7" y="-12.7" size="1.778" layer="96">&gt;VALUE</text>
 </symbol>
+<symbol name="DRV8836">
+<description>&lt;b&gt;Dual low voltage H-Bridge IC&lt;/b&gt;</description>
+<wire x1="-15.24" y1="15.24" x2="15.24" y2="15.24" width="0.254" layer="94"/>
+<wire x1="15.24" y1="15.24" x2="15.24" y2="-12.7" width="0.254" layer="94"/>
+<wire x1="15.24" y1="-12.7" x2="-15.24" y2="-12.7" width="0.254" layer="94"/>
+<wire x1="-15.24" y1="-12.7" x2="-15.24" y2="15.24" width="0.254" layer="94"/>
+<pin name="AIN1/PHASE" x="-17.78" y="7.62" length="short"/>
+<pin name="AIN2/AENBL" x="-17.78" y="5.08" length="short"/>
+<pin name="AOUT1" x="17.78" y="7.62" length="short" rot="R180"/>
+<pin name="AOUT2" x="17.78" y="5.08" length="short" rot="R180"/>
+<pin name="BIN1/BPHASE" x="-17.78" y="0" length="short"/>
+<pin name="BIN2/BENBL" x="-17.78" y="-2.54" length="short"/>
+<pin name="BOUT1" x="17.78" y="0" length="short" rot="R180"/>
+<pin name="BOUT2" x="17.78" y="-2.54" length="short" rot="R180"/>
+<pin name="GND" x="17.78" y="-7.62" length="short" rot="R180"/>
+<pin name="MODE" x="-17.78" y="-7.62" length="short"/>
+<pin name="NSLEEP" x="-17.78" y="-10.16" length="short"/>
+<pin name="TH" x="17.78" y="-10.16" length="short" rot="R180"/>
+<pin name="VCC" x="17.78" y="12.7" length="short" rot="R180"/>
+<text x="-12.7" y="17.78" size="1.778" layer="95" rot="MR180">&gt;NAME</text>
+<text x="-12.7" y="-15.24" size="1.778" layer="96">&gt;VALUE</text>
+</symbol>
 </symbols>
 <devicesets>
 <deviceset name="BZ054B223ZSBBQ">
@@ -3713,27 +3764,6 @@ Source: VISHAY wscwsn.pdf</description>
 </connects>
 <technologies>
 <technology name=""/>
-</technologies>
-</device>
-</devices>
-</deviceset>
-<deviceset name="COILCRAFT-LPS4018" prefix="L" uservalue="yes">
-<description>Coilcraft
-&lt;p&gt;
-Shielded SMT Power Inductors ? LPS4018 Series</description>
-<gates>
-<gate name="G$1" symbol="L-US" x="0" y="0"/>
-</gates>
-<devices>
-<device name="" package="LPS4018">
-<connects>
-<connect gate="G$1" pin="1" pad="1"/>
-<connect gate="G$1" pin="2" pad="2"/>
-</connects>
-<technologies>
-<technology name="">
-<attribute name="VALUE" value="" constant="no"/>
-</technology>
 </technologies>
 </device>
 </devices>
@@ -5406,6 +5436,55 @@ Shielded SMT Power Inductors ? LPS4018 Series</description>
 </connects>
 <technologies>
 <technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="DRV8836" prefix="U">
+<description>&lt;b&gt;Dual low voltage H-Bridge IC&lt;/b&gt;</description>
+<gates>
+<gate name="G$1" symbol="DRV8836" x="-2.54" y="2.54"/>
+</gates>
+<devices>
+<device name="" package="12WSON">
+<connects>
+<connect gate="G$1" pin="AIN1/PHASE" pad="10"/>
+<connect gate="G$1" pin="AIN2/AENBL" pad="9"/>
+<connect gate="G$1" pin="AOUT1" pad="2"/>
+<connect gate="G$1" pin="AOUT2" pad="3"/>
+<connect gate="G$1" pin="BIN1/BPHASE" pad="8"/>
+<connect gate="G$1" pin="BIN2/BENBL" pad="7"/>
+<connect gate="G$1" pin="BOUT1" pad="4"/>
+<connect gate="G$1" pin="BOUT2" pad="5"/>
+<connect gate="G$1" pin="GND" pad="6"/>
+<connect gate="G$1" pin="MODE" pad="11"/>
+<connect gate="G$1" pin="NSLEEP" pad="12"/>
+<connect gate="G$1" pin="TH" pad="P$1 P$2 TH"/>
+<connect gate="G$1" pin="VCC" pad="1"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="COILCRAFT-LPS4018" prefix="L" uservalue="yes">
+<description>Coilcraft
+&lt;p&gt;
+Shielded SMT Power Inductors ? LPS4018 Series</description>
+<gates>
+<gate name="G$1" symbol="L-US" x="0" y="0"/>
+</gates>
+<devices>
+<device name="" package="LPS4018">
+<connects>
+<connect gate="G$1" pin="1" pad="1"/>
+<connect gate="G$1" pin="2" pad="2"/>
+</connects>
+<technologies>
+<technology name="">
+<attribute name="VALUE" value="" constant="no"/>
+</technology>
 </technologies>
 </device>
 </devices>
