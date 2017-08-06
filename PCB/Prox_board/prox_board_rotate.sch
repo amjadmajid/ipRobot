@@ -6072,7 +6072,7 @@ by exp-lbrs.ulp</description>
 </classes>
 <parts>
 <part name="U1" library="Wisp5_Harvester_Motor-driver_V2" deviceset="MAX44000" device=""/>
-<part name="U$2" library="Wisp5_Harvester_Motor-driver_V2" deviceset="SFH4651" device=""/>
+<part name="LED" library="Wisp5_Harvester_Motor-driver_V2" deviceset="SFH4651" device=""/>
 <part name="JP1" library="Wisp5_Harvester_Motor-driver_V2" deviceset="PINHEAD_PINHD-1X5-1.27MM" device=""/>
 <part name="GND1" library="Wisp5_Harvester_Motor-driver" deviceset="GND" device=""/>
 <part name="GND2" library="Wisp5_Harvester_Motor-driver" deviceset="GND" device=""/>
@@ -6087,7 +6087,7 @@ by exp-lbrs.ulp</description>
 </plain>
 <instances>
 <instance part="U1" gate="G$1" x="35.56" y="17.78"/>
-<instance part="U$2" gate="G$1" x="5.08" y="22.86"/>
+<instance part="LED" gate="G$1" x="5.08" y="22.86"/>
 <instance part="JP1" gate="G$1" x="58.42" y="40.64"/>
 <instance part="GND1" gate="1" x="17.78" y="5.08"/>
 <instance part="GND2" gate="1" x="53.34" y="5.08"/>
@@ -6124,7 +6124,7 @@ by exp-lbrs.ulp</description>
 </net>
 <net name="N$1" class="0">
 <segment>
-<pinref part="U$2" gate="G$1" pin="C"/>
+<pinref part="LED" gate="G$1" pin="C"/>
 <wire x1="5.08" y1="17.78" x2="5.08" y2="15.24" width="0.1524" layer="91"/>
 <pinref part="U1" gate="G$1" pin="DRV"/>
 <wire x1="5.08" y1="15.24" x2="22.86" y2="15.24" width="0.1524" layer="91"/>
@@ -6197,7 +6197,7 @@ by exp-lbrs.ulp</description>
 <wire x1="15.24" y1="27.94" x2="15.24" y2="30.48" width="0.1524" layer="91"/>
 <wire x1="15.24" y1="30.48" x2="22.86" y2="30.48" width="0.1524" layer="91"/>
 <label x="7.62" y="30.48" size="1.778" layer="95"/>
-<pinref part="U$2" gate="G$1" pin="A"/>
+<pinref part="LED" gate="G$1" pin="A"/>
 <wire x1="5.08" y1="25.4" x2="5.08" y2="30.48" width="0.1524" layer="91"/>
 <wire x1="5.08" y1="30.48" x2="15.24" y2="30.48" width="0.1524" layer="91"/>
 <junction x="15.24" y="30.48"/>
