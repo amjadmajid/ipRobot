@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="8.2.1">
+<eagle version="8.2.2">
 <drawing>
 <settings>
 <setting alwaysvectorfont="no"/>
@@ -140,153 +140,12 @@
 </layers>
 <schematic xreflabel="%F%N/%S.%C%R" xrefpart="/%S.%C%R">
 <libraries>
-<library name="robot_pcb2">
-<packages>
-<package name="6OTDFN-EP">
-<smd name="1" x="0.15" y="1.7" dx="0.36" dy="0.48" layer="1" rot="R90"/>
-<smd name="2" x="0.15" y="1" dx="0.36" dy="0.48" layer="1" rot="R90"/>
-<smd name="3" x="0.15" y="0.3" dx="0.36" dy="0.48" layer="1" rot="R90"/>
-<smd name="4" x="1.85" y="0.3" dx="0.36" dy="0.48" layer="1" rot="R90"/>
-<smd name="5" x="1.85" y="1" dx="0.36" dy="0.48" layer="1" rot="R90"/>
-<smd name="6" x="1.85" y="1.7" dx="0.36" dy="0.48" layer="1" rot="R90"/>
-<smd name="EP" x="1" y="1" dx="1.4" dy="0.71" layer="1" rot="R270"/>
-<wire x1="0" y1="2" x2="2" y2="2" width="0.01" layer="51"/>
-<wire x1="2" y1="2" x2="2" y2="0" width="0.01" layer="51"/>
-<wire x1="2" y1="0" x2="0" y2="0" width="0.01" layer="51"/>
-<wire x1="0" y1="0" x2="0" y2="2" width="0.01" layer="51"/>
-<wire x1="0" y1="2.064" x2="2" y2="2.064" width="0.127" layer="21"/>
-<wire x1="0" y1="-0.064" x2="2" y2="-0.064" width="0.127" layer="21"/>
-<wire x1="-0.3" y1="2.41" x2="-0.29" y2="2.41" width="0.3048" layer="21"/>
-<text x="-0.02" y="2.26" size="0.4064" layer="25">&gt;NAME</text>
-<pad name="P$1" x="1" y="1.34" drill="0.35" diameter="0.71" shape="square"/>
-<pad name="P$2" x="1" y="0.66" drill="0.35" diameter="0.71" shape="square"/>
-</package>
-<package name="MIDLED">
-<smd name="C" x="0" y="-1.375" dx="2.4" dy="1.35" layer="1"/>
-<smd name="A" x="0" y="1.375" dx="2.4" dy="1.35" layer="1"/>
-<wire x1="-1.13" y1="1.65" x2="1.13" y2="1.65" width="0.127" layer="48"/>
-<wire x1="1.13" y1="1.65" x2="1.13" y2="-1.65" width="0.127" layer="48"/>
-<wire x1="1.13" y1="-1.65" x2="-1.13" y2="-1.65" width="0.127" layer="48"/>
-<wire x1="-1.13" y1="-1.65" x2="-1.13" y2="1.65" width="0.127" layer="48"/>
-<wire x1="-1.13" y1="0.45" x2="-1.13" y2="-0.45" width="0.3048" layer="21"/>
-<wire x1="1.13" y1="0.45" x2="1.13" y2="-0.45" width="0.3048" layer="21"/>
-<wire x1="-1.125" y1="-2.3" x2="1.125" y2="-2.3" width="0.3048" layer="21"/>
-</package>
-</packages>
-<symbols>
-<symbol name="MAX44000">
-<wire x1="-7.62" y1="7.62" x2="-7.62" y2="-7.62" width="0.254" layer="94"/>
-<wire x1="-7.62" y1="-7.62" x2="7.62" y2="-7.62" width="0.254" layer="94"/>
-<wire x1="7.62" y1="-7.62" x2="7.62" y2="7.62" width="0.254" layer="94"/>
-<wire x1="7.62" y1="7.62" x2="-7.62" y2="7.62" width="0.254" layer="94"/>
-<pin name="VDD" x="-12.7" y="2.54" length="middle"/>
-<pin name="GND" x="-12.7" y="0" length="middle"/>
-<pin name="DRV" x="-12.7" y="-2.54" length="middle"/>
-<pin name="INT" x="12.7" y="-2.54" length="middle" rot="R180"/>
-<pin name="SCL" x="12.7" y="0" length="middle" rot="R180"/>
-<pin name="SDA" x="12.7" y="2.54" length="middle" rot="R180"/>
-<pin name="EP" x="12.7" y="-5.08" length="middle" rot="R180"/>
-<text x="-7.62" y="8.128" size="1.778" layer="95">&gt;NAME</text>
-<text x="1.27" y="-8.382" size="1.778" layer="96" rot="R180">&gt;VALUE</text>
-</symbol>
-<symbol name="LED">
-<description>&lt;h3&gt;LED&lt;/h3&gt;
-&lt;p&gt;&lt;/p&gt;</description>
-<wire x1="1.27" y1="0" x2="0" y2="-2.54" width="0.254" layer="94"/>
-<wire x1="0" y1="-2.54" x2="-1.27" y2="0" width="0.254" layer="94"/>
-<wire x1="1.27" y1="-2.54" x2="0" y2="-2.54" width="0.254" layer="94"/>
-<wire x1="0" y1="-2.54" x2="-1.27" y2="-2.54" width="0.254" layer="94"/>
-<wire x1="1.27" y1="0" x2="-1.27" y2="0" width="0.254" layer="94"/>
-<wire x1="-2.032" y1="-0.762" x2="-3.429" y2="-2.159" width="0.1524" layer="94"/>
-<wire x1="-1.905" y1="-1.905" x2="-3.302" y2="-3.302" width="0.1524" layer="94"/>
-<text x="-3.429" y="-4.572" size="1.778" layer="95" font="vector" rot="R90">&gt;NAME</text>
-<text x="1.905" y="-4.572" size="1.778" layer="96" font="vector" rot="R90" align="top-left">&gt;VALUE</text>
-<pin name="C" x="0" y="-5.08" visible="off" length="short" direction="pas" rot="R90"/>
-<pin name="A" x="0" y="2.54" visible="off" length="short" direction="pas" rot="R270"/>
-<polygon width="0.1524" layer="94">
-<vertex x="-3.429" y="-2.159"/>
-<vertex x="-3.048" y="-1.27"/>
-<vertex x="-2.54" y="-1.778"/>
-</polygon>
-<polygon width="0.1524" layer="94">
-<vertex x="-3.302" y="-3.302"/>
-<vertex x="-2.921" y="-2.413"/>
-<vertex x="-2.413" y="-2.921"/>
-</polygon>
-</symbol>
-</symbols>
-<devicesets>
-<deviceset name="MAX44000">
-<gates>
-<gate name="G$1" symbol="MAX44000" x="0" y="0"/>
-</gates>
-<devices>
-<device name="" package="6OTDFN-EP">
-<connects>
-<connect gate="G$1" pin="DRV" pad="3"/>
-<connect gate="G$1" pin="EP" pad="EP"/>
-<connect gate="G$1" pin="GND" pad="2"/>
-<connect gate="G$1" pin="INT" pad="4"/>
-<connect gate="G$1" pin="SCL" pad="5"/>
-<connect gate="G$1" pin="SDA" pad="6"/>
-<connect gate="G$1" pin="VDD" pad="1"/>
-</connects>
-<technologies>
-<technology name=""/>
-</technologies>
-</device>
-</devices>
-</deviceset>
-<deviceset name="SFH4651">
-<gates>
-<gate name="G$1" symbol="LED" x="0" y="2.54"/>
-</gates>
-<devices>
-<device name="" package="MIDLED">
-<connects>
-<connect gate="G$1" pin="A" pad="A"/>
-<connect gate="G$1" pin="C" pad="C"/>
-</connects>
-<technologies>
-<technology name=""/>
-</technologies>
-</device>
-</devices>
-</deviceset>
-</devicesets>
-</library>
 <library name="Wisp5_Harvester_Motor-driver">
 <description>Generated from &lt;b&gt;Wisp5_Harvester_Motor-driver.sch&lt;/b&gt;&lt;p&gt;
 by exp-lbrs.ulp</description>
 <packages>
-<package name="PINHEAD_1X05-1.27MM">
-<wire x1="3.429" y1="0.9017" x2="3.429" y2="-0.9017" width="0.1524" layer="21"/>
-<wire x1="-3.429" y1="-0.9017" x2="-3.429" y2="0.9017" width="0.1524" layer="21"/>
-<wire x1="-3.429" y1="-0.9144" x2="3.429" y2="-0.9144" width="0.1524" layer="21"/>
-<wire x1="-3.429" y1="0.9144" x2="3.429" y2="0.9144" width="0.1524" layer="21"/>
-<pad name="1" x="-2.54" y="0" drill="0.6" shape="square" rot="R90"/>
-<pad name="2" x="-1.27" y="0" drill="0.6" rot="R90"/>
-<pad name="3" x="0" y="0" drill="0.6" rot="R90"/>
-<pad name="4" x="1.27" y="0" drill="0.6" rot="R90"/>
-<pad name="5" x="2.54" y="0" drill="0.6" rot="R90"/>
-<text x="-3.2512" y="1.5113" size="1.27" layer="25" ratio="10">&gt;NAME</text>
-<text x="-3.175" y="-2.8575" size="1.27" layer="27">&gt;VALUE</text>
-</package>
 </packages>
 <symbols>
-<symbol name="PINHEAD_PINHD5">
-<wire x1="-6.35" y1="-7.62" x2="1.27" y2="-7.62" width="0.4064" layer="94"/>
-<wire x1="1.27" y1="-7.62" x2="1.27" y2="7.62" width="0.4064" layer="94"/>
-<wire x1="1.27" y1="7.62" x2="-6.35" y2="7.62" width="0.4064" layer="94"/>
-<wire x1="-6.35" y1="7.62" x2="-6.35" y2="-7.62" width="0.4064" layer="94"/>
-<pin name="1" x="-2.54" y="5.08" visible="pad" length="short" direction="pas" function="dot"/>
-<pin name="2" x="-2.54" y="2.54" visible="pad" length="short" direction="pas" function="dot"/>
-<pin name="3" x="-2.54" y="0" visible="pad" length="short" direction="pas" function="dot"/>
-<pin name="4" x="-2.54" y="-2.54" visible="pad" length="short" direction="pas" function="dot"/>
-<pin name="5" x="-2.54" y="-5.08" visible="pad" length="short" direction="pas" function="dot"/>
-<text x="-6.35" y="8.255" size="1.778" layer="95">&gt;NAME</text>
-<text x="-6.35" y="-10.16" size="1.778" layer="96">&gt;VALUE</text>
-</symbol>
 <symbol name="GND">
 <wire x1="-1.905" y1="0" x2="1.905" y2="0" width="0.254" layer="94"/>
 <pin name="GND" x="0" y="2.54" visible="off" length="short" direction="sup" rot="R270"/>
@@ -294,25 +153,6 @@ by exp-lbrs.ulp</description>
 </symbol>
 </symbols>
 <devicesets>
-<deviceset name="PINHEAD_PINHD-1X5-1.27MM" prefix="JP">
-<gates>
-<gate name="G$1" symbol="PINHEAD_PINHD5" x="0" y="0"/>
-</gates>
-<devices>
-<device name="" package="PINHEAD_1X05-1.27MM">
-<connects>
-<connect gate="G$1" pin="1" pad="1"/>
-<connect gate="G$1" pin="2" pad="2"/>
-<connect gate="G$1" pin="3" pad="3"/>
-<connect gate="G$1" pin="4" pad="4"/>
-<connect gate="G$1" pin="5" pad="5"/>
-</connects>
-<technologies>
-<technology name=""/>
-</technologies>
-</device>
-</devices>
-</deviceset>
 <deviceset name="GND" prefix="GND">
 <description>&lt;b&gt;SUPPLY SYMBOL&lt;/b&gt;</description>
 <gates>
@@ -6059,6 +5899,168 @@ Source: AVX .. aphvc.pdf</description>
 </deviceset>
 </devicesets>
 </library>
+<library name="Wisp5_Harvester_Motor-driver_V2">
+<description>Generated from &lt;b&gt;Wisp5_Harvester_Motor-driver_V2.sch&lt;/b&gt;&lt;p&gt;
+by exp-lbrs.ulp</description>
+<packages>
+<package name="PINHEAD_1X05-1.27MM">
+<wire x1="3.429" y1="0.9017" x2="3.429" y2="-0.9017" width="0.1524" layer="21"/>
+<wire x1="-3.429" y1="-0.9017" x2="-3.429" y2="0.9017" width="0.1524" layer="21"/>
+<wire x1="-3.429" y1="-0.9144" x2="3.429" y2="-0.9144" width="0.1524" layer="21"/>
+<wire x1="-3.429" y1="0.9144" x2="3.429" y2="0.9144" width="0.1524" layer="21"/>
+<pad name="1" x="-2.54" y="0" drill="0.6" shape="square" rot="R90"/>
+<pad name="2" x="-1.27" y="0" drill="0.6" rot="R90"/>
+<pad name="3" x="0" y="0" drill="0.6" rot="R90"/>
+<pad name="4" x="1.27" y="0" drill="0.6" rot="R90"/>
+<pad name="5" x="2.54" y="0" drill="0.6" rot="R90"/>
+<text x="-3.2512" y="1.5113" size="1.27" layer="25" ratio="10">&gt;NAME</text>
+<text x="-3.175" y="-2.8575" size="1.27" layer="27">&gt;VALUE</text>
+</package>
+<package name="6OTDFN-EP">
+<smd name="1" x="0.05" y="1.7" dx="0.36" dy="0.68" layer="1" rot="R90"/>
+<smd name="2" x="0.05" y="1" dx="0.36" dy="0.68" layer="1" rot="R90"/>
+<smd name="3" x="0.05" y="0.3" dx="0.36" dy="0.68" layer="1" rot="R90"/>
+<smd name="4" x="1.95" y="0.3" dx="0.36" dy="0.68" layer="1" rot="R90"/>
+<smd name="5" x="1.95" y="1" dx="0.36" dy="0.68" layer="1" rot="R90"/>
+<smd name="6" x="1.95" y="1.7" dx="0.36" dy="0.68" layer="1" rot="R90"/>
+<smd name="EP" x="1" y="1" dx="1.4" dy="0.71" layer="1" rot="R270"/>
+<wire x1="0" y1="2" x2="2" y2="2" width="0" layer="51"/>
+<wire x1="2" y1="2" x2="2" y2="0" width="0" layer="51"/>
+<wire x1="2" y1="0" x2="0" y2="0" width="0" layer="51"/>
+<wire x1="0" y1="0" x2="0" y2="2" width="0" layer="51"/>
+<wire x1="0" y1="2.064" x2="2" y2="2.064" width="0.127" layer="21"/>
+<wire x1="0" y1="-0.064" x2="2" y2="-0.064" width="0.127" layer="21"/>
+<wire x1="-0.3" y1="2.41" x2="-0.29" y2="2.41" width="0.3048" layer="21"/>
+<text x="-0.02" y="2.26" size="0.4064" layer="25">&gt;NAME</text>
+<pad name="P$1" x="1" y="1.34" drill="0.35" diameter="0.71" shape="square"/>
+<pad name="P$2" x="1" y="0.66" drill="0.35" diameter="0.71" shape="square"/>
+</package>
+<package name="MIDLED">
+<smd name="C" x="0" y="-1.375" dx="2.4" dy="1.35" layer="1"/>
+<smd name="A" x="0" y="1.375" dx="2.4" dy="1.35" layer="1"/>
+<wire x1="-1.13" y1="1.65" x2="1.13" y2="1.65" width="0" layer="48"/>
+<wire x1="1.13" y1="1.65" x2="1.13" y2="-1.65" width="0" layer="48"/>
+<wire x1="1.13" y1="-1.65" x2="-1.13" y2="-1.65" width="0" layer="48"/>
+<wire x1="-1.13" y1="-1.65" x2="-1.13" y2="1.65" width="0" layer="48"/>
+<wire x1="-1.13" y1="0.45" x2="-1.13" y2="-0.45" width="0.3048" layer="21"/>
+<wire x1="1.13" y1="0.45" x2="1.13" y2="-0.45" width="0.3048" layer="21"/>
+<wire x1="-1.125" y1="-2.3" x2="1.125" y2="-2.3" width="0.3048" layer="21"/>
+</package>
+</packages>
+<symbols>
+<symbol name="PINHEAD_PINHD5">
+<wire x1="-6.35" y1="-7.62" x2="1.27" y2="-7.62" width="0.4064" layer="94"/>
+<wire x1="1.27" y1="-7.62" x2="1.27" y2="7.62" width="0.4064" layer="94"/>
+<wire x1="1.27" y1="7.62" x2="-6.35" y2="7.62" width="0.4064" layer="94"/>
+<wire x1="-6.35" y1="7.62" x2="-6.35" y2="-7.62" width="0.4064" layer="94"/>
+<pin name="1" x="-2.54" y="5.08" visible="pad" length="short" direction="pas" function="dot"/>
+<pin name="2" x="-2.54" y="2.54" visible="pad" length="short" direction="pas" function="dot"/>
+<pin name="3" x="-2.54" y="0" visible="pad" length="short" direction="pas" function="dot"/>
+<pin name="4" x="-2.54" y="-2.54" visible="pad" length="short" direction="pas" function="dot"/>
+<pin name="5" x="-2.54" y="-5.08" visible="pad" length="short" direction="pas" function="dot"/>
+<text x="-6.35" y="8.255" size="1.778" layer="95">&gt;NAME</text>
+<text x="-6.35" y="-10.16" size="1.778" layer="96">&gt;VALUE</text>
+</symbol>
+<symbol name="MAX44000">
+<wire x1="-7.62" y1="7.62" x2="-7.62" y2="-7.62" width="0.254" layer="94"/>
+<wire x1="-7.62" y1="-7.62" x2="7.62" y2="-7.62" width="0.254" layer="94"/>
+<wire x1="7.62" y1="-7.62" x2="7.62" y2="7.62" width="0.254" layer="94"/>
+<wire x1="7.62" y1="7.62" x2="-7.62" y2="7.62" width="0.254" layer="94"/>
+<pin name="VDD" x="-12.7" y="2.54" length="middle"/>
+<pin name="GND" x="-12.7" y="0" length="middle"/>
+<pin name="DRV" x="-12.7" y="-2.54" length="middle"/>
+<pin name="INT" x="12.7" y="-2.54" length="middle" rot="R180"/>
+<pin name="SCL" x="12.7" y="0" length="middle" rot="R180"/>
+<pin name="SDA" x="12.7" y="2.54" length="middle" rot="R180"/>
+<pin name="EP" x="12.7" y="-5.08" length="middle" rot="R180"/>
+<text x="-7.62" y="8.128" size="1.778" layer="95">&gt;NAME</text>
+<text x="1.27" y="-8.382" size="1.778" layer="96" rot="R180">&gt;VALUE</text>
+</symbol>
+<symbol name="LED">
+<description>&lt;h3&gt;LED&lt;/h3&gt;
+&lt;p&gt;&lt;/p&gt;</description>
+<wire x1="1.27" y1="0" x2="0" y2="-2.54" width="0.254" layer="94"/>
+<wire x1="0" y1="-2.54" x2="-1.27" y2="0" width="0.254" layer="94"/>
+<wire x1="1.27" y1="-2.54" x2="0" y2="-2.54" width="0.254" layer="94"/>
+<wire x1="0" y1="-2.54" x2="-1.27" y2="-2.54" width="0.254" layer="94"/>
+<wire x1="1.27" y1="0" x2="-1.27" y2="0" width="0.254" layer="94"/>
+<wire x1="-2.032" y1="-0.762" x2="-3.429" y2="-2.159" width="0.1524" layer="94"/>
+<wire x1="-1.905" y1="-1.905" x2="-3.302" y2="-3.302" width="0.1524" layer="94"/>
+<text x="-3.429" y="-4.572" size="1.778" layer="95" font="vector" rot="R90">&gt;NAME</text>
+<text x="1.905" y="-4.572" size="1.778" layer="96" font="vector" rot="R90" align="top-left">&gt;VALUE</text>
+<pin name="C" x="0" y="-5.08" visible="off" length="short" direction="pas" rot="R90"/>
+<pin name="A" x="0" y="2.54" visible="off" length="short" direction="pas" rot="R270"/>
+<polygon width="0.1524" layer="94">
+<vertex x="-3.429" y="-2.159"/>
+<vertex x="-3.048" y="-1.27"/>
+<vertex x="-2.54" y="-1.778"/>
+</polygon>
+<polygon width="0.1524" layer="94">
+<vertex x="-3.302" y="-3.302"/>
+<vertex x="-2.921" y="-2.413"/>
+<vertex x="-2.413" y="-2.921"/>
+</polygon>
+</symbol>
+</symbols>
+<devicesets>
+<deviceset name="PINHEAD_PINHD-1X5-1.27MM" prefix="JP">
+<gates>
+<gate name="G$1" symbol="PINHEAD_PINHD5" x="0" y="0"/>
+</gates>
+<devices>
+<device name="" package="PINHEAD_1X05-1.27MM">
+<connects>
+<connect gate="G$1" pin="1" pad="1"/>
+<connect gate="G$1" pin="2" pad="2"/>
+<connect gate="G$1" pin="3" pad="3"/>
+<connect gate="G$1" pin="4" pad="4"/>
+<connect gate="G$1" pin="5" pad="5"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="MAX44000">
+<gates>
+<gate name="G$1" symbol="MAX44000" x="0" y="0"/>
+</gates>
+<devices>
+<device name="" package="6OTDFN-EP">
+<connects>
+<connect gate="G$1" pin="DRV" pad="3"/>
+<connect gate="G$1" pin="EP" pad="EP P$1 P$2"/>
+<connect gate="G$1" pin="GND" pad="2"/>
+<connect gate="G$1" pin="INT" pad="4"/>
+<connect gate="G$1" pin="SCL" pad="5"/>
+<connect gate="G$1" pin="SDA" pad="6"/>
+<connect gate="G$1" pin="VDD" pad="1"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="SFH4651">
+<gates>
+<gate name="G$1" symbol="LED" x="0" y="2.54"/>
+</gates>
+<devices>
+<device name="" package="MIDLED">
+<connects>
+<connect gate="G$1" pin="A" pad="A"/>
+<connect gate="G$1" pin="C" pad="C"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+</devicesets>
+</library>
 </libraries>
 <attributes>
 </attributes>
@@ -6069,22 +6071,22 @@ Source: AVX .. aphvc.pdf</description>
 </class>
 </classes>
 <parts>
-<part name="U$1" library="robot_pcb2" deviceset="MAX44000" device=""/>
-<part name="U$2" library="robot_pcb2" deviceset="SFH4651" device=""/>
-<part name="JP1" library="Wisp5_Harvester_Motor-driver" deviceset="PINHEAD_PINHD-1X5-1.27MM" device=""/>
+<part name="U1" library="Wisp5_Harvester_Motor-driver_V2" deviceset="MAX44000" device=""/>
+<part name="U$2" library="Wisp5_Harvester_Motor-driver_V2" deviceset="SFH4651" device=""/>
+<part name="JP1" library="Wisp5_Harvester_Motor-driver_V2" deviceset="PINHEAD_PINHD-1X5-1.27MM" device=""/>
 <part name="GND1" library="Wisp5_Harvester_Motor-driver" deviceset="GND" device=""/>
 <part name="GND2" library="Wisp5_Harvester_Motor-driver" deviceset="GND" device=""/>
 <part name="R1" library="resistor" deviceset="R-EU_" device="R0603" value="DNP"/>
 <part name="R2" library="resistor" deviceset="R-EU_" device="R0603" value="DNP"/>
 <part name="R3" library="resistor" deviceset="R-EU_" device="R0603" value="DNP"/>
-<part name="C1" library="resistor" deviceset="C-EU" device="C0603" value="DNP"/>
+<part name="C1" library="resistor" deviceset="C-EU" device="C0603" value="0.1uF"/>
 </parts>
 <sheets>
 <sheet>
 <plain>
 </plain>
 <instances>
-<instance part="U$1" gate="G$1" x="35.56" y="17.78"/>
+<instance part="U1" gate="G$1" x="35.56" y="17.78"/>
 <instance part="U$2" gate="G$1" x="5.08" y="22.86"/>
 <instance part="JP1" gate="G$1" x="58.42" y="40.64"/>
 <instance part="GND1" gate="1" x="17.78" y="5.08"/>
@@ -6101,7 +6103,7 @@ Source: AVX .. aphvc.pdf</description>
 <segment>
 <pinref part="GND1" gate="1" pin="GND"/>
 <wire x1="17.78" y1="7.62" x2="17.78" y2="17.78" width="0.1524" layer="91"/>
-<pinref part="U$1" gate="G$1" pin="GND"/>
+<pinref part="U1" gate="G$1" pin="GND"/>
 <wire x1="17.78" y1="17.78" x2="22.86" y2="17.78" width="0.1524" layer="91"/>
 <pinref part="C1" gate="G$1" pin="2"/>
 <wire x1="15.24" y1="20.32" x2="15.24" y2="17.78" width="0.1524" layer="91"/>
@@ -6111,7 +6113,7 @@ Source: AVX .. aphvc.pdf</description>
 <segment>
 <pinref part="GND2" gate="1" pin="GND"/>
 <wire x1="53.34" y1="7.62" x2="53.34" y2="12.7" width="0.1524" layer="91"/>
-<pinref part="U$1" gate="G$1" pin="EP"/>
+<pinref part="U1" gate="G$1" pin="EP"/>
 <wire x1="53.34" y1="12.7" x2="48.26" y2="12.7" width="0.1524" layer="91"/>
 </segment>
 <segment>
@@ -6124,13 +6126,13 @@ Source: AVX .. aphvc.pdf</description>
 <segment>
 <pinref part="U$2" gate="G$1" pin="C"/>
 <wire x1="5.08" y1="17.78" x2="5.08" y2="15.24" width="0.1524" layer="91"/>
-<pinref part="U$1" gate="G$1" pin="DRV"/>
+<pinref part="U1" gate="G$1" pin="DRV"/>
 <wire x1="5.08" y1="15.24" x2="22.86" y2="15.24" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="SDA" class="0">
 <segment>
-<pinref part="U$1" gate="G$1" pin="SDA"/>
+<pinref part="U1" gate="G$1" pin="SDA"/>
 <wire x1="48.26" y1="20.32" x2="53.34" y2="20.32" width="0.1524" layer="91"/>
 <label x="53.34" y="20.32" size="1.778" layer="95"/>
 </segment>
@@ -6144,7 +6146,7 @@ Source: AVX .. aphvc.pdf</description>
 </net>
 <net name="SCL" class="0">
 <segment>
-<pinref part="U$1" gate="G$1" pin="SCL"/>
+<pinref part="U1" gate="G$1" pin="SCL"/>
 <wire x1="48.26" y1="17.78" x2="53.34" y2="17.78" width="0.1524" layer="91"/>
 <label x="53.34" y="17.78" size="1.778" layer="95"/>
 </segment>
@@ -6158,7 +6160,7 @@ Source: AVX .. aphvc.pdf</description>
 </net>
 <net name="INT" class="0">
 <segment>
-<pinref part="U$1" gate="G$1" pin="INT"/>
+<pinref part="U1" gate="G$1" pin="INT"/>
 <wire x1="48.26" y1="15.24" x2="53.34" y2="15.24" width="0.1524" layer="91"/>
 <label x="53.34" y="15.24" size="1.778" layer="95"/>
 </segment>
@@ -6189,7 +6191,7 @@ Source: AVX .. aphvc.pdf</description>
 <junction x="38.1" y="55.88"/>
 </segment>
 <segment>
-<pinref part="U$1" gate="G$1" pin="VDD"/>
+<pinref part="U1" gate="G$1" pin="VDD"/>
 <wire x1="22.86" y1="30.48" x2="22.86" y2="20.32" width="0.1524" layer="91"/>
 <pinref part="C1" gate="G$1" pin="1"/>
 <wire x1="15.24" y1="27.94" x2="15.24" y2="30.48" width="0.1524" layer="91"/>
