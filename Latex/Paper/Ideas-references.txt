@@ -29,3 +29,6 @@ https://arxiv.org/pdf/1707.08718.pdf
 1D Printing of Recyclable Robots
 http://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=7950924
 http://gizmodo.com/this-printer-doodles-stick-figure-robots-to-explore-are-1796985080
+
+Powering Pervasive Computing Systems (already added to bib)
+http://ieeexplore.ieee.org/document/7994569/
