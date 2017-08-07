@@ -59,9 +59,10 @@ Intermittently-powered Battery-free Robot
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction}
-
-% Make people interested with the first sentence
-% Intermittently powered robot research platforms, that purely rely on harvested power are currently non existent.
+% Applications
+% Robots typically battery powered (write swarm rely on recharging of batteries)
+% Why do we want to remove the battery?
+% Add solar path planning??
 
 Normally devices require a steady energy supply, were they operate for long periods of time without energy supply depletion. 
 This continuous power model is not concerned with any kind of interrupt due to loss of energy, while it always assumes a stable energy supply that allows persistent operation.
@@ -105,11 +106,6 @@ Batteries are generally the stable energy source of choice, while different solu
 Other solutions require the robot to be in close proximity to an energy source.
 
 
-%Most autonomous robots have some kind of odometry to allow them to navigate terrain autonomously.
-%A common solution is to use closed loop control, where additional sensors are used to correct for the drift.
-%However most of the sensors return the change in position while the robot is moving like wheel encoders, gyroscopes, accelerometers and motor current sensors.
-% No abslute sensor data but always relative.
-
 % Problem statement and research contribution
 % 
 All the previous work assumes that an operation is only possible when there is sufficient energy to complete a task.
@@ -143,9 +139,6 @@ The amount of energy collected from RF signals is very small and decreases with 
 The harvested energy is typically stored in a capacitor, where larger capacitors can buffer more energy and smaller capacitors have the advantage of shorter charge times~\cite{gummerson_mobisys_2010}.
 For longer, complex operations the energy budged needs to be evaluated carefully.
 To store the energy an appropriate size storage capacitor needs to be selected~\cite{naderiparizi_rfid_2015}.
-
-%A way to reduce the required energy is to communicate without active radios, but instead use an existing electromagnetic wave produced by a remote emitter. 
-%Backscatter communication uses the wave and creates a signal by modulating the impedance of the antenna, causing a change in the amount of energy reflected back to the emitter \cite{RN9, RN15, RN10}.
 
 
 \subsection{Batteries vs Supercaps}
@@ -231,12 +224,7 @@ By combining maps of lighting and ground slope a solar-powered robot can be kept
 	\end{threeparttable}
 \end{table*}
 
-\section{System Model}
-
-
-\section{System Implementation}
-
-\subsection{Design Requirements}
+\section{Design Requirements}
 % - Case study of warehouse/greenhouse inspection
 % - for Transienltly-powered Locomotion
 
@@ -244,9 +232,7 @@ Things to take into consideration:
 - Trade off between charge time and operation time.
 - Weight of the robot
 - Power consumption of individual components
-- Enable individual components
-- Lower voltage decreases power consuption.
-
+- Lower voltage decreases power consumption and allows efficient use of the energy from the supercapacitor.
 - single mainboard design
 
 % Short dutycycle charging and discharging (result of capacitor size)s
@@ -260,15 +246,13 @@ Things to take into consideration:
 
 
 
-\subsection{Robot Design}
+\section{Robot Design}
 
 % - Size and weight/energy availability/speed trade-off model and 
 % - Should the subsections more or less reflect the columns in the table?
+% - No optical encoders because they require a lot of energy!
 
-
-% include stepper motor vs optical sensors ref roverables power consumption optical encoders
-
-\subsubsection{Computation and Sensing}
+\subsection{Computation and Sensing}
 
 The robot is designed around a modified WISP 5.0, utilizing the processor and backscatter communication.
 It's based around a Texas Instruments MSP430FR5969 ultra low power microcontroller, operating at 16 MHz and featuring 64 KB FRAM, 2 KB SRAM and 40 IO. 
@@ -284,7 +268,7 @@ For avoidance of obstacles, a Maxim Integrated MAX44000 proximity sensor was add
 This sensor can measure the amount of ambient light as well.
 In addition the robot has a Bosch BMG250 Mems Gyroscope to measure yaw angle change and correct when necessary.
 
-\subsubsection{Locomotion}
+\subsection{Locomotion}
 
 Two 6mm geared dc motors from Precision Microdrives are mounted in a 3d printed frame, directly under the mainboard of the IPR.
 The motors are mounted diagonally opposite from each other making the robot as compact as possible.
@@ -296,16 +280,16 @@ On average the each motor consumes 38mA while running on a flat surface, which i
 However when the motors are in not moving yet the inrush/start current is equal to the stall current, which is equal to 240mA for each motor.
 This amount of current can not be supplied by the powersupply, using PWM to soft start the motor the average current can be limited and allowing a bulk capacitor to supply the voltage.
 
-\subsubsection{Energy Harvesting}
+\subsection{Energy Harvesting}
 
 % RF harvesting seems prommesing
 % better to only use RF for communication and harvest energy from another source \cite{konstantioulos}
 % wispcam long time to charge
 
-Photovoltaic cells used for indoor and outdoor energy harvesting, commonly have a different spectral sensitivity depending on the nature of their sources.
-Solar cells used in indoor applications need to have a high spectral sensitivity in the range of visible light (400 to 700nm).
-While for outdoor applications have a spectral sensitivity range can be broader, including near infrared  (500 nm to 1100 nm).
-Triple junction solar cells harvest in some cases up to 50\% of there energy out of the near infrared range.
+%Photovoltaic cells used for indoor and outdoor energy harvesting, commonly have a different spectral sensitivity depending on the nature of their sources.
+%Solar cells used in indoor applications need to have a high spectral sensitivity in the range of visible light (400 to 700nm).
+%While for outdoor applications have a spectral sensitivity range can be broader, including near infrared  (500 nm to 1100 nm).
+%Triple junction solar cells harvest in some cases up to 50\% of there energy out of the near infrared range.
 % reference to paper tudelft!
 
 % http://www.chip1stop.com/web/RUS/en/tutorialContents.do?page=009
@@ -337,7 +321,7 @@ The Texas Insturments BQ25570 has a buck converter to efficiently regulate the c
 % The buck converter can supply up to 110mA of output current.
 % Powering both motors and MCU should not exceed this current limit.
 
-\subsubsection{Software}
+\subsection{Software}
 
 % General library for reading and writing to i2c.
 
@@ -345,7 +329,7 @@ The Texas Insturments BQ25570 has a buck converter to efficiently regulate the c
 
 % A operating system for intermittend devices
 
-\section{System Evaluation} 
+\section{Evaluation} 
 
 % Movement open loop
 Open loop motion control of a robot often results in undesired drift in the position estimation.
@@ -355,13 +339,9 @@ Often being a result of unbalances or misalignment in the construction of the ro
 – Uneven weight distribution
 – Unbalance in driveline, motor to pcb or motor shaft → wheel
 
-% Table with power consumption of each component at 2.2v ?? only active or also standy?
-% Get operation time give power consumption time?
-% power consuption active vs standby
-
-Tell why this is important, 
-% false: harvested energy should be greater than power consumed in standby 
-% because output converter is only enabled when threshold is reached 
+% - Weight vs current consumption vs distance
+% - Measure start motor overhead and average consumption (show graph?)
+% - Table with power consumption of each component at 2.2v ?? only active or also standy?
 
 \begin{table*}[t]
 	\centering
@@ -376,7 +356,6 @@ Tell why this is important,
  		Proximity sensor & 432\textmu A & 0.1\textmu A \\
  		Gyroscope & 650\textmu A & 3\textmu A\\	
 		Microcontroller @ 8Mhz & 1mA & N/A \\
- 		IO Expander & 4\textmu A & 0.7\textmu A \\
 		H-bridge & 1.2mA & 10nA \\
 		DC motor & 39mA & N/A \\
 		DC motor & 39mA & N/A \\
@@ -385,7 +364,6 @@ Tell why this is important,
 		Total & xx & xx \\
 	\end{tabular}
 \end{table*}
-
 
 % outdoors/indoors/varying light sources/varying solar panels
 
@@ -406,7 +384,7 @@ Tell why this is important,
 
 % different locomotion types?
 
-\section{Conclusions}
+\section{Conclusion}
 
 
 %A conclusion section is not required. Although a conclusion may review the main points of the paper, do not replicate the abstract as the conclusion. A conclusion might elaborate on the importance of the work or suggest applications and extensions. 
