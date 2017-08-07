@@ -105,9 +105,9 @@ Batteries are generally the stable energy source of choice, while different solu
 Other solutions require the robot to be in close proximity to an energy source.
 
 
-Most autonomous robots have some kind of odometry to allow them to navigate terrain autonomously.
-A common solution is to use closed loop control, where additional sensors are used to correct for the drift.
-However most of the sensors return the change in position while the robot is moving like wheel encoders, gyroscopes, accelerometers and motor current sensors.
+%Most autonomous robots have some kind of odometry to allow them to navigate terrain autonomously.
+%A common solution is to use closed loop control, where additional sensors are used to correct for the drift.
+%However most of the sensors return the change in position while the robot is moving like wheel encoders, gyroscopes, accelerometers and motor current sensors.
 % No abslute sensor data but always relative.
 
 % Problem statement and research contribution
@@ -283,12 +283,6 @@ To conserve as much power as possible each sensor can be enabled and disabled us
 For avoidance of obstacles, a Maxim Integrated MAX44000 proximity sensor was added of the robot facing forward.
 This sensor can measure the amount of ambient light as well.
 In addition the robot has a Bosch BMG250 Mems Gyroscope to measure yaw angle change and correct when necessary.
-
-% Explain in more detail (like Tiny TERP)
-
-Because the WISP has only limited accessible GPIO ports available, an Texas Instruments TCA9538 8-Bit I2C I/O Expander is used to interface with the Texas Instruments DRV8836 Dual Low-Voltage H-Bridge.	
-Each H-Bridge requires 5 input connections, one for enabling the device and four connections for control.
-The I/O Expander is used supply an interface to the control connections of the H-Bridges, in turn controlling the amount of current trough the motors.
 
 \subsubsection{Locomotion}
 
