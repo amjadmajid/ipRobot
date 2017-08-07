@@ -10,10 +10,7 @@
 
 #define DEBUG 0
 
-#define NUM_CP 80
-#define RUN_TIME 50 //in mm
-#define DELAY RUN_TIME*690000/NUM_CP
-#define RUN_TIME2 RUN_TIME*(360000/4000)
+#define RAMP 0
 
 #define CNT_AFTER 1
 
