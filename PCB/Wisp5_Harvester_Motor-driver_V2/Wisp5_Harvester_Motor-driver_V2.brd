@@ -2788,7 +2788,7 @@ Please make sure your boards conform to these design rules.</description>
 </autorouter>
 <elements>
 <element name="C1" library="rcl" library_urn="urn:adsk.eagle:library:334" package="C0805" value="0.1uF" x="19.206" y="7.594" smashed="yes" rot="R270">
-<attribute name="NAME" x="20.476" y="8.164" size="0.8" layer="25" rot="R270"/>
+<attribute name="NAME" x="20.276" y="8.164" size="0.8" layer="25" rot="R270"/>
 <attribute name="VALUE" x="16.666" y="8.864" size="0.8" layer="27" rot="R270"/>
 </element>
 <element name="C2" library="rcl" library_urn="urn:adsk.eagle:library:334" package="C0805" value="0.1uF" x="10.366" y="11.919" smashed="yes" rot="R180">
@@ -2889,6 +2889,10 @@ Please make sure your boards conform to these design rules.</description>
 </element>
 <element name="MAX44000" library="Wisp5_Harvester_Motor-driver_V2" package="PINHEAD_1X04-1.27MM" value="PINHEAD_PINHD-1X4-1.27MM" x="13.1" y="27.1" smashed="yes">
 <attribute name="NAME" x="12.2188" y="24.9113" size="0.8" layer="25" ratio="10"/>
+</element>
+<element name="C10" library="rcl" library_urn="urn:adsk.eagle:library:334" package="C0805" value="DNP" x="22.1" y="7.6" smashed="yes" rot="R270">
+<attribute name="NAME" x="23.27" y="8.57" size="0.8" layer="25" rot="R270"/>
+<attribute name="VALUE" x="19.56" y="8.87" size="0.8" layer="27" rot="R270"/>
 </element>
 </elements>
 <signals>
@@ -3074,6 +3078,7 @@ Please make sure your boards conform to these design rules.</description>
 <wire x1="15.75" y1="7.85" x2="15.6" y2="8" width="0.254" layer="1"/>
 <wire x1="13.75" y1="9" x2="13.75" y2="8.65" width="0.254" layer="1"/>
 <wire x1="13.75" y1="8.65" x2="14.4" y2="8" width="0.254" layer="1"/>
+<contactref element="C10" pad="2"/>
 </signal>
 <signal name="VREG">
 <contactref element="WISP" pad="VREG"/>
@@ -3170,6 +3175,9 @@ Please make sure your boards conform to these design rules.</description>
 <via x="9.125425" y="4.9324375" extent="1-16" drill="0.35"/>
 <wire x1="9.144" y1="4.9138625" x2="9.125425" y2="4.9324375" width="0.4064" layer="16"/>
 <wire x1="9.144" y1="3.3147" x2="9.144" y2="4.9138625" width="0.4064" layer="16"/>
+<contactref element="C10" pad="1"/>
+<wire x1="22.1" y1="8.55" x2="19.409265625" y2="8.55" width="0.8128" layer="1"/>
+<wire x1="19.409265625" y1="8.55" x2="19.304" y2="8.444734375" width="0.8128" layer="1"/>
 </signal>
 <signal name="VBOOST">
 <contactref element="WISP" pad="VBOOST"/>

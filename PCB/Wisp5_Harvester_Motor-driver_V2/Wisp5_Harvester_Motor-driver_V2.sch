@@ -9937,6 +9937,7 @@ Shielded SMT Power Inductors ? LPS4018 Series</description>
 <part name="C2" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="C-EU" device="C0805" value="0.1uF"/>
 <part name="GND15" library="Wisp5_Harvester_Motor-driver_V2" deviceset="GND" device=""/>
 <part name="MAX44000" library="Wisp5_Harvester_Motor-driver_V2" deviceset="PINHEAD_PINHD-1X4-1.27MM" device=""/>
+<part name="C10" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="C-EU" device="C0805" value="DNP"/>
 </parts>
 <sheets>
 <sheet>
@@ -9961,6 +9962,7 @@ Shielded SMT Power Inductors ? LPS4018 Series</description>
 <instance part="C2" gate="G$1" x="93.98" y="63.5"/>
 <instance part="GND15" gate="1" x="66.04" y="22.86"/>
 <instance part="MAX44000" gate="G$1" x="83.82" y="15.24"/>
+<instance part="C10" gate="G$1" x="215.9" y="71.12"/>
 </instances>
 <busses>
 </busses>
@@ -10088,6 +10090,10 @@ Shielded SMT Power Inductors ? LPS4018 Series</description>
 <wire x1="205.74" y1="58.42" x2="185.42" y2="58.42" width="0.127" layer="91"/>
 <junction x="185.42" y="58.42"/>
 <junction x="180.34" y="58.42"/>
+<pinref part="C10" gate="G$1" pin="2"/>
+<wire x1="205.74" y1="58.42" x2="215.9" y2="58.42" width="0.1524" layer="91"/>
+<wire x1="215.9" y1="58.42" x2="215.9" y2="66.04" width="0.1524" layer="91"/>
+<junction x="205.74" y="58.42"/>
 </segment>
 <segment>
 <pinref part="GND2" gate="1" pin="GND"/>
@@ -10158,6 +10164,10 @@ Shielded SMT Power Inductors ? LPS4018 Series</description>
 <pinref part="C1" gate="G$1" pin="1"/>
 <wire x1="205.74" y1="78.74" x2="205.74" y2="73.66" width="0.127" layer="91"/>
 <label x="187.96" y="78.74" size="1.778" layer="95"/>
+<pinref part="C10" gate="G$1" pin="1"/>
+<wire x1="205.74" y1="78.74" x2="215.9" y2="78.74" width="0.1524" layer="91"/>
+<wire x1="215.9" y1="78.74" x2="215.9" y2="73.66" width="0.1524" layer="91"/>
+<junction x="205.74" y="78.74"/>
 </segment>
 <segment>
 <pinref part="U2" gate="G$1" pin="CSB"/>
