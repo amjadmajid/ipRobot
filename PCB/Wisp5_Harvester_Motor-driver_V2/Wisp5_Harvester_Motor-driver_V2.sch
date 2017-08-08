@@ -9909,8 +9909,8 @@ Shielded SMT Power Inductors ? LPS4018 Series</description>
 <part name="GND11" library="Wisp5_Harvester_Motor-driver_V2" deviceset="GND" device=""/>
 <part name="R2" library="resistor" library_urn="urn:adsk.eagle:library:348" deviceset="R-EU_" device="R0805" value="5.36M"/>
 <part name="R1" library="resistor" library_urn="urn:adsk.eagle:library:348" deviceset="R-EU_" device="R0805" value="7.50M"/>
-<part name="L1" library="Wisp5_Harvester_Motor-driver_V2" deviceset="COILCRAFT-LPS4018" device=""/>
-<part name="L2" library="Wisp5_Harvester_Motor-driver_V2" deviceset="COILCRAFT-LPS4018" device=""/>
+<part name="L1" library="Wisp5_Harvester_Motor-driver_V2" deviceset="COILCRAFT-LPS4018" device="" value="22uH"/>
+<part name="L2" library="Wisp5_Harvester_Motor-driver_V2" deviceset="COILCRAFT-LPS4018" device="" value="10uH"/>
 <part name="C8" library="Wisp5_Harvester_Motor-driver_V2" deviceset="C-EU" device="C1210" value="220uF"/>
 <part name="R6" library="resistor" library_urn="urn:adsk.eagle:library:348" deviceset="R-EU_" device="R0805" value="6.04M"/>
 <part name="R7" library="resistor" library_urn="urn:adsk.eagle:library:348" deviceset="R-EU_" device="R0805" value="3.01M"/>
