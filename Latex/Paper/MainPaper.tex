@@ -64,40 +64,24 @@ Intermittently-powered Battery-free Robot
 % Why do we want to remove the battery?
 % Add solar path planning??
 
-Normally devices require a steady energy supply, were they operate for long periods of time without energy supply depletion. 
-This continuous power model is not concerned with any kind of interrupt due to loss of energy, while it always assumes a stable energy supply that allows persistent operation.
-Other devices lack the luxury of having this energy supply stability.
-When this kind of device would operate under the continuous model, it could leave the device in an inconsistent state when a power interrupt occurs.
-A solution could be to estimate the energy budget between every power interrupt and make sure that the execution of a task will finish before running out of energy.
-However this would imply a custom implementation for each specific application. 
-A more general solution is required to emulate continuous operation under a intermittent source of energy.
+% Why do we want to remove the battery?
 
-The intermittent power model clearly differs from the continuous power model, since it has periods with and without energy availability.
-Energy harvesters create this intermittent availability of energy.
-While energy is being harvested the device is off and the energy is stored in a small buffer.
-When a certain energy threshold is reached the connected device is activated and able to operate for a short period of time.
-In different areas, problems related to the use of the intermittent power model have already been observed.
-For computation under an intermittent source of energy, a variety of solutions have been proposed.
-In intermittent computation the general idea is to split a program into blocks of code, ensuring that these blocks can be re-executed and therefore keeping a consistent state of the program.
-Two way communication typically implements a closed loop were the messages are validated after being send.
+"Low-hanging fruit is nowhere to be seen in fields as crucial as digital electronics, biomedical devices, or space technology."
+\cite{zachary_spec_2016}
 
+"Figure 1. The energy efficiency of computing has improved by 12 orders of magnitude since 1945. In the same time period, battery energy density has improved by less than 1 order of magnitude. The most dramatic improvements in battery density have been in the last 20 years with Li-ion batteries."
+\cite{patel_pvc_2017}
 
-Using a micro-controller to control another device operating under an intermittent power supply provides new challenges.
-When a power interrupt occurs the progress can be uncertain and it can be doubtful if an output operation can be redone.
-In the continuous power model the assumption is made that the output is enabled for long enough to complete the operation.
-But operation under the intermittent power model only two point's in time can be certain, before and after doing the output operation.
-During execution of the output operation, the progress can not be determined. % gray area
-Extending one period by adding multiple operations together increases the uncertainty because of a greater possible error.
-%Extending the duration of a output operation could increase the possible error.
+Comparing li-ion batteries with super-capacitors there are some big differences.
+Super-capacitors do not need any special charging scheme and circuity for charging, except for overcharging protection.
+Secondly, super-capacitors do not require any particular current profile, the energy can be stored at any rate and when the energy is required it can be extracted at any power level.
+Operating a li-ion battery outside of it's recommended operating conditions can severely reduce a batteries lifetime and result in overheating or even explosion of the battery.
+Batteries will seldom withstand more than one thousand complete charge/discharge cycles.
+Super-capacitors used under extreme condition's, are not likely to explode but instead rupture.
+While the biggest disadvantages of super-capacitors is their low energy density and high price, their lifetime is typically hundred thousands of charge/discharge cycles.
 
-% Expain the problem of counting before or after
-Counting a completed output operation is commonly done when it has been finished.
-What can happen is that the output operation has been finished while the energy has been fully depleted and a completed output operation has not been counted.
-This will imply that an extra unwanted output operation will be preformed.
-On the other hand when output operations are counted before they are actually computed, it can happen that an operation is counted while not being finished.
-As a result less operations will be counted than actually preformed.
-
-% Simple example blinking led?
+Li-Ion Battery-Supercapacitor Hybrid Storage System for a Long Lifetime, Photovoltaic-Based Wireless Sensor Network	\cite{ongaro_pwre_2012}
+Reincarnation in the Ambiance: Devices and Networks with Energy Harvesting \cite{prasad_comst_2014}
 
 % Link to robotics
 
@@ -139,23 +123,6 @@ The amount of energy collected from RF signals is very small and decreases with 
 The harvested energy is typically stored in a capacitor, where larger capacitors can buffer more energy and smaller capacitors have the advantage of shorter charge times~\cite{gummerson_mobisys_2010}.
 For longer, complex operations the energy budged needs to be evaluated carefully.
 To store the energy an appropriate size storage capacitor needs to be selected~\cite{naderiparizi_rfid_2015}.
-
-
-\subsection{Batteries vs Supercaps}
-
-"Low-hanging fruit is nowhere to be seen in fields as crucial as digital electronics, biomedical devices, or space technology."
-\cite{zachary_spec_2016}
-
-Comparing li-ion batteries with super-capacitors there are some big differences.
-Super-capacitors do not need any special charging scheme and circuity for charging, except for overcharging protection.
-Secondly, super-capacitors do not require any particular current profile, the energy can be stored at any rate and when the energy is required it can be extracted at any power level.
-Operating a li-ion battery outside of it's recommended operating conditions can severely reduce a batteries lifetime and result in overheating or even explosion of the battery.
-Batteries will seldom withstand more than one thousand complete charge/discharge cycles.
-Super-capacitors used under extreme condition's, are not likely to explode but instead rupture.
-While the biggest disadvantages of super-capacitors is their low energy density and high price, their lifetime is typically hundred thousands of charge/discharge cycles.
-
-Li-Ion Battery-Supercapacitor Hybrid Storage System for a Long Lifetime, Photovoltaic-Based Wireless Sensor Network	\cite{ongaro_pwre_2012}
-Reincarnation in the Ambiance: Devices and Networks with Energy Harvesting \cite{prasad_comst_2014}
 
 % - Energy harvesting
 
