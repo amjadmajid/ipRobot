@@ -59,7 +59,7 @@ int main(void) {
     }*/
 
     enbl_mot();
-    forward(lspeed, rspeed);
+    mot_for(lspeed, rspeed);
 
     // Run at approx 100Hz
     while(fram.cnt < 800){
@@ -71,7 +71,7 @@ int main(void) {
             rspeed += 5;
         }
         rspeed = rspeed - (Kp*omega + Kd*derr);
-        set_fspeed(lspeed, rspeed);
+        set_for_sp(lspeed, rspeed);
         //sensor_data[cnt] = data;
         prev = omega;
         __delay_cycles(80000);

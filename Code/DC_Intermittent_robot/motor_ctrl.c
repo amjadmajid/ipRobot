@@ -41,7 +41,7 @@ void dsbl_mot(){
     TB0CTL |= MC__STOP;
 }
 
-void forward(uint16_t sl, uint16_t sr){
+void mot_for(uint16_t sl, uint16_t sr){
 
     TB0CTL |= MC__STOP;
 
@@ -59,12 +59,12 @@ void forward(uint16_t sl, uint16_t sr){
     TB0CTL |= MC__UP | TBCLR;                 //Up mode, clear TBR
 }
 
-void set_fspeed(uint16_t sl, uint16_t sr){
+void set_for_sp(uint16_t sl, uint16_t sr){
     TB0CCR1 = sl;
     TB0CCR4 = sr;
 }
 
-void reverse(){
+void mot_rev(){
 
     TB0CTL |= MC__STOP;
 
@@ -80,4 +80,9 @@ void reverse(){
     TB0CCR6 = 270;
 
     TB0CTL |= MC__UP | TBCLR;                 //Up mode, clear TBR
+}
+
+void set_rev_sp(uint16_t sl, uint16_t sr){
+    TB0CCR3 = sl;
+    TB0CCR6 = sr;
 }
