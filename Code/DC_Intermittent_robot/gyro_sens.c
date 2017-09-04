@@ -53,7 +53,7 @@ int16_t gyro_read() {
     int16_t ret;
 
     //Check if data ready bit is set
-    while(!(i2c_read(BMG_ADDR, 0x1B) & 0x40));
+    //while(!(i2c_read(BMG_ADDR, 0x1B) & 0x40));
 
     // Only return z-axis data!
     i2c_read_multi(BMG_ADDR, 0x16, 2, data);
