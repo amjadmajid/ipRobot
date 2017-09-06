@@ -13,15 +13,20 @@
 #include "gyro_sens.h"
 #include "motor_ctrl.h"
 
+// Ziegler Nichols PID tuning parameters
+#define Ku 0.6
+#define Tu 0.24 // 12/50
+#define st 0.02 // Sample time (50Hz)
+
 #pragma PERSISTENT(sensor_data);
 int16_t sensor_data[400] = {0};
 
-uint16_t lspeed = 250;
-uint16_t rspeed = 250;
-float st = 0.02;  // Sample time
-float Kp = 0.36;
-float Ki = 0.0056; // 0.0054; // 0.27 * 0.02
-float Kd = 0; // 0.065 / 0.02;
+uint16_t lspeed = 600;
+uint16_t rspeed = 600;
+
+float Kp = 0.6 * Ku;
+float Ki = 0; //(Tu / 2) * st; // (Tu / 1.2) * st;
+float Kd = 0; //(Tu / 8) / st;
 
 int16_t data = 0;
 float set = 0, omega = 0, err = 0;
@@ -69,6 +74,7 @@ void __attribute__ ((interrupt(TIMER2_A0_VECTOR))) Timer2_A0_ISR (void)
     data = -gyro_read();
     omega = data / 131.0;
     err = set - omega;
+    ierr += err;
     derr = err - prev;
     if(fram.cnt < 100 && RAMP){
         lspeed += 5;
@@ -77,7 +83,6 @@ void __attribute__ ((interrupt(TIMER2_A0_VECTOR))) Timer2_A0_ISR (void)
     rspeed = rspeed - (Kp*err + Ki*ierr + Kd*derr);
     set_for_sp(lspeed, rspeed);
     sensor_data[fram.cnt] = data;
-    prev = omega;
-    ierr = ierr + err;
+    prev = err;
     fram.cnt++;
 }
