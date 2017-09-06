@@ -28,8 +28,8 @@ void gyro_init(){
     __delay_cycles(400000);
     //while(!(i2c_read(BMG_ADDR, 0x03) & 0x04));
 
-    //Set data rate to 200Hz and bandwidth to 21.4Hz
-    //i2c_write(BMG_ADDR, 0x42, 0x29);
+    //Set data rate to 50Hz and bandwidth to 20.8Hz
+    i2c_write(BMG_ADDR, 0x42, 0x27);
 
     //Set angular rate measurement range to 250deg/s
     i2c_write(BMG_ADDR, 0x43, 0x03);
@@ -52,7 +52,7 @@ int16_t gyro_read() {
     uint8_t data[2];
     int16_t ret;
 
-    //Check if data ready bit is set
+    //Check if data ready bit is set (multiple reads can result in hang here)
     //while(!(i2c_read(BMG_ADDR, 0x1B) & 0x40));
 
     // Only return z-axis data!

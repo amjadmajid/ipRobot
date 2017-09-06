@@ -13,17 +13,19 @@
 #include "gyro_sens.h"
 #include "motor_ctrl.h"
 
-//#pragma PERSISTENT(sensor_data);
-//int16_t sensor_data[400] = {0};
+#pragma PERSISTENT(sensor_data);
+int16_t sensor_data[400] = {0};
 
-uint16_t lspeed = 200;
-uint16_t rspeed = 200;
-const float Kp = 0.23;
-const float Kd = 0.15;
+uint16_t lspeed = 250;
+uint16_t rspeed = 250;
+float st = 0.02;  // Sample time
+float Kp = 0.36;
+float Ki = 0.0056; // 0.0054; // 0.27 * 0.02
+float Kd = 0; // 0.065 / 0.02;
 
-uint16_t cnt = 0;
 int16_t data = 0;
 float set = 0, omega = 0, err = 0;
+float ierr = 0;
 float prev = 0, derr = 0;
 
 void ctrl_init(){
@@ -32,7 +34,7 @@ void ctrl_init(){
     gyro_init();
     drv_init();
 
-    TA2CCR0 = 94;                             // Set timer to approx. 100Hz
+    TA2CCR0 = 188;                             // Set timer to approx. 50Hz
     TA2CTL = TASSEL__ACLK | MC__UP;           // ACLK = VLO, UP mode
 
     __bis_SR_register(GIE);                   // Enable interrupt
@@ -64,7 +66,7 @@ void __attribute__ ((interrupt(TIMER2_A0_VECTOR))) Timer2_A0_ISR (void)
 #error Compiler not supported!
 #endif
 {
-    data = gyro_read();
+    data = -gyro_read();
     omega = data / 131.0;
     err = set - omega;
     derr = err - prev;
@@ -72,9 +74,10 @@ void __attribute__ ((interrupt(TIMER2_A0_VECTOR))) Timer2_A0_ISR (void)
         lspeed += 5;
         rspeed += 5;
     }
-    rspeed = rspeed - (Kp*omega + Kd*derr);
+    rspeed = rspeed - (Kp*err + Ki*ierr + Kd*derr);
     set_for_sp(lspeed, rspeed);
-    //sensor_data[cnt] = data;
+    sensor_data[fram.cnt] = data;
     prev = omega;
+    ierr = ierr + err;
     fram.cnt++;
 }
