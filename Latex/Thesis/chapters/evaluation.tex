@@ -1,0 +1,43 @@
+\chapter{Evaluation} 
+
+% Movement open loop
+Open loop motion control of a robot often results in undesired drift in the position estimation.
+Often being a result of unbalances or misalignment in the construction of the robot.
+
+– Uneven wheel slip
+– Uneven weight distribution
+– Unbalance in driveline, motor to pcb or motor shaft → wheel
+
+% - Weight vs current consumption vs distance
+% - Measure start motor overhead and average consumption (show graph?)
+% - Table with power consumption of each component at 2.2v ?? only active or also standy?
+
+\begin{table*}[t]
+	\centering
+	\caption{Power consumption of each individual component at 2.2V}
+	\label{tab:1}
+ 	\begin{tabular}{l l l} 
+		\hline
+		\\[-1em]
+ 		Part & Active Current & Standby Current\\ 
+ 		\hline
+ 		\\[-1em]
+ 		Proximity sensor & 432\textmu A & 0.1\textmu A \\
+ 		Gyroscope & 650\textmu A & 3\textmu A\\	
+		Microcontroller @ 8Mhz & 1mA & N/A \\
+		H-bridge & 1.2mA & 10nA \\
+		DC motor & 39mA & N/A \\
+		DC motor & 39mA & N/A \\
+		\hline
+		\\[-1em]
+		Total & xx & xx \\
+	\end{tabular}
+\end{table*}
+
+% outdoors/indoors/varying light sources/varying solar panels
+
+% comparison with battery powered robot
+
+% accuracy of motion path 
+
+% video of robot movement

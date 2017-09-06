@@ -24,13 +24,22 @@
 % FONT
 \usepackage[scaled=.92]{helvet}
 %\usepackage{times}
+\usepackage{textcomp}
 
 % for url's use "\url{http://www.google.com/}"
 \usepackage{url}
 \usepackage[plainpages=false]{hyperref} 
 
+% Table
+\usepackage{threeparttable, tablefootnote}
+\usepackage{tabularx}
+
+% References
+\usepackage{flushend}
+
+
 % Information that will be filled in at various points in the report
-\newcommand{\reportTitle}{A Transiently powered autonomous robot}
+\newcommand{\reportTitle}{A Transiently-powered Battery-free Robot}
 \newcommand{\reportAuthor}{Koen Schaper}
 \newcommand{\reportEmail}{k.p.schaper@student.tudelft.nl}
 \newcommand{\reportUrlEmail}{\href{mailto:\reportEmail}{\reportEmail}}
@@ -38,8 +47,8 @@
 \newcommand{\reportDate}{\today} %TODO: Dit is de datum van uitgifte van final versie aan de afstudeer commissie 
 \newcommand{\presentationDate}{\today} %TODO: Dit is de datum van de afstudeerpresentatie 
 \newcommand{\graduationCommittee}{
-TODO GRADUATION COMMITTEE & Delft University of Technology \\
-TODO GRADUATION COMMITTEE & Delft University of Technology \\
+prof. dr. K.G. Langendoen (chair) & Delft University of Technology \\
+dr. Przemys\l{}aw Pawe\l{}czak (supervisor) & Delft University of Technology \\
 } % The order of listing the names: Graduation prof, supervisor(s), others ordered by title + alphabetical 
 %examples: 
 %prof. dr. ir. H. J. Sips (chair) & Delft University of Technology \\ 
@@ -110,18 +119,23 @@ TODO GRADUATION COMMITTEE & Delft University of Technology \\
 % INTRODUCTION: page 1
 \include{chapters/introduction}
 
+% CHAPTERS ... For instance: History/Prior Work, Design/Implementation, Experiments
 \include{chapters/related_work}
 
-% CHAPTERS ... For instance: History/Prior Work, Design/Implementation, Experiments
-\include{chapters/chapter_2}
+\include{chapters/robot_design}
+
+\include{chapters/evaluation}
 
 % CONCLUSIONS AND FUTURE WORK
-\include{chapters/conclusionsandfuturework}
+\include{chapters/summary}
 
 % BIBLIOGRAPHY
 %#define SORTED 1
-\bibliographystyle{../bib/latex8}
-\bibliography{../bib/mycollection}
+%\bibliographystyle{../bib/latex8}
+%\bibliography{../bib/bibtex}
+
+\bibliographystyle{IEEEtran}
+\bibliography{IEEEabrv,bib/bibtex}
 
 %\appendix
 

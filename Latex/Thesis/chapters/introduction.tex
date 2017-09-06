@@ -1,16 +1,37 @@
 \chapter{Introduction}
 \label{chp:introduction}
 
-\section{Motivation}
+% Motivation for this work
 
-what kind of small robots are there
-- Nanobots
-- self asembling bots
-- robot platforms for swarm
+% Applications
+% Robots typically battery powered (write swarm rely on recharging of batteries)
+% Why do we want to remove the battery?
+% Add solar path planning??
 
+% Why do we want to remove the battery?
 
+"Low-hanging fruit is nowhere to be seen in fields as crucial as digital electronics, biomedical devices, or space technology."
+\cite{zachary_spec_2016}
 
+"Figure 1. The energy efficiency of computing has improved by 12 orders of magnitude since 1945. In the same time period, battery energy density has improved by less than 1 order of magnitude. The most dramatic improvements in battery density have been in the last 20 years with Li-ion batteries."
+\cite{patel_pvc_2017}
 
+Comparing li-ion batteries with super-capacitors there are some big differences.
+Super-capacitors do not need any special charging scheme and circuity for charging, except for overcharging protection.
+Secondly, super-capacitors do not require any particular current profile, the energy can be stored at any rate and when the energy is required it can be extracted at any power level.
+Operating a li-ion battery outside of it's recommended operating conditions can severely reduce a batteries lifetime and result in overheating or even explosion of the battery.
+Batteries will seldom withstand more than one thousand complete charge/discharge cycles.
+Super-capacitors used under extreme condition's, are not likely to explode but instead rupture.
+While the biggest disadvantages of super-capacitors is their low energy density and high price, their lifetime is typically hundred thousands of charge/discharge cycles.
+
+Li-Ion Battery-Supercapacitor Hybrid Storage System for a Long Lifetime, Photovoltaic-Based Wireless Sensor Network	\cite{ongaro_pwre_2012}
+Reincarnation in the Ambiance: Devices and Networks with Energy Harvesting \cite{prasad_comst_2014}
+
+% Link to robotics
+
+The current robotic community assumes that a stable energy supply is a requirement to allow long term persistent autonomous operation of robots.
+Batteries are generally the stable energy source of choice, while different solutions have been proposed to recharge them.
+Other solutions require the robot to be in close proximity to an energy source.
 
 There is an increasing research interest in small autonomous robots, since they have the potential to 
 
@@ -33,13 +54,21 @@ When the voltage of the battery drops below a certain level, indicating that the
 Another option could be to replace the battery, but this would still require the robot to return to a station.
 Replacing the battery with an energy harvesting system would make the robot energy-autonomous. 
 
-% what are the challenges???
 
 \section{Problem statement}
 
-% what is the goal??
-Let's say you want to have it as a backup system.
-Or it's a new approach to current robotic platforms.
+All the previous work assumes that an operation is only possible when there is sufficient energy to complete a task.
+This research will explore the feasibility of a battery-less robot, allowing persistent operation while having a very small and intermittent source of energy.
+Intermittently powering robots creates new challenges in control, navigation and collaboration.
+
+% Research question:
+% has energy available for short periods of time, would it be possible to do some form of actuation?
+
+% What are the limits of intermittently powered robots to complete a complex task autonomously?
+% What are the limits of a intermittently powered device to achieve locomotion?
+How to enable an intermittently powered robot to complete a complex task autonomously?
+
+\section{Problem statement}
 
 Challenge:
 Current software used for robots with a stable power supply cannot be ported directly to this new platform.
@@ -51,23 +80,25 @@ This research will explore the feasibility of an autonomous battery-less robot, 
 Therefore the main question this work will try to answer is: \\
 \textit{How to make a transiently powered robot navigate autonomously?}
 
+\section{Contributions}
+
+The contributions of the paper are as follows:
+
+\begin{enumerate}
+
+\item * first study of intermittently powered robots, unaware of any of such platforms besides hypothetical nanobots that supposed to be harvesting energy from movement or organic stuff.
+
+\item A novel battery-less robot design, were the robot purely runs of harvested energy. Which includes computation, sensing and short range communication.
+
+\item Implementation of a complex task like navigation to this intermittently powered robot
+
+\item An evaluation of the battery-less robot compared to a battery powered robot in terms of, weight, speed of movement and navigation accuracy.
+\end{enumerate}
+
 \section{System Description}
 
 
-
-\section{Contributions}
-
-New approach to supplying energy to the robot which adds new challenges in computation
-
-* first study of intermittently powered robots, unaware of any of such platforms besides hypothetical nanobots that supposed to be harvesting energy from movement or organic stuff.
-
-* Design of a small robot with accurate locomotion, basic sensing and communication.
-
-* Implementation of a complex task like navigation to this intermittently powered robot
-
-* Evaluation of the performance of this new approach compared to a battery powered robot.
-
-\section{Outline}
+\section{Thesis Outline}
 What will be discussed in the coming chapters
 
 
