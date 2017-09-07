@@ -102,11 +102,13 @@ void __attribute__ ((interrupt(TIMER2_A0_VECTOR))) Timer2_A0_ISR (void)
 #endif
 {
     int16_t data;
-    float omega;
+    float omega, turn;
     data = gyro_read();
     omega = data / 131.0;
     ang += omega * st; // integrate to get the angle
-    rspeed = rspeed - (int16_t)pid_compute(ang);
+    turn = pid_compute(omega);
+    lspeed = lspeed - (int16_t)turn;
+    rspeed = rspeed + (int16_t)turn;
     set_for_sp(lspeed, rspeed);
     sensor_data[fram.cnt] = data;
     fram.cnt++;
