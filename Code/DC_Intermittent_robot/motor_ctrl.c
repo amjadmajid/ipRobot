@@ -41,48 +41,44 @@ void dsbl_mot(){
     TB0CTL |= MC__STOP;
 }
 
-void mot_for(uint16_t sl, uint16_t sr){
+/*
+ * Drive the motors
+ * Setpoint left and right should be a value between -100 and 100
+ */
+void drv_mot(int8_t sl, int8_t sr){
 
     TB0CTL |= MC__STOP;
 
-    //Set the non pwm output to zero
-    TB0CCTL3 = 0x00;
-    TB0CCTL6 = 0x00;
+    // left forward
+    if(sl > 0){
+        TB0CCTL3 = 0x00;
+        TB0CCTL1 = OUTMOD_7;                      // CCR1 reset/set
+        TB0CCR1 = sl + MIN;
+    } // left reverse
+    else if(sl < 0){
+        TB0CCTL1 = 0x00;
+        TB0CCTL3 = OUTMOD_7;                      // CCR3 reset/set
+        TB0CCR3 = (-sl) + MIN;
+    } // left stop
+    else{
+        TB0CCTL1 = 0x00;
+        TB0CCTL3 = 0x00;
+    }
+    // right forward
+    if(sr > 0){
+        TB0CCTL6 = 0x00;
+        TB0CCTL4 = OUTMOD_7;                      // CCR4 reset/set
+        TB0CCR4 = sr + MIN;
+    } // right reverse
+    else if(sr < 0){
+        TB0CCTL4 = 0x00;
+        TB0CCTL6 = OUTMOD_7;                      // CCR6 reset/set
+        TB0CCR6 = (-sr) + MIN;
+    } // right stop
+    else{
+        TB0CCTL4 = 0x00;
+        TB0CCTL6 = 0x00;
+    }
 
-    //Left motor
-    TB0CCTL1 = OUTMOD_7;                      // CCR1 reset/set
-    TB0CCR1 = sl;
-    //Right motor
-    TB0CCTL4 = OUTMOD_7;                      // CCR4 reset/set
-    TB0CCR4 = sr;
-
-    TB0CTL |= MC__UP | TBCLR;                 //Up mode, clear TBR
-}
-
-void set_for_sp(uint16_t sl, uint16_t sr){
-    TB0CCR1 = sl;
-    TB0CCR4 = sr;
-}
-
-void mot_rev(){
-
-    TB0CTL |= MC__STOP;
-
-    //Set the non pwm output to zero
-    TB0CCTL1 = 0x00;
-    TB0CCTL4 = 0x00;
-
-    //Left motor
-    TB0CCTL3 = OUTMOD_7;                      // CCR3 reset/set
-    TB0CCR3 = 200;                            // CCR3 PWM duty cycle left motor
-    //Right motor
-    TB0CCTL6 = OUTMOD_7;                      // CCR6 reset/set
-    TB0CCR6 = 270;
-
-    TB0CTL |= MC__UP | TBCLR;                 //Up mode, clear TBR
-}
-
-void set_rev_sp(uint16_t sl, uint16_t sr){
-    TB0CCR3 = sl;
-    TB0CCR6 = sr;
+    TB0CTL |= MC__UP | TBCLR;                    //Up mode, clear TBR
 }

@@ -8,12 +8,11 @@
 #ifndef MOTOR_CTRL_H_
 #define MOTOR_CTRL_H_
 
+#define MIN 150
+
 void drv_init();
 void enbl_mot();
 void dsbl_mot();
-void mot_for(uint16_t sl, uint16_t sr);
-void set_for_sp(uint16_t sl, uint16_t sr);
-void mot_rev();
-void set_rev_sp(uint16_t sl, uint16_t sr);
+void drv_mot(int8_t sl, int8_t sr);
 
 #endif /* MOTOR_CTRL_H_ */
