@@ -41,11 +41,7 @@ void dsbl_mot(){
     TB0CTL |= MC__STOP;
 }
 
-/*
- * Drive the motors
- * Setpoint left and right should be a value between -100 and 100
- */
-void drv_mot(int8_t sl, int8_t sr){
+void drv_mot(int16_t sl, int16_t sr){
 
     TB0CTL |= MC__STOP;
 
@@ -53,12 +49,12 @@ void drv_mot(int8_t sl, int8_t sr){
     if(sl > 0){
         TB0CCTL3 = 0x00;
         TB0CCTL1 = OUTMOD_7;                      // CCR1 reset/set
-        TB0CCR1 = sl + MIN;
+        TB0CCR1 = sl;
     } // left reverse
     else if(sl < 0){
         TB0CCTL1 = 0x00;
         TB0CCTL3 = OUTMOD_7;                      // CCR3 reset/set
-        TB0CCR3 = (-sl) + MIN;
+        TB0CCR3 = (-sl);
     } // left stop
     else{
         TB0CCTL1 = 0x00;
@@ -68,12 +64,12 @@ void drv_mot(int8_t sl, int8_t sr){
     if(sr > 0){
         TB0CCTL6 = 0x00;
         TB0CCTL4 = OUTMOD_7;                      // CCR4 reset/set
-        TB0CCR4 = sr + MIN;
+        TB0CCR4 = sr;
     } // right reverse
     else if(sr < 0){
         TB0CCTL4 = 0x00;
         TB0CCTL6 = OUTMOD_7;                      // CCR6 reset/set
-        TB0CCR6 = (-sr) + MIN;
+        TB0CCR6 = (-sr);
     } // right stop
     else{
         TB0CCTL4 = 0x00;

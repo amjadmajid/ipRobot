@@ -24,11 +24,11 @@ int16_t sensor_data[400] = {0};
 uint16_t lspeed = 250;
 uint16_t rspeed = 250;
 
-float kp = 0.6 * ku;
+float kp = 0.358; //0.6 * ku;
 float ki = 0; //(tu / 2); // (tu / 1.2);
 float kd = 0; //(tu / 8);
 
-float out_max = 250, out_min = -250;
+float out_max = 150, out_min = -150;
 
 float ang = 0;
 float set = 0;
@@ -111,8 +111,8 @@ void __attribute__ ((interrupt(TIMER2_A0_VECTOR))) Timer2_A0_ISR (void)
     omega = data / 131.0;
     ang += omega * st; // integrate to get the angle
     turn = pid_compute(omega);
-    //lspeed = lspeed - (int16_t)turn;
-    rspeed = rspeed + (int16_t)turn;
+    lspeed = lspeed + (int16_t)turn;
+    rspeed = rspeed - (int16_t)turn;
     drv_mot(lspeed, rspeed);
     sensor_data[fram.cnt] = data;
     fram.cnt++;
