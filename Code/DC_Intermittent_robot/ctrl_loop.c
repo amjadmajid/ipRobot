@@ -49,7 +49,7 @@ void ctrl_init(){
 
 void enbl_loop(uint16_t dur){
     enbl_mot();
-    mot_for(lspeed, rspeed);
+    drv_mot(lspeed, rspeed);
     TA2CCTL0 = CCIE;                          // TACCR0 interrupt enabled
 }
 
@@ -57,6 +57,10 @@ void dsbl_loop(){
     TA2CCTL0 &= ~CCIE;
     dsbl_mot();
     set = 0;                                  // Always return set to 0 (straight)
+}
+
+void set_setpoint(float sp){
+    set = sp;
 }
 
 // allow changing of tuning parameters for the different commands
@@ -107,9 +111,9 @@ void __attribute__ ((interrupt(TIMER2_A0_VECTOR))) Timer2_A0_ISR (void)
     omega = data / 131.0;
     ang += omega * st; // integrate to get the angle
     turn = pid_compute(omega);
-    lspeed = lspeed - (int16_t)turn;
+    //lspeed = lspeed - (int16_t)turn;
     rspeed = rspeed + (int16_t)turn;
-    set_for_sp(lspeed, rspeed);
+    drv_mot(lspeed, rspeed);
     sensor_data[fram.cnt] = data;
     fram.cnt++;
 }
