@@ -8,6 +8,9 @@
 #ifndef MOTOR_CTRL_H_
 #define MOTOR_CTRL_H_
 
+#define LMIN 150
+#define RMIN 120
+
 void drv_init();
 void enbl_mot();
 void dsbl_mot();

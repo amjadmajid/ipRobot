@@ -50,7 +50,7 @@ warr = [x / 131 for x in iarr]
 ang = 0.0
 tarr = []
 for x in warr:
-    ang += x * 0.01
+    ang += x * 0.02
     tarr.append(ang)
 
 print tarr

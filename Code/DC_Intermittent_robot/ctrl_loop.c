@@ -13,22 +13,19 @@
 #include "gyro_sens.h"
 #include "motor_ctrl.h"
 
-// Ziegler Nichols PID tuning parameters
-#define ku 0.6
-#define tu 0.24 // 12/50
 #define st 0.02 // Sample time (50Hz)
 
 #pragma PERSISTENT(sensor_data);
 int16_t sensor_data[400] = {0};
 
-uint16_t lspeed = 250;
-uint16_t rspeed = 250;
+uint16_t lspeed = 0;
+uint16_t rspeed = 0;
 
-float kp = 0.358; //0.6 * ku;
-float ki = 0; //(tu / 2); // (tu / 1.2);
-float kd = 0; //(tu / 8);
+float kp = 0;
+float ki = 0;
+float kd = 0;
 
-float out_max = 150, out_min = -150;
+float out_max = 250, out_min = -250;
 
 float ang = 0;
 float set = 0;
@@ -51,7 +48,6 @@ void enbl_loop(int16_t ls, int16_t rs){
     lspeed = ls;
     rspeed = rs;
     enbl_mot();
-    drv_mot(lspeed, rspeed);
     TA2CCTL0 = CCIE;                          // TACCR0 interrupt enabled
 }
 
@@ -101,6 +97,18 @@ inline void straight(float omega){
     turn = pid_compute(omega);
     lspeed = lspeed - (int16_t)turn;
     rspeed = rspeed + (int16_t)turn;
+    drv_mot(lspeed, rspeed);
+}
+
+inline void turn(float omega){
+    float turn;
+    ang += omega * st; // integrate to get the angle
+    /*if(abs(set - ang) < 2){
+        cnt++;
+    }*/
+    turn = pid_compute(ang);
+    lspeed = -(int16_t)turn;
+    rspeed = +(int16_t)turn;
     drv_mot(lspeed, rspeed);
 }
 

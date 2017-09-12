@@ -40,11 +40,10 @@ int main(void) {
        fram.cp = 1;
     }
 
-    /*if(CNT_AFTER){
-        fram.cnt--;
-    }*/
-
-    enbl_loop();
+    set_tunings(0.3*0.6, (16/50)/2, (16/50)/8);
+    set_setpoint(0);
+    set_limits(355, -355);
+    enbl_loop(100, 100);
 
     while(1){
         if(fram.cnt >= 400)
