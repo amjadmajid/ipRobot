@@ -47,7 +47,9 @@ void ctrl_init(){
     __bis_SR_register(GIE);                   // Enable interrupt
 }
 
-void enbl_loop(uint16_t dur){
+void enbl_loop(int16_t ls, int16_t rs){
+    lspeed = ls;
+    rspeed = rs;
     enbl_mot();
     drv_mot(lspeed, rspeed);
     TA2CCTL0 = CCIE;                          // TACCR0 interrupt enabled
@@ -94,6 +96,14 @@ float pid_compute(float input){
     return output;
 }
 
+inline void straight(float omega){
+    float turn;
+    turn = pid_compute(omega);
+    lspeed = lspeed - (int16_t)turn;
+    rspeed = rspeed + (int16_t)turn;
+    drv_mot(lspeed, rspeed);
+}
+
 
 // Timer2_A0 interrupt service routine
 #if defined(__TI_COMPILER_VERSION__) || defined(__IAR_SYSTEMS_ICC__)
@@ -106,14 +116,10 @@ void __attribute__ ((interrupt(TIMER2_A0_VECTOR))) Timer2_A0_ISR (void)
 #endif
 {
     int16_t data;
-    float omega, turn;
+    float omega;
     data = gyro_read();
     omega = data / 131.0;
-    ang += omega * st; // integrate to get the angle
-    turn = pid_compute(omega);
-    lspeed = lspeed + (int16_t)turn;
-    rspeed = rspeed - (int16_t)turn;
-    drv_mot(lspeed, rspeed);
+    straight(omega);
     sensor_data[fram.cnt] = data;
     fram.cnt++;
 }

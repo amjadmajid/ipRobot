@@ -10,8 +10,6 @@
 
 #define DEBUG 0
 
-#define RAMP 0
-
 #define CNT_AFTER 1
 
 typedef struct NVvar {

@@ -11,7 +11,7 @@
 extern NVvar fram;
 
 void ctrl_init();
-void enbl_loop();
+void enbl_loop(int16_t ls, int16_t rs);
 void dsbl_loop();
 void set_setpoint(float sp);
 void set_tunings(float Kp, float Ki, float Kd);
