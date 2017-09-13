@@ -6,6 +6,7 @@
  */
 
 #include <msp430.h>
+#include <stdlib.h>
 #include <stdint.h>
 #include "global.h"
 #include "ctrl_loop.h"
@@ -18,8 +19,10 @@
 #pragma PERSISTENT(sensor_data);
 int16_t sensor_data[400] = {0};
 
-uint16_t lspeed = 0;
-uint16_t rspeed = 0;
+uint8_t curr_cmd;
+
+int16_t lspeed = 0;
+int16_t rspeed = 0;
 
 float kp = 0;
 float ki = 0;
@@ -31,6 +34,8 @@ float ang = 0;
 float set = 0;
 float iterm = 0;
 float prev = 0;
+
+//uint8_t cnt = 0;
 
 void ctrl_init(){
 
@@ -49,6 +54,41 @@ void enbl_loop(int16_t ls, int16_t rs){
     rspeed = rs;
     enbl_mot();
     TA2CCTL0 = CCIE;                          // TACCR0 interrupt enabled
+}
+
+/*
+ * Move, 0x01 straight, 0x02 turn left, 0x03 turn right
+ * arg : 0x01 length in cm, 0x02 ang in deg, 0x03 ang in deg
+ */
+void move(uint8_t cmd, int16_t arg){
+    curr_cmd = cmd;
+
+    switch(cmd) {
+        case STRAIGHT:
+            set_tunings(0.3*0.6, (16/50)/2, (16/50)/8);
+            set_limits(200, -200);
+            enbl_mot();
+            lspeed = 120;
+            rspeed = 120;
+            TA2CCTL0 = CCIE;                          // TACCR0 interrupt enabled
+            break;
+        case TURN_LEFT:
+            set_tunings(1.0, 0, 0);
+            set_setpoint(90); //arg
+            set_limits(200, -200);
+            enbl_mot();
+            TA2CCTL0 = CCIE;                          // TACCR0 interrupt enabled
+            break;
+        case TURN_RIGHT:
+            set_tunings(0.3, 0, 0);
+            set_setpoint(-90); //arg
+            set_limits(200, -200);
+            enbl_mot();
+            TA2CCTL0 = CCIE;                          // TACCR0 interrupt enabled
+            break;
+       //default : /* Optional */
+       //statement(s);
+    }
 }
 
 void dsbl_loop(){
@@ -92,27 +132,6 @@ float pid_compute(float input){
     return output;
 }
 
-inline void straight(float omega){
-    float turn;
-    turn = pid_compute(omega);
-    lspeed = lspeed - (int16_t)turn;
-    rspeed = rspeed + (int16_t)turn;
-    drv_mot(lspeed, rspeed);
-}
-
-inline void turn(float omega){
-    float turn;
-    ang += omega * st; // integrate to get the angle
-    /*if(abs(set - ang) < 2){
-        cnt++;
-    }*/
-    turn = pid_compute(ang);
-    lspeed = -(int16_t)turn;
-    rspeed = +(int16_t)turn;
-    drv_mot(lspeed, rspeed);
-}
-
-
 // Timer2_A0 interrupt service routine
 #if defined(__TI_COMPILER_VERSION__) || defined(__IAR_SYSTEMS_ICC__)
 #pragma vector = TIMER2_A0_VECTOR
@@ -124,10 +143,24 @@ void __attribute__ ((interrupt(TIMER2_A0_VECTOR))) Timer2_A0_ISR (void)
 #endif
 {
     int16_t data;
-    float omega;
+    float omega, turn;
     data = gyro_read();
     omega = data / 131.0;
-    straight(omega);
-    sensor_data[fram.cnt] = data;
+    if(curr_cmd == STRAIGHT){
+        turn = pid_compute(omega);
+        lspeed = lspeed - (int16_t)turn;
+        rspeed = rspeed + (int16_t)turn;
+        drv_mot(lspeed, rspeed);
+    }else if(curr_cmd == TURN_LEFT || curr_cmd == TURN_RIGHT){
+        ang += omega * st; // integrate to get the angle
+        /*if(abs(set - ang) < 2){
+            cnt++;
+        }*/
+        turn = pid_compute(ang);
+        lspeed = -(int16_t)turn;
+        rspeed = +(int16_t)turn;
+        drv_mot(lspeed, rspeed);
+    }
+    sensor_data[fram.cnt] = (int16_t)ang;
     fram.cnt++;
 }

@@ -8,10 +8,15 @@
 #ifndef CTRL_LOOP_H_
 #define CTRL_LOOP_H_
 
+#define STRAIGHT   0x01
+#define TURN_LEFT  0x02
+#define TURN_RIGHT 0x03
+
 extern NVvar fram;
 
 void ctrl_init();
 void enbl_loop(int16_t ls, int16_t rs);
+void move(uint8_t cmd, int16_t arg);
 void dsbl_loop();
 void set_setpoint(float sp);
 void set_tunings(float Kp, float Ki, float Kd);
