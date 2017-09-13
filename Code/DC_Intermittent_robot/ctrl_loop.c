@@ -14,8 +14,6 @@
 #include "gyro_sens.h"
 #include "motor_ctrl.h"
 
-#define st 0.02 // Sample time (50Hz)
-
 #pragma PERSISTENT(sensor_data);
 int16_t sensor_data[400] = {0};
 
@@ -43,7 +41,7 @@ void ctrl_init(){
     gyro_init();
     drv_init();
 
-    TA2CCR0 = 188;                            // Set timer to approx. 50Hz
+    TA2CCR0 = 9400*SAMPLE_TIME;               // Set timer frequency
     TA2CTL = TASSEL__ACLK | MC__UP;           // ACLK = VLO, UP mode
 
     __bis_SR_register(GIE);                   // Enable interrupt
@@ -104,8 +102,8 @@ void set_setpoint(float sp){
 // allow changing of tuning parameters for the different commands
 void set_tunings(float Kp, float Ki, float Kd){
     kp = Kp;
-    ki = Ki * st;
-    kd = Kd / st;
+    ki = Ki * SAMPLE_TIME;
+    kd = Kd / SAMPLE_TIME;
 }
 
 void set_limits(float max, float min){
@@ -152,7 +150,7 @@ void __attribute__ ((interrupt(TIMER2_A0_VECTOR))) Timer2_A0_ISR (void)
         rspeed = rspeed + (int16_t)turn;
         drv_mot(lspeed, rspeed);
     }else if(curr_cmd == TURN_LEFT || curr_cmd == TURN_RIGHT){
-        ang += omega * st; // integrate to get the angle
+        ang += omega * SAMPLE_TIME; // integrate to get the angle
         /*if(abs(set - ang) < 2){
             cnt++;
         }*/
