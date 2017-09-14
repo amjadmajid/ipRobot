@@ -43,6 +43,15 @@ void dsbl_mot(){
 
 void drv_mot(int16_t sl, int16_t sr){
 
+    if(sl > SMAX)
+        sl = SMAX;
+    else if(sl < -SMAX)
+        sl = -SMAX;
+    if(sr > SMAX)
+        sr = SMAX;
+    else if(sr < -SMAX)
+        sr = -SMAX;
+
     TB0CTL |= MC__STOP;
 
     // left forward

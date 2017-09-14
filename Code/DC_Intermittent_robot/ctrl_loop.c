@@ -41,7 +41,7 @@ void ctrl_init(){
     gyro_init();
     drv_init();
 
-    TA2CCR0 = 9400*SAMPLE_TIME;               // Set timer frequency
+    TA2CCR0 = 9400 * SAMPLE_TIME;             // Set timer frequency
     TA2CTL = TASSEL__ACLK | MC__UP;           // ACLK = VLO, UP mode
 
     __bis_SR_register(GIE);                   // Enable interrupt
