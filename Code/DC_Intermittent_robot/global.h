@@ -13,6 +13,7 @@
 #define CNT_AFTER 1
 
 typedef struct NVvar {
+    uint8_t stop;
     uint8_t cp;
     int16_t cnt;
 }NVvar;

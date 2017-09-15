@@ -33,7 +33,8 @@ float set = 0;
 float iterm = 0;
 float prev = 0;
 
-//uint8_t cnt = 0;
+uint8_t cnt = 0;
+uint16_t num_steps = 0;
 
 void ctrl_init(){
 
@@ -64,22 +65,25 @@ void move(uint8_t cmd, int16_t arg){
     switch(cmd) {
         case STRAIGHT:
             set_tunings(0.3*0.6, (16/50)/2, (16/50)/8);
+            num_steps = (int16_t)((float)arg / VEL_CAL / SAMPLE_TIME) + STEP_OFF;
             set_limits(200, -200);
             enbl_mot();
-            lspeed = 120;
-            rspeed = 120;
+            lspeed = MOT_TRG;
+            rspeed = MOT_TRG;
             TA2CCTL0 = CCIE;                          // TACCR0 interrupt enabled
             break;
         case TURN_LEFT:
-            set_tunings(1.0, 0, 0);
-            set_setpoint(90); //arg
+            //set_tunings(1.2*0.6, (10/50)/2, (10/50)/8);
+            set_tunings(1.2, 0, 0);
+            set_setpoint(arg);
             set_limits(200, -200);
             enbl_mot();
             TA2CCTL0 = CCIE;                          // TACCR0 interrupt enabled
             break;
         case TURN_RIGHT:
-            set_tunings(0.3, 0, 0);
-            set_setpoint(-90); //arg
+            //set_tunings(20*0.6, (15/50)/2, (15/50)/8);
+            set_tunings(0.35, 0, 0);
+            set_setpoint(-arg);
             set_limits(200, -200);
             enbl_mot();
             TA2CCTL0 = CCIE;                          // TACCR0 interrupt enabled
@@ -93,6 +97,7 @@ void dsbl_loop(){
     TA2CCTL0 &= ~CCIE;
     dsbl_mot();
     set = 0;                                  // Always return set to 0 (straight)
+    fram.cnt = 0;
 }
 
 void set_setpoint(float sp){
@@ -122,10 +127,10 @@ float pid_compute(float input){
         iterm = out_min;
     dinp = input - prev;
     output = kp*err + iterm + kd*dinp;
-    if(output > out_max)
+    /*if(output > out_max)
         output = out_max;
     else if(output < out_min)
-        output = out_min;
+        output = out_min;*/
     prev = input;
     return output;
 }
@@ -145,20 +150,26 @@ void __attribute__ ((interrupt(TIMER2_A0_VECTOR))) Timer2_A0_ISR (void)
     data = gyro_read();
     omega = data / 131.0;
     if(curr_cmd == STRAIGHT){
+        if(fram.cnt >= num_steps){
+            dsbl_loop();
+            fram.stop = 1;
+        }
         turn = pid_compute(omega);
         lspeed = lspeed - (int16_t)turn;
         rspeed = rspeed + (int16_t)turn;
-        drv_mot(lspeed, rspeed);
     }else if(curr_cmd == TURN_LEFT || curr_cmd == TURN_RIGHT){
         ang += omega * SAMPLE_TIME; // integrate to get the angle
-        /*if(abs(set - ang) < 2){
+        if(abs(set - ang) < TOLERANCE_DEGREES)
             cnt++;
-        }*/
+        if(cnt > 10){
+            dsbl_loop();
+            fram.stop = 1;
+        }
         turn = pid_compute(ang);
         lspeed = -(int16_t)turn;
         rspeed = +(int16_t)turn;
-        drv_mot(lspeed, rspeed);
     }
-    sensor_data[fram.cnt] = (int16_t)ang;
+    drv_mot(lspeed, rspeed);
+    sensor_data[fram.cnt] = (int16_t)omega;
     fram.cnt++;
 }
