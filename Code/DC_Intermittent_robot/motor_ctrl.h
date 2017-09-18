@@ -8,7 +8,7 @@
 #ifndef MOTOR_CTRL_H_
 #define MOTOR_CTRL_H_
 
-#define SMAX 200
+#define SMAX 130
 
 #define LMIN 150
 #define RMIN 120

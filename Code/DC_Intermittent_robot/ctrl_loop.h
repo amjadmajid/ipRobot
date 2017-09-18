@@ -15,8 +15,8 @@
 #define TURN_RIGHT 0x03
 
 // Speed / Distance tuning parameters
-#define MOT_TRG 130
-#define VEL_CAL 25 //approx 25cm/s
+#define MOT_TRG 120
+#define VEL_CAL 22 //approx 25cm/s
 #define STEP_OFF 3
 
 #define TOLERANCE_DEGREES 5.0
