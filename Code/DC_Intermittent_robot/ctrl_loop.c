@@ -34,7 +34,7 @@ float iterm = 0;
 float prev = 0;
 
 uint8_t cnt = 0;
-uint16_t num_steps = 0;
+uint16_t num_loops = 0;
 
 void ctrl_init(){
 
@@ -65,7 +65,7 @@ void move(uint8_t cmd, int16_t arg){
     switch(cmd) {
         case STRAIGHT:
             set_tunings(0.3*0.6, (16/50)/2, (16/50)/8);
-            num_steps = (int16_t)((float)arg / VEL_CAL / SAMPLE_TIME) + STEP_OFF;
+            num_loops = (uint16_t)((float)arg / VEL_CAL / SAMPLE_TIME);
             set_limits(200, -200);
             enbl_mot();
             lspeed = MOT_TRG;
@@ -98,6 +98,7 @@ void dsbl_loop(){
     dsbl_mot();
     set = 0;                                  // Always return set to 0 (straight)
     fram.cnt = 0;
+    fram.stop = 1;
 }
 
 void set_setpoint(float sp){
@@ -150,10 +151,8 @@ void __attribute__ ((interrupt(TIMER2_A0_VECTOR))) Timer2_A0_ISR (void)
     data = gyro_read();
     omega = data / 131.0;
     if(curr_cmd == STRAIGHT){
-        if(fram.cnt >= num_steps){
+        if(fram.cnt >= num_loops | fram.stop)
             dsbl_loop();
-            fram.stop = 1;
-        }
         turn = pid_compute(omega);
         lspeed = lspeed - (int16_t)turn;
         rspeed = rspeed + (int16_t)turn;
@@ -161,10 +160,8 @@ void __attribute__ ((interrupt(TIMER2_A0_VECTOR))) Timer2_A0_ISR (void)
         ang += omega * SAMPLE_TIME; // integrate to get the angle
         if(abs(set - ang) < TOLERANCE_DEGREES)
             cnt++;
-        if(cnt > 10){
+        if(cnt > 10)
             dsbl_loop();
-            fram.stop = 1;
-        }
         turn = pid_compute(ang);
         lspeed = -(int16_t)turn;
         rspeed = +(int16_t)turn;

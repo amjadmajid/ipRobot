@@ -13,9 +13,11 @@
 #define CNT_AFTER 1
 
 typedef struct NVvar {
-    uint8_t stop;
     uint8_t cp;
-    int16_t cnt;
+    uint8_t once;
+    uint8_t stop;
+    uint16_t sarg;
+    uint16_t cnt;
 }NVvar;
 
 #endif /* GLOBAL_H_ */

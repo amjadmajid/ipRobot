@@ -30,24 +30,37 @@ void init(void) {
 
 int main(void) {
 
-
     init();
     i2c_init();
     ctrl_init();
 
-    if(fram.cp == 0){
+    /*if(fram.cp == 0){
        fram.cnt = 0;
        fram.cp = 1;
-    }
+    }*/
 
-    move(STRAIGHT, 0);
+    int8_t len = 4;
+    int8_t inst[4] = {STRAIGHT, 20, STRAIGHT, 20};
 
-    while(1){
-        if(fram.cnt >= 400)
-            break;
+    while(fram.cp < len/2){
+        // Run only once per cp
+        if(fram.once == 0){
+            fram.sarg = inst[2*fram.cp+1];
+            fram.once = 1;
+        }
+        // Add step offset on every stop and wakeup
+        fram.sarg += STEP_OFF;
+        move(inst[2*fram.cp], fram.sarg);
+
+        while(!fram.stop){
+
+        }
+        __delay_cycles(8000000);
+        fram.stop = 0;
+        fram.cp++;
+        fram.once = 0;
     }
-    dsbl_loop();
-    fram.cp = 0;
+    //fram.cp = 0;
 
     //Enable LED to drain excess energy
     PJOUT |= BIT6;
