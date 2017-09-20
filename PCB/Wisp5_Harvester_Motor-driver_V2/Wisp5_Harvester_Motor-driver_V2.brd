@@ -150,8 +150,8 @@
 <wire x1="3.41420625" y1="30" x2="0" y2="26.58579375" width="0" layer="20" curve="90"/>
 <text x="5" y="1" size="0.8" layer="25" ratio="14">IPR board v2.0 by Koen Schaper</text>
 <text x="15.3" y="11.2" size="0.8" layer="25">U2</text>
-<text x="7.1" y="19" size="0.8" layer="25">L1</text>
-<text x="20" y="21.7" size="0.8" layer="25">L2</text>
+<text x="7.1" y="19" size="0.8" layer="25">L2</text>
+<text x="22.794" y="22.716" size="0.8" layer="25">L1</text>
 </plain>
 <libraries>
 <library name="rcl" urn="urn:adsk.eagle:library:334">
