@@ -149,7 +149,7 @@ void __attribute__ ((interrupt(TIMER2_A0_VECTOR))) Timer2_A0_ISR (void)
     int16_t data;
     float omega, turn;
     data = gyro_read();
-    omega = data / 131.0;
+    omega = data / 32.767;
     if(curr_cmd == STRAIGHT){
         if(fram.cnt >= num_loops | fram.stop)
             dsbl_loop();

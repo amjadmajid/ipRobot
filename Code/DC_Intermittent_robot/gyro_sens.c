@@ -31,8 +31,8 @@ void gyro_init(){
     //Set data rate to 50Hz and bandwidth to 20.8Hz
     i2c_write(BMG_ADDR, 0x42, 0x27);
 
-    //Set angular rate measurement range to 250deg/s
-    i2c_write(BMG_ADDR, 0x43, 0x03);
+    //Set angular rate measurement range to 1000deg/s
+    i2c_write(BMG_ADDR, 0x43, 0x01);
 
     //Start automatic offset compensation
     i2c_write(BMG_ADDR, 0x7E, 0x03);
