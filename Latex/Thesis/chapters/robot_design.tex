@@ -43,8 +43,8 @@ The speed of each motor can be controlled individually using a dual H-bridge, th
 
 %The buck converter is can only supply 110mA of current.
 On average the each motor consumes 38mA while running on a flat surface, which is well within the current limit that the buck converter can supply.
-However when the motors are in not moving yet the inrush/start current is equal to the stall current, which is equal to 240mA for each motor.
-This amount of current can not be supplied by the powersupply, using PWM to soft start the motor the average current can be limited and allowing a bulk capacitor to supply the voltage.
+However when the motors are in not moving yet the start current is approximately equal to the stall current, which is equal to 240mA.
+This amount of current can not be supplied by the swich-mode regulator, PWM can be used to reduce the average current allowing a bulk capacitor to supply the voltage.
 
 \subsection{Energy Harvesting}
 \label{subsec:energy_harvesting}
@@ -168,13 +168,6 @@ Controlled movements are possible using closed loop feedback, PID control, where
 
 The robot can be controlled using a function that accepts different commands, one for straight paths and two for turning.
 Setting a new command executes a control loop, running at 50Hz using a timer, which will run until the "setpoint" is reached.
-
-
-
-
-
-
-
 
 
 
