@@ -54,32 +54,32 @@ void drv_mot(int16_t sl, int16_t sr){
 
     TB0CTL |= MC__STOP;
 
-    // left forward
-    if(sl > 0){
-        TB0CCTL3 = 0x00;
-        TB0CCTL1 = OUTMOD_7;                      // CCR1 reset/set
-        TB0CCR1 = sl + LMIN;
-    } // left reverse
-    else if(sl < 0){
+    // right forward
+    if(sr > 0){
         TB0CCTL1 = 0x00;
-        TB0CCTL3 = OUTMOD_7;                      // CCR3 reset/set
-        TB0CCR3 = (-sl) + LMIN;
-    } // left stop
+        TB0CCTL3 = OUTMOD_7;                      // CCR1 reset/set
+        TB0CCR3 = sr + LMIN;
+    } // right reverse
+    else if(sr < 0){
+        TB0CCTL3 = 0x00;
+        TB0CCTL1 = OUTMOD_7;                      // CCR3 reset/set
+        TB0CCR1 = (-sr) + LMIN;
+    } // right stop
     /*else{
         TB0CCTL1 = 0x00;
         TB0CCTL3 = 0x00;
     }*/
-    // right forward
-    if(sr > 0){
-        TB0CCTL6 = 0x00;
-        TB0CCTL4 = OUTMOD_7;                      // CCR4 reset/set
-        TB0CCR4 = sr + RMIN;
-    } // right reverse
-    else if(sr < 0){
+    // left forward
+    if(sl > 0){
         TB0CCTL4 = 0x00;
-        TB0CCTL6 = OUTMOD_7;                      // CCR6 reset/set
-        TB0CCR6 = (-sr) + RMIN;
-    } // right stop
+        TB0CCTL6 = OUTMOD_7;                      // CCR4 reset/set
+        TB0CCR6 = sl + RMIN;
+    } // left reverse
+    else if(sl < 0){
+        TB0CCTL6 = 0x00;
+        TB0CCTL4 = OUTMOD_7;                      // CCR6 reset/set
+        TB0CCR4 = (-sl) + RMIN;
+    } // left stop
     /*else{
         TB0CCTL4 = 0x00;
         TB0CCTL6 = 0x00;
