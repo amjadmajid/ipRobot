@@ -53,10 +53,39 @@ for x in warr:
     ang += x * 0.02
     tarr.append(ang)
 
-print tarr
+print iarr
+
+if 0:
+    larr = []
+    i = 0
+    dec = 1
+    for x in range(0, len(iarr) - 1):
+        ans = iarr[i + 1] - iarr[i]
+        # larr.append(ans)
+        if ans > 0 and dec:
+            larr.append(i)
+            dec = 0
+        elif ans < 0:
+            dec = 1
+        i += 1
+
+    i = 0
+    larr2 = []
+    for x in range(1, len(larr)):
+        ans = larr[i + 1] - larr[i]
+        larr2.append(ans)
+        i += 1
+
+    # remove first minimum
+    larr2 = larr2[1:len(larr2)]
+    print larr2
+    print sum(larr2) / float(len(larr2))
+
+
+
 
 x = np.linspace(0, num_samples, num_samples)
 
 plt.figure(1)
-plt.plot(warr)
+plt.plot(iarr)
 plt.show()

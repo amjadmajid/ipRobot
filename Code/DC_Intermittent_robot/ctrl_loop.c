@@ -74,15 +74,15 @@ void move(uint8_t cmd, int16_t arg){
             break;
         case TURN_LEFT:
             //set_tunings(1.2*0.6, (10/50)/2, (10/50)/8);
-            set_tunings(1.2, 0, 0);
+            set_tunings(1.4, 0, 0);
             set_setpoint(arg);
             set_limits(200, -200);
             enbl_mot();
             TA2CCTL0 = CCIE;                          // TACCR0 interrupt enabled
             break;
         case TURN_RIGHT:
-            //set_tunings(20*0.6, (15/50)/2, (15/50)/8);
-            set_tunings(0.35, 0, 0);
+            //set_tunings(4*0.6, (10/50)/2, (10/50)/8);
+            set_tunings(2.0, 0, 0);
             set_setpoint(-arg);
             set_limits(200, -200);
             enbl_mot();
@@ -156,6 +156,7 @@ void __attribute__ ((interrupt(TIMER2_A0_VECTOR))) Timer2_A0_ISR (void)
         turn = pid_compute(omega);
         lspeed = lspeed - (int16_t)turn;
         rspeed = rspeed + (int16_t)turn;
+        sensor_data[fram.cnt] = (int16_t)omega;
     }else if(curr_cmd == TURN_LEFT || curr_cmd == TURN_RIGHT){
         ang += omega * SAMPLE_TIME; // integrate to get the angle
         if(abs(set - ang) < TOLERANCE_DEGREES)
@@ -165,8 +166,8 @@ void __attribute__ ((interrupt(TIMER2_A0_VECTOR))) Timer2_A0_ISR (void)
         turn = pid_compute(ang);
         lspeed = -(int16_t)turn;
         rspeed = +(int16_t)turn;
+        sensor_data[fram.cnt] = (int16_t)ang;
     }
     drv_mot(lspeed, rspeed);
-    sensor_data[fram.cnt] = (int16_t)omega;
     fram.cnt++;
 }
