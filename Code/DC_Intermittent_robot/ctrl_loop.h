@@ -8,7 +8,7 @@
 #ifndef CTRL_LOOP_H_
 #define CTRL_LOOP_H_
 
-#define SAMPLE_TIME 0.02 // 50Hz
+#define SAMPLE_TIME 0.01 // 100Hz
 
 #define STRAIGHT   0x01
 #define TURN_LEFT  0x02

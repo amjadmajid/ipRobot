@@ -64,7 +64,7 @@ void move(uint8_t cmd, int16_t arg){
 
     switch(cmd) {
         case STRAIGHT:
-            set_tunings(0.3*0.6, (16/50)/2, (16/50)/8);
+            set_tunings(0.3*0.6, (16/100)/2, (16/100)/8);
             num_loops = (uint16_t)((float)arg / VEL_CAL / SAMPLE_TIME);
             set_limits(200, -200);
             enbl_mot();
@@ -73,7 +73,6 @@ void move(uint8_t cmd, int16_t arg){
             TA2CCTL0 = CCIE;                          // TACCR0 interrupt enabled
             break;
         case TURN_LEFT:
-            //set_tunings(1.2*0.6, (10/50)/2, (10/50)/8);
             set_tunings(1.4, 0, 0);
             set_setpoint(arg);
             set_limits(200, -200);
@@ -81,8 +80,7 @@ void move(uint8_t cmd, int16_t arg){
             TA2CCTL0 = CCIE;                          // TACCR0 interrupt enabled
             break;
         case TURN_RIGHT:
-            //set_tunings(4*0.6, (10/50)/2, (10/50)/8);
-            set_tunings(2.0, 0, 0);
+            set_tunings(0.7, 0, 0);
             set_setpoint(-arg);
             set_limits(200, -200);
             enbl_mot();
