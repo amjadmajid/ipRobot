@@ -31,7 +31,7 @@ if process.returncode != 0:
 output = open('output.hex', 'r')
 arr = output.readlines()
 # remove end-of-file record
-values = arr[1:(len(arr)-1)]
+values = arr[0:(len(arr)-1)]
 
 iarr = []
 
