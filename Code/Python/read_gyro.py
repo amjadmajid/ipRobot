@@ -1,4 +1,5 @@
 from __future__ import division
+import csv
 import subprocess
 import math
 import binascii
@@ -54,6 +55,12 @@ for x in warr:
     tarr.append(ang)
 
 print iarr
+
+if 0:
+    name = "name.csv"
+    with open(name, "wb") as csv_file:
+            wr = csv.writer(csv_file, quoting=csv.QUOTE_ALL)
+            wr.writerow(iarr)
 
 if 0:
     larr = []
