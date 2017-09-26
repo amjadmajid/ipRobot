@@ -22,18 +22,21 @@ uint8_t curr_cmd;
 int16_t lspeed = 0;
 int16_t rspeed = 0;
 
+// run set_setpoint()
+float set = 0;
+
+// run set_tunings()
 float kp = 0;
 float ki = 0;
 float kd = 0;
 
-float out_max = 250, out_min = -250;
+// run set_limits()
+float out_max = 200, out_min = -200;
 
 float ang = 0;
-float set = 0;
 float iterm = 0;
 float prev = 0;
 
-uint8_t cnt = 0;
 uint16_t num_loops = 0;
 
 void ctrl_init(){
@@ -95,6 +98,9 @@ void dsbl_loop(){
     TA2CCTL0 &= ~CCIE;
     dsbl_mot();
     set = 0;                                  // Always return set to 0 (straight)
+    ang = 0;
+    iterm = 0;
+    prev = 0;
     fram.cnt = 0;
     fram.stop = 1;
 }

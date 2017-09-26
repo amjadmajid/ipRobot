@@ -39,17 +39,28 @@ int main(void) {
        fram.cp = 1;
     }*/
 
-    int8_t len = 4;
-    int8_t inst[4] = {STRAIGHT, 20, STRAIGHT, 20};
+    int8_t len = 6;
+    int8_t inst[6] = {STRAIGHT, 20, TURN_RIGHT, 90, STRAIGHT, 20}; //, STRAIGHT, 20};
+    //int8_t len = 2;
+    //int8_t inst[2] = {TURN_RIGHT, 90};
+
+    __delay_cycles(8000000);
 
     while(fram.cp < len/2){
-        // Run only once per cp
-        if(fram.once == 0){
-            fram.sarg = inst[2*fram.cp+1];
-            fram.once = 1;
+
+        if(inst[2*fram.cp] == STRAIGHT){
+            // Run only once per cp
+            if(fram.once == 0){
+                fram.sarg = inst[2*fram.cp+1];
+                fram.once = 1;
+            }
+            // Add step offset on every stop and wakeup
+            fram.sarg += STEP_OFF;
         }
-        // Add step offset on every stop and wakeup
-        fram.sarg += STEP_OFF;
+        else{
+            fram.sarg = inst[2*fram.cp+1];
+        }
+
         move(inst[2*fram.cp], fram.sarg);
 
         while(!fram.stop){
