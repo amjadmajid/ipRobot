@@ -19,7 +19,7 @@
 #define VEL_CAL 22 //approx 25cm/s
 #define STEP_OFF 3
 
-#define TOLERANCE_DEGREES 5.0
+#define TOLERANCE_DEGREES 2.0
 
 extern NVvar fram;
 

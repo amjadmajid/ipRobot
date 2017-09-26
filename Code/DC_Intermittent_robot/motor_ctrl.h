@@ -10,8 +10,7 @@
 
 #define SMAX 200
 
-#define LMIN 140
-#define RMIN 110
+#define MIN 140
 
 void drv_init();
 void enbl_mot();

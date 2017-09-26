@@ -6,8 +6,8 @@
  */
 
 #include <msp430.h>
-#include <stdlib.h>
 #include <stdint.h>
+#include <math.h>
 #include "global.h"
 #include "ctrl_loop.h"
 #include "eusci_b0_i2c.h"
@@ -73,14 +73,14 @@ void move(uint8_t cmd, int16_t arg){
             TA2CCTL0 = CCIE;                          // TACCR0 interrupt enabled
             break;
         case TURN_LEFT:
-            set_tunings(1.4, 0, 0);
+            set_tunings(1.7, 0, 0);
             set_setpoint(arg);
             set_limits(200, -200);
             enbl_mot();
             TA2CCTL0 = CCIE;                          // TACCR0 interrupt enabled
             break;
         case TURN_RIGHT:
-            set_tunings(0.7, 0, 0);
+            set_tunings(0.9, 0, 0);
             set_setpoint(-arg);
             set_limits(200, -200);
             enbl_mot();
@@ -149,22 +149,22 @@ void __attribute__ ((interrupt(TIMER2_A0_VECTOR))) Timer2_A0_ISR (void)
     data = gyro_read();
     omega = data / 32.767;
     if(curr_cmd == STRAIGHT){
+        sensor_data[fram.cnt] = (int16_t)omega;
         if(fram.cnt >= num_loops | fram.stop)
             dsbl_loop();
         turn = pid_compute(omega);
         lspeed = lspeed - (int16_t)turn;
         rspeed = rspeed + (int16_t)turn;
-        sensor_data[fram.cnt] = (int16_t)omega;
     }else if(curr_cmd == TURN_LEFT || curr_cmd == TURN_RIGHT){
         ang += omega * SAMPLE_TIME; // integrate to get the angle
-        if(abs(set - ang) < TOLERANCE_DEGREES)
-            cnt++;
-        if(cnt > 10)
+        sensor_data[fram.cnt] = (int16_t)ang;
+        if(fabs(set - ang) < TOLERANCE_DEGREES){
             dsbl_loop();
+            return;
+        }
         turn = pid_compute(ang);
         lspeed = -(int16_t)turn;
         rspeed = +(int16_t)turn;
-        sensor_data[fram.cnt] = (int16_t)ang;
     }
     drv_mot(lspeed, rspeed);
     fram.cnt++;
