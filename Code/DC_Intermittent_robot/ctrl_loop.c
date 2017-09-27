@@ -15,10 +15,8 @@
 #include "motor_ctrl.h"
 
 #ifdef DEBUG
-
 #pragma PERSISTENT(sensor_data);
 int16_t sensor_data[400] = {0};
-
 #endif
 
 uint8_t curr_cmd;
