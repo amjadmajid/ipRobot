@@ -32,3 +32,7 @@ http://gizmodo.com/this-printer-doodles-stick-figure-robots-to-explore-are-17969
 
 Powering Pervasive Computing Systems (already added to bib)
 http://ieeexplore.ieee.org/document/7994569/
+
+Combine swarm operating system (links are examples) with intermittent computation
+http://ieeexplore.ieee.org/document/7759558/
+http://ieeexplore.ieee.org/document/7759660/
