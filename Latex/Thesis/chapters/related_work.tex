@@ -13,6 +13,8 @@ To store the energy an appropriate size storage capacitor needs to be selected~\
 
 %Other sources available for exploration are often limited by the application. Secondly, most sources can be scarce or completely absent during prolonged time intervals of the day as well \cite{RN15}. 
 
+% - Short intro into persistent framwork: checkpointing etc
+
 \section{Small robotic platforms}
 
 Low cost robotic platforms have been developed to tackle a variety of challenges anonymously.
@@ -34,7 +36,7 @@ This can be a severe constraint if the robot moves out of reach or needs to oper
 
 \section{Path planning based on energy availability}
 
-To capture the optimal amount of solar energy along the way, a map of the expected solar power can be used to compute the optimal path. To distinguish sunny or shaded two methods are proposed in \cite{plonski_tranro_2016}, one being a simple datadriven Gaussian Process and the other estimates the geometry of the environment as a latent variable.
+To capture the optimal amount of solar energy along the way, a map of the expected solar power can be used to compute the optimal path. To distinguish sunny or shaded two methods are proposed in \cite{plonski_tranro_2016}, one being a simple data driven Gaussian Process and the other estimates the geometry of the environment as a latent variable.
 Energy aware path planning is commonly used in combination with mission planning.
 In \cite{kaplan_iros_2016}, an analysis of the solar radiation is used to generate a time-optimized motion plan and power schedule using a cascaded particle swarm optimization algorithm.
 By combining maps of lighting and ground slope a solar-powered robot can be kept illuminated continuously. A connected component analysis is used to plan a optimal route on traversable slopes, as described by \cite{otten_icra_2015}.
@@ -52,10 +54,11 @@ By combining maps of lighting and ground slope a solar-powered robot can be kept
 
 \begin{table*}[t]
 	\centering
+	\tiny
 	\begin{threeparttable}
 		\caption{An comparison of small robotic platforms}
 		\label{tab:1}
- 		\begin{tabularx}{500pt}{l l X X l l l l} 
+ 		\begin{tabularx}{\textwidth}{l l X X X l l l} 
 			\hline
  			Robot & Cost & Scalability & Sensors & Locomotion & Size [cm] & Weight [g] & Battery life \\ 
  			\hline
@@ -64,7 +67,7 @@ By combining maps of lighting and ground slope a solar-powered robot can be kept
  			Roverables \cite{dementyev_uist_2016} & NS & charge & wheel, distance, optical encoders & wheel, ?? & 4.0 & ?? & 45m \\ 
  			Zooids \cite{legoc_uist_2016} & \$50 & ?? & position, touch & wheel, 50cm/s & 2.6 & 12 & 1-2h \\ 
  			mROBerTO \cite{kim_iros_2016} & \$60\textsuperscript{1} & program & light, range, gyro, camera, accel., compass, distance, bearing & motor shaft, 15cm/s & 1.5 & ?? & 1.5h\\
- 			GRITSBot \cite{pickem_icra_2015} & \$50\textsuperscript{2} & charge, program, calibrate & distance, bearing, 3d accel., 3d gyro & wheel 25cm/s & 3 & ?? & 1-5h \\
+ 			GRITSBot \cite{pickem_icra_2015} & \$50\textsuperscript{2} & charge, program, calibrate & distance, bearing, 3d accel., 3d gyro & wheel, 25cm/s & 3 & ?? & 1-5h \\
  			Kilobot \cite{rubenstein_icra_2012} & \$50\textsuperscript{2} & charge, program & distance, ambient light & vibration, 1cm/s & 3.3 & ?? & 3-24h\\
  			TinyTerp \cite{sabelhaus_icra_2013} & \$50 & none & 3d gyro, 3d accel. & wheel, 50cm/s & 1.8 & ?? & 1h\\
 			\hline

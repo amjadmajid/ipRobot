@@ -3,48 +3,74 @@
 % - Size and weight/energy availability/speed trade-off model and 
 % - Should the subsections more or less reflect the columns in the table?
 % - No optical encoders because they require a lot of energy!
+% - Same for linefolower / mouse sensor.
 
 \section{Design Requirements}
 
-- Small form factor
-- Navigation
-- Power (should not rely on batteries)
-- Tradeoff chargetime and operation time
-- Weight of the robot
-- Low voltage decreases power consumption of components and allows efficient use of the energy from the supercapacitor
-- Single mainboard design
-- Only move on flat surfaces!
-- Limited resources (no power hungry components)
+% - Small form factor
+% - Navigation
+% - Power (should not rely on batteries)
+% - Tradeoff chargetime and operation time
+% - Weight of the robot
+% - Low voltage decreases power consumption of components and allows efficient use of the energy from the supercapacitor
+% - Single mainboard design
+% - Swarm robots are typically limited to only operate on flat surfaces!
+% - Limited resources (no power hungry components)
+% - Optimize or low power consumption (disable or standby sensors and motor ctrl when not used)
+
+The main requirement for the robot is  that it should be battery-less, therefore it can only store a small amount of energy in a capacitor / small buffer.
+Bigger capacitors have in general larger leakage currents.
+As a result these require longer charge time
+
+Size of the robot i.e weight and the required power for movement do not scale linearly.
+
+
+
+
 	
 \section{Hardware Implementation}
 
+% - EXPLAIN MORE ABOUT HARDWARE CHOISES, why these specific componens. What were the requirements for choosing these components
+% - Currently only a limited amount of low power components are available which can operate at the 2.2v voltage.
+% - Secondly their power consumption should be as low as possible i.e low current consumption.
+ 
+
 \subsection{Computation and Sensing}
 
-The robot is designed around a modified WISP 5.0, utilizing the processor and backscatter communication.
-It's based around a Texas Instruments MSP430FR5969 ultra low power microcontroller, operating at 16 MHz and featuring 64 KB FRAM, 2 KB SRAM and 40 IO. 
+The robot is designed around a WISP 5 \ref{}, a battery-free platform for low power sensing, computation and communication.
+The WISP uses a Texas Instruments MSP430FR5969 ultra low power microcontroller, operating at 16 MHz and featuring 64 KB FRAM, 2 KB SRAM and 40 IO. 
+Currently only the microcontroller is being utilized, but a temperature and triaxal accelerometer are included as well. %and backscatter communication.
+
 
 %The harvester IC is removed from the WISP in order to allow an external harvester to supply the power to the system by harvesting solar energy. 
 
+% Tell about the Printed Circuit Board(PCB)
 The mainboard is the platform that connects everything together.
 Most reference designs are extendable but this adds complexity, while weight and size are the main constraints of this robot design.
-All the sensors can be interfaced trough a I2C connection.
-To conserve as much power as possible each sensor can be enabled and disabled using dedicated pins.
+All the added sensors are interfaced trough a I2C connection.
 
 For avoidance of obstacles, a Maxim Integrated MAX44000 proximity sensor was added of the robot facing forward.
-This sensor can measure the amount of ambient light as well.
-In addition the robot has a Bosch BMG250 Mems Gyroscope to measure yaw angle change and correct when necessary.
+This sensor switches a IR led at high frequency to reduce the power consumed.
+The same sensor is based around a photo-diode it can be used to measure the amount of ambient light as well.
+In addition the robot has a Bosch BMG250 low power triaxial gyroscope to measure yaw-rate, used to correct it's heading when necessary.
 
 \subsection{Locomotion}
 
 Two 6mm geared dc motors from Precision Microdrives are mounted in a 3d printed frame, directly under the mainboard of the IPR.
-The motors are mounted diagonally opposite from each other making the robot as compact as possible.
-A small wheel is mounted directly on the motor shaft and in the other diagonally opposite corners a free running wheel is mounted to the frame.
-The speed of each motor can be controlled individually using a dual H-bridge, this differential drive configuration allows the robot to steer.
+The motors are mounted diagonally opposite from each other making the robot as compact as possible, while this differential drive configuration allows the robot to steer.
+Small plastic wheels with rubber tires are mounted directly on each of the motor shafts.
+Behind these two motors a free running caster wheel is mounted to the frame, acting as a third support point for the robot.
 
-%The buck converter is can only supply 110mA of current.
+The speed of each motor can be controlled individually using a Texas Instruments DRV8836 dual H-bridge.
+Using the IN/IN mode the motor can be enabled or disabled and direction of rotation can be controlled.
+
+
+% The buck converter is can only supply 110mA of current.
+% EXPLAIN IN MORE DETAIL 
+% 
 On average the each motor consumes 38mA while running on a flat surface, which is well within the current limit that the buck converter can supply.
 However when the motors are in not moving yet the start current is approximately equal to the stall current, which is equal to 240mA.
-This amount of current can not be supplied by the swich-mode regulator, PWM can be used to reduce the average current allowing a bulk capacitor to supply the voltage.
+This amount of current can not be supplied by the switch-mode regulator, PWM can be used to reduce the average current allowing a bulk capacitor to supply the voltage.
 
 \subsection{Energy Harvesting}
 \label{subsec:energy_harvesting}
@@ -62,17 +88,18 @@ This amount of current can not be supplied by the swich-mode regulator, PWM can 
 % http://www.chip1stop.com/web/RUS/en/tutorialContents.do?page=009
 
 The solar energy harvesting system is based around a Texas Instruments BQ25570. 
-It includes a nano power boost charger with maximum power point tracking to extract the optimal amount of energy from the solar panel. 
+It includes a nanopower boost charger with maximum power point tracking to extract the optimal amount of energy from the solar panel. 
 % Why is this size capacitor chosen?
-This harvested energy is stored in a 22mF - 4.5V supercapactor from AVX, chosen for it's low leakage current and small size.
-The energy stored in supercap is a function of the capacitance and voltage difference between the plates, being equal to:
+% The harvester requires a low leakage capacitor, because the power harvested should be greater than the power leakage for t
+This harvested energy is stored in a 22mF - 4.5V supercapacitor from AVX, chosen for it's low leakage current and small size.
+The energy stored in supercapacitor is a function of the capacitance and voltage difference between the plates, being equal to:
 
 \begin{equation}
 \label{eq:cap1}
 E = \frac{1}{2}CV^{2}
 \end{equation}
 
-However, to be able to use the energy stored in the capacitor efficiently a voltage regular is required to supply a stable voltage to the connected loads.
+However, to make efficient use of the energy stored in the capacitor a regular is required to supply a stable voltage to the connected loads.
 The regulated output voltage is a lower threshold of the energy that can be used from the capacitor.
 Lowering the output voltage allows for more energy to be used from the supercapacitor, but in general also lowers the power consumption of individual components. Rewriting Equation \ref{eq:cap1} results in Equation \ref{eq:cap2}:
 
@@ -81,12 +108,22 @@ Lowering the output voltage allows for more energy to be used from the supercapa
 E = \frac{1}{2}C(V_{max} - V_{min})^{2}
 \end{equation}
 
-The Texas Insturments BQ25570 has a buck converter to efficiently regulate the capacitor voltage down to a system voltage of 2.2 Volt.
+The Texas Instruments BQ25570 has a buck converter to efficiently regulate the capacitor voltage down to a system voltage of 2.2 Volt.
 
 % The maximum speed that can be reached is dependent on the voltage supplied to the motors.
 % The current consumed by the motors also decreases with a lower voltaged supplied. 
 % The buck converter can supply up to 110mA of output current.
 % Powering both motors and MCU should not exceed this current limit.
+% Tell how resistors are used to set the minimum and maximum thresholds for the Supercap voltage and enabeling the buck converter
+
+\subsection{Integration}
+
+% Check hardware section ivar
+% Tell why pcb is required.
+% Low power compontents have chip packages which are hard to solder by hand because of their small package size.
+
+% More stability
+
 
 \section{Software Implementation}
 
@@ -112,7 +149,7 @@ By making the assumption that the robot will only travel on a flat surface, the 
 % Reference: https://www.precisionmicrodrives.com/application-notes/ab-022-pwm-frequency-for-linear-motion-control
 
 Pulse width modulation(PWM) is used to control the speed of the motors, by changing the duty cycle of the control pulse the average current through the motors can be changed.
-The winding current is proportional to the torgue output of the motor and therefore the average winding current is proportional to the PWM dutycycle.
+The winding current is proportional to the torgue output of the motor and therefore the average winding current is proportional to the PWM duty cycle.
 However this is only true for pure resistive loads,
 
 %Typically operation frequency is above 20 khz (what people can hear)
@@ -170,6 +207,7 @@ Controlled movements are possible using closed loop feedback, where the heading 
 
 The robot can be controlled using three different commands, one for straight trajectories, one for left and one for right turns.
 When a command is executed a control loop will run until the provided target is reached.
+TELL WHY 100HZ
 A timer running at a 100Hz is periodically calling a interrupt service routine which executes the control loop.   
 Each command requires different initial values, set points and PID tuning parameters, these are set accordingly before the control loop is enabled.
 
