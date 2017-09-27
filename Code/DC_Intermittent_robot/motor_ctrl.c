@@ -58,12 +58,12 @@ void drv_mot(int16_t sl, int16_t sr){
     if(sr > 0){
         TB0CCTL1 = 0x00;
         TB0CCTL3 = OUTMOD_7;                      // CCR1 reset/set
-        TB0CCR3 = sr + MIN;
+        TB0CCR3 = sr + RMIN;
     } // right reverse
     else if(sr < 0){
         TB0CCTL3 = 0x00;
         TB0CCTL1 = OUTMOD_7;                      // CCR3 reset/set
-        TB0CCR1 = (-sr) + MIN;
+        TB0CCR1 = (-sr) + RMIN;
     } // right stop
     /*else{
         TB0CCTL1 = 0x00;
@@ -73,12 +73,12 @@ void drv_mot(int16_t sl, int16_t sr){
     if(sl > 0){
         TB0CCTL4 = 0x00;
         TB0CCTL6 = OUTMOD_7;                      // CCR4 reset/set
-        TB0CCR6 = sl + MIN;
+        TB0CCR6 = sl + LMIN;
     } // left reverse
     else if(sl < 0){
         TB0CCTL6 = 0x00;
         TB0CCTL4 = OUTMOD_7;                      // CCR6 reset/set
-        TB0CCR4 = (-sl) + MIN;
+        TB0CCR4 = (-sl) + LMIN;
     } // left stop
     /*else{
         TB0CCTL4 = 0x00;
