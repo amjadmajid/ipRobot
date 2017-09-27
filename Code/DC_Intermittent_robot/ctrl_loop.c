@@ -14,8 +14,12 @@
 #include "gyro_sens.h"
 #include "motor_ctrl.h"
 
+#ifdef DEBUG
+
 #pragma PERSISTENT(sensor_data);
 int16_t sensor_data[400] = {0};
+
+#endif
 
 uint8_t curr_cmd;
 
@@ -155,7 +159,9 @@ void __attribute__ ((interrupt(TIMER2_A0_VECTOR))) Timer2_A0_ISR (void)
     data = gyro_read();
     omega = data / 32.767;
     if(curr_cmd == STRAIGHT){
+#ifdef DEBUG
         sensor_data[fram.cnt] = (int16_t)omega;
+#endif
         if(fram.cnt >= num_loops | fram.stop)
             dsbl_loop();
         turn = pid_compute(omega);
@@ -163,7 +169,9 @@ void __attribute__ ((interrupt(TIMER2_A0_VECTOR))) Timer2_A0_ISR (void)
         rspeed = rspeed + (int16_t)turn;
     }else if(curr_cmd == TURN_LEFT || curr_cmd == TURN_RIGHT){
         ang += omega * SAMPLE_TIME; // integrate to get the angle
+#ifdef DEBUG
         sensor_data[fram.cnt] = (int16_t)ang;
+#endif
         if(fabs(set - ang) < TOLERANCE_DEGREES){
             dsbl_loop();
             return;
