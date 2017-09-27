@@ -45,8 +45,8 @@ void ctrl_init(){
     gyro_init();
     drv_init();
 
-    TA2CCR0 = 9400 * SAMPLE_TIME;             // Set timer frequency
-    TA2CTL = TASSEL__ACLK | MC__UP;           // ACLK = VLO, UP mode
+    TA2CCR0 = 125000 * SAMPLE_TIME;           // Set timer frequency
+    TA2CTL = TASSEL__SMCLK | ID__8 | MC__UP;  // SMCLK, divide by 8, UP mode
 
     __bis_SR_register(GIE);                   // Enable interrupt
 }
