@@ -78,14 +78,14 @@ void move(uint8_t cmd, int16_t arg){
             TA2CCTL0 = CCIE;                          // TACCR0 interrupt enabled
             break;
         case TURN_LEFT:
-            set_tunings(1.7, 0, 0);
+            set_tunings(0.75, 0, 0);
             set_setpoint(arg);
             set_limits(SMAX, -SMAX);
             enbl_mot();
             TA2CCTL0 = CCIE;                          // TACCR0 interrupt enabled
             break;
         case TURN_RIGHT:
-            set_tunings(0.9, 0, 0);
+            set_tunings(0.35, 0, 0);
             set_setpoint(-arg);
             set_limits(SMAX, -SMAX);
             enbl_mot();
