@@ -69,7 +69,7 @@ void move(uint8_t cmd, int16_t arg){
 
     switch(cmd) {
         case STRAIGHT:
-            set_tunings(0.14*0.6, (24/100)/2, (24/100)/8);
+            set_tunings(0.13*0.6, (20/100)/2, (20/100)/8);
             num_loops = (uint16_t)((float)arg / VEL_CAL / SAMPLE_TIME);
             set_limits(SMAX, -SMAX);
             enbl_mot();
