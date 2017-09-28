@@ -8,10 +8,10 @@
 #ifndef MOTOR_CTRL_H_
 #define MOTOR_CTRL_H_
 
-#define SMAX 200
+#define SMAX 75
 
-#define LMIN 140
-#define RMIN 110
+#define LMIN 80
+#define RMIN 65
 
 void drv_init();
 void enbl_mot();

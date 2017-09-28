@@ -27,7 +27,7 @@ void drv_init() {
     P2DIR |= BIT0;                            // Setup BIN2 (TB06) (M2 BLUE)
     P2SEL0 |= BIT0;                           // Option select timer output
 
-    TB0CCR0 = 1000;                           // PWM Period (2khz)
+    TB0CCR0 = 500;                            // PWM Period (SMCLK / 500 = 2kHz)
     TB0CTL = TBSSEL__SMCLK;                   // SMCLK
 }
 
