@@ -97,8 +97,8 @@ void move(uint8_t cmd, int16_t arg){
 }
 
 void dsbl_loop(){
-    TA2CCTL0 &= ~CCIE;
     dsbl_mot();
+    TA2CCTL0 &= ~CCIE;
     set = 0;                                  // Always return set to 0 (straight)
     ang = 0;
     iterm = 0;
