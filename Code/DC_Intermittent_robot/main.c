@@ -48,10 +48,9 @@ int main(void) {
         while(!fram.stop){
 
         }
-        __delay_cycles(8000000);
+        __delay_cycles(800000);     // 0.1sec delay between movements!
         fram.stop = 0;
         fram.cp++;
-        fram.once = 0;
     }
     //fram.cp = 0;
 
