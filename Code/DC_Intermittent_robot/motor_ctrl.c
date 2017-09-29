@@ -31,7 +31,6 @@ void drv_init() {
     TB0CTL = TBSSEL__SMCLK;                   // SMCLK
 }
 
-
 void enbl_mot() {
     P2OUT |= BIT1;                            // Enable DRV8836
 }

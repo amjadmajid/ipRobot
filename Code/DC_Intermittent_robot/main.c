@@ -34,11 +34,6 @@ int main(void) {
     i2c_init();
     ctrl_init();
 
-    /*if(fram.cp == 0){
-       fram.cnt = 0;
-       fram.cp = 1;
-    }*/
-
     int8_t len = 6;
     int8_t inst[6] = {STRAIGHT, 20, TURN_RIGHT, 90, STRAIGHT, 20}; //, STRAIGHT, 20};
     //int8_t len = 2;

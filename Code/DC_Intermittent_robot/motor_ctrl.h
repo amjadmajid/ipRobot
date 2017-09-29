@@ -8,8 +8,10 @@
 #ifndef MOTOR_CTRL_H_
 #define MOTOR_CTRL_H_
 
+// Maximum motor value
 #define SMAX 75
 
+// Minimum motor values
 #define LMIN 80
 #define RMIN 65
 
