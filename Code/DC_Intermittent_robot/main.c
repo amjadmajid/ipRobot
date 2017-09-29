@@ -10,6 +10,8 @@
 
 #pragma PERSISTENT(fram);
 NVvar fram = {0};
+#pragma PERSISTENT(fram_wc);
+NVvar fram_wc = {0};
 
 void init(void) {
 
@@ -49,8 +51,11 @@ int main(void) {
 
         }
         __delay_cycles(800000);     // 0.1sec delay between movements!
-        fram.stop = 0;
-        fram.cp++;
+        // Double buffer to keep consistency
+        fram_wc = fram;
+        fram_wc.stop = 0;
+        fram_wc.cp++;
+        swap(&fram, &fram_wc);
     }
     //fram.cp = 0;
 

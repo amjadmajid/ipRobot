@@ -18,4 +18,6 @@ typedef struct NVvar {
     uint8_t stop;
 }NVvar;
 
+void swap(NVvar *a, NVvar *b);
+
 #endif /* GLOBAL_H_ */

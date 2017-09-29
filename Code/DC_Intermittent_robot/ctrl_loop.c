@@ -115,9 +115,12 @@ void dsbl_loop(){
     set = 0;                                  // Always return set to 0 (straight)
     iterm = 0;
     prev = 0;
-    fram.cnt = 0;
-    fram.ang = 0;
-    fram.stop = 1;
+    // Double buffer to keep consistency
+    fram_wc = fram;
+    fram_wc.cnt = 0;
+    fram_wc.ang = 0;
+    fram_wc.stop = 1;
+    swap(&fram, &fram_wc);
 }
 
 // compute PID output
