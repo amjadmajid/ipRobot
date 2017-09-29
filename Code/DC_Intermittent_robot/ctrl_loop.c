@@ -153,7 +153,7 @@ void __attribute__ ((interrupt(TIMER2_A0_VECTOR))) Timer2_A0_ISR (void)
     data = gyro_read();
     omega = data / 32.767;
     if(curr_cmd == STRAIGHT){
-#ifdef DEBUG
+#if DEBUG
         sensor_data[fram.cnt] = (int16_t)omega;
 #endif
         if(fram.cnt >= num_loops | fram.stop)
@@ -161,13 +161,13 @@ void __attribute__ ((interrupt(TIMER2_A0_VECTOR))) Timer2_A0_ISR (void)
         turn = pid_compute(omega);
         lspeed = lspeed - (int16_t)turn;
         rspeed = rspeed + (int16_t)turn;
-#ifndef DEBUG
+//#if DEBUG==0
         fram.cnt++;
-#endif
+//#endif
     }else if(curr_cmd == TURN_LEFT || curr_cmd == TURN_RIGHT){
         ang += omega * SAMPLE_TIME; // integrate to get the angle
         fram.ang = ang;             // save the current angle
-#ifdef DEBUG
+#if DEBUG
         sensor_data[fram.cnt] = (int16_t)ang;
 #endif
         if(fabs(set - ang) < TOLERANCE_DEGREES){
@@ -179,7 +179,7 @@ void __attribute__ ((interrupt(TIMER2_A0_VECTOR))) Timer2_A0_ISR (void)
         rspeed = +(int16_t)turn;
     }
     drv_mot(lspeed, rspeed);
-#ifdef DEBUG
+#if DEBUG
     fram.cnt++;
 #endif
 }
