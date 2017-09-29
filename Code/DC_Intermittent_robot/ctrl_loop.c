@@ -33,7 +33,7 @@ float ki = 0;
 float kd = 0;
 
 // run set_limits()
-float out_max = 200, out_min = -200;
+float out_max = 75, out_min = -75;
 
 float ang = 0;
 float iterm = 0;
@@ -51,13 +51,6 @@ void ctrl_init(){
     TA2CTL = TASSEL__SMCLK | ID__8 | MC__UP;  // SMCLK, divide by 8, UP mode
 
     __bis_SR_register(GIE);                   // Enable interrupt
-}
-
-void enbl_loop(int16_t ls, int16_t rs){
-    lspeed = ls;
-    rspeed = rs;
-    enbl_mot();
-    TA2CCTL0 = CCIE;                          // TACCR0 interrupt enabled
 }
 
 /*
@@ -165,6 +158,9 @@ void __attribute__ ((interrupt(TIMER2_A0_VECTOR))) Timer2_A0_ISR (void)
         turn = pid_compute(omega);
         lspeed = lspeed - (int16_t)turn;
         rspeed = rspeed + (int16_t)turn;
+#ifndef DEBUG
+        fram.cnt++;
+#endif
     }else if(curr_cmd == TURN_LEFT || curr_cmd == TURN_RIGHT){
         ang += omega * SAMPLE_TIME; // integrate to get the angle
 #ifdef DEBUG
@@ -179,5 +175,7 @@ void __attribute__ ((interrupt(TIMER2_A0_VECTOR))) Timer2_A0_ISR (void)
         rspeed = +(int16_t)turn;
     }
     drv_mot(lspeed, rspeed);
+#ifdef DEBUG
     fram.cnt++;
+#endif
 }

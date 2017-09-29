@@ -32,11 +32,11 @@ void drv_init() {
 }
 
 
-inline void enbl_mot() {
+void enbl_mot() {
     P2OUT |= BIT1;                            // Enable DRV8836
 }
 
-inline void dsbl_mot(){
+void dsbl_mot(){
     P2OUT &= ~(BIT1);
     TB0CTL |= MC__STOP;
 }

@@ -24,7 +24,6 @@
 extern NVvar fram;
 
 void ctrl_init();
-void enbl_loop(int16_t ls, int16_t rs);
 void move(uint8_t cmd, int16_t arg);
 void dsbl_loop();
 void set_setpoint(float sp);
