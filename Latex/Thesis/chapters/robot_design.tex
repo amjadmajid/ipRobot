@@ -10,6 +10,7 @@
 % - Small form factor
 % - Navigation
 % - Power (should not rely on batteries)
+% - However should be able to be powered from batteries for testing and tuning!
 % - Tradeoff chargetime and operation time
 % - Weight of the robot
 % - Low voltage decreases power consumption of components and allows efficient use of the energy from the supercapacitor
@@ -17,6 +18,7 @@
 % - Swarm robots are typically limited to only operate on flat surfaces!
 % - Limited resources (no power hungry components)
 % - Optimize or low power consumption (disable or standby sensors and motor ctrl when not used)
+
 
 The main requirement for the robot is  that it should be battery-less, therefore it can only store a small amount of energy in a capacitor / small buffer.
 Bigger capacitors have in general larger leakage currents.
@@ -123,6 +125,8 @@ The Texas Instruments BQ25570 has a buck converter to efficiently regulate the c
 % Low power compontents have chip packages which are hard to solder by hand because of their small package size.
 
 % More stability
+
+% Make a overview of the cost to build a robot
 
 \begin{table*}[t]
 	\centering
@@ -291,3 +295,7 @@ These values will keep decreasing until the robot rotates to the desired angle.
 The set point is assumed to be reached when the angle is within two degrees of the target, in this case the loop will stop automatically.
 
 \subsection{Persistent movement}
+
+% Checkpointing / State keeping
+
+% Dubble buffering for updating multiple dependent variables (keep consistency)
