@@ -14,7 +14,7 @@ typedef struct NVvar {
     uint8_t cp;
     uint8_t once;
     uint16_t arg;
-    uint16_t cnt;
+    int16_t cnt;
     float ang;
     uint8_t stop;
 }NVvar;

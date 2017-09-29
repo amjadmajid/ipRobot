@@ -48,20 +48,7 @@ int main(void) {
 
     while(fram.cp < len/2){
 
-        if(inst[2*fram.cp] == STRAIGHT){
-            // Run only once per cp
-            if(fram.once == 0){
-                fram.sarg = inst[2*fram.cp+1];
-                fram.once = 1;
-            }
-            // Add step offset on every stop and wakeup
-            fram.sarg += STEP_OFF;
-        }
-        else{
-            fram.sarg = inst[2*fram.cp+1];
-        }
-
-        move(inst[2*fram.cp], fram.sarg);
+        move(inst[2*fram.cp], inst[2*fram.cp+1]);
 
         while(!fram.stop){
 

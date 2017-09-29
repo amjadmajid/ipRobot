@@ -81,6 +81,7 @@ void move(uint8_t cmd, int16_t arg){
             set_tunings(0.13*0.6, (20/100)/2, (20/100)/8);
             num_loops = (uint16_t)((float)arg / VEL_CAL / SAMPLE_TIME);
             set_limits(SMAX, -SMAX);
+            fram.cnt -= STEP_OFF;                     // Extra steps on startup!
             lspeed = MOT_TRG;
             rspeed = MOT_TRG;
             enbl_mot();
