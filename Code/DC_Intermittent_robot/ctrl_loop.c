@@ -35,11 +35,11 @@ float kd = 0;
 // run set_limits()
 float out_max = 75, out_min = -75;
 
-float ang = 0;
 float iterm = 0;
 float prev = 0;
 
 uint16_t num_loops = 0;
+float ang = 0;
 
 void ctrl_init(){
 
@@ -51,53 +51,6 @@ void ctrl_init(){
     TA2CTL = TASSEL__SMCLK | ID__8 | MC__UP;  // SMCLK, divide by 8, UP mode
 
     __bis_SR_register(GIE);                   // Enable interrupt
-}
-
-/*
- * Move, 0x01 straight, 0x02 turn left, 0x03 turn right
- * arg : 0x01 length in cm, 0x02 ang in deg, 0x03 ang in deg
- */
-void move(uint8_t cmd, int16_t arg){
-    curr_cmd = cmd;
-
-    switch(cmd) {
-        case STRAIGHT:
-            set_tunings(0.13*0.6, (20/100)/2, (20/100)/8);
-            num_loops = (uint16_t)((float)arg / VEL_CAL / SAMPLE_TIME);
-            set_limits(SMAX, -SMAX);
-            enbl_mot();
-            lspeed = MOT_TRG;
-            rspeed = MOT_TRG;
-            TA2CCTL0 = CCIE;                          // TACCR0 interrupt enabled
-            break;
-        case TURN_LEFT:
-            set_tunings(0.75, 0, 0);
-            set_setpoint(arg);
-            set_limits(SMAX, -SMAX);
-            enbl_mot();
-            TA2CCTL0 = CCIE;                          // TACCR0 interrupt enabled
-            break;
-        case TURN_RIGHT:
-            set_tunings(0.35, 0, 0);
-            set_setpoint(-arg);
-            set_limits(SMAX, -SMAX);
-            enbl_mot();
-            TA2CCTL0 = CCIE;                          // TACCR0 interrupt enabled
-            break;
-       //default : /* Optional */
-       //statement(s);
-    }
-}
-
-void dsbl_loop(){
-    dsbl_mot();
-    TA2CCTL0 &= ~CCIE;
-    set = 0;                                  // Always return set to 0 (straight)
-    ang = 0;
-    iterm = 0;
-    prev = 0;
-    fram.cnt = 0;
-    fram.stop = 1;
 }
 
 void set_setpoint(float sp){
@@ -116,8 +69,57 @@ void set_limits(float max, float min){
     out_min = min;
 }
 
+/*
+ * Move, 0x01 straight, 0x02 turn left, 0x03 turn right
+ * arg : 0x01 length in cm, 0x02 ang in deg, 0x03 ang in deg
+ */
+void move(uint8_t cmd, int16_t arg){
+    curr_cmd = cmd;
+
+    switch(cmd) {
+        case STRAIGHT:
+            set_tunings(0.13*0.6, (20/100)/2, (20/100)/8);
+            num_loops = (uint16_t)((float)arg / VEL_CAL / SAMPLE_TIME);
+            set_limits(SMAX, -SMAX);
+            lspeed = MOT_TRG;
+            rspeed = MOT_TRG;
+            enbl_mot();
+            TA2CCTL0 = CCIE;                          // TACCR0 interrupt enabled
+            break;
+        case TURN_LEFT:
+            set_tunings(0.75, 0, 0);
+            set_setpoint(arg);
+            set_limits(SMAX, -SMAX);
+            ang = fram.ang;                           // Always restore angle progress
+            enbl_mot();
+            TA2CCTL0 = CCIE;                          // TACCR0 interrupt enabled
+            break;
+        case TURN_RIGHT:
+            set_tunings(0.35, 0, 0);
+            set_setpoint(-arg);
+            set_limits(SMAX, -SMAX);
+            ang = fram.ang;                           // Always restore angle progress
+            enbl_mot();
+            TA2CCTL0 = CCIE;                          // TACCR0 interrupt enabled
+            break;
+       //default : /* Optional */
+       //statement(s);
+    }
+}
+
+void dsbl_loop(){
+    dsbl_mot();
+    TA2CCTL0 &= ~CCIE;
+    set = 0;                                  // Always return set to 0 (straight)
+    iterm = 0;
+    prev = 0;
+    fram.cnt = 0;
+    fram.ang = 0;
+    fram.stop = 1;
+}
+
 // compute PID output
-float pid_compute(float input){
+static inline float pid_compute(float input){
     float err, dinp, output;
     err = set - input;
     iterm += (ki * err);
@@ -163,6 +165,7 @@ void __attribute__ ((interrupt(TIMER2_A0_VECTOR))) Timer2_A0_ISR (void)
 #endif
     }else if(curr_cmd == TURN_LEFT || curr_cmd == TURN_RIGHT){
         ang += omega * SAMPLE_TIME; // integrate to get the angle
+        fram.ang = ang;             // save the current angle
 #ifdef DEBUG
         sensor_data[fram.cnt] = (int16_t)ang;
 #endif

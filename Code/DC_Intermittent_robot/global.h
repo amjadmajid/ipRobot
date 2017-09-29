@@ -10,14 +10,13 @@
 
 #define DEBUG 0
 
-#define CNT_AFTER 1
-
 typedef struct NVvar {
     uint8_t cp;
     uint8_t once;
-    uint8_t stop;
-    uint16_t sarg;
+    uint16_t arg;
     uint16_t cnt;
+    float ang;
+    uint8_t stop;
 }NVvar;
 
 #endif /* GLOBAL_H_ */
