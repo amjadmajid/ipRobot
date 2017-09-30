@@ -9,6 +9,7 @@
 #include "particle_filter.h"
 #include "const_map.h"
 
+// Required to include M_PI
 #ifndef __BSD_VISIBLE
 #define __BSD_VISIBLE
 #endif
