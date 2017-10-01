@@ -16,7 +16,7 @@
 % - Low voltage decreases power consumption of components and allows efficient use of the energy from the supercapacitor
 % - Single mainboard design
 % - Swarm robots are typically limited to only operate on flat surfaces!
-% - Limited resources (no power hungry components)
+% - Limited resources (no power hungry components ie optical encoders or mouse sensors)
 % - Optimize or low power consumption (disable or standby sensors and motor ctrl when not used)
 
 
@@ -32,10 +32,25 @@ Size of the robot i.e weight and the required power for movement do not scale li
 	
 \section{Hardware Implementation}
 
+To make efficient use of the energy stored in a supercapacitor a regular is required to supply a stable voltage to the connected loads.
+The regulated output voltage is a lower threshold for the energy that can be used from the capacitor.
+The upper threshold is typically determined by the maximum voltage rating of the supercapacitor.
+Lowering the output voltage allows for more energy to be used from the supercapacitor, but also lowers the overall power consumption of individual components.
+The energy stored in supercapacitor is a function of the capacitance and the threshold voltage difference, being equal to:
+
+\begin{equation}
+\label{eq:cap2}
+E = \frac{1}{2}C(V_{max} - V_{min})^{2}
+\end{equation}
+
 % - EXPLAIN MORE ABOUT HARDWARE CHOISES, why these specific componens. What were the requirements for choosing these components
-% - Currently only a limited amount of low power components are available which can operate at the 2.2v voltage.
-% - Secondly their power consumption should be as low as possible i.e low current consumption.
- 
+
+The first step was to evaluate what components are required for the robot to have basic navigation capabilities.
+Based on this, there was searched for commercially available components with the lowest minimal supply voltage.
+Currently there are only a limited amount of motor controllers on the market that can operate at the 2.0V.
+To make sure that a small drop in system voltage would not create instability a margin of 0.2v was added.
+Now the system voltage of 2.2V has been determined, each part of the robot will be explained in more detail. 
+
 
 \subsection{Computation and Sensing}
 
@@ -51,12 +66,14 @@ The mainboard is the platform that connects everything together.
 Most reference designs are extendable but this adds complexity, while weight and size are the main constraints of this robot design.
 All the added sensors are interfaced trough a I2C connection.
 
-For avoidance of obstacles, a Maxim Integrated MAX44000 proximity sensor was added of the robot facing forward.
+For detecting obstacles in front of the robot, a Maxim Integrated MAX44000 proximity sensor was added of the robot facing forward.
 This sensor switches a IR led at high frequency to reduce the power consumed.
 The same sensor is based around a photo-diode it can be used to measure the amount of ambient light as well.
-In addition the robot has a Bosch BMG250 low power triaxial gyroscope to measure yaw-rate, used to correct it's heading when necessary.
+In addition the robot has a Bosch Sensortec BMG250 low power triaxial gyroscope to measure yaw-rate, used to correct it's heading when necessary.
 
 \subsection{Locomotion}
+
+% Motors indude a gearbox 25:1
 
 Two 6mm geared dc motors from Precision Microdrives are mounted in a 3d printed frame, directly under the mainboard of the IPR.
 The motors are mounted diagonally opposite from each other making the robot as compact as possible, while this differential drive configuration allows the robot to steer.
@@ -94,21 +111,6 @@ It includes a nanopower boost charger with maximum power point tracking to extra
 % Why is this size capacitor chosen?
 % The harvester requires a low leakage capacitor, because the power harvested should be greater than the power leakage for t
 This harvested energy is stored in a 22mF - 4.5V supercapacitor from AVX, chosen for it's low leakage current and small size.
-The energy stored in supercapacitor is a function of the capacitance and voltage difference between the plates, being equal to:
-
-\begin{equation}
-\label{eq:cap1}
-E = \frac{1}{2}CV^{2}
-\end{equation}
-
-However, to make efficient use of the energy stored in the capacitor a regular is required to supply a stable voltage to the connected loads.
-The regulated output voltage is a lower threshold of the energy that can be used from the capacitor.
-Lowering the output voltage allows for more energy to be used from the supercapacitor, but in general also lowers the power consumption of individual components. Rewriting Equation \ref{eq:cap1} results in Equation \ref{eq:cap2}:
-
-\begin{equation}
-\label{eq:cap2}
-E = \frac{1}{2}C(V_{max} - V_{min})^{2}
-\end{equation}
 
 The Texas Instruments BQ25570 has a buck converter to efficiently regulate the capacitor voltage down to a system voltage of 2.2 Volt.
 
@@ -147,7 +149,7 @@ The Texas Instruments BQ25570 has a buck converter to efficiently regulate the c
 		\\[-1em]
 		Proximity sensor & 432\textmu A & 0.1\textmu A \\
 		Gyroscope & 650\textmu A & 3\textmu A\\	
-		Microcontroller @ 8Mhz & 1mA & N/A \\
+		Microcontroller @ 8MHz & 1mA & N/A \\
 		H-bridge & 1.2mA & 10nA \\
 		DC motor & 39mA & N/A \\
 		DC motor & 39mA & N/A \\
