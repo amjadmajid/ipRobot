@@ -6,6 +6,7 @@
 % - Same for linefolower / mouse sensor.
 
 \section{Design Requirements}
+\label{sec:design_requirements}
 
 % - Small form factor
 % - Navigation
@@ -19,13 +20,15 @@
 % - Limited resources (no power hungry components ie optical encoders or mouse sensors)
 % - Optimize or low power consumption (disable or standby sensors and motor ctrl when not used)
 
+% RF harvesting seems prommesing
+% better to only use RF for communication and harvest energy from another source \cite{konstantioulos}
+% wispcam long time to charge
 
 The main requirement for the robot is  that it should be battery-less, therefore it can only store a small amount of energy in a capacitor / small buffer.
 Bigger capacitors have in general larger leakage currents.
 As a result these require longer charge time
 
 Size of the robot i.e weight and the required power for movement do not scale linearly.
-
 
 To make efficient use of the energy stored in a supercapacitor a regular is required to supply a stable voltage to the connected loads.
 The regulated output voltage is a lower threshold for the energy that can be used from the capacitor.
@@ -86,31 +89,14 @@ This amount of current can not be supplied by a most regulators, PWM can be used
 \subsection{Energy Harvesting}
 \label{subsec:energy_harvesting}
 
-% RF harvesting seems prommesing
-% better to only use RF for communication and harvest energy from another source \cite{konstantioulos}
-% wispcam long time to charge
-
-%Photovoltaic cells used for indoor and outdoor energy harvesting, commonly have a different spectral sensitivity depending on the nature of their sources.
-%Solar cells used in indoor applications need to have a high spectral sensitivity in the range of visible light (400 to 700nm).
-%While for outdoor applications have a spectral sensitivity range can be broader, including near infrared  (500 nm to 1100 nm).
-%Triple junction solar cells harvest in some cases up to 50\% of there energy out of the near infrared range.
-% reference to paper tudelft!
-
-% http://www.chip1stop.com/web/RUS/en/tutorialContents.do?page=009
-
-The solar energy harvesting system is based around a Texas Instruments BQ25570. 
-It includes a nanopower boost charger with maximum power point tracking to extract the optimal amount of energy from the solar panel. 
-% Why is this size capacitor chosen?
-% The harvester requires a low leakage capacitor, because the power harvested should be greater than the power leakage for t
-This harvested energy is stored in a 22mF - 4.5V supercapacitor from AVX, chosen for it's low leakage current and small size.
-
-The Texas Instruments BQ25570 has a buck converter to efficiently regulate the capacitor voltage down to a system voltage of 2.2V.
-
-% The maximum speed that can be reached is dependent on the voltage supplied to the motors.
-% The current consumed by the motors also decreases with a lower voltaged supplied. 
-% The buck converter can supply up to 110mA of output current.
-% Powering both motors and MCU should not exceed this current limit.
-% Tell how resistors are used to set the minimum and maximum thresholds for the Supercap voltage and enabeling the buck converter
+Solar energy is harvested from two IXYS SLMD121H04L-ND solar cells in series.
+These monocrystalline solar cells have a high efficiency of 22\%, allowing energy harvesting even in low light conditions.
+The solar cells are connected to a Texas Instruments BQ25570 energy harvester. 
+This harvester includes a nanopower boost charger with maximum power point tracking to extract the optimal amount of energy from the solar panel. 
+The harvested energy is stored in a 22mF - 4.5V supercapacitor from AVX, chosen for it's low leakage current and small size.
+The Texas Instruments BQ25570 has a buck converter to efficiently regulate the capacitor voltage down to the system voltage of 2.2V.
+External resistors can be used to program voltage thresholds, allowing to automatically enable and disable the buck converter based on minimum and maximum thresholds.
+Additionally the resistors are used to set the overvoltage protection and the buck converter output voltage.
 
 \subsection{Integration}
 
