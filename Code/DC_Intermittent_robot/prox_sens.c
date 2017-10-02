@@ -13,13 +13,11 @@
 
 void prox_init(){
 
-    // enable MAX44000
-    //P1OUT |= BIT4;
-
     //Read the interrupt Status register
     i2c_read(MAX_ADDR, 0x00);
 
-    //Required because four msb are 0 on startup.
+    //Required because four msb are 0 on startup and need to be one!
+    //Four lsbs are used to set Ambient ADC Conversion time and Light measurement gain
     i2c_write(MAX_ADDR, 0x02, 0xF3);
 
     //Set led drive current to 110 mA
