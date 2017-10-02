@@ -82,6 +82,8 @@ Typically MCU io-ports are limited in the amount of current that they can supply
 MOSFETs inside the dual H-bridge allow regulation of larger currents to the motors.
 The MCU can use the H-bridge to enable, disable and control the direction of rotation of each individual motor.
 
+%TODO tell something about the maximum speed that can be achieved
+
 On average the each motor consumes 38mA while running on a flat surface, which is well within the current limit that the buck converter can supply.
 However when the motors are in not moving yet the start current is approximately equal to the stall current, which is equal to 240mA.
 This amount of current can not be supplied by a most regulators, PWM can be used to reduce the average current allowing a bulk capacitor to supply the voltage.

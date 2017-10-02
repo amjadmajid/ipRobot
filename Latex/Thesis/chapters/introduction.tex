@@ -1,14 +1,15 @@
 \chapter{Introduction}
 \label{chp:introduction}
 
-% Motivation for this work
+% Motivation for this work: 
+% Remove the battery from the robots
+% Explain why
 
 % Applications
 % Robots typically battery powered (write swarm rely on recharging of batteries)
 % Why do we want to remove the battery?
 % Add solar path planning??
 
-% Why do we want to remove the battery?
 
 "Low-hanging fruit is nowhere to be seen in fields as crucial as digital electronics, biomedical devices, or space technology."
 \cite{zachary_spec_2016}
@@ -57,26 +58,20 @@ Replacing the battery with an energy harvesting system would make the robot ener
 
 \section{Problem statement}
 
-All the previous work assumes that an operation is only possible when there is sufficient energy to complete a task.
-This research will explore the feasibility of a battery-less robot, allowing persistent operation while having a very small and intermittent source of energy.
-Intermittently powering robots creates new challenges in control, navigation and collaboration.
+%TODO add Challenges
 
-% Research question:
-% has energy available for short periods of time, would it be possible to do some form of actuation?
-
-% What are the limits of intermittently powered robots to complete a complex task autonomously?
-% What are the limits of a intermittently powered device to achieve locomotion?
-How to enable an intermittently powered robot to complete a complex task autonomously?
-
-Challenge:
-Current software used for robots with a stable power supply cannot be ported directly to this new platform.
 So what changes are required?
-
-Intermittently powered robots, that purely rely on harvested power are currently non existent.
+All the previous work does not take any intermittentcy into account and assumes that an operation is only possible when there is sufficient energy to complete a task.
+Current software used for robots with a stable power supply cannot be ported directly to this new platform.
+This research will explore the feasibility of a battery-less robot, allowing persistent operation while having a very small and intermittent source of energy.
+% Intermittently powered robots, that purely rely on harvested power are currently non existent.
 The intermittent availability of energy creates new challenges in control, navigation and actuation. 
-This research will explore the feasibility of an autonomous battery-less robot, focusing on the development of such a robot and especially porting a complex task like navigation to it. 
+This research will explore the feasibility of an autonomous battery-less robot, focusing on the development of such a robot.
+
+%and especially porting a complex task like navigation to it. 
+
 Therefore the main question this work will try to answer is: \\
-\textit{How to make a transiently powered robot navigate autonomously?}
+\textit{How to enable a transiently powered robot navigate autonomously?}
 
 \section{Contributions}
 
@@ -84,7 +79,7 @@ The contributions of the paper are as follows:
 
 \begin{enumerate}
 
-\item * first study of intermittently powered robots, unaware of any of such platforms besides hypothetical nanobots that supposed to be harvesting energy from movement or organic stuff.
+\item First study of intermittently powered robots, unaware of any of such platforms besides hypothetical nanobots that supposed to be harvesting energy from movement or organic stuff.
 
 \item A novel battery-less robot design, were the robot purely runs of harvested energy. Which includes computation, sensing and short range communication.
 
@@ -97,7 +92,7 @@ The contributions of the paper are as follows:
 
 
 \section{Thesis Outline}
-What will be discussed in the coming chapters
+%What will be discussed in the coming chapters
 
 
 \vspace{1\baselineskip}

@@ -3,9 +3,6 @@
 
 \section{Limitations and Future Work}
 
-% Study reducing the frequency of power interrupts ie smaller energy buffer.
-% How does this effect the accuracy of locomotion?
-
 % Add a low power communcation method for control of multple (swarm)
 % Use custom pcb with MCU + communication circuit instead of WISP
 
@@ -20,6 +17,13 @@
 % Currently single robot and kind of checkpointing, but multi robot swarms require more advanced software?	
 % OpenSwarm: An Event-driven Embedded Operating System for Miniature Robots \cite{trenkwalder_iros_2016}
 % Buzz: An Extensible Programming Language for Heterogeneous Swarm Robotics \cite{pinciroli_iros_2016}
+
+\subsection{Path planning based on energy availability}
+
+To capture the optimal amount of solar energy along the way, a map of the expected solar power can be used to compute the optimal path. To distinguish sunny or shaded two methods are proposed in \cite{plonski_tranro_2016}, one being a simple data driven Gaussian Process and the other estimates the geometry of the environment as a latent variable.
+Energy aware path planning is commonly used in combination with mission planning.
+In \cite{kaplan_iros_2016}, an analysis of the solar radiation is used to generate a time-optimized motion plan and power schedule using a cascaded particle swarm optimization algorithm.
+By combining maps of lighting and ground slope a solar-powered robot can be kept illuminated continuously. A connected component analysis is used to plan a optimal route on traversable slopes, as described by \cite{otten_icra_2015}.
 
 \section{Conclusions}
 % TODO CONCLUSIONS
