@@ -22,7 +22,7 @@
 
 % RF harvesting seems prommesing
 % better to only use RF for communication and harvest energy from another source \cite{konstantioulos}
-% wispcam long time to charge
+% robot at 20 cm from reader harvesting from rf takes 48 seconds
 
 The main requirement for the robot is  that it should be battery-less, therefore it can only store a small amount of energy in a capacitor / small buffer.
 Bigger capacitors have in general larger leakage currents.
@@ -102,14 +102,16 @@ Additionally the resistors are used to set the overvoltage protection and the bu
 
 \subsection{Integration}
 
-% Check hardware section ivar
+A complete overview of the robot can be found in Figure \ref{fig:robot_overview}.
+Most components are part of the Printed Circuit Board (PCB), only the larger components are mounted externally.
+
 % Tell why pcb is required.
 % Low power compontents have chip packages which are hard to solder by hand because of their small package size.
 % More stability
 % Tell about the Printed Circuit Board(PCB)
 
 Now that all the parts have been chosen, they can be connected together to form the robot.
-For ease of connection and because most parts come in small non-hand solderable packages, a Printed Circuit Board (PCB) has been designed, see Figure \ref{fig:pcb_robot}
+For ease of connection and because the ICs come in small no-leads packages, a PCB has been designed, see Figure \ref{fig:pcb_robot}
 Most reference designs are extendable but this adds complexity, while weight and size are the main constraints of this robot design.
 
 
@@ -118,7 +120,7 @@ Most reference designs are extendable but this adds complexity, while weight and
 	\centering
 	\includegraphics[width=\textwidth]{pics/schematic_robot_v2.png}
 	\caption{Overview of a single robot}
-	\label{fig:system_overview}
+	\label{fig:robot_overview}
 \end{figure}
 
 
