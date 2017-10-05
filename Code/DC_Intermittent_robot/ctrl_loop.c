@@ -47,8 +47,8 @@ void ctrl_init(){
     gyro_init();
     drv_init();
 
-    TA2CCR0 = 125000 * SAMPLE_TIME;           // Set timer frequency
-    TA2CTL = TASSEL__SMCLK | ID__8 | MC__UP;  // SMCLK, divide by 8, UP mode
+    TA3CCR0 = 125000 * SAMPLE_TIME;           // Set timer frequency
+    TA3CTL = TASSEL__SMCLK | ID__8 | MC__UP;  // SMCLK, divide by 8, UP mode
 
     __bis_SR_register(GIE);                   // Enable interrupt
 }
@@ -86,7 +86,7 @@ void move(uint8_t cmd, int16_t arg){
             lspeed = MOT_TRG;
             rspeed = MOT_TRG;
             enbl_mot();
-            TA2CCTL0 = CCIE;                          // TACCR0 interrupt enabled
+            TA3CCTL0 = CCIE;                          // TACCR0 interrupt enabled
             break;
         case TURN_LEFT:
             set_tunings(0.75, 0, 0);
@@ -94,7 +94,7 @@ void move(uint8_t cmd, int16_t arg){
             set_limits(SMAX, -SMAX);
             ang = fram.ang;                           // Always restore angle progress
             enbl_mot();
-            TA2CCTL0 = CCIE;                          // TACCR0 interrupt enabled
+            TA3CCTL0 = CCIE;                          // TACCR0 interrupt enabled
             break;
         case TURN_RIGHT:
             set_tunings(0.35, 0, 0);
@@ -102,7 +102,7 @@ void move(uint8_t cmd, int16_t arg){
             set_limits(SMAX, -SMAX);
             ang = fram.ang;                           // Always restore angle progress
             enbl_mot();
-            TA2CCTL0 = CCIE;                          // TACCR0 interrupt enabled
+            TA3CCTL0 = CCIE;                          // TACCR0 interrupt enabled
             break;
        //default : /* Optional */
        //statement(s);
@@ -111,7 +111,7 @@ void move(uint8_t cmd, int16_t arg){
 
 void dsbl_loop(){
     dsbl_mot();
-    TA2CCTL0 &= ~CCIE;
+    TA3CCTL0 &= ~CCIE;
     set = 0;                                  // Always return set to 0 (straight)
     iterm = 0;
     prev = 0;
@@ -142,12 +142,12 @@ static inline float pid_compute(float input){
     return output;
 }
 
-// Timer2_A0 interrupt service routine
+// Timer3_A0 interrupt service routine
 #if defined(__TI_COMPILER_VERSION__) || defined(__IAR_SYSTEMS_ICC__)
-#pragma vector = TIMER2_A0_VECTOR
-__interrupt void Timer2_A0_ISR (void)
+#pragma vector = TIMER3_A0_VECTOR
+__interrupt void Timer3_A0_ISR (void)
 #elif defined(__GNUC__)
-void __attribute__ ((interrupt(TIMER2_A0_VECTOR))) Timer2_A0_ISR (void)
+void __attribute__ ((interrupt(TIMER3_A0_VECTOR))) Timer3_A0_ISR (void)
 #else
 #error Compiler not supported!
 #endif

@@ -13,6 +13,13 @@ NVvar fram = {0};
 #pragma PERSISTENT(fram_wc);
 NVvar fram_wc = {0};
 
+void swap(NVvar *a, NVvar *b){
+
+    NVvar tmp = *b;
+    *b   = *a;
+    *a   = tmp;
+}
+
 void init(void) {
 
     WDTCTL = WDTPW | WDTHOLD;               // Stop watchdog timer
