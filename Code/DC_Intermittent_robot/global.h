@@ -8,7 +8,8 @@
 #ifndef GLOBAL_H_
 #define GLOBAL_H_
 
-#define DEBUG 0
+#define DEBUG   0
+#define SPI     0
 
 typedef struct NVvar {
     uint8_t cp;

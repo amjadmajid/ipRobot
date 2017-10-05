@@ -3,6 +3,7 @@
 #include "global.h"
 #include "eusci_b0_i2c.h"
 #include "ctrl_loop.h"
+#include "bor_timer.h"
 
 /*
  * main.c
@@ -43,12 +44,17 @@ int main(void) {
     i2c_init();
     ctrl_init();
 
-    int8_t len = 6;
-    int8_t inst[6] = {STRAIGHT, 20, TURN_RIGHT, 90, STRAIGHT, 20}; //, STRAIGHT, 20};
-    //int8_t len = 2;
-    //int8_t inst[2] = {TURN_RIGHT, 90};
+    //int8_t len = 6;
+    //int8_t inst[6] = {STRAIGHT, 20, TURN_RIGHT, 90, STRAIGHT, 20}; //, STRAIGHT, 20};
+    int8_t len = 2;
+    uint16_t inst[2] = {STRAIGHT, 50};
 
     __delay_cycles(8000000);
+
+#if SPI
+    // Create power interrupt after approx 1.1sec
+    start_bor_timer(1100);
+#endif
 
     while(fram.cp < len/2){
 
@@ -64,7 +70,11 @@ int main(void) {
         fram_wc.cp++;
         swap(&fram, &fram_wc);
     }
-    //fram.cp = 0;
+    fram.cp = 0;
+
+#if SPI
+    stop_bor_timer();
+#endif
 
     //Enable LED to drain excess energy
     PJOUT |= BIT6;
