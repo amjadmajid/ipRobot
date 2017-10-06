@@ -41,6 +41,9 @@ void init(void) {
 int main(void) {
 
     init();
+
+    __delay_cycles(8000000);
+
     i2c_init();
     ctrl_init();
 
@@ -48,8 +51,6 @@ int main(void) {
     //int8_t inst[6] = {STRAIGHT, 20, TURN_RIGHT, 90, STRAIGHT, 20}; //, STRAIGHT, 20};
     int8_t len = 2;
     uint16_t inst[2] = {STRAIGHT, 50};
-
-    __delay_cycles(8000000);
 
 #if SPI
     // Create power interrupt after approx 1.1sec
