@@ -18,7 +18,9 @@ def list_avg(llist):
 plt.figure(1)
 plt.plot(set_dist, list_avg(bat_dist))
 plt.plot(set_dist, list_avg(int_bat_dist))
+plt.xlim(xmin=0)  # this line
 plt.ylim(ymin=0)  # this line
+plt.grid()
 plt.xlabel('set distance (cm)')
 plt.ylabel('measured distance (cm)')
 plt.legend(('Battery powered', 'BP with a software interrupt every 1.1 sec'))
