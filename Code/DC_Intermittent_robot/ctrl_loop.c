@@ -79,8 +79,9 @@ void move(uint8_t cmd, int16_t arg){
     switch(cmd) {
         case STRAIGHT:
             set_tunings(0.13*0.6, (20/100)/2, (20/100)/8);
-            num_loops = (uint16_t)((float)arg / VEL_CAL / SAMPLE_TIME) + STEP_OFF;
+            set_setpoint(0);
             set_limits(SMAX, -SMAX);
+            num_loops = (uint16_t)((float)arg / VEL_CAL / SAMPLE_TIME) + STEP_OFF;
             if(fram.cnt >= STEP_OFF && fram.cnt < num_loops - STEP_OFF)
                 fram.cnt -= STEP_OFF;                 // Extra steps on startup!
             lspeed = MOT_TRG;
@@ -112,13 +113,14 @@ void move(uint8_t cmd, int16_t arg){
 void dsbl_loop(){
     dsbl_mot();
     TA3CCTL0 &= ~CCIE;
-    set = 0;                                  // Always return set to 0 (straight)
     iterm = 0;
     prev = 0;
     // Double buffer to keep consistency
     fram_wc = fram;
-    fram_wc.cnt = 0;
-    fram_wc.ang = 0;
+    if(curr_cmd == STRAIGHT)
+        fram_wc.cnt = 0;
+    else if(curr_cmd == TURN_RIGHT || curr_cmd == TURN_LEFT)
+        fram_wc.ang = 0;
     fram_wc.stop = 1;
     swap(&fram, &fram_wc);
 }

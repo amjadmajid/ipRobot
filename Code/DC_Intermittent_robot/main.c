@@ -57,21 +57,36 @@ int main(void) {
     start_bor_timer(1100);
 #endif
 
+    if(fram.nonce){
+        move(TURN_RIGHT, 4);
+        while(!fram.stop){
+
+        }
+        //__delay_cycles(800000);     // 0.1sec delay between movements!
+        fram.stop = 0;
+    }
+    fram.nonce = 1;
+
     while(fram.cp < len/2){
 
         move(inst[2*fram.cp], inst[2*fram.cp+1]);
-
         while(!fram.stop){
 
         }
         __delay_cycles(800000);     // 0.1sec delay between movements!
+
         // Double buffer to keep consistency
         fram_wc = fram;
         fram_wc.stop = 0;
         fram_wc.cp++;
         swap(&fram, &fram_wc);
+
     }
-    fram.cp = 0;
+    // Double buffer to keep consistency
+    fram_wc = fram;
+    fram_wc.nonce = 0;
+    fram_wc.cp = 0;
+    swap(&fram, &fram_wc);
 
 #if SPI
     stop_bor_timer();

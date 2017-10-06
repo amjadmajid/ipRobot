@@ -13,6 +13,7 @@
 
 typedef struct NVvar {
     uint8_t cp;
+    uint8_t nonce;
     uint16_t arg;
     int16_t cnt;
     float ang;
