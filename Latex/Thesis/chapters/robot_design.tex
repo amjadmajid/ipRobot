@@ -21,8 +21,11 @@
 % - Optimize or low power consumption (disable or standby sensors and motor ctrl when not used)
 
 % RF harvesting seems prommesing
+% Wispcam requires approx 4 seconds to harvest 20mJ at a distance of 20cm from the reader \cite{naderiparizi_rfid_2015}
 % better to only use RF for communication and harvest energy from another source \cite{konstantioulos}
-% robot at 20 cm from reader harvesting from rf takes 48 seconds
+
+% Why rf: low power transmitter requires a lot of power (maybe datasheet ref??)
+
 
 The main requirement for the robot is  that it should be battery-less, therefore it can only store a small amount of energy in a capacitor / small buffer.
 Bigger capacitors have in general larger leakage currents.
