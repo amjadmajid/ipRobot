@@ -1,36 +1,51 @@
 \chapter{Robot Design and Implementation}
 
-% - Size and weight/energy availability/speed trade-off model and 
 % - Should the subsections more or less reflect the columns in the table?
-% - No optical encoders because they require a lot of energy!
-% - Same for linefolower / mouse sensor.
 
 \section{Design Requirements}
 \label{sec:design_requirements}
-
-% - Small form factor
-% - Navigation
-% - Power (should not rely on batteries)
-% - However should be able to be powered from batteries for testing and tuning!
-% - Tradeoff chargetime and operation time
-% - Weight of the robot
-% - Low voltage decreases power consumption of components and allows efficient use of the energy from the supercapacitor
-% - Single mainboard design
-% - Swarm robots are typically limited to only operate on flat surfaces!
-% - Limited resources (no power hungry components ie optical encoders or mouse sensors)
-% - Optimize or low power consumption (disable or standby sensors and motor ctrl when not used)
 
 % RF harvesting seems prommesing
 % Wispcam requires approx 4 seconds to harvest 20mJ at a distance of 20cm from the reader \cite{naderiparizi_rfid_2015}
 % better to only use RF for communication and harvest energy from another source \cite{konstantioulos}
 
-% Why rf: low power transmitter requires a lot of power (maybe datasheet ref??)
+% Energy can be harvested from different sources
 
 
-The main requirement for the robot is  that it should be battery-less, therefore it can only store a small amount of energy in a capacitor / small buffer.
+% - Small form factor
+% - Weight of the robot
+% - Power (should not rely on batteries)
+% - Low voltage decreases power consumption of components and allows efficient use of the energy from the supercapacitor
+
+% - Optimize or low power consumption (disable or standby sensors and motor ctrl when not used)
+% - Minimal basic functionality (for simple swarm algorithms?) (but no power hungry components ie optical encoders or mouse sensors)
+% - Low power communication
+% - Navigation
+
+Furthermore:
+% - Single mainboard design
+% - Off the chelf components
+% - Swarm robots are typically limited to only operate on flat surfaces!
+% - However should be able to be powered from batteries for testing and tuning!
+
+% Extra extra:
+% - Tradeoff chargetime and operation time
+
+
+
+
+Current state of the art micro robotic platforms are not bigger than 4.4 cm, as can be seen from Table \label{tab:comparison_robot_platforms}.
+Keeping the size of the robot to a minimum is beneficial, while the weight will scale accordingly and less energy will be required for movement.
+
+
+
+Typically the amount of power that can be harvested 
+
+The main requirement for the robot is that it should be battery-less, therefore it can only store a small amount of energy in a capacitor / small buffer.
 Bigger capacitors have in general larger leakage currents.
 As a result these require longer charge time
 
+% This does not seem to be true?
 Size of the robot i.e weight and the required power for movement do not scale linearly.
 
 To make efficient use of the energy stored in a supercapacitor a regular is required to supply a stable voltage to the connected loads.
