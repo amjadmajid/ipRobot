@@ -11,6 +11,8 @@ int_825_bat_dist = [[45.1, 45, 45.1], [91.2, 93.4, 91.4], [141.1, 137.3, 136.2],
 
 int_550_bat_dist = [[41.6, 40.1, 41.5], [85, 85.1, 86.8], [127.3, 125.8, 128.1], [175.2, 175.6, 172.9]]
 
+int_sol_dist = [[46.2, 47.6, 45.6], [92.5, 91.5, 93], [139.2, 139.9, 139.9], [192.3, 190.6, 186.3]]
+
 
 def list_avg(llist):
     i = 0
@@ -22,6 +24,7 @@ def list_avg(llist):
 
 plt.figure(1)
 plt.plot(set_dist, list_avg(bat_dist))
+plt.plot(set_dist, list_avg(int_sol_dist))
 plt.plot(set_dist, list_avg(int_1100_bat_dist))
 plt.plot(set_dist, list_avg(int_825_bat_dist))
 plt.plot(set_dist, list_avg(int_550_bat_dist))
@@ -30,6 +33,6 @@ plt.ylim(ymin=0)  # this line
 plt.grid()
 plt.xlabel('set distance (cm)')
 plt.ylabel('measured distance (cm)')
-plt.legend(('Battery powered', 'BP with a software interrupt every 1.1 sec', 'BP with a software interrupt every 0.825 sec', 'BP with a software interrupt every 0.55 sec'))
+plt.legend(('Battery powered', 'Solar powered', 'BP with a software interrupt every 1.1 sec', 'BP with a software interrupt every 0.825 sec', 'BP with a software interrupt every 0.55 sec'))
 
 plt.show()
