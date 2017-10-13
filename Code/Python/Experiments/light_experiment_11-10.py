@@ -28,10 +28,10 @@ def list_avg(llist):
     return avg
 
 plt.figure(1)
-plt.plot(set_dist, list_avg(cp_60w), 'o')
-plt.plot(set_dist, list_avg(cp_120w), 'o')
-plt.plot(set_dist, list_avg(cp_150w_w), 'o')
-plt.plot(set_dist, list_avg(cp_150w_r), 'o')
+plt.plot(set_dist, list_avg(cp_60w), '-o')
+plt.plot(set_dist, list_avg(cp_120w), '-o')
+plt.plot(set_dist, list_avg(cp_150w_w), '-o')
+plt.plot(set_dist, list_avg(cp_150w_r), '-o')
 plt.xlim(xmin=0)  # this line
 plt.ylim(ymin=0)  # this line
 plt.grid()
@@ -41,10 +41,10 @@ plt.ylabel('charge time (s)')
 plt.legend(('60w halogen','120w halogen', 'white 150w ir lamp', 'red 150w ir lamp'))
 
 plt.figure(2)
-plt.plot(set_dist, list_avg(ns_60w), 'o')
-plt.plot(set_dist, list_avg(ns_120w), 'o')
-plt.plot(set_dist, list_avg(ns_150w_w), 'o')
-plt.plot(set_dist, list_avg(ns_150w_r), 'o')
+plt.plot(set_dist, list_avg(ns_60w), '-o')
+plt.plot(set_dist, list_avg(ns_120w), '-o')
+plt.plot(set_dist, list_avg(ns_150w_w), '-o')
+plt.plot(set_dist, list_avg(ns_150w_r), '-o')
 plt.xlim(xmin=0)  # this line
 plt.ylim(ymin=0)  # this line
 plt.grid()
