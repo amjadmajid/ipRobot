@@ -3295,17 +3295,17 @@ Source: VISHAY wscwsn.pdf</description>
 <wire x1="0.3556" y1="6.985" x2="0.3556" y2="2.667" width="0.1524" layer="21"/>
 <wire x1="2.1844" y1="6.985" x2="2.1844" y2="2.667" width="0.1524" layer="21"/>
 <wire x1="12.192" y1="2.1717" x2="12.192" y2="0.3683" width="0.1524" layer="21"/>
-<pad name="AUX1" x="7.493" y="1.27" drill="0.6" rot="R90"/>
-<pad name="AUX2" x="6.223" y="1.27" drill="0.6" rot="R90"/>
-<pad name="AUX3" x="4.953" y="1.27" drill="0.6" rot="R90"/>
-<pad name="GND1" x="1.27" y="6.096" drill="0.6" shape="square"/>
-<pad name="GND2" x="2.413" y="1.27" drill="0.6" shape="square" rot="R90"/>
-<pad name="I2C_SCL" x="1.27" y="4.826" drill="0.6" rot="R90"/>
-<pad name="I2C_SDA" x="1.27" y="3.556" drill="0.6"/>
-<pad name="UART_RX" x="8.763" y="1.27" drill="0.6" rot="R90"/>
-<pad name="UART_TX" x="10.033" y="1.27" drill="0.6" rot="R90"/>
-<pad name="VBOOST" x="11.303" y="1.27" drill="0.6" rot="R90"/>
-<pad name="VREG" x="3.683" y="1.27" drill="0.6" rot="R90"/>
+<pad name="AUX1" x="7.493" y="1.27" drill="0.7" rot="R90"/>
+<pad name="AUX2" x="6.223" y="1.27" drill="0.7" rot="R90"/>
+<pad name="AUX3" x="4.953" y="1.27" drill="0.7" rot="R90"/>
+<pad name="GND1" x="1.27" y="6.096" drill="0.7" shape="square"/>
+<pad name="GND2" x="2.413" y="1.27" drill="0.7" shape="square" rot="R90"/>
+<pad name="I2C_SCL" x="1.27" y="4.826" drill="0.7" rot="R90"/>
+<pad name="I2C_SDA" x="1.27" y="3.556" drill="0.7"/>
+<pad name="UART_RX" x="8.763" y="1.27" drill="0.7" rot="R90"/>
+<pad name="UART_TX" x="10.033" y="1.27" drill="0.7" rot="R90"/>
+<pad name="VBOOST" x="11.303" y="1.27" drill="0.7" rot="R90"/>
+<pad name="VREG" x="3.683" y="1.27" drill="0.7" rot="R90"/>
 <text x="2.8448" y="3.0353" size="1.27" layer="25" ratio="10">&gt;NAME</text>
 <wire x1="0" y1="0" x2="0" y2="18.415" width="0" layer="48"/>
 <wire x1="0" y1="18.415" x2="19.05" y2="18.415" width="0" layer="48"/>
@@ -3443,29 +3443,29 @@ Source: VISHAY wscwsn.pdf</description>
 <wire x1="-0.889" y1="-0.9017" x2="-0.889" y2="0.9017" width="0.127" layer="21"/>
 <wire x1="-0.889" y1="0.9144" x2="2.159" y2="0.9144" width="0.127" layer="21"/>
 <wire x1="-0.889" y1="-0.9144" x2="2.159" y2="-0.9144" width="0.127" layer="21"/>
-<pad name="1" x="0" y="0" drill="0.6" shape="square" rot="R90"/>
-<pad name="2" x="1.27" y="0" drill="0.6" rot="R180"/>
+<pad name="1" x="0" y="0" drill="0.7" shape="square" rot="R90"/>
+<pad name="2" x="1.27" y="0" drill="0.7" rot="R180"/>
 <text x="-0.9812" y="1.5113" size="0.8128" layer="25" ratio="10">&gt;NAME</text>
 </package>
 <package name="PINHEAD_1X04-1.27MM">
 <wire x1="-0.889" y1="-0.9017" x2="-0.889" y2="0.9017" width="0.127" layer="21"/>
 <wire x1="-0.889" y1="0.9144" x2="4.699" y2="0.9144" width="0.127" layer="21"/>
 <wire x1="-0.889" y1="-0.9144" x2="4.699" y2="-0.9144" width="0.127" layer="21"/>
-<pad name="1" x="0" y="0" drill="0.6" shape="square" rot="R90"/>
-<pad name="2" x="1.27" y="0" drill="0.6" rot="R180"/>
+<pad name="1" x="0" y="0" drill="0.7" shape="square" rot="R90"/>
+<pad name="2" x="1.27" y="0" drill="0.7" rot="R180"/>
 <text x="-0.9812" y="1.5113" size="0.8128" layer="25" ratio="10">&gt;NAME</text>
-<pad name="3" x="2.54" y="0" drill="0.6"/>
+<pad name="3" x="2.54" y="0" drill="0.7"/>
 <wire x1="4.699" y1="0.9017" x2="4.699" y2="-0.9017" width="0.127" layer="21"/>
-<pad name="4" x="3.81" y="0" drill="0.6" rot="R90"/>
+<pad name="4" x="3.81" y="0" drill="0.7" rot="R90"/>
 </package>
 <package name="PINHEAD_1X03-1.27MM">
 <wire x1="0.889" y1="0.9017" x2="0.889" y2="-0.9017" width="0.127" layer="21"/>
 <wire x1="-3.429" y1="-0.9017" x2="-3.429" y2="0.9017" width="0.127" layer="21"/>
 <wire x1="-3.429" y1="0.9144" x2="0.889" y2="0.9144" width="0.127" layer="21"/>
 <wire x1="-3.429" y1="-0.9144" x2="0.889" y2="-0.9144" width="0.127" layer="21"/>
-<pad name="1" x="-2.54" y="0" drill="0.6" shape="square" rot="R90"/>
-<pad name="2" x="-1.27" y="0" drill="0.6" rot="R180"/>
-<pad name="3" x="0" y="0" drill="0.6" rot="R90"/>
+<pad name="1" x="-2.54" y="0" drill="0.7" shape="square" rot="R90"/>
+<pad name="2" x="-1.27" y="0" drill="0.7" rot="R180"/>
+<pad name="3" x="0" y="0" drill="0.7" rot="R90"/>
 <text x="-3.2512" y="1.5113" size="1.27" layer="25" ratio="10">&gt;NAME</text>
 <text x="-3.175" y="-2.8575" size="1.27" layer="27">&gt;VALUE</text>
 </package>
@@ -3474,11 +3474,11 @@ Source: VISHAY wscwsn.pdf</description>
 <wire x1="-3.429" y1="-0.9017" x2="-3.429" y2="0.9017" width="0.1524" layer="21"/>
 <wire x1="-3.429" y1="-0.9144" x2="3.429" y2="-0.9144" width="0.1524" layer="21"/>
 <wire x1="-3.429" y1="0.9144" x2="3.429" y2="0.9144" width="0.1524" layer="21"/>
-<pad name="1" x="-2.54" y="0" drill="0.6" shape="square" rot="R90"/>
-<pad name="2" x="-1.27" y="0" drill="0.6" rot="R90"/>
-<pad name="3" x="0" y="0" drill="0.6" rot="R90"/>
-<pad name="4" x="1.27" y="0" drill="0.6" rot="R90"/>
-<pad name="5" x="2.54" y="0" drill="0.6" rot="R90"/>
+<pad name="1" x="-2.54" y="0" drill="0.7" shape="square" rot="R90"/>
+<pad name="2" x="-1.27" y="0" drill="0.7" rot="R90"/>
+<pad name="3" x="0" y="0" drill="0.7" rot="R90"/>
+<pad name="4" x="1.27" y="0" drill="0.7" rot="R90"/>
+<pad name="5" x="2.54" y="0" drill="0.7" rot="R90"/>
 <text x="-3.2512" y="1.5113" size="1.27" layer="25" ratio="10">&gt;NAME</text>
 <text x="-3.175" y="-2.8575" size="1.27" layer="27">&gt;VALUE</text>
 </package>
