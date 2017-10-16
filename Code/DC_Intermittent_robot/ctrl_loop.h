@@ -22,8 +22,9 @@
 
 #define TOLERANCE_DEGREES 2.0
 
-extern NVvar fram;
-extern NVvar fram_wc;
+
+extern nv_var fram;
+extern nv_var fram_wc;
 
 void ctrl_init();
 void move(uint8_t cmd, int16_t arg);

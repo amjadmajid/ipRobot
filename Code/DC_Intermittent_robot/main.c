@@ -10,13 +10,13 @@
  */
 
 #pragma PERSISTENT(fram);
-NVvar fram = {0};
+nv_var fram = {0};
 #pragma PERSISTENT(fram_wc);
-NVvar fram_wc = {0};
+nv_var fram_wc = {0};
 
-void swap(NVvar *a, NVvar *b){
+void swap(nv_var *a, nv_var *b){
 
-    NVvar tmp = *b;
+    nv_var tmp = *b;
     *b   = *a;
     *a   = tmp;
 }

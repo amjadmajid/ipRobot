@@ -11,14 +11,16 @@
 #define DEBUG   0
 #define SPI     0
 
-typedef struct NVvar {
+#define ROBOT   1
+
+typedef struct nv_var {
     uint8_t cp;
     uint16_t arg;
     int16_t cnt;
     float ang;
     uint8_t stop;
-}NVvar;
+}nv_var;
 
-void swap(NVvar *a, NVvar *b);
+void swap(nv_var *a, nv_var *b);
 
 #endif /* GLOBAL_H_ */
