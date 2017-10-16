@@ -9,7 +9,12 @@
 #include <stdint.h>
 #include "motor_ctrl.h"
 
-void drv_init() {
+motor_calib curr_mc = {0};
+
+void drv_init(motor_calib set_mc) {
+
+    // set motor calibration
+    curr_mc = set_mc;
 
     P2DIR |= BIT1;                            // Set P2.1 (UART_RX) to output
     P2OUT &= ~(BIT1);                         // Disable DRV8836
@@ -42,14 +47,14 @@ void dsbl_mot(){
 
 void drv_mot(int16_t sl, int16_t sr){
 
-    if(sl > SMAX)
-        sl = SMAX;
-    else if(sl < -SMAX)
-        sl = -SMAX;
-    if(sr > SMAX)
-        sr = SMAX;
-    else if(sr < -SMAX)
-        sr = -SMAX;
+    if(sl > curr_mc.smax)
+        sl = curr_mc.smax;
+    else if(sl < -curr_mc.smax)
+        sl = -curr_mc.smax;
+    if(sr > curr_mc.smax)
+        sr = curr_mc.smax;
+    else if(sr < -curr_mc.smax)
+        sr = -curr_mc.smax;
 
     TB0CTL |= MC__STOP;
 
@@ -57,12 +62,12 @@ void drv_mot(int16_t sl, int16_t sr){
     if(sr > 0){
         TB0CCTL1 = 0x00;
         TB0CCTL3 = OUTMOD_7;                      // CCR1 reset/set
-        TB0CCR3 = sr + RMIN;
+        TB0CCR3 = sr + curr_mc.rmin;
     } // right reverse
     else if(sr < 0){
         TB0CCTL3 = 0x00;
         TB0CCTL1 = OUTMOD_7;                      // CCR3 reset/set
-        TB0CCR1 = (-sr) + RMIN;
+        TB0CCR1 = (-sr) + curr_mc.rmin;
     } // right stop
     /*else{
         TB0CCTL1 = 0x00;
@@ -72,12 +77,12 @@ void drv_mot(int16_t sl, int16_t sr){
     if(sl > 0){
         TB0CCTL4 = 0x00;
         TB0CCTL6 = OUTMOD_7;                      // CCR4 reset/set
-        TB0CCR6 = sl + LMIN;
+        TB0CCR6 = sl + curr_mc.lmin;
     } // left reverse
     else if(sl < 0){
         TB0CCTL6 = 0x00;
         TB0CCTL4 = OUTMOD_7;                      // CCR6 reset/set
-        TB0CCR4 = (-sl) + LMIN;
+        TB0CCR4 = (-sl) + curr_mc.lmin;
     } // left stop
     /*else{
         TB0CCTL4 = 0x00;

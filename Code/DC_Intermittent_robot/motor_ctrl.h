@@ -8,14 +8,13 @@
 #ifndef MOTOR_CTRL_H_
 #define MOTOR_CTRL_H_
 
-// Maximum motor value
-#define SMAX 75
+typedef struct motor_calib {
+   uint16_t lmin;
+   uint16_t rmin;
+   uint16_t smax;
+} motor_calib;
 
-// Minimum motor values
-#define LMIN 80
-#define RMIN 65
-
-void drv_init();
+void drv_init(motor_calib set_mc);
 void enbl_mot();
 void dsbl_mot();
 void drv_mot(int16_t sl, int16_t sr);

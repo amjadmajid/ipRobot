@@ -43,9 +43,12 @@ float ang = 0;
 
 void ctrl_init(){
 
+    // lmin, rmin, smax
+    motor_calib mc = {80, 65, 75};
+
     // assume i2c is already initialized
     gyro_init();
-    drv_init();
+    drv_init(mc);
 
     TA3CCR0 = 125000 * SAMPLE_TIME;           // Set timer frequency
     TA3CTL = TASSEL__SMCLK | ID__8 | MC__UP;  // SMCLK, divide by 8, UP mode
