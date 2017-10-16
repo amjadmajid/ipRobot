@@ -11,6 +11,14 @@ cp_150w_w = [[1.002, 0.9503, 1.029], [7.846, 7.795, 7.843], [17.72, 17.87, 18.15
 
 cp_150w_r = [[0.7548, 0.7074, 0.74], [1.79, 1.803, 2.048], [9.276, 9.615, 9.4696]]
 
+dk_60w = [2.7566666667, 8.759, 49.6966666667]
+
+dk_120w = [0.8214, 6.214, 16.9966666667]
+
+dk_150w_w = [0.5065, 2.92, 10.1533333333]
+
+dk_150w_r = [0.5634666667, 1.632, 7.6316666667]
+
 ns_60w = [[2.836, 2.749, 2.846], [11.25, 11.6, 11.73], [52.07, 53.84, 54.09]]
 
 ns_120w = [[1.616, 1.615, 1.6], [4.055, 4.049, 4.2265], [11.82, 12.21, 12.24]]
@@ -41,6 +49,19 @@ plt.ylabel('charge time (s)')
 plt.legend(('60w halogen','120w halogen', 'white 150w ir lamp', 'red 150w ir lamp'))
 
 plt.figure(2)
+plt.plot(set_dist, dk_60w, '-o')
+plt.plot(set_dist, dk_120w, '-o')
+plt.plot(set_dist, dk_150w_w, '-o')
+plt.plot(set_dist, dk_150w_r, '-o')
+plt.xlim(xmin=0)  # this line
+plt.ylim(ymin=0)  # this line
+plt.grid()
+plt.title('IXYS SLMD121H04L-ND 20% Monocrystaline 2x 43x14 (parallel) ')
+plt.xlabel('distance from solar panel (cm)')
+plt.ylabel('charge time (s)')
+plt.legend(('60w halogen','120w halogen', 'white 150w ir lamp', 'red 150w ir lamp'))
+
+plt.figure(3)
 plt.plot(set_dist, list_avg(ns_60w), '-o')
 plt.plot(set_dist, list_avg(ns_120w), '-o')
 plt.plot(set_dist, list_avg(ns_150w_w), '-o')
