@@ -9,10 +9,10 @@
 #define MOTOR_CTRL_H_
 
 typedef struct motor_calib {
-   uint16_t lmin;
-   uint16_t rmin;
-   uint16_t smax;
-} motor_calib;
+   int16_t lmin;
+   int16_t rmin;
+   int16_t smax;
+}motor_calib;
 
 void drv_init(motor_calib set_mc);
 void enbl_mot();

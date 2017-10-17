@@ -8,10 +8,11 @@
 #ifndef GLOBAL_H_
 #define GLOBAL_H_
 
-#define DEBUG   0
-#define SPI     0
+#define DEBUG       0
+#define SPI         0
 
-#define ROBOT   1
+#define ROBOT       1
+#define PERSISTENT  1
 
 typedef struct nv_var {
     uint8_t cp;

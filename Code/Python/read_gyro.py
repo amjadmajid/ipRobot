@@ -11,7 +11,7 @@ from scipy.signal import savgol_filter
 
 def read_fram():
 
-    num_samples = 1000
+    num_samples = 200
 
     # Get whole lines, otherwise unhexify will crash
     num_lines = int(32 * (math.ceil(num_samples*2/32))) -1

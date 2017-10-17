@@ -28,9 +28,7 @@ int16_t rspeed = 0;
 float set = 0;
 
 // run set_tunings()
-float kp = 0;
-float ki = 0;
-float kd = 0;
+float kp = 0, ki = 0, kd = 0;
 
 // run set_limits()
 float out_max = 75, out_min = -75;
@@ -41,14 +39,15 @@ float prev = 0;
 uint16_t num_loops = 0;
 float ang = 0;
 
-void ctrl_init(){
+robot_conf curr_conf;
 
-    // lmin, rmin, smax
-    motor_calib mc = {80, 65, 75};
+void ctrl_init(robot_conf set_conf){
+
+    curr_conf = set_conf;
 
     // assume i2c is already initialized
     gyro_init();
-    drv_init(mc);
+    drv_init(curr_conf.mc);
 
     TA3CCR0 = 125000 * SAMPLE_TIME;           // Set timer frequency
     TA3CTL = TASSEL__SMCLK | ID__8 | MC__UP;  // SMCLK, divide by 8, UP mode
@@ -81,9 +80,13 @@ void move(uint8_t cmd, int16_t arg){
 
     switch(cmd) {
         case STRAIGHT:
-            set_tunings(0.13*0.6, (20/100)/2, (20/100)/8);
+            set_tunings(curr_conf.st.Kp, curr_conf.st.Ki, curr_conf.st.Kd);
+#if DEBUG
+            num_loops = 200;
+#else
             num_loops = (uint16_t)((float)arg / VEL_CAL / SAMPLE_TIME) + STEP_OFF;
-            set_limits(SMAX, -SMAX);
+#endif
+            set_limits(curr_conf.mc.smax, -curr_conf.mc.smax);
             if(fram.cnt >= STEP_OFF && fram.cnt < num_loops - STEP_OFF)
                 fram.cnt -= STEP_OFF;                 // Extra steps on startup!
             lspeed = MOT_TRG;
@@ -92,17 +95,17 @@ void move(uint8_t cmd, int16_t arg){
             TA3CCTL0 = CCIE;                          // TACCR0 interrupt enabled
             break;
         case TURN_LEFT:
-            set_tunings(0.75, 0, 0);
+            set_tunings(curr_conf.tl.Kp, curr_conf.tl.Ki, curr_conf.tl.Kd);
             set_setpoint(arg);
-            set_limits(SMAX, -SMAX);
+            set_limits(curr_conf.mc.smax, -curr_conf.mc.smax);
             ang = fram.ang;                           // Always restore angle progress
             enbl_mot();
             TA3CCTL0 = CCIE;                          // TACCR0 interrupt enabled
             break;
         case TURN_RIGHT:
-            set_tunings(0.35, 0, 0);
+            set_tunings(curr_conf.tr.Kp, curr_conf.tr.Ki, curr_conf.tr.Kd);
             set_setpoint(-arg);
-            set_limits(SMAX, -SMAX);
+            set_limits(curr_conf.mc.smax, -curr_conf.mc.smax);
             ang = fram.ang;                           // Always restore angle progress
             enbl_mot();
             TA3CCTL0 = CCIE;                          // TACCR0 interrupt enabled

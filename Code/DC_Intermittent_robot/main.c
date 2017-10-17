@@ -9,10 +9,39 @@
  * main.c
  */
 
+#if PERSISTENT==1
 #pragma PERSISTENT(fram);
+#endif
 nv_var fram = {0};
+#if PERSISTENT==1
 #pragma PERSISTENT(fram_wc);
+#endif
 nv_var fram_wc = {0};
+
+#if ROBOT==1
+robot_conf conf = {
+        {0.13*0.6, (20/100)/2, (20/100)/8},     //tunings straight
+        {0.75, 0, 0},                           //tunings turn_left
+        {0.35, 0, 0},                           //tunings turn_right
+        {80, 65, 75}                            //lmin, rmin, smax
+};
+#elif ROBOT==2
+robot_conf conf = {
+        {0.18*0.6, (20/100)/2, (20/100)/8},     //tunings straight
+        {0.3, 0, 0},                            //tunings turn_left
+        {0.3, 0, 0},                            //tunings turn_right
+        {70, 110, 90}                           // lmin, rmin, smax
+};
+#elif ROBOT==3
+robot_conf conf = {
+        {0.13*0.6, (20/100)/2, (20/100)/8},     //tunings straight
+        {0.3, 0, 0},                            //tunings turn_left
+        {0.3, 0, 0},                            //tunings turn_right
+        {90, 80, 85}                           // lmin, rmin, smax
+};
+#else
+    //ERROR
+#endif
 
 void swap(nv_var *a, nv_var *b){
 
@@ -38,14 +67,14 @@ void init(void) {
     PJOUT &= ~BIT6;
 }
 
-int main(void) {
+    int main(void) {
 
     init();
 
     __delay_cycles(8000000);
 
     i2c_init();
-    ctrl_init();
+    ctrl_init(conf);
 
     //int8_t len = 6;
     //int8_t inst[6] = {STRAIGHT, 20, TURN_RIGHT, 90, STRAIGHT, 20}; //, STRAIGHT, 20};
@@ -71,7 +100,9 @@ int main(void) {
         fram_wc.cp++;
         swap(&fram, &fram_wc);
     }
+#if !DEBUG
     fram.cp = 0;
+#endif
 
 #if SPI
     stop_bor_timer();
