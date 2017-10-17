@@ -100,17 +100,18 @@ def find_minimum(dlist):
     print larr2
     print sum(larr2) / float(len(larr2))
 
+dir = "pid_data_17-10/"
 
-if 0:
+if 1:
 
     data = read_fram()
-    #write_list_csv("pid_data/straight_data.csv", data)
+    write_list_csv(dir + "r2_straight_kp0.18_tu20_200.csv", data)
 
     plt.figure(1)
     plt.plot(data)
     plt.show()
 
-if 1:
+if 0:
     data1 = read_list_csv("pid_data/straight_kp010_osc_200.csv")
     data2 = read_list_csv("pid_data/straight_kp012_osc_200.csv")
     data3 = read_list_csv("pid_data/straight_kp013_osc_200.csv")
