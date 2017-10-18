@@ -13,9 +13,6 @@
 
 void gyro_init(){
 
-    // enable BMG250
-    //P2OUT |= BIT1; //P2.1 (UART_RX)
-
     //Software reset
     //i2c_write(BMG_ADDR, 0x7E, 0xB6);
 
