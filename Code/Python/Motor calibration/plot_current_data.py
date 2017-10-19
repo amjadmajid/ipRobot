@@ -1,15 +1,25 @@
 import csv
 import math as m
 import matplotlib.pyplot as plt
-from scipy.signal import savgol_filter
+import numpy as np
+import pandas as pd
 
-lines = []
 
-# with open('min_freq.csv') as f:
-#     for line in f.readlines():
-#         lines.append(line)
-#
-# print lines
+def chop_ends(list, thres):
+    list = map(float, list)
+    # Remove "zero" data
+    i = 0
+    while(list[i] < thres):
+        i+=1
+    #print 'i:' + str(i)
+    list = list[i-10:]
+    j = len(list)-1
+    while(list[j] < thres):
+        j-=1
+    #print 'j:' + str(j)
+    list = list[:j+10]
+    return list
+
 
 def csv_dict_reader(file_obj):
     """
@@ -26,42 +36,79 @@ def csv_dict_reader(file_obj):
          avg_vol.append(line["Main Avg Voltage (V)"])
          max_cur.append(line["Main Max Current (mA)"])
 
-    avg_cur = savgol_filter(avg_cur, 101, 2)  # window size 51, polynomial order 3
+    avg_cur = chop_ends(avg_cur, 2)
 
-    print 'max = ' + str(max(avg_cur))
-    print 'max2 = ' + str(max(max_cur))
+    ws = 100
+    maxc = pd.Series(avg_cur).rolling(ws).max().dropna().tolist()
+    avgc = pd.Series(avg_cur).rolling(ws).mean().dropna().tolist()
 
-    plt.figure(1)
-    plt.plot(avg_cur)
-    #plt.plot(max_cur)
+    print 'max_max: ' + str(max(maxc))
+    print 'avg_max: ' + str(max(avgc))
 
-    return avg_cur
+    x = np.linspace(0, 0.0002*len(maxc), len(maxc))
+
+    plt.plot(x, maxc)
+    plt.plot(x, avgc)
+    #return avg_cur
 
 
-with open("min_freq.csv") as f_obj:
-    csv_dict_reader(f_obj)
+# with open("min_freq.csv") as f_obj:
+#     csv_dict_reader(f_obj)
+#
+# with open("half_freq_185.csv") as f_obj:
+#     csv_dict_reader(f_obj)
+#
+# with open("max_freq_370.csv") as f_obj:
+#     max_avg_cur = csv_dict_reader(f_obj)
 
-with open("half_freq_185.csv") as f_obj:
-    csv_dict_reader(f_obj)
+dir = 'data_19-10/'
 
-with open("max_freq_370.csv") as f_obj:
+with open(dir + "r1_max_freq_100.csv") as f_obj:
     max_avg_cur = csv_dict_reader(f_obj)
 
-V = 0.195
-arr = []
-for x in max_avg_cur:
-    if x > 110:
-        arr.append(x)
+with open(dir + "r1_max_freq_75.csv") as f_obj:
+    max_avg_cur = csv_dict_reader(f_obj)
 
-I = 0
-for y in arr:
-    I += (y - 119)
-I = I / (len(arr))
+# with open(dir + "r1_max_freq_50.csv") as f_obj:
+#     max_avg_cur = csv_dict_reader(f_obj)
+#
+# with open(dir + "r1_max_freq_25.csv") as f_obj:
+#     max_avg_cur = csv_dict_reader(f_obj)
+#
+# with open(dir + "r1_max_freq_1.csv") as f_obj:
+#     max_avg_cur = csv_dict_reader(f_obj)
 
-print "Ecap = " + str(V*(I*m.pow(10,-3))*0.011)
+with open(dir + "r1_max_freq_19step_ramp_to_76.csv") as f_obj:
+    max_avg_cur = csv_dict_reader(f_obj)
 
-print "Ecap2 = " + str(0.5*220*m.pow(10,-6)*m.pow(V,2))
+with open(dir + "r1_max_freq_20step_ramp_to_100.csv") as f_obj:
+    max_avg_cur = csv_dict_reader(f_obj)
 
-print 'time (ms): ' + str(0.2*len(arr))
 
+
+
+plt.ylabel('Current (mA)')
+plt.xlabel('Time (s)')
+plt.xlim(xmin=0)  # this line
+plt.ylim(ymin=0)  # this line
 plt.show()
+
+
+
+# V = 0.195
+# arr = []
+# for x in max_avg_cur:
+#     if x > 110:
+#         arr.append(x)
+#
+# I = 0
+# for y in arr:
+#     I += (y - 119)
+# I = I / (len(arr))
+#
+# print "Ecap = " + str(V*(I*m.pow(10,-3))*0.011)
+#
+# print "Ecap2 = " + str(0.5*220*m.pow(10,-6)*m.pow(V,2))
+#
+# print 'time (ms): ' + str(0.2*len(arr))
+#
