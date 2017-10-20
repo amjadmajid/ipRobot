@@ -5,23 +5,23 @@ import numpy as np
 import pandas as pd
 
 
-def chop_ends(list, thres):
-    list = map(float, list)
+def chop_ends(dlist, thres):
+    dlist = map(float, dlist)
     # Remove "zero" data
     i = 0
-    while(list[i] < thres):
+    while dlist[i] < thres:
         i+=1
     #print 'i:' + str(i)
-    list = list[i-10:]
-    j = len(list)-1
-    while(list[j] < thres):
+    dlist = dlist[i-10:]
+    j = len(dlist)-1
+    while dlist[j] < thres:
         j-=1
     #print 'j:' + str(j)
-    list = list[:j+10]
-    return list
+    dlist = dlist[:j+10]
+    return dlist
 
 
-def csv_dict_reader(file_obj):
+def get_max_avg_cur(file_obj):
     """
     Read a CSV file using csv.DictReader
     """
@@ -44,55 +44,70 @@ def csv_dict_reader(file_obj):
 
     print 'max_max: ' + str(max(maxc))
     print 'avg_max: ' + str(max(avgc))
+    x = np.linspace(0, 0.0002 * len(maxc), len(maxc))
+    ax1.plot(x, maxc)
+    ax1.axhline(y=110,linewidth=1, color = 'r')
+    ax2.plot(x, avgc)
 
-    x = np.linspace(0, 0.0002*len(maxc), len(maxc))
-
-    plt.plot(x, maxc)
-    plt.plot(x, avgc)
-    #return avg_cur
-
-
-# with open("min_freq.csv") as f_obj:
-#     csv_dict_reader(f_obj)
-#
-# with open("half_freq_185.csv") as f_obj:
-#     csv_dict_reader(f_obj)
-#
-# with open("max_freq_370.csv") as f_obj:
-#     max_avg_cur = csv_dict_reader(f_obj)
 
 dir = 'data_19-10/'
 
+fig1 = plt.figure(1)
+fig1.suptitle('PWM target 140', fontsize=12, fontweight='normal')
+ax1 = fig1.add_subplot(211)
+ax1.set_title('Max current')
+ax1.set_ylabel('Current (mA)')
+ax2 = fig1.add_subplot(212)
+ax2.set_title('Average current')
+ax2.set_ylabel('Current (mA)')
+
+with open(dir + "r1_max_freq_140.csv") as f_obj:
+    get_max_avg_cur(f_obj)
+
+with open(dir + "r1_max_freq_10step_ramp_to_140.csv") as f_obj:
+    get_max_avg_cur(f_obj)
+
+with open(dir + "r1_max_freq_20step_ramp_to_140.csv") as f_obj:
+    get_max_avg_cur(f_obj)
+
+fig2 = plt.figure(2)
+fig2.suptitle('PWM target 120', fontsize=12, fontweight='normal')
+ax1 = fig2.add_subplot(211)
+ax1.set_title('Max current')
+ax1.set_ylabel('Current (mA)')
+ax2 = fig2.add_subplot(212)
+ax2.set_title('Average current')
+ax2.set_ylabel('Current (mA)')
+
+with open(dir + "r1_max_freq_120.csv") as f_obj:
+    get_max_avg_cur(f_obj)
+
+with open(dir + "r1_max_freq_10step_ramp_to_120.csv") as f_obj:
+    get_max_avg_cur(f_obj)
+
+with open(dir + "r1_max_freq_20step_ramp_to_120.csv") as f_obj:
+    get_max_avg_cur(f_obj)
+
+
+fig3 = plt.figure(3)
+fig3.suptitle('PWM target 100', fontsize=12, fontweight='normal')
+ax1 = fig3.add_subplot(211)
+ax1.set_title('Max current')
+ax1.set_ylabel('Current (mA)')
+ax2 = fig3.add_subplot(212)
+ax2.set_title('Average current')
+ax2.set_ylabel('Current (mA)')
+
 with open(dir + "r1_max_freq_100.csv") as f_obj:
-    max_avg_cur = csv_dict_reader(f_obj)
+    get_max_avg_cur(f_obj)
 
-with open(dir + "r1_max_freq_75.csv") as f_obj:
-    max_avg_cur = csv_dict_reader(f_obj)
-
-# with open(dir + "r1_max_freq_50.csv") as f_obj:
-#     max_avg_cur = csv_dict_reader(f_obj)
-#
-# with open(dir + "r1_max_freq_25.csv") as f_obj:
-#     max_avg_cur = csv_dict_reader(f_obj)
-#
-# with open(dir + "r1_max_freq_1.csv") as f_obj:
-#     max_avg_cur = csv_dict_reader(f_obj)
-
-with open(dir + "r1_max_freq_19step_ramp_to_76.csv") as f_obj:
-    max_avg_cur = csv_dict_reader(f_obj)
+with open(dir + "r1_max_freq_10step_ramp_to_100.csv") as f_obj:
+    get_max_avg_cur(f_obj)
 
 with open(dir + "r1_max_freq_20step_ramp_to_100.csv") as f_obj:
-    max_avg_cur = csv_dict_reader(f_obj)
+    get_max_avg_cur(f_obj)
 
-
-
-
-plt.ylabel('Current (mA)')
-plt.xlabel('Time (s)')
-plt.xlim(xmin=0)  # this line
-plt.ylim(ymin=0)  # this line
 plt.show()
-
 
 
 # V = 0.195
@@ -111,4 +126,3 @@ plt.show()
 # print "Ecap2 = " + str(0.5*220*m.pow(10,-6)*m.pow(V,2))
 #
 # print 'time (ms): ' + str(0.2*len(arr))
-#
