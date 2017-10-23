@@ -21,20 +21,21 @@ def chop_ends(dlist, thres):
     return dlist
 
 
-def get_max_avg_cur(file_obj):
-    """
-    Read a CSV file using csv.DictReader
-    """
-    reader = csv.DictReader(file_obj, delimiter=',')
-    time = []
-    avg_cur = []
-    avg_vol = []
-    max_cur = []
-    for line in reader:
-         time.append(line["Time (s)"])
-         avg_cur.append(line["Main Avg Current (mA)"])
-         avg_vol.append(line["Main Avg Voltage (V)"])
-         max_cur.append(line["Main Max Current (mA)"])
+def get_max_avg_cur(file):
+    with open(file) as f_obj:
+        """
+        Read a CSV file using csv.DictReader
+        """
+        reader = csv.DictReader(f_obj, delimiter=',')
+        time = []
+        avg_cur = []
+        avg_vol = []
+        max_cur = []
+        for line in reader:
+             time.append(line["Time (s)"])
+             avg_cur.append(line["Main Avg Current (mA)"])
+             avg_vol.append(line["Main Avg Voltage (V)"])
+             max_cur.append(line["Main Max Current (mA)"])
 
     avg_cur = chop_ends(avg_cur, 2)
 
@@ -46,7 +47,7 @@ def get_max_avg_cur(file_obj):
     print 'avg_max: ' + str(max(avgc))
     x = np.linspace(0, 0.0002 * len(maxc), len(maxc))
     ax1.plot(x, maxc)
-    ax1.axhline(y=110,linewidth=1, color = 'r')
+    ax1.axhline(y=110, linewidth=1, color='r')
     ax2.plot(x, avgc)
 
 
@@ -61,14 +62,12 @@ ax2 = fig1.add_subplot(212)
 ax2.set_title('Average current')
 ax2.set_ylabel('Current (mA)')
 
-with open(dir + "r1_max_freq_140.csv") as f_obj:
-    get_max_avg_cur(f_obj)
+get_max_avg_cur(dir + "r1_max_freq_140.csv")
 
-with open(dir + "r1_max_freq_10step_ramp_to_140.csv") as f_obj:
-    get_max_avg_cur(f_obj)
+get_max_avg_cur(dir + "r1_max_freq_10step_ramp_to_140.csv")
 
-with open(dir + "r1_max_freq_20step_ramp_to_140.csv") as f_obj:
-    get_max_avg_cur(f_obj)
+get_max_avg_cur(dir + "r1_max_freq_20step_ramp_to_140.csv")
+
 
 fig2 = plt.figure(2)
 fig2.suptitle('PWM target 120', fontsize=12, fontweight='normal')
@@ -79,14 +78,11 @@ ax2 = fig2.add_subplot(212)
 ax2.set_title('Average current')
 ax2.set_ylabel('Current (mA)')
 
-with open(dir + "r1_max_freq_120.csv") as f_obj:
-    get_max_avg_cur(f_obj)
+get_max_avg_cur(dir + "r1_max_freq_120.csv")
 
-with open(dir + "r1_max_freq_10step_ramp_to_120.csv") as f_obj:
-    get_max_avg_cur(f_obj)
+get_max_avg_cur(dir + "r1_max_freq_10step_ramp_to_120.csv")
 
-with open(dir + "r1_max_freq_20step_ramp_to_120.csv") as f_obj:
-    get_max_avg_cur(f_obj)
+get_max_avg_cur(dir + "r1_max_freq_20step_ramp_to_120.csv")
 
 
 fig3 = plt.figure(3)
@@ -98,14 +94,11 @@ ax2 = fig3.add_subplot(212)
 ax2.set_title('Average current')
 ax2.set_ylabel('Current (mA)')
 
-with open(dir + "r1_max_freq_100.csv") as f_obj:
-    get_max_avg_cur(f_obj)
+get_max_avg_cur(dir + "r1_max_freq_100.csv")
 
-with open(dir + "r1_max_freq_10step_ramp_to_100.csv") as f_obj:
-    get_max_avg_cur(f_obj)
+get_max_avg_cur(dir + "r1_max_freq_10step_ramp_to_100_v2.csv")
 
-with open(dir + "r1_max_freq_20step_ramp_to_100.csv") as f_obj:
-    get_max_avg_cur(f_obj)
+get_max_avg_cur(dir + "r1_max_freq_20step_ramp_to_100.csv")
 
 plt.show()
 
