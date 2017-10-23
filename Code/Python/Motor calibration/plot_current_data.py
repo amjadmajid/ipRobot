@@ -51,10 +51,14 @@ def get_max_avg_cur(file):
     ax2.plot(x, avgc)
 
 
-dir = 'data_19-10/'
+""""
+ROBOT 1
+"""
+
+dir1 = 'data_19-10/'
 
 fig1 = plt.figure(1)
-fig1.suptitle('PWM target 140', fontsize=12, fontweight='normal')
+fig1.suptitle('Robot1, PWM target 140', fontsize=12, fontweight='normal')
 ax1 = fig1.add_subplot(211)
 ax1.set_title('Max current')
 ax1.set_ylabel('Current (mA)')
@@ -62,15 +66,15 @@ ax2 = fig1.add_subplot(212)
 ax2.set_title('Average current')
 ax2.set_ylabel('Current (mA)')
 
-get_max_avg_cur(dir + "r1_max_freq_140.csv")
+get_max_avg_cur(dir1 + "r1_max_freq_140.csv")
 
-get_max_avg_cur(dir + "r1_max_freq_10step_ramp_to_140.csv")
+get_max_avg_cur(dir1 + "r1_max_freq_10step_ramp_to_140.csv")
 
-get_max_avg_cur(dir + "r1_max_freq_20step_ramp_to_140.csv")
+get_max_avg_cur(dir1 + "r1_max_freq_20step_ramp_to_140.csv")
 
 
 fig2 = plt.figure(2)
-fig2.suptitle('PWM target 120', fontsize=12, fontweight='normal')
+fig2.suptitle('Robot1, PWM target 120', fontsize=12, fontweight='normal')
 ax1 = fig2.add_subplot(211)
 ax1.set_title('Max current')
 ax1.set_ylabel('Current (mA)')
@@ -78,15 +82,15 @@ ax2 = fig2.add_subplot(212)
 ax2.set_title('Average current')
 ax2.set_ylabel('Current (mA)')
 
-get_max_avg_cur(dir + "r1_max_freq_120.csv")
+get_max_avg_cur(dir1 + "r1_max_freq_120.csv")
 
-get_max_avg_cur(dir + "r1_max_freq_10step_ramp_to_120.csv")
+get_max_avg_cur(dir1 + "r1_max_freq_10step_ramp_to_120.csv")
 
-get_max_avg_cur(dir + "r1_max_freq_20step_ramp_to_120.csv")
+get_max_avg_cur(dir1 + "r1_max_freq_20step_ramp_to_120.csv")
 
 
 fig3 = plt.figure(3)
-fig3.suptitle('PWM target 100', fontsize=12, fontweight='normal')
+fig3.suptitle('Robot1, PWM target 100', fontsize=12, fontweight='normal')
 ax1 = fig3.add_subplot(211)
 ax1.set_title('Max current')
 ax1.set_ylabel('Current (mA)')
@@ -94,11 +98,67 @@ ax2 = fig3.add_subplot(212)
 ax2.set_title('Average current')
 ax2.set_ylabel('Current (mA)')
 
-get_max_avg_cur(dir + "r1_max_freq_100.csv")
+get_max_avg_cur(dir1 + "r1_max_freq_100.csv")
 
-get_max_avg_cur(dir + "r1_max_freq_10step_ramp_to_100_v2.csv")
+get_max_avg_cur(dir1 + "r1_max_freq_10step_ramp_to_100.csv")
 
-get_max_avg_cur(dir + "r1_max_freq_20step_ramp_to_100.csv")
+get_max_avg_cur(dir1 + "r1_max_freq_20step_ramp_to_100.csv")
+
+
+""""
+ROBOT 2
+"""
+
+dir2 = 'data_21-10/'
+
+fig1 = plt.figure(4)
+fig1.suptitle('Robot2, PWM target 140', fontsize=12, fontweight='normal')
+ax1 = fig1.add_subplot(211)
+ax1.set_title('Max current')
+ax1.set_ylabel('Current (mA)')
+ax2 = fig1.add_subplot(212)
+ax2.set_title('Average current')
+ax2.set_ylabel('Current (mA)')
+
+get_max_avg_cur(dir2 + "r2_max_freq_140.csv")
+
+get_max_avg_cur(dir2 + "r2_max_freq_10step_ramp_to_140.csv")
+
+get_max_avg_cur(dir2 + "r2_max_freq_20step_ramp_to_140.csv")
+
+
+fig2 = plt.figure(5)
+fig2.suptitle('Robot2, PWM target 120', fontsize=12, fontweight='normal')
+ax1 = fig2.add_subplot(211)
+ax1.set_title('Max current')
+ax1.set_ylabel('Current (mA)')
+ax2 = fig2.add_subplot(212)
+ax2.set_title('Average current')
+ax2.set_ylabel('Current (mA)')
+
+get_max_avg_cur(dir2 + "r2_max_freq_120.csv")
+
+get_max_avg_cur(dir2 + "r2_max_freq_10step_ramp_to_120.csv")
+
+get_max_avg_cur(dir2 + "r2_max_freq_20step_ramp_to_120.csv")
+
+
+fig3 = plt.figure(6)
+fig3.suptitle('Robot2, PWM target 100', fontsize=12, fontweight='normal')
+ax1 = fig3.add_subplot(211)
+ax1.set_title('Max current')
+ax1.set_ylabel('Current (mA)')
+ax2 = fig3.add_subplot(212)
+ax2.set_title('Average current')
+ax2.set_ylabel('Current (mA)')
+
+get_max_avg_cur(dir2 + "r2_max_freq_100.csv")
+
+get_max_avg_cur(dir2 + "r2_max_freq_10step_ramp_to_100.csv")
+
+get_max_avg_cur(dir2 + "r2_max_freq_20step_ramp_to_100.csv")
+
+
 
 plt.show()
 

@@ -60,8 +60,26 @@ def read_fram():
 
     return iarr
 
-test = read_fram()
-print test
-plt.plot(test)
-plt.axhline(y=0.002, xmin=0, xmax=1, hold=None)
-plt.show()
+def write_list_csv(name, dlist):
+    with open(name, "wb") as csv_file:
+        wr = csv.writer(csv_file, quoting=csv.QUOTE_ALL)
+        wr.writerow(dlist)
+
+
+def read_list_csv(name):
+    with open(name, 'rb') as csvfile:
+        data = csv.reader(csvfile)
+        for x in data:
+            dlist = map(int, x)
+        return dlist
+
+dir = "Motor calibration/data_23-10/"
+
+if 1:
+
+    data = read_fram()
+    write_list_csv(dir + "r1_gyro_20step_100_trg.csv", data)
+
+    plt.figure(1)
+    plt.plot(data)
+    plt.show()
