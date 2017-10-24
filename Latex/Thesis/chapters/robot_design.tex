@@ -90,8 +90,8 @@ To allow for controlled movements the robot has a Bosch Sensortec BMG250 low pow
 
 % tell that also higher geared motors were tried??
 
-Two dc motors with a 25:1 gearbox from Precision Microdrives are mounted in a 3d printed frame. %, directly under the mainboard of the IPR.
-The motors are mounted diagonally opposite from each other making the robot as compact as possible, while this differential drive configuration allows the robot to steer.
+Two 26:1 sub-micro plastic planetary gearmotors from Pololu are mounted in a 3d printed frame.
+The motors are positioned diagonally opposite from each other making the robot as compact as possible, while this differential drive configuration allows the robot to steer.
 Small plastic wheels with rubber tires are mounted directly on each of the motor shafts.
 Behind these two motors a free running caster wheel is mounted to the frame, acting as a third support point for the robot.
 
@@ -150,29 +150,42 @@ Most reference designs are extendable but this adds complexity, while weight and
 \end{figure}
 
 
+The average current consumed of each component was measured with a Monsoon Power Monitor.
+First a two second current trace was recorded of the current consumed by the microcontroller on the WISP.
+The microctroller was then used to to enable each component one by one.
+After enabling a two second current trace was saved.
+The average of each current trace was calculated, and the current consumed by the microcontroller subtracted from the average current of each component.
+The result can be found in Table \ref{tab:avg_cur_comp}.
+
 % Make a overview of the cost to build a robot
 
-\begin{table*}[t]
+\begin{table}[t]
 	\centering
-	\caption{Power consumption of each individual component at 2.2V}
-	\label{tab:1}
-	\begin{tabular}{l l l} 
-		\hline
-		\\[-1em]
-		Part & Active Current & Standby Current\\ 
-		\hline
-		\\[-1em]
-		Proximity sensor & 432\textmu A & 0.1\textmu A \\
-		Gyroscope & 650\textmu A & 3\textmu A\\	
-		Microcontroller @ 8MHz & 1mA & N/A \\
-		H-bridge & 1.2mA & 10nA \\
-		DC motor & 39mA & N/A \\
-		DC motor & 39mA & N/A \\
-		\hline
-		\\[-1em]
-		Total & xx & xx \\
-	\end{tabular}
-\end{table*}
+	\begin{threeparttable}
+		\caption{Average consumed current for each individual component at 2.2V}
+		\label{tab:avg_cur_comp}
+		\begin{tabularx}{0.7\textwidth}{l@{\hskip 0.6in}l} 
+			\hline
+			\\[-1em]
+			Part & Active Current \\
+			\hline
+			\\[-1em]
+			Proximity sensor & 119\textmu A \\
+			Gyroscope & 848\textmu A\\	
+			Microcontroller @ 8MHz & 522\textmu A\\
+			H-bridge & 349\textmu A \\
+			Two DC motors\textsuperscript{1} & 27-50mA  \\
+			\hline
+			\\[-1em]
+			Total & 29-52mA \\
+			\hline
+		\end{tabularx}
+		\begin{tablenotes}
+		\small
+		\item [1] Current consumed varies per motor and motor speed
+		\end{tablenotes}
+	\end{threeparttable}
+\end{table}
 
 
 \section{Software Implementation}
