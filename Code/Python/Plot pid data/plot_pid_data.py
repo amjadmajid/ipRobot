@@ -102,7 +102,7 @@ def find_minimum(dlist):
 
 dir = "pid_data_17-10/"
 
-if 1:
+if 0:
 
     data = read_fram()
     write_list_csv(dir + "r2_straight_kp0.18_tu20_200.csv", data)
