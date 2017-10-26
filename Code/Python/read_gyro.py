@@ -73,12 +73,12 @@ def read_list_csv(name):
             dlist = map(int, x)
         return dlist
 
-dir = "Motor calibration/data_23-10/"
+dir = "Ramping_angvelocity/data_smax_100/"
 
 if 1:
 
     data = read_fram()
-    write_list_csv(dir + "r1_gyro_20step_100_trg.csv", data)
+    write_list_csv(dir + "r2_gyro_20step_60_trg_v3.csv", data)
 
     plt.figure(1)
     plt.plot(data)

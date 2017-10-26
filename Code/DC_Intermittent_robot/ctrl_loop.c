@@ -21,8 +21,14 @@ int16_t sensor_data[400] = {0};
 
 uint8_t curr_cmd;
 
-int16_t lspeed = 0;
-int16_t rspeed = 0;
+#if RAMP
+uint8_t rcnt = 19;
+uint8_t ramp = 3;
+#else
+uint8_t ramp = 0;
+#endif
+int16_t lspeed = 1;
+int16_t rspeed = 1;
 
 // run set_setpoint()
 float set = 0;
@@ -89,8 +95,10 @@ void move(uint8_t cmd, int16_t arg){
             set_limits(curr_conf.mc.smax, -curr_conf.mc.smax);
             if(fram.cnt >= STEP_OFF && fram.cnt < num_loops - STEP_OFF)
                 fram.cnt -= STEP_OFF;                 // Extra steps on startup!
+#if !RAMP
             lspeed = MOT_TRG;
             rspeed = MOT_TRG;
+#endif
             enbl_mot();
             TA3CCTL0 = CCIE;                          // TACCR0 interrupt enabled
             break;
@@ -169,8 +177,13 @@ void __attribute__ ((interrupt(TIMER3_A0_VECTOR))) Timer3_A0_ISR (void)
         if(fram.cnt >= num_loops || fram.stop)
             dsbl_loop();
         turn = pid_compute(omega);
-        lspeed = lspeed - (int16_t)turn;
-        rspeed = rspeed + (int16_t)turn;
+        lspeed = ramp + lspeed - (int16_t)turn;
+        rspeed = ramp + rspeed + (int16_t)turn;
+#if RAMP
+        // Ramp PWM with constant slope
+        if(fram.cnt == rcnt)
+            ramp = 0;
+#endif
 #if !DEBUG
         fram.cnt++;
 #endif

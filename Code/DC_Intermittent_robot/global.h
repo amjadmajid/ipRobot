@@ -11,6 +11,8 @@
 #define DEBUG       0
 #define SPI         0
 
+#define RAMP        0
+
 #define ROBOT       1
 #define PERSISTENT  1
 

@@ -67,7 +67,7 @@ void init(void) {
     PJOUT &= ~BIT6;
 }
 
-    int main(void) {
+int main(void) {
 
     init();
 
