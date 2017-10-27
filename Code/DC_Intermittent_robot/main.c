@@ -69,6 +69,8 @@ void init(void) {
 
 int main(void) {
 
+    uint16_t cnt = 0;
+
     init();
 
     __delay_cycles(8000000);
@@ -78,27 +80,29 @@ int main(void) {
 
     //int8_t len = 6;
     //int8_t inst[6] = {STRAIGHT, 20, TURN_RIGHT, 90, STRAIGHT, 20}; //, STRAIGHT, 20};
-    int8_t len = 2;
-    uint16_t inst[2] = {STRAIGHT, 50};
+    //int8_t len = 12;
+    //uint16_t inst[12] = {STRAIGHT, 30, TURN_RIGHT, 180, STRAIGHT, 30, TURN_RIGHT, 180, STRAIGHT, 30, TURN_RIGHT, 180};
+    //int8_t len = 2;
+    //uint16_t inst[2] = {TURN_LEFT, 180};
+    //int8_t len = 2;
+    uint16_t inst[2] = {STRAIGHT, 10};
 
 #if SPI
     // Create power interrupt after approx 1.1sec
     start_bor_timer(1100);
 #endif
 
-    while(fram.cp < len/2){
+    while(cnt < 30){
 
-        move(inst[2*fram.cp], inst[2*fram.cp+1]);
+        move(inst[0], inst[1]);
 
         while(!fram.stop){
 
         }
-        __delay_cycles(800000);     // 0.1sec delay between movements!
+        __delay_cycles(8000000);     // 0.1sec delay between movements!
         // Double buffer to keep consistency
-        fram_wc = fram;
-        fram_wc.stop = 0;
-        fram_wc.cp++;
-        swap(&fram, &fram_wc);
+        fram.stop = 0;
+        cnt++;
     }
 #if !DEBUG
     fram.cp = 0;

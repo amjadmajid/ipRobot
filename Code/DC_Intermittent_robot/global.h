@@ -13,7 +13,7 @@
 
 #define RAMP        0
 
-#define ROBOT       1
+#define ROBOT       3
 #define PERSISTENT  1
 
 typedef struct nv_var {

@@ -105,7 +105,8 @@ void move(uint8_t cmd, int16_t arg){
 #if DEBUG
                 num_loops = 200; }
 #else
-                num_loops = (uint16_t)((float)arg / VEL_CAL / SAMPLE_TIME); }
+                num_loops = arg;//(uint16_t)((float)arg / VEL_CAL / SAMPLE_TIME);
+                }
 #endif
 #if !RAMP
             lspeed = MOT_TRG;
