@@ -6,7 +6,6 @@ import binascii
 import struct
 import matplotlib.pyplot as plt
 import numpy as np
-from scipy.signal import savgol_filter
 
 
 def read_fram():

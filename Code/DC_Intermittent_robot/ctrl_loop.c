@@ -7,8 +7,10 @@
 
 #include <msp430.h>
 #include <stdint.h>
-// include mathematical constants from math.h
+// include mathematical constants from math.h'
+#ifndef __BSD_VISIBLE
 #define __BSD_VISIBLE
+#endif
 #include <math.h>
 #include "global.h"
 #include "ctrl_loop.h"
@@ -86,7 +88,6 @@ void set_limits(float max, float min){
  */
 void move(uint8_t cmd, int16_t arg){
     curr_cmd = cmd;
-    uint8_t r = 30;
     switch(cmd) {
         case STRAIGHT:
             set_tunings(curr_conf.st.Kp, curr_conf.st.Ki, curr_conf.st.Kd);
@@ -104,11 +105,11 @@ void move(uint8_t cmd, int16_t arg){
         case CURVE_RIGHT:
             set_tunings(curr_conf.st.Kp, curr_conf.st.Ki, curr_conf.st.Kd);
             if(curr_cmd == CURVE_LEFT){
-                set_setpoint((VEL_CAL / r)*(180 / M_PI));
+                set_setpoint((VEL_CAL / R_CRV)*(180 / M_PI));
                 ang_set = arg;
             }
             else if(curr_cmd == CURVE_RIGHT){
-                set_setpoint(-(VEL_CAL / r)*(180 / M_PI));
+                set_setpoint(-(VEL_CAL / R_CRV)*(180 / M_PI));
                 ang_set = -arg;
             }
             ang = fram.ang;                           // Always restore angle progress
