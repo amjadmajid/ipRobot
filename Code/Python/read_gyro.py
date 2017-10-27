@@ -11,11 +11,11 @@ from scipy.signal import savgol_filter
 
 def read_fram():
 
-    num_samples = 200
+    num_samples = 400
 
     # Get whole lines, otherwise unhexify will crash
     num_lines = int(32 * (math.ceil(num_samples*2/32))) -1
-    end = format(17408 + num_lines,'#04x')
+    end = format(17408 + num_lines, '#04x')
 
     process = subprocess.Popen(
         ["MSP430Flasher.exe", "-g", "-r", "[output.hex,0x4400-" + str(end) + "]", "-z", "[VCC=2200]"],
@@ -60,6 +60,7 @@ def read_fram():
 
     return iarr
 
+
 def write_list_csv(name, dlist):
     with open(name, "wb") as csv_file:
         wr = csv.writer(csv_file, quoting=csv.QUOTE_ALL)
@@ -73,12 +74,12 @@ def read_list_csv(name):
             dlist = map(int, x)
         return dlist
 
-dir = "Ramping_angvelocity/data_smax_100/"
+#dir = "Ramping_angvelocity/data_smax_100/"
 
 if 1:
 
     data = read_fram()
-    write_list_csv(dir + "r2_gyro_20step_60_trg_v3.csv", data)
+    #write_list_csv(dir + "r2_gyro_20step_60_trg_v3.csv", data)
 
     plt.figure(1)
     plt.plot(data)

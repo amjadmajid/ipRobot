@@ -34,7 +34,7 @@ int16_t rspeed = 1;
 
 // run set_setpoint()
 float set = 0;
-float set2 = 0;
+float ang_set = 0;
 
 // run set_tunings()
 float kp = 0, ki = 0, kd = 0;
@@ -89,28 +89,31 @@ void move(uint8_t cmd, int16_t arg){
     uint8_t r = 30;
     switch(cmd) {
         case STRAIGHT:
-        case CURVE_LEFT:
-        case CURVE_RIGHT:
             set_tunings(curr_conf.st.Kp, curr_conf.st.Ki, curr_conf.st.Kd);
-            if(curr_cmd == CURVE_LEFT){
-                set_setpoint((VEL_CAL / r)*(180 / M_PI));
-                set2 = arg;
-            }
-            else if(curr_cmd == CURVE_RIGHT){
-                set_setpoint(-(VEL_CAL / r)*(180 / M_PI));
-                set2 = -arg;
-            }
-            else{ //STRAIGHT
-                set_setpoint(0);
+            set_setpoint(0);
 #if DEBUG
-                num_loops = 200; }
+            num_loops = 200;
 #else
-                num_loops = (uint16_t)((float)arg / VEL_CAL / SAMPLE_TIME); }
+            num_loops = (uint16_t)((float)arg / VEL_CAL / SAMPLE_TIME);
 #endif
 #if !RAMP
             lspeed = MOT_TRG;
             rspeed = MOT_TRG;
 #endif
+        case CURVE_LEFT:
+        case CURVE_RIGHT:
+            set_tunings(curr_conf.st.Kp, curr_conf.st.Ki, curr_conf.st.Kd);
+            if(curr_cmd == CURVE_LEFT){
+                set_setpoint((VEL_CAL / r)*(180 / M_PI));
+                ang_set = arg;
+            }
+            else if(curr_cmd == CURVE_RIGHT){
+                set_setpoint(-(VEL_CAL / r)*(180 / M_PI));
+                ang_set = -arg;
+            }
+            ang = fram.ang;                           // Always restore angle progress
+            lspeed = MOT_TRG;
+            rspeed = MOT_TRG;
             break;
         case TURN_LEFT:
         case TURN_RIGHT:
@@ -201,9 +204,10 @@ void __attribute__ ((interrupt(TIMER3_A0_VECTOR))) Timer3_A0_ISR (void)
         case CURVE_LEFT:
         case CURVE_RIGHT:
 #if DEBUG
-        sensor_data[fram.cnt] = (int16_t)ang;
+        if(fram.cnt < 400)
+            sensor_data[fram.cnt] = (int16_t)ang;
 #endif
-        if(fabs(set2 - ang) < 10){
+        if(fabs(ang_set - ang) < TOLERANCE_DEGREES){
             dsbl_loop();
             return;
         }
