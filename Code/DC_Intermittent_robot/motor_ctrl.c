@@ -69,10 +69,10 @@ void drv_mot(int16_t sl, int16_t sr){
         TB0CCTL1 = OUTMOD_7;                      // CCR3 reset/set
         TB0CCR1 = (-sr) + curr_mc.rmin;
     } // right stop
-    /*else{
+    else{
         TB0CCTL1 = 0x00;
         TB0CCTL3 = 0x00;
-    }*/
+    }
     // left forward
     if(sl > 0){
         TB0CCTL4 = 0x00;
@@ -84,10 +84,10 @@ void drv_mot(int16_t sl, int16_t sr){
         TB0CCTL4 = OUTMOD_7;                      // CCR6 reset/set
         TB0CCR4 = (-sl) + curr_mc.lmin;
     } // left stop
-    /*else{
+    else{
         TB0CCTL4 = 0x00;
         TB0CCTL6 = 0x00;
-    }*/
+    }
 
     TB0CTL |= MC__UP | TBCLR;                    //Up mode, clear TBR
 }
