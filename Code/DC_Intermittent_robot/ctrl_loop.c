@@ -7,6 +7,8 @@
 
 #include <msp430.h>
 #include <stdint.h>
+// include mathematical constants from math.h
+#define __BSD_VISIBLE
 #include <math.h>
 #include "global.h"
 #include "ctrl_loop.h"
@@ -32,6 +34,7 @@ int16_t rspeed = 1;
 
 // run set_setpoint()
 float set = 0;
+float set2 = 0;
 
 // run set_tunings()
 float kp = 0, ki = 0, kd = 0;
@@ -83,42 +86,46 @@ void set_limits(float max, float min){
  */
 void move(uint8_t cmd, int16_t arg){
     curr_cmd = cmd;
-
+    uint8_t r = 30;
     switch(cmd) {
         case STRAIGHT:
+        case CURVE_LEFT:
+        case CURVE_RIGHT:
             set_tunings(curr_conf.st.Kp, curr_conf.st.Ki, curr_conf.st.Kd);
+            if(curr_cmd == CURVE_LEFT){
+                set_setpoint((VEL_CAL / r)*(180 / M_PI));
+                set2 = arg;
+            }
+            else if(curr_cmd == CURVE_RIGHT){
+                set_setpoint(-(VEL_CAL / r)*(180 / M_PI));
+                set2 = -arg;
+            }
+            else{ //STRAIGHT
+                set_setpoint(0);
 #if DEBUG
-            num_loops = 200;
+                num_loops = 200; }
 #else
-            num_loops = (uint16_t)((float)arg / VEL_CAL / SAMPLE_TIME);
+                num_loops = (uint16_t)((float)arg / VEL_CAL / SAMPLE_TIME); }
 #endif
-            set_limits(curr_conf.mc.smax, -curr_conf.mc.smax);
 #if !RAMP
             lspeed = MOT_TRG;
             rspeed = MOT_TRG;
 #endif
-            enbl_mot();
-            TA3CCTL0 = CCIE;                          // TACCR0 interrupt enabled
             break;
         case TURN_LEFT:
-            set_tunings(curr_conf.tl.Kp, curr_conf.tl.Ki, curr_conf.tl.Kd);
-            set_setpoint(arg);
-            set_limits(curr_conf.mc.smax, -curr_conf.mc.smax);
-            ang = fram.ang;                           // Always restore angle progress
-            enbl_mot();
-            TA3CCTL0 = CCIE;                          // TACCR0 interrupt enabled
-            break;
         case TURN_RIGHT:
             set_tunings(curr_conf.tr.Kp, curr_conf.tr.Ki, curr_conf.tr.Kd);
-            set_setpoint(-arg);
-            set_limits(curr_conf.mc.smax, -curr_conf.mc.smax);
+            if(curr_cmd == TURN_LEFT)
+                set_setpoint(arg);
+            else // TURN_RIGHT
+                set_setpoint(-arg);
             ang = fram.ang;                           // Always restore angle progress
-            enbl_mot();
-            TA3CCTL0 = CCIE;                          // TACCR0 interrupt enabled
             break;
-       //default : /* Optional */
-       //statement(s);
+        //default : /* Optional */
     }
+    set_limits(curr_conf.mc.smax, -curr_conf.mc.smax);
+    enbl_mot();
+    TA3CCTL0 = CCIE;                          // TACCR0 interrupt enabled
 }
 
 void dsbl_loop(){
@@ -168,12 +175,17 @@ void __attribute__ ((interrupt(TIMER3_A0_VECTOR))) Timer3_A0_ISR (void)
     float omega, turn;
     data = gyro_read();
     omega = data / 32.767;
-    if(curr_cmd == STRAIGHT){
+    ang += omega * SAMPLE_TIME; // integrate to get the angle
+    fram.ang = ang;             // save the current angle
+    switch(curr_cmd) {
+        case STRAIGHT:
 #if DEBUG
         sensor_data[fram.cnt] = (int16_t)omega;
 #endif
-        if(fram.cnt >= num_loops || fram.stop)
+        if(fram.cnt >= num_loops || fram.stop){
             dsbl_loop();
+            return;
+        }
         turn = pid_compute(omega);
         lspeed = ramp + lspeed - (int16_t)turn;
         rspeed = ramp + rspeed + (int16_t)turn;
@@ -185,11 +197,25 @@ void __attribute__ ((interrupt(TIMER3_A0_VECTOR))) Timer3_A0_ISR (void)
 #if !DEBUG
         fram.cnt++;
 #endif
-    }else if(curr_cmd == TURN_LEFT || curr_cmd == TURN_RIGHT){
-        ang += omega * SAMPLE_TIME; // integrate to get the angle
-        fram.ang = ang;             // save the current angle
+        break;
+        case CURVE_LEFT:
+        case CURVE_RIGHT:
 #if DEBUG
         sensor_data[fram.cnt] = (int16_t)ang;
+#endif
+        if(fabs(set2 - ang) < 10){
+            dsbl_loop();
+            return;
+        }
+        turn = pid_compute(omega);
+        lspeed = lspeed - (int16_t)turn;
+        rspeed = rspeed + (int16_t)turn;
+        break;
+        case TURN_LEFT:
+        case TURN_RIGHT:
+#if DEBUG
+        if(fram.cnt < 400)
+            sensor_data[fram.cnt] = (int16_t)ang;
 #endif
         if(fabs(set - ang) < TOLERANCE_DEGREES){
             dsbl_loop();
@@ -198,6 +224,8 @@ void __attribute__ ((interrupt(TIMER3_A0_VECTOR))) Timer3_A0_ISR (void)
         turn = pid_compute(ang);
         lspeed = -(int16_t)turn;
         rspeed = +(int16_t)turn;
+        break;
+    //default : /* Optional */
     }
     drv_mot(lspeed, rspeed);
 #if DEBUG

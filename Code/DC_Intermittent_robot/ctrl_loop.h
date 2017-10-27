@@ -12,13 +12,15 @@
 
 #define SAMPLE_TIME 0.01 // 100Hz
 
-#define STRAIGHT   0x01
-#define TURN_LEFT  0x02
-#define TURN_RIGHT 0x03
+#define STRAIGHT    0x01
+#define CURVE_LEFT  0x02
+#define CURVE_RIGHT 0x03
+#define TURN_LEFT   0x04
+#define TURN_RIGHT  0x05
 
 // Speed / Distance tuning parameters
-#define MOT_TRG 75
-#define VEL_CAL 28
+#define MOT_TRG 40
+#define VEL_CAL 24.3
 
 #define TOLERANCE_DEGREES 2.0
 
