@@ -19,7 +19,6 @@
 // Speed / Distance tuning parameters
 #define MOT_TRG 75
 #define VEL_CAL 28
-#define STEP_OFF 0
 
 #define TOLERANCE_DEGREES 2.0
 

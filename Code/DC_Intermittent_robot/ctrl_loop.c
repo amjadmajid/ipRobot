@@ -90,11 +90,9 @@ void move(uint8_t cmd, int16_t arg){
 #if DEBUG
             num_loops = 200;
 #else
-            num_loops = (uint16_t)((float)arg / VEL_CAL / SAMPLE_TIME) + STEP_OFF;
+            num_loops = (uint16_t)((float)arg / VEL_CAL / SAMPLE_TIME);
 #endif
             set_limits(curr_conf.mc.smax, -curr_conf.mc.smax);
-            if(fram.cnt >= STEP_OFF && fram.cnt < num_loops - STEP_OFF)
-                fram.cnt -= STEP_OFF;                 // Extra steps on startup!
 #if !RAMP
             lspeed = MOT_TRG;
             rspeed = MOT_TRG;
