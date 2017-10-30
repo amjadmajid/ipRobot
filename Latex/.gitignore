@@ -24,3 +24,4 @@
 *.synctex.gz
 *.pdf
 !Thesis/pics/*.pdf
+!Paper/Revisions/*.pdf
