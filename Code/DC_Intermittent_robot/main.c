@@ -21,15 +21,15 @@ nv_var fram_wc = {0};
 #if ROBOT==1
 robot_conf conf = {
         {0.13*0.6, (20/100)/2, (20/100)/8},     //tunings straight
-        {0.75, 0, 0},                           //tunings turn_left
-        {0.35, 0, 0},                           //tunings turn_right
+        {0.20, 0, 0},                           //tunings turn_left
+        {0.07, 0, 0},                           //tunings turn_right
         {80, 65, 75}                            //lmin, rmin, smax
 };
 #elif ROBOT==2
 robot_conf conf = {
         {0.18*0.6, (20/100)/2, (20/100)/8},     //tunings straight
-        {0.3, 0, 0},                            //tunings turn_left
-        {0.3, 0, 0},                            //tunings turn_right
+        {0.25, 0, 0},                           //tunings turn_left
+        {0.07, 0, 0},                           //tunings turn_right
         {70, 110, 90}                           // lmin, rmin, smax
 };
 #elif ROBOT==3
