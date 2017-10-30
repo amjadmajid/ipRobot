@@ -13,3 +13,6 @@ Release/
 
 # Do not upload memory dump
 *.hex
+
+# Do not upload pycharm specific files
+.idea/
