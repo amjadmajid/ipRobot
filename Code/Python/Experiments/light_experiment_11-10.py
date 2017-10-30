@@ -36,42 +36,49 @@ def list_avg(llist):
     return avg
 
 plt.figure(1)
-plt.plot(set_dist, list_avg(cp_60w), '-o')
-plt.plot(set_dist, list_avg(cp_120w), '-o')
-plt.plot(set_dist, list_avg(cp_150w_w), '-o')
+plt.plot(set_dist, list_avg(cp_60w), ':o')
+plt.plot(set_dist, list_avg(cp_120w), '-.o')
+plt.plot(set_dist, list_avg(cp_150w_w), '--o')
 plt.plot(set_dist, list_avg(cp_150w_r), '-o')
 plt.xlim(xmin=0)  # this line
-plt.ylim(ymin=0)  # this line
-plt.grid()
-plt.title('China 17% Monocrystaline 50x50')
-plt.xlabel('distance from solar panel (cm)')
-plt.ylabel('charge time (s)')
-plt.legend(('60w halogen','120w halogen', 'white 150w ir lamp', 'red 150w ir lamp'))
+plt.ylim(ymin=0, ymax=150)  # this line
+#plt.grid()
+#plt.title('Ebay 17% Monocrystaline 40x30')
+plt.xlabel('Distance from solar panel (cm)', fontsize=11)
+plt.ylabel('Charge time (s)', fontsize=11)
+plt.xticks(fontsize=11)
+plt.yticks(fontsize=11)
+plt.legend(('60W halogen','120W halogen', '150W IR lamp white', '150W IR lamp red'), loc='upper left', fontsize=11)
 
 plt.figure(2)
-plt.plot(set_dist, dk_60w, '-o')
-plt.plot(set_dist, dk_120w, '-o')
-plt.plot(set_dist, dk_150w_w, '-o')
+plt.plot(set_dist, dk_60w, ':o')
+plt.plot(set_dist, dk_120w, '-.o')
+plt.plot(set_dist, dk_150w_w, '--o')
 plt.plot(set_dist, dk_150w_r, '-o')
 plt.xlim(xmin=0)  # this line
-plt.ylim(ymin=0)  # this line
-plt.grid()
-plt.title('IXYS SLMD121H04L-ND 20% Monocrystaline 2x 43x14 (parallel) ')
-plt.xlabel('distance from solar panel (cm)')
-plt.ylabel('charge time (s)')
-plt.legend(('60w halogen','120w halogen', 'white 150w ir lamp', 'red 150w ir lamp'))
+plt.ylim(ymin=0, ymax=150)  # this line
+#plt.grid()
+#plt.title('IXYS SLMD121H04L-ND 20% Monocrystaline 2x 43x14 (parallel) ')
+plt.xlabel('Distance from solar panel (cm)', fontsize=11)
+plt.ylabel('Charge time (s)', fontsize=11)
+plt.xticks(fontsize=11)
+plt.yticks(fontsize=11)
+plt.legend(('60W halogen','120W halogen', '150W IR lamp white', '150W IR lamp red'), loc='upper left', fontsize=11)
+
+fac = (80*40 -(13.5*13.5))/1200
 
 plt.figure(3)
-plt.plot(set_dist, list_avg(ns_60w), '-o')
-plt.plot(set_dist, list_avg(ns_120w), '-o')
-plt.plot(set_dist, list_avg(ns_150w_w), '-o')
-plt.plot(set_dist, list_avg(ns_150w_r), '-o')
+plt.plot(set_dist, [i * fac for i in list_avg(ns_60w)], ':o')
+plt.plot(set_dist, [i * fac for i in list_avg(ns_120w)], '-.o')
+plt.plot(set_dist, [i * fac for i in list_avg(ns_150w_w)], '--o')
+plt.plot(set_dist, [i * fac for i in list_avg(ns_150w_r)], '-o')
 plt.xlim(xmin=0)  # this line
-plt.ylim(ymin=0)  # this line
-plt.grid()
-plt.title('Azurspace 28% Triple Junction GaAs 3G28C 80x40 (Nuna)')
-plt.xlabel('distance from solar panel (cm)')
-plt.ylabel('charge time (s)')
-plt.legend(('60w halogen','120w halogen', 'white 150w ir lamp', 'red 150w ir lamp'))
-
+plt.ylim(ymin=0, ymax=150)  # this line
+#plt.grid()
+#plt.title('Azurspace 3G28C 28% Triple Junction GaAs 80x40 (Nuna)')
+plt.xlabel('Distance from solar panel (cm)', fontsize=11)
+plt.ylabel('Charge time (s)', fontsize=11)
+plt.xticks(fontsize=11)
+plt.yticks(fontsize=11)
+plt.legend(('60W halogen','120W halogen', '150W IR lamp white', '150W IR lamp red'), loc='upper left', fontsize=11)
 plt.show()

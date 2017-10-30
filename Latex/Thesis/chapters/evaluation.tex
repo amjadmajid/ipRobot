@@ -2,7 +2,6 @@
 
 % - Weight vs current consumption vs distance
 % - Measure start motor overhead and average consumption (show graph?)
-% - Table with power consumption of each component at 2.2v ?? only active or also standy?
 
 \subsection{Energy harvesting from RF}
 %TODO explain that the it's more efficient to remove the wisp energy harvester and only use the one on the robot
@@ -20,11 +19,38 @@ On average the robot required 48 seconds fully charge and move away from the rea
 
 % Temperature
 % Light intensity
-% No difference betwee the heatlamps in power consumed
+% No difference between the heatlamps in power consumed
 % Halogen distributes the light more even
+% Panel from nuna
+% 
 
 To evaluate the charge-time of the robot a comparison was m
+Energy is harvested from a light.
+However 
 
+
+
+\begin{figure}
+	\centering
+	\begin{subfigure}[b]{0.60\textwidth}
+		\includegraphics[width=\textwidth]{pics/light_experiment_figure1.png}
+		\caption{Ebay 17\% Mono-Si 40x30}
+		\label{fig:light_exp1}
+	\end{subfigure}
+
+	\begin{subfigure}[b]{0.60\textwidth}
+		\includegraphics[width=\textwidth]{pics/light_experiment_figure2.png}
+		\caption{IXYS SLMD121H04L-ND 20\% Mono-Si 2x 43x14}
+		\label{fig:light_exp2}
+	\end{subfigure}
+
+	\begin{subfigure}[b]{0.60\textwidth}
+		\includegraphics[width=\textwidth]{pics/light_experiment_figure3.png}
+		\caption{Azurspace 3G28C 28\% Triple Junction GaAs 80x40}
+		\label{fig:light_exp3}
+	\end{subfigure}
+	\caption{The performance of three different solar panels for different distances from different light sources. The data charge times for the last two are normalized with respect to the surface covered by the first panel.}
+\end{figure}
 
 % Casestudy of conditions robot 
 
