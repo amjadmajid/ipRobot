@@ -117,12 +117,13 @@ void move(uint8_t cmd, int16_t arg){
             rspeed = MOT_TRG;
             break;
         case TURN_LEFT:
+            set_tunings(curr_conf.tl.Kp, curr_conf.tl.Ki, curr_conf.tl.Kd);
+            set_setpoint(arg);
+            ang = fram.ang;                           // Always restore angle progress
+            break;
         case TURN_RIGHT:
             set_tunings(curr_conf.tr.Kp, curr_conf.tr.Ki, curr_conf.tr.Kd);
-            if(curr_cmd == TURN_LEFT)
-                set_setpoint(arg);
-            else // TURN_RIGHT
-                set_setpoint(-arg);
+            set_setpoint(-arg);
             ang = fram.ang;                           // Always restore angle progress
             break;
         //default : /* Optional */
