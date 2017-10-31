@@ -3,7 +3,7 @@
 % - Weight vs current consumption vs distance
 % - Measure start motor overhead and average consumption (show graph?)
 
-\subsection{Energy harvesting from RF}
+\section{Energy harvesting from RF}
 %TODO explain that the it's more efficient to remove the wisp energy harvester and only use the one on the robot
 Small modifications have been made to the WISP to allow the energy harvester on the robot to harvest energy from RF.
 The energy harvester, the storage capacitor and the diode to bypass the harvester, were removed from a WISP.
@@ -16,47 +16,91 @@ The robot was placed 20cm away from the antenna, typically the distance where th
 On average the robot required 48 seconds fully charge and move away from the reader.
 
 \section{Performance in different light conditions}
+% Casestudy of conditions robot 
+% outdoors/indoors/varying light sources/varying solar panels
+% Do experiment in sunlight for nuna panel
 
-% Temperature
-% Light intensity
+%The amount of energy that can be harvested from normal office lighting is limited.
+Currently the robot harvests energy form light using a small solar panel.
+However, there isn't always enough sunlight available to charge the robots in a acceptable time.
+To allow the robots to have sub ten second charge times, a lighting setup needs to be created that provides a reasonable amount of uniform light to the area where the robots move around.
+
+Solar simulators consist of different kind of lamps to simulate sunlight and are used to test the performance of solar panels.
+In this section the charge time of the supercapacitor is evaluated, while it's charged from different solar panels and different light sources.
+
+\subsection{Experimental setup}
+% Temperature and Light intensity?
+To accurately measure the power that is harvested from each solar panel all the experiments were preformed in a darkroom.
+The setup consists of a light source that can be positioned at multiple distances from a solar panel.
+The solar panel is connected to input of the harvester on the PCB of the robot and when the voltage in the supercapacitor reaches the threshold the buck converter of the energy harvester is enabled.
+Voltage is supplied to the WISP which is programed to only enable a GPIO port and enable a LED.
+A Saleae Logic, logic analyzer is connected to the port and used to record the time required to charge the capacitor from the minimum to the maximum value.
+The port is enabled the light source is disabled and the LED is used to drain the energy from the capacitor.
+When the led turns off, indicating that a new charge period begins, the light source is enabled again.
+Now a more detailed description will be given of the different components that were tested.
+
+%TODO Why these lamps?
+Three different solar panels were tested in this experiment. Information about the solar panels can be found in Table \ref{tab:solar_panels}.
+The light sources used in this experiment are a 60W halogen bulb, a 120W halogen halogen bulb and two 150w IR heat lamps where one is colored red.
+Three measurements were done, where the lamps were positioned 10cm, 30cm and 50cm from the solar panels.
+Additionally, for these three distance the temperature was measured at the solar panel using a K-type thermocouple supplied with an Extech EX330 multimeter and the light intensity using the luxmeter on a MASTECH MS8229 multimeter.
+
+\begin{table}[t]
+	\centering
+	\begin{threeparttable}
+		\caption{The solar panels tested in the experiment}
+		\label{tab:solar_panels}
+		\small
+		\begin{tabular}{|l|l|l|l|}
+			\hline
+			& Composition & Efficiency & Dimensions \\
+			\hline
+			Ebay & Mono-Si & 17\% & 40x30mm \\
+			\hline
+			INYS SLMD121H04L-ND\textsuperscript{1}& Mono-Si & 22\% & 43x34mm \\
+			\hline
+			Azurspace 3G28C\textsuperscript{2}& Triple Junction GaAs& 28\% & 80x40mm \\
+			\hline
+		\end{tabular}
+	\begin{tablenotes}
+		\small
+		\item [1] Two panels in parallel
+		\item [2] An unlaminated panel borrowed form the Nuon Solar Team
+	\end{tablenotes}
+	\end{threeparttable}
+\end{table}
+
+\subsection{Results}
 % No difference between the heatlamps in power consumed
 % Halogen distributes the light more even
 % Panel from nuna
-% 
-
-To evaluate the charge-time of the robot a comparison was m
-Energy is harvested from a light.
-However 
-
 
 
 \begin{figure}
 	\centering
 	\begin{subfigure}[b]{0.60\textwidth}
 		\includegraphics[width=\textwidth]{pics/light_experiment_figure1.png}
-		\caption{Ebay 17\% Mono-Si 40x30}
+		\caption{Ebay panel} %17\% Mono-Si 40x30}
 		\label{fig:light_exp1}
 	\end{subfigure}
 
 	\begin{subfigure}[b]{0.60\textwidth}
 		\includegraphics[width=\textwidth]{pics/light_experiment_figure2.png}
-		\caption{IXYS SLMD121H04L-ND 20\% Mono-Si 2x 43x14}
+		\caption{IXYS SLMD121H04L-ND} %20\% Mono-Si 2x 43x14}
 		\label{fig:light_exp2}
 	\end{subfigure}
 
 	\begin{subfigure}[b]{0.60\textwidth}
 		\includegraphics[width=\textwidth]{pics/light_experiment_figure3.png}
-		\caption{Azurspace 3G28C 28\% Triple Junction GaAs 80x40}
+		\caption{Azurspace 3G28C}
 		\label{fig:light_exp3}
 	\end{subfigure}
 	\caption{The performance of three different solar panels for different distances from different light sources. The data charge times for the last two are normalized with respect to the surface covered by the first panel.}
 \end{figure}
 
-% Casestudy of conditions robot 
-
-% outdoors/indoors/varying light sources/varying solar panels
-
 \section{Controlled movements}
+
+
 
 % Comparison deadreckoning accuracy of battery powered robot with solar powered robot
 
