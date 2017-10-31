@@ -32,8 +32,6 @@ Furthermore:
 % - Tradeoff chargetime and operation time
 
 
-
-
 Current state of the art micro robotic platforms are not bigger than 4.4 cm, as can be seen from Table \label{tab:comparison_robot_platforms}.
 Keeping the size of the robot to a minimum is beneficial, while the weight will scale accordingly and less energy will be required for movement.
 
@@ -42,11 +40,8 @@ Keeping the size of the robot to a minimum is beneficial, while the weight will 
 Typically the amount of power that can be harvested 
 
 The main requirement for the robot is that it should be battery-less, therefore it can only store a small amount of energy in a capacitor / small buffer.
-Bigger capacitors have in general larger leakage currents.
+The leakage current increases with the capacitance of the capactior and the voltage stored in the capacitor.
 As a result these require longer charge time
-
-% This does not seem to be true?
-Size of the robot i.e weight and the required power for movement do not scale linearly.
 
 To make efficient use of the energy stored in a supercapacitor a regular is required to supply a stable voltage to the connected loads.
 The regulated output voltage is a lower threshold for the energy that can be used from the capacitor.
@@ -218,7 +213,7 @@ Since the speed of the motor is dependent on the supply voltage the speed of the
 However, the use of a supercapacitor requires a regulator to make efficient use of the energy stored, as described in Section \ref{subsec:energy_harvesting}.
 A benefit of running a constant voltage is that the supply voltage is not a factor anymore which can change the motor speed.
 %TODO NEED MORE EXPLANATION
-By making the assumption that the robot will only travel on a flat surface, the speed is considered constant given a certain PWM duty-cycle.
+By making the assumption that the robot will only travel on a flat surface, the speed is considered "constant" given a certain PWM duty-cycle.
 
 
 \subsubsection{PWM frequency for linear motion control}
@@ -257,7 +252,7 @@ On the top of the current peak the motor starts to move, a back EMF will be gene
 The current will reach a steady state while the motor RPM is limited by the voltage supplied to the motor.
 A lower PWM duty-cycle reduces both the current peak and the average current.
 Ramping up the PWM duty-cycle can be used to smooth out the startup current peak.
-When the set point is just to high a kind of clicking noise can be heard, indicating that the start current peak of motor is to high and the buck converter is not able to supply the current.
+When the set point is just to high a kind of clicking noise can be heard, indicating that the start current peak of motor is to high and the buck converter is not able to supply enough start current.
 
 \subsection{Closed loop feedback for controlled movements}
 
