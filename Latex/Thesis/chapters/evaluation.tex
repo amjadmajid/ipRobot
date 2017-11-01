@@ -24,8 +24,6 @@ On average the robot required 48 seconds fully charge and move away from the rea
 Currently the robot harvests energy form light using a small solar panel.
 However, there isn't always enough sunlight available to charge the robots in a acceptable time.
 To allow the robots to have sub ten second charge times, a lighting setup needs to be created that provides a reasonable amount of uniform light to the area where the robots move around.
-
-Solar simulators consist of different kind of lamps to simulate sunlight and are used to test the performance of solar panels.
 In this section the charge time of the supercapacitor is evaluated, while it's charged from different solar panels and different light sources.
 
 \subsection{Experimental setup}
@@ -41,6 +39,10 @@ Now a more detailed description will be given of the different components that w
 
 %TODO Why these lamps?
 Three different solar panels were tested in this experiment. Information about the solar panels can be found in Table \ref{tab:solar_panels}.
+Low cost solar simulators can consist of a combination of LED and halogen light bulbs to simulate sunlight and are used to test the performance of solar panels~\cite{grandi_tia_2014}.
+However, in this case the goal is to have a controlled uniform lighting environment where the robots have roughly constant charge times.
+Solar panels do not only harvest energy from the visual light spectrum but harvest almost at least as much from the infrared light spectrum, therefore not only light but also heat will shorten the charge time.
+Halogen lamps have a lower color temperature than the sun but also emit waves far into the infrared spectrum.
 The light sources used in this experiment are a 60W halogen bulb, a 120W halogen halogen bulb and two 150w IR heat lamps where one is colored red.
 Three measurements were done, where the lamps were positioned 10cm, 30cm and 50cm from the solar panels.
 Additionally, for these three distance the temperature was measured at the solar panel using a K-type thermocouple supplied with an Extech EX330 multimeter and the light intensity using the luxmeter on a MASTECH MS8229 multimeter.
@@ -74,23 +76,27 @@ Additionally, for these three distance the temperature was measured at the solar
 % No difference between the heatlamps in power consumed
 % Halogen distributes the light more even
 % Panel from nuna
+% Refer to appendix for temperature and light data?
 
+Both the temperature and illumination increase by decreasing the distance between the light source and the solar panel. 
+Secondly, increasing the output power of the lamp increases temperature and illumination as well. 
+However the charge times 
+A thing to note is that the both the 60w and 150w ir lamps have a spherical design. This creates a uneven circular shadowing pattern on the surface the lamps are shining on, which becomes more significant on the bigger distances in this experiment.
+The 120w lamp has a tubular design and in combination with the light fixture most of the light is reflected down with minimal shadowing of the lamp resulting in a more even light distribution.
 
 \begin{figure}
 	\centering
-	\begin{subfigure}[b]{0.60\textwidth}
+	\begin{subfigure}[b]{0.49\textwidth}
 		\includegraphics[width=\textwidth]{pics/light_experiment_figure1.png}
-		\caption{Ebay panel} %17\% Mono-Si 40x30}
+		\caption{Ebay panel}
 		\label{fig:light_exp1}
 	\end{subfigure}
-
-	\begin{subfigure}[b]{0.60\textwidth}
+	\begin{subfigure}[b]{0.49\textwidth}
 		\includegraphics[width=\textwidth]{pics/light_experiment_figure2.png}
-		\caption{IXYS SLMD121H04L-ND} %20\% Mono-Si 2x 43x14}
+		\caption{IXYS SLMD121H04L-ND}
 		\label{fig:light_exp2}
 	\end{subfigure}
-
-	\begin{subfigure}[b]{0.60\textwidth}
+	\begin{subfigure}[b]{0.49\textwidth}
 		\includegraphics[width=\textwidth]{pics/light_experiment_figure3.png}
 		\caption{Azurspace 3G28C}
 		\label{fig:light_exp3}
@@ -100,7 +106,11 @@ Additionally, for these three distance the temperature was measured at the solar
 
 \section{Controlled movements}
 
+Now that the best performing solar panel / light combination has been found, a performance comparison can be made between the battery-less robot and it's battery powered equal.
 
+\subsection{Experimental setup}
+
+\section{Results}
 
 % Comparison deadreckoning accuracy of battery powered robot with solar powered robot
 

@@ -81,4 +81,44 @@ plt.ylabel('Charge time (s)', fontsize=11)
 plt.xticks(fontsize=11)
 plt.yticks(fontsize=11)
 plt.legend(('60W halogen','120W halogen', '150W IR lamp white', '150W IR lamp red'), loc='upper left', fontsize=11)
+
+
+lux_60w = [5790, 2460, 577]
+lux_120w = [8760, 2496, 1179]
+lux_150w_w = [9860, 2046, 1027]
+lux_150w_r = [10550, 2652, 821]
+
+temp_60w = [25, 23, 22]
+temp_120w = [35, 25, 23]
+temp_150w_w = [37, 25, 26]
+temp_150w_r = [66, 37, 31]
+
+plt.figure(4)
+plt.plot(set_dist, lux_60w, ':o')
+plt.plot(set_dist, lux_120w, '-.o')
+plt.plot(set_dist, lux_150w_w, '--o')
+plt.plot(set_dist, lux_150w_r, '-o')
+plt.xlim(xmin=0)  # this line
+#plt.ylim(ymin=0)  # this line
+plt.xlabel('Distance from solar panel (cm)', fontsize=11)
+plt.ylabel('Illuminance (lux)', fontsize=11)
+plt.xticks(fontsize=11)
+plt.yticks(fontsize=11)
+plt.legend(('60W halogen','120W halogen', '150W IR lamp white', '150W IR lamp red'), loc='upper right', fontsize=11)
+
+plt.figure(5)
+plt.plot(set_dist, temp_60w, ':o')
+plt.plot(set_dist, temp_120w, '-.o')
+plt.plot(set_dist, temp_150w_w, '--o')
+plt.plot(set_dist, temp_150w_r, '-o')
+plt.xlim(xmin=0)  # this line
+plt.ylim(ymin=0)  # this line
+plt.xlabel('Distance from solar panel (cm)', fontsize=11)
+plt.ylabel('Temperature (C)', fontsize=11)
+plt.xticks(fontsize=11)
+plt.yticks(fontsize=11)
+plt.legend(('60W halogen','120W halogen', '150W IR lamp white', '150W IR lamp red'), loc='upper right', fontsize=11)
+
+
 plt.show()
+
