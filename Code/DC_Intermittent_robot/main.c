@@ -76,10 +76,10 @@ int main(void) {
     i2c_init();
     ctrl_init(conf);
 
-    //int8_t len = 6;
-    //int8_t inst[6] = {STRAIGHT, 20, TURN_RIGHT, 90, STRAIGHT, 20}; //, STRAIGHT, 20};
-    int8_t len = 2;
-    uint16_t inst[2] = {STRAIGHT, 50};
+    int8_t len = 12;
+    uint16_t inst[12] = {STRAIGHT, 50, TURN_RIGHT, 180, STRAIGHT, 50, TURN_RIGHT, 180, STRAIGHT, 50, TURN_RIGHT, 180};
+    //int8_t len = 2;
+    //uint16_t inst[2] = {TURN_LEFT, 360};
 
 #if SPI
     // Create power interrupt after approx 1.1sec
@@ -93,7 +93,7 @@ int main(void) {
         while(!fram.stop){
 
         }
-        __delay_cycles(800000);     // 0.1sec delay between movements!
+        __delay_cycles(16000000);     // 0.1sec delay between movements!
         // Double buffer to keep consistency
         fram_wc = fram;
         fram_wc.stop = 0;

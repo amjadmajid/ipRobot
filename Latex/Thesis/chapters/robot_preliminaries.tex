@@ -1,8 +1,7 @@
 \chapter{A Transiently-powered robot: Preliminaries}
 
-In this chapter design requirements for the robot will be determined based on minimal required capabilities.
-
-
+In this chapter design requirements for the robot will be determined based on minimal required capabilities. 
+Followed by an evaluation of stepper motor based locomotion for a transiently powered robot.
 
 \section{Design Requirements}
 \label{sec:design_requirements}
@@ -63,6 +62,56 @@ Wheel encoders are typically used to estimate the angular speed of the wheels.
 A combination of LEDs and photo diodes are used to measure the reflection of a rotating disk.
 However, two LED's on constantly on could consume a lot of power.
 The GRITSBot uses stepper motors to achieve accurate locomotion and basic odometry, as described in Section \ref{sec:locomotion}.
-This section will further investigate possibility of using stepper motor based locomotion in combination with a transiently-powered robot.
+This section will further investigate the use of stepper motor based locomotion in combination with a transiently-powered robot.
 
-\subsection{}
+\subsection{The stepper motor}
+A stepper motor is a type of permanent magnet dc motor that starts to rotate by supplying current to the motor coils in a direction.
+The bipolar stepper motor used, requires current to be pulsed trough each of the four connections, in a fixed pattern, in order to rotate it forward or backward.
+A Microcontroller(MCU) is used to keep track and instruct the next stepper motor position from a sequence of four.
+The outputs of the MCU cannot supply enough current to drive a bipolar stepper motor, therefore a dual H-bridge is required to control the current trough each coil.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{"pics/bipolar_stepper"}
+	\caption{http://homemaderobo.blogspot.nl/2012/03/stepper-motor.html}
+	\label{fig:bipolarstepper}
+\end{figure}
+
+The only way to grantee that a stepper motor will stay in position is to keep the coil energized until the next position is instructed and the other coil is energized. 
+On the first startup it can happen that the rotor is not aligned with the last position in the sequence.
+When this happens there can be an error between one and three steps of instructing a new steps and the stepper moving to the next position.
+
+In case the stepper motor is rotating and the power is removed, the rotor can keep rotating due to inertia.
+As a result of this the motor needs to be realigned again.
+A small experiment has been done to determine the signiface of this effect.
+
+A stepper motor is suspended and a needle glued to the motor shaft.
+First the rotor and coil is synchronized by moving 4 steps.
+Then the position of the needle is recorded and the steppe motor is commanded to make one rotation equal to 20 steps.
+
+\begin{figure}
+	\centering
+	\begin{subfigure}[b]{0.38\textwidth}
+		\includegraphics[width=\textwidth]{pics/step_counting.jpg}
+		\caption{}
+		\label{fig:step_counting}
+	\end{subfigure}
+	\quad
+	\begin{subfigure}[b]{0.55\textwidth}
+		\includegraphics[width=\textwidth]{pics/figure_intertia.png}
+		\caption{}
+		\label{fig:step_results}
+	\end{subfigure}
+\end{figure}
+
+A combination of these effects is amplified when two stepper motors are used in differential drive configuration, frequently used to allow a robot to both go straight and allow for steering as well.
+When the 
+
+%The current trough the coils is constant, so the faster the stepper motor changes step the more energy can be transformed into movement.
+%Increasing the rotational speed of the stepper motor decreases the torque output of the motor.
+%Therefore the speed is limited by the amount of torque required to preform the movement.
+
+
+
+
+
