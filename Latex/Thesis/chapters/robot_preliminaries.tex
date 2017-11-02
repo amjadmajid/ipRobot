@@ -1,0 +1,68 @@
+\chapter{A Transiently-powered robot: Preliminaries}
+
+In this chapter design requirements for the robot will be determined based on minimal required capabilities.
+
+
+
+\section{Design Requirements}
+\label{sec:design_requirements}
+
+% RF harvesting seems prommesing
+% Wispcam requires approx 4 seconds to harvest 20mJ at a distance of 20cm from the reader \cite{naderiparizi_rfid_2015}
+% better to only use RF for communication and harvest energy from another source \cite{konstantioulos}
+
+% Energy can be harvested from different sources
+
+
+% - Small form factor
+% - Weight of the robot
+% - Power (should not rely on batteries)
+% - Low voltage decreases power consumption of components and allows efficient use of the energy from the supercapacitor
+
+% - Optimize or low power consumption (disable or standby sensors and motor ctrl when not used)
+% - Minimal basic functionality (for simple swarm algorithms?) (but no power hungry components ie optical encoders or mouse sensors)
+% - Low power communication
+% - Navigation
+
+Furthermore:
+% - Single mainboard design
+% - Off the chelf components
+% - Swarm robots are typically limited to only operate on flat surfaces!
+% - However should be able to be powered from batteries for testing and tuning!
+
+% Extra extra:
+% - Tradeoff chargetime and operation time
+
+
+Current state of the art micro robotic platforms are not bigger than 4.4 cm, as can be seen from Table \label{tab:comparison_robot_platforms}.
+Keeping the size of the robot to a minimum is beneficial, while the weight will scale accordingly and less energy will be required for movement.
+
+
+
+Typically the amount of power that can be harvested 
+
+The main requirement for the robot is that it should be battery-less, therefore it can only store a small amount of energy in a capacitor / small buffer.
+The leakage current increases with the capacitance of the capacitor and the voltage stored in the capacitor.
+As a result these require longer charge time
+
+To make efficient use of the energy stored in a supercapacitor a regular is required to supply a stable voltage to the connected loads.
+The regulated output voltage is a lower threshold for the energy that can be used from the capacitor.
+The upper threshold is typically determined by the maximum voltage rating of the supercapacitor.
+Lowering the output voltage allows for more energy to be used from the supercapacitor, but also lowers the overall power consumption of individual components.
+The energy stored in supercapacitor is a function of the capacitance and the threshold voltage difference, being equal to:
+
+\begin{equation}
+\label{eq:cap2}
+E = \frac{1}{2}C(V_{max} - V_{min})^{2}
+\end{equation}
+
+\section{Stepper motor based locomotion}
+
+One of the major requirements for the robot was that it should have accurate locomotion and basic odometry.
+Wheel encoders are typically used to estimate the angular speed of the wheels.
+A combination of LEDs and photo diodes are used to measure the reflection of a rotating disk.
+However, two LED's on constantly on could consume a lot of power.
+The GRITSBot uses stepper motors to achieve accurate locomotion and basic odometry, as described in Section \ref{sec:locomotion}.
+This section will further investigate possibility of using stepper motor based locomotion in combination with a transiently-powered robot.
+
+\subsection{}
