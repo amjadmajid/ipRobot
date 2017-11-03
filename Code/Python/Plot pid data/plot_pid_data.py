@@ -111,7 +111,7 @@ if 0:
     plt.plot(data)
     plt.show()
 
-if 0:
+if 1:
     data1 = read_list_csv("pid_data/straight_kp010_osc_200.csv")
     data2 = read_list_csv("pid_data/straight_kp012_osc_200.csv")
     data3 = read_list_csv("pid_data/straight_kp013_osc_200.csv")
@@ -119,23 +119,27 @@ if 0:
 
     plt.figure(1)
     x = np.linspace(0, 2, 200)
-    plt.plot(x, data1)
-    plt.plot(x, data2)
-    plt.plot(x, data3)
-    plt.plot(x, data4)
+    plt.plot(x, data1, ':')
+    plt.plot(x, data2, '-.')
+    plt.plot(x, data3, '--')
+    plt.plot(x, data4, '-')
 
-    plt.ylabel('Yaw-rate (deg/s)')
-    plt.xlabel('Time (s)')
-    plt.legend(('Ku: 0.10', 'Ku: 0.12','Ku: 0.13', 'Ku: 0.14'))
+    plt.ylabel('Yaw-rate (deg/s)', fontsize=11)
+    plt.xlabel('Time (s)', fontsize=11)
+    plt.xticks(fontsize=11)
+    plt.yticks(fontsize=11)
+    plt.legend(('Ku: 0.10', 'Ku: 0.12','Ku: 0.13', 'Ku: 0.14'), loc='upper left', fontsize=11)
 
     plt.figure(2)
     # avg = savgol_filter(data3, 5, 2)  # window size 51, polynomial order 3
     data5 = read_list_csv("pid_data/straight_kp013_tu20_200.csv")
 
-    plt.plot(x, data3)
-    plt.plot(x, data5)
-    plt.ylabel('Yaw-rate (deg/s)')
-    plt.xlabel('Time (s)')
-    plt.legend(('Ku: 0.13, Tu = 0', 'Ku: 0.13, Tu = 0.20'))
+    plt.plot(x, data3, ':')
+    plt.plot(x, data5, '-.')
+    plt.ylabel('Yaw-rate (deg/s)', fontsize=11)
+    plt.xlabel('Time (s)', fontsize=11)
+    plt.xticks(fontsize=11)
+    plt.yticks(fontsize=11)
+    plt.legend(('Ku: 0.13, Tu = 0', 'Ku: 0.13, Tu = 0.20'), loc='upper left', fontsize=11)
 
     plt.show()
