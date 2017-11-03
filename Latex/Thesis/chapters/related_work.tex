@@ -3,7 +3,7 @@
 
 This chapter will provide background information about current state of the art transiently powered systems. The advantages and disadvantages of different electrical storage types are compared. A short summary of current miniature robotics platforms is given and commonly used locomotion types. Finally different methods that try to ensure continuous operation will be discussed.
 
-\section{Transiently-powered systems}
+\section{Transiently-powered Systems}
 \label{sec:tp_systems}
 
 % - Roughly everything that is powered fron a Energy harvester
@@ -44,7 +44,7 @@ Reincarnation in the Ambiance: Devices and Networks with Energy Harvesting \cite
 
 
 
-\section{Small robotic platforms}
+\section{Small Robotic Platforms}
 \label{sec:robotic_platforms}
 
 %TODO tell that these robots are used for studing swarm behavior (inspired by nature)
@@ -83,7 +83,7 @@ When the motors are activated the centripetal forces will generate a forward mov
 Other locomotion types are biologically inspired, the HARM-VP is small scale piezoelectric driven quadrupled robot~\cite{baisch_iros_2013}.
 Each leg as two degrees of freedom, it can move up and down, as well as forward and backward.
 
-\section{Continuous operation}
+\section{Continuous Operation}
 \label{sec:continous_operation}
 %Battery replenishment
 
@@ -115,16 +115,16 @@ This approach has only been tested for basic locomotion and did not yet combine 
 		\label{tab:comparison_robot_platforms}
  		\begin{tabularx}{\textwidth}{l l X X X l l l} 
 			\hline
- 			Robot & Cost & Scalability & Sensors & Locomotion & Size [cm] & Weight [g] & Battery life \\ 
+ 			Robot & Cost & Scalability & Sensors & Locomotion & Size & Weight & Battery life \\ 
  			\hline
- 			IPR & TBD & charge, program & gyro, distance, ambient light & wheel, 25cm/s & 4.0 & 21 & 1s\\
- 			HAMR-VP\textsuperscript{1} \cite{bruhwiler_iros_2015} & NS & none & gyroscope, optical mouse & legged, 1cm/s & 4.4 & 2.3 & 3m \\
- 			Roverables \cite{dementyev_uist_2016} & NS & charge & wheel, distance, optical encoders & wheel, ?? & 4.0 & ?? & 45m \\ 
- 			Zooids \cite{legoc_uist_2016} & \$50 & ?? & position, touch & wheel, 50cm/s & 2.6 & 12 & 1-2h \\ 
- 			mROBerTO \cite{kim_iros_2016} & \$60\textsuperscript{1} & program & light, range, gyro, camera, accel., compass, distance, bearing & motor shaft, 15cm/s & 1.5 & ?? & 1.5h\\
- 			GRITSBot \cite{pickem_icra_2015} & \$50\textsuperscript{2} & charge, program, calibrate & distance, bearing, 3d accel., 3d gyro & wheel, 25cm/s & 3 & ?? & 1-5h \\
- 			Kilobot \cite{rubenstein_icra_2012} & \$50\textsuperscript{2} & charge, program & distance, ambient light & vibration, 1cm/s & 3.3 & ?? & 3-24h\\
- 			TinyTerp \cite{sabelhaus_icra_2013} & \$50 & none & 3d gyro, 3d accel. & wheel, 50cm/s & 1.8 & ?? & 1h\\
+ 			IPR & TBD & charge, program & gyro, distance, ambient light & wheel, 25cm/s & 4.0cm & 21g & 1s\\
+ 			HAMR-VP\textsuperscript{1} \cite{bruhwiler_iros_2015} & NS & none & gyroscope, optical mouse & legged, 1cm/s & 4.4cm & 2.3g & 3m \\
+ 			Roverables \cite{dementyev_uist_2016} & NS & charge & wheel, distance, optical encoders & wheel, ?? & 4.0cm & ?? & 45m \\ 
+ 			Zooids \cite{legoc_uist_2016} & \$50 & ?? & position, touch & wheel, 50cm/s & 2.6cm & 12g & 1-2h \\ 
+ 			mROBerTO \cite{kim_iros_2016} & \$60\textsuperscript{1} & program & light, range, gyro, camera, accel., compass, distance, bearing & motor shaft, 15cm/s & 1.5cm & ?? & 1.5h\\
+ 			GRITSBot \cite{pickem_icra_2015} & \$50\textsuperscript{2} & charge, program, calibrate & distance, bearing, 3d accel., 3d gyro & wheel, 25cm/s & 3cm & ?? & 1-5h \\
+ 			Kilobot \cite{rubenstein_icra_2012} & \$50\textsuperscript{2} & charge, program & distance, ambient light & vibration, 1cm/s & 3.3cm & ?? & 3-24h\\
+ 			TinyTerp \cite{sabelhaus_icra_2013} & \$50 & none & 3d gyro, 3d accel. & wheel, 50cm/s & 1.8cm & ?? & 1h\\
 			\hline
 		\end{tabularx}
 		\begin{tablenotes}

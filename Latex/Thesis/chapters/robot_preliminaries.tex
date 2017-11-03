@@ -52,10 +52,10 @@ The energy stored in supercapacitor is a function of the capacitance and the thr
 
 \begin{equation}
 \label{eq:cap2}
-E = \frac{1}{2}C(V_{max} - V_{min})^{2}
+E = \frac{1}{2}C(V_{\max} - V_{\min})^{2}
 \end{equation}
 
-\section{Stepper motor based locomotion}
+\section{Stepper motor-based Locomotion}
 
 One of the major requirements for the robot was that it should have accurate locomotion and basic odometry.
 Wheel encoders are typically used to estimate the angular speed of the wheels.
@@ -82,7 +82,7 @@ On the first startup it can happen that the rotor is not aligned with the last p
 When this happens there can be an error between one and three steps of instructing a new steps and the stepper moving to the next position.
 
 In case the stepper motor is rotating and the power is removed, misalignment between the rotor and the last energized coil can occur.
-While the rotor could be moving from one position to the next, it hasn't moved at all (undershoot) or it overshoots it's next position due to inertia of the rotating mass. 
+While the rotor could be moving from one position to the next, it has not moved at all (undershoot) or it overshoots it's next position due to inertia of the rotating mass. 
 To determine what would be more likely, undershooting or overshooting, an experiment has been preformed to determine the error in number of steps.
 
 A stepper motor is suspended and a needle glued to the motor shaft.
