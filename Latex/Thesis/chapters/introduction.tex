@@ -3,71 +3,39 @@
 
 % printer: Tethered flight control of a small quadrotor robot for stippling \cite{galea_iros_2017}
 
-%TODO estabish your territory
+% Estabish your territory
 
-Current state of the art swarm robotic systems are still far from applicable in real world applications~\cite{barca_sekercioglu_2013}.
-Swarms are groups of small robots with basic capabilities, that work together to achieve more than an individual could alone. 
+Small robots with limited capabilities can work together in "swarms" to achieve more than an individual could by itself, but are still far from applicable in real world applications~\cite{barca_sekercioglu_2013}.
 The future potential of swarms is widely recognized to have applications in surveillance, search and rescue, and exploration.
-%TODO HANDLE HANDLE
-Resent research shows swarms that handle both display and interaction in the form of user interfaces, on both tabletops~\cite{legoc_uist_2016} and unmodified clothing~\cite{dementyev_uist_2016}. 
-
-Toys for kids \cite{sony_toio_2017}
-
-
-To allow for these more futuristic applications a view problems need to be addressed
-
-Small sizes allow robots to work in areas that would otherwise be unreachable. 
-However these applications will require new sensing, control and navigation strategies to make use of the increasingly resource constrained robots.
-	
-%TODO establish nice
+Swarms have been proposed as a new form of user interface, robots can display information and interact with users on tabletops~\cite{legoc_uist_2016}, unmodified clothing~\cite{dementyev_uist_2016} and can be a educational toy for kids~\cite{sony_toio_2017}.
+\hfill \break
+% Establish nice
 % Motivation for this work: Why do we want to remove the battery?
 
-One of the fundamental issues that needs to be addressed before swarm robotics can get a step closer to real world applications is related to energy~\cite{barca_sekercioglu_2013}.
-
-It's important t ensure that the physical design and any action taken by the robots 
-
-% NEXT TALK ABOUT BATTEIRES
-"Figure 1. The energy efficiency of computing has improved by 12 orders of magnitude since 1945. In the same time period, battery energy density has improved by less than 1 order of magnitude. The most dramatic improvements in battery density have been in the last 20 years with Li-ion batteries."
-\cite{patel_pvc_2017}
-
- as the whole system may shut down if energy is depleted
-
-Current swarm robotic platforms rely on Li-ion batteries as a source of power, while electric motors can consume considerably more energy compared to computation. % and sensing.
-
-
-
-"Low-hanging fruit is nowhere to be seen in fields as crucial as digital electronics, biomedical devices, or space technology."
-\cite{zachary_spec_2016}
-
+However, one of the fundamental issues that needs to be addressed before swarm robotics can advance is related to energy, while robots rely on small lithium batteries limiting their operation time to only a view hours. 
+The energy density of batteries has improved less than 1 order of magnitude since 1945, while the energy efficiency of computing has improved 12 orders of magnitude~\cite{patel_pvc_2017}.
+The last major advancement in battery technology is 25 years old and came with the introduction of Li-ion batteries.
+Additionally, any new big improvements in energy density of batteries is not likely to happen anytime soon, as new battery technologies are often overhyped and slow to emerge~\cite{zachary_spec_2016}.
+\hfill \break
 
 %TODO introduce current research
 
-% Propose a solution
+% Propose a solution: Energy harvesting
+% And discuss current solutions to autonomus operation / battery replenishment
 
-% Current solutions to autonomus operation / battery rephisment
+A stable energy supply is a current requirement to allow long term persistent autonomous operation of swarm robots.
+Relaxing this constraint by allowing a more transient supply of energy could be a potent area of research.
+Wireless sensor nodes that rely on energy harvesting have already been emerging, and they fully eliminate the need for batteries.
+In contrary, when the batteries of current swarm robots are depleted different methods are used to replenish the batteries, the robots could be moved to a charging station leaving them nonoperational while recharging or the battery could be replaced, resulting on a high strain on maintenance.
 
-When the voltage of the battery drops below a certain level, indicating that the battery is almost empty, the robot needs to move to a station to recharge or swap it's battery before it runs out of energy.
-
-Replacing the battery with an energy harvesting system would make the robot energy-autonomous. 
-
-
-The current robotic community assumes that a stable energy supply is a requirement to allow long term persistent autonomous operation of robots.
-Batteries are generally the stable energy source of choice, while different solutions have been proposed to recharge them.
-Other solutions require the robot to be in close proximity to an energy source.
-
-% Something about energy harvesting
-
-
-
-
-
-
-%The currently most commonly used lithium-ion batteries, have a high energy density but still limit the operation time of the robot.
+\newpage
 
 \section{Problem statement}
 
 %TODO add Challenges
 
+
+Replacing the battery with an energy harvesting system would make the robot energy-autonomous. 
 %So what changes are required?
 All the previous work does not take any intermittentcy into account and assumes that an operation is only possible when there is sufficient energy to complete a task.
 Current software used for robots with a stable power supply cannot be ported directly to this new platform.
