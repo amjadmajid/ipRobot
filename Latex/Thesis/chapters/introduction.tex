@@ -5,7 +5,7 @@
 
 % Estabish your territory
 
-Small robots with limited capabilities can work together in "swarms" to achieve more than an individual could by itself, but are still far from being applicable in real world applications~\cite{barca_sekercioglu_2013}.
+Miniature robots with limited capabilities can work together in "swarms" to achieve more than an individual could by itself, but are still far from being applicable in real world applications~\cite{barca_sekercioglu_2013}.
 The future potential of swarms is widely recognized to have applications in surveillance, search and rescue, and exploration.
 Swarms have been proposed as a new form of user interface, robots can display information and interact with users on tabletops~\cite{legoc_uist_2016}, unmodified clothing~\cite{dementyev_uist_2016} and can be an educational toy for kids~\cite{sony_toio_2017}.
 \hfill \break
@@ -13,8 +13,8 @@ Swarms have been proposed as a new form of user interface, robots can display in
 % Establish nice
 % Motivation for this work: Why do we want to remove the battery?
 
-However, one of the fundamental issues that needs to be addressed before swarm robotics can advance is related to energy, while robots rely on small lithium batteries limiting their operation time to only a view hours. 
-The energy density of batteries has improved less than 1 order of magnitude since 1945, while the energy efficiency of computing has improved 12 orders of magnitude~\cite{patel_pvc_2017}.
+However, one of the fundamental issues that needs to be addressed before swarm robotics can advance is related to energy, small litium batteries are currently powering the robots and limit their operation time to only a view hours. 
+The energy density of batteries has improved less than 1 order of magnitude since 1945, in comparison the energy efficiency of computing has improved 12 orders of magnitude~\cite{patel_pvc_2017}.
 The last major advancement in battery technology is 25 years old and came with the introduction of Li-ion batteries.
 Additionally, any new big improvements in energy density of batteries is not likely to happen anytime soon, as new battery technologies are often overhyped and slow to emerge~\cite{zachary_spec_2016}.
 \hfill \break
@@ -26,28 +26,29 @@ Additionally, any new big improvements in energy density of batteries is not lik
 
 A stable energy supply is a current requirement to allow long term persistent autonomous operation of swarm robots.
 Relaxing this constraint by allowing a transient supply of energy could be a potent area of research.
-Wireless sensor nodes that rely on energy harvesting have already been emerging, and they fully eliminate the need for batteries.
-In contrary, different methods of battery replenishment are currently used, the robots could be moved to a charging station leaving them nonoperational while recharging or the battery could be replaced, resulting on a high strain on maintenance.
+Wireless sensor nodes that rely on energy harvesting have already been emerging, some are highly energy constrained but fully eliminate the need for batteries.
+In contrary, different replenishment methods for robot batteries are currently used, robots can be moved to a charging station leaving them nonoperational while recharging or the battery could be replaced, resulting in a high strain on maintenance.
 
-% 5 lines left!
+% 4 lines left!
 \newpage
 
 \section{Problem statement}
 
-%TODO add Challenges
+% What why how
 
-
-Replacing the battery with an energy harvesting system would make the robot energy-autonomous. 
-%So what changes are required?
-All the previous work does not take any intermittentcy into account and assumes that an operation is only possible when there is sufficient energy to complete a task.
-Current software used for robots with a stable power supply cannot be ported directly to this new platform.
-This research will explore the feasibility of a battery-less robot, allowing persistent operation while having a very small and intermittent source of energy.
 % Intermittently powered robots, that purely rely on harvested power are currently non existent.
-The intermittent availability of energy creates new challenges in control, navigation and actuation. 
-This research will explore the feasibility of an autonomous battery-less robot, focusing on the development of such a robot. Therefore the main question this work will try to answer is:
+
+Replacing a robots battery with an energy harvesting system could make it more self sufficient and energy-autonomous. 
+This however introduces a new phenomenon to take into account; the intermittent availability of energy produces frequent power interrupts.
+The possibility of sudden power loss is currently not considered when developing software that defines a robots behavior, and for this reason can not be ported directly.
+\hfill \break
+
+Secondly, sensors and control techniques used may not be found applicable due to energy budget constrains or their inability to be interrupted by a loss of power. 
+This research will explore the feasibility of a miniature battery-less robot, allowing persistent operation while being supplied with a small and intermittent source of energy.
+Therefore the main question this work will try to answer is:
 
 \begin{center}
-	\textit{How to enable a transiently powered robot navigate autonomously?}
+	\textit{How to enable a transiently powered robot to operate autonomously?}
 \end{center}
 
 \section{Contributions}
@@ -56,11 +57,11 @@ This research will explore the feasibility of an autonomous battery-less robot, 
 
 \item First study of transiently powered robots, unaware of any of such platforms besides hypothetical nanobots that supposed to be harvesting energy from movement or organic stuff.
 
-\item A battery-less robot design, where the robot purely operates from harvested energy. Which includes computation, sensing and short range communication.
+\item A battery-less robot design that purely operates from harvested energy, with basic capabilities allowing autonomous operation.
 
 \item Implementation of a complex task like navigation to this intermittently powered robot
 
-\item An evaluation of the battery-less robot compared to a battery powered robot in terms of, weight, speed of movement and navigation accuracy.
+\item Evaluation of the battery-less robot compared to a battery powered robot in terms of, weight, speed and accuracy of movement.
 
 % 
 
