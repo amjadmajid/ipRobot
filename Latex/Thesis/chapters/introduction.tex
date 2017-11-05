@@ -40,7 +40,7 @@ In contrary, different replenishment methods for robot batteries are currently u
 
 Replacing a robots battery with an energy harvesting system could make it more self sufficient and energy-autonomous. 
 This however introduces a new phenomenon to take into account; the intermittent availability of energy produces frequent power interrupts.
-The possibility of sudden power loss is currently not considered when developing software that defines a robots behavior, and for this reason can not be ported directly.
+The possibility of sudden power loss is currently not considered when developing software that controls a robots behavior, and for this reason can not be ported directly.
 \hfill \break
 
 Secondly, sensors and control techniques used may not be found applicable due to energy budget constrains or their inability to be interrupted by a loss of power. 
@@ -55,15 +55,14 @@ Therefore the main question this work will try to answer is:
 
 \begin{enumerate}
 
-\item First study of transiently powered robots, unaware of any of such platforms besides hypothetical nanobots that supposed to be harvesting energy from movement or organic stuff.
+\item First study of transiently powered robots, unaware of any platforms being implemented and operating under the threat of power loss. 
 
 \item A battery-less robot design that purely operates from harvested energy, with basic capabilities allowing autonomous operation.
 
-\item Implementation of a complex task like navigation to this intermittently powered robot
+\item Implementation of a control algorithm, that allows the robot to finish a movement across power cycles.
 
-\item Evaluation of the battery-less robot compared to a battery powered robot in terms of, weight, speed and accuracy of movement.
+%\item Evaluation of the battery-less robot compared to a battery powered robot in terms of, weight, speed and accuracy of movement.
 
-% 
 
 \end{enumerate}
 
