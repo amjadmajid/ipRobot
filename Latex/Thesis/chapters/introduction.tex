@@ -44,6 +44,7 @@ The possibility of sudden power loss is currently not considered when developing
 \hfill \break
 
 Secondly, sensors and control techniques used may not be found applicable due to energy budget constrains or their inability to be interrupted by a loss of power. 
+Different locomotion types are used and may not all be reliable and/or accurate under the frequent power interruption.
 This research will explore the feasibility of a miniature battery-less robot, allowing persistent operation while being supplied with a small and intermittent source of energy.
 Therefore the main question this work will try to answer is:
 
@@ -52,12 +53,14 @@ Therefore the main question this work will try to answer is:
 \end{center}
 
 \section{Contributions}
+Current swarm robots assume that a task can only be completed if sufficient energy is left in the batteries, which also limit their operation time. 
+While surprisingly this is the first study of transiently powered robots, unaware of any platforms being implemented and are operating under the constant threat of power loss. 
 
 \begin{enumerate}
 
-\item First study of transiently powered robots, unaware of any platforms being implemented and operating under the threat of power loss. 
+%\item A simple model is developed showing the relation between the energy stored, weight of the robot, frequency of power cycles and distance covered with a single charge.
 
-\item A battery-less robot design that purely operates from harvested energy, with basic capabilities allowing autonomous operation.
+\item Design of a battery-less robot that purely operates from harvested energy, with basic capabilities allowing autonomous operation.
 
 \item Implementation of a control algorithm, that allows the robot to finish a movement across power cycles.
 
