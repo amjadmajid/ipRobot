@@ -109,22 +109,22 @@ This approach has only been tested for basic locomotion and did not yet combine 
 
 \begin{table*}[t]
 	\centering
-	\tiny
+	\small
 	\begin{threeparttable}
 		\caption{An comparison of small robotic platforms}
 		\label{tab:comparison_robot_platforms}
- 		\begin{tabularx}{\textwidth}{l l X X X l l l} 
-			\hline
- 			Robot & Cost & Scalability & Sensors & Locomotion & Size & Weight & Battery life \\ 
- 			\hline
- 			IPR & TBD & charge, program & gyro, distance, ambient light & wheel, 25cm/s & 4.0cm & 21g & 1s\\
- 			HAMR-VP\textsuperscript{1} \cite{bruhwiler_iros_2015} & NS & none & gyroscope, optical mouse & legged, 1cm/s & 4.4cm & 2.3g & 3m \\
- 			Roverables \cite{dementyev_uist_2016} & NS & charge & wheel, distance, optical encoders & wheel, ?? & 4.0cm & ?? & 45m \\ 
- 			Zooids \cite{legoc_uist_2016} & \$50 & ?? & position, touch & wheel, 50cm/s & 2.6cm & 12g & 1-2h \\ 
- 			mROBerTO \cite{kim_iros_2016} & \$60\textsuperscript{1} & program & light, range, gyro, camera, accel., compass, distance, bearing & motor shaft, 15cm/s & 1.5cm & ?? & 1.5h\\
- 			GRITSBot \cite{pickem_icra_2015} & \$50\textsuperscript{2} & charge, program, calibrate & distance, bearing, 3d accel., 3d gyro & wheel, 25cm/s & 3cm & ?? & 1-5h \\
- 			Kilobot \cite{rubenstein_icra_2012} & \$50\textsuperscript{2} & charge, program & distance, ambient light & vibration, 1cm/s & 3.3cm & ?? & 3-24h\\
- 			TinyTerp \cite{sabelhaus_icra_2013} & \$50 & none & 3d gyro, 3d accel. & wheel, 50cm/s & 1.8cm & ?? & 1h\\
+ 		\begin{tabularx}{\textwidth}{|l l X l l l|} 
+			\hline 
+ 			Robot & Cost & Locomotion & Size & Weight & Battery life \\ 
+ 			\hline\hline
+ 			IPR & \euro59 & wheel, 25cm/s & 4.0cm & 21g & 1s\\
+ 			HAMR-VP\textsuperscript{1} \cite{bruhwiler_iros_2015} & NS & legged, 1cm/s & 4.4cm & 2.3g & 3m \\
+ 			Roverables \cite{dementyev_uist_2016} & NS & wheel, ?? & 4.0cm & ?? & 45m \\ 
+ 			Zooids \cite{legoc_uist_2016} & \euro43 & wheel, 50cm/s & 2.6cm & 12g & 1-2h \\ 
+ 			mROBerTO \cite{kim_iros_2016} & \euro52\textsuperscript{2} & motor shaft, 15cm/s & 1.5cm & ?? & 1.5h\\
+ 			GRITSBot \cite{pickem_icra_2015} & \euro43\textsuperscript{2} & wheel, 25cm/s & 3cm & ?? & 1-5h \\
+ 			Kilobot \cite{rubenstein_icra_2012} & \euro43\textsuperscript{2} & vibration, 1cm/s & 3.3cm & ?? & 3-24h\\
+ 			TinyTerp \cite{sabelhaus_icra_2013} & \euro43 & wheel, 50cm/s & 1.8cm & ?? & 1h\\
 			\hline
 		\end{tabularx}
 		\begin{tablenotes}
