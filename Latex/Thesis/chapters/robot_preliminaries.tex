@@ -3,6 +3,34 @@
 In this chapter design requirements for the robot will be determined based on minimal required capabilities. 
 Followed by an evaluation of stepper motor based locomotion for a transiently powered robot.
 
+\section{Modeling a Transiently-powered Robot}
+\label{sec:design_requirements}
+
+% 1 Incomming power V * I which scales with solar panel size
+
+% 2 Maximum power point tracking (switchmode boost converter)
+
+% 3 Stored in non-ideal supercapacitor with capcitiy C and a parrallel resistance Rleak and series resistance (ESR, typically small but not neglectable?)
+
+% 123 determine chargetime
+
+% Buck converter losses 
+
+% Power consumed from source = Pcons = Ploss + Pweels
+
+% Power P(t)  = F * v = T x omega
+
+
+% robot dynamics model
+
+\begin{equation}
+	F_{r} = \mu_{r} F_{N} = \mu_{r} mg
+\end{equation}
+
+\begin{equation}
+F_{a} = \frac{1}{2}\rho v^2C_{d}A
+\end{equation}
+
 \section{Design Requirements}
 \label{sec:design_requirements}
 
@@ -56,6 +84,10 @@ E = \frac{1}{2}C(V_{\max} - V_{\min})^{2}
 \end{equation}
 
 \section{Energy Harvesting from RF}
+
+% Remove robot part from this ??
+% Do same process with bq25570 evaluation board from ti
+
 %TODO explain that the it's more efficient to remove the wisp energy harvester and only use the one on the robot
 Small modifications have been made to the WISP to allow the energy harvester on the robot to harvest energy from RF.
 The energy harvester, the storage capacitor and the diode to bypass the harvester, were removed from a WISP.
