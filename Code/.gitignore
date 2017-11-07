@@ -16,3 +16,6 @@ Release/
 
 # Do not upload pycharm specific files
 .idea/
+
+# Do not upload video to git!
+Python/Video experiments/*/
