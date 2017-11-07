@@ -1,6 +1,5 @@
-# USAGE
-# python robot_tracking.py --video ball_tracking_example.mp4
-# python robot_tracking.py
+# Modified ball_tracking example from:
+# https://www.pyimagesearch.com/2015/09/21/opencv-track-object-movement/
 
 # import the necessary packages
 from collections import deque
@@ -22,12 +21,13 @@ args = vars(ap.parse_args())
 # define the lower and upper boundaries of the "green"
 # ball in the HSV color space, then initialize the
 # list of tracked points
-greenLower = (29, 100, 50)
+greenLower = (24, 100, 100)
 greenUpper = (64, 255, 255)
 
-dir = 'Video Circle/Video_r1_right_r30_battery_int1000/'
-file = dir + 'DSC_4789.MOV'
-buffer = 256
+dir = 'Video Circle/Video_r1_right_r30_battery/'
+file = dir + 'DSC_4781.MOV'
+buffer = 25600
+line_color = (0, 0, 255)
 
 pts = deque(maxlen=buffer)
 
@@ -90,9 +90,8 @@ while True:
 
         # otherwise, compute the thickness of the line and
         # draw the connecting lines
-        #thickness = int(np.sqrt(args["buffer"] / float(i + 1)) * 2.5)
-        thickness = int(np.sqrt(buffer / float(i + 1)) * 2.5)
-        cv2.line(frame, pts[i - 1], pts[i], (0, 0, 255), thickness)
+        #thickness = int(np.sqrt(buffer / float(i + 1)) * 2.5)
+        cv2.line(frame, pts[i - 1], pts[i], line_color, 2)
 
     # show the frame to our screen
     cv2.imshow("Frame", frame)
