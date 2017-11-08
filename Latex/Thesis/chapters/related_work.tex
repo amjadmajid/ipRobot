@@ -107,29 +107,40 @@ This approach has only been tested for basic locomotion and did not yet combine 
 
 % Add missing "new" robots
 
-\begin{table*}[t]
+\begin{table}[t]
 	\centering
-	\small
-	\begin{threeparttable}
-		\caption{An comparison of small robotic platforms}
-		\label{tab:comparison_robot_platforms}
- 		\begin{tabularx}{\textwidth}{|l l X l l l|} 
-			\hline 
- 			Robot & Cost & Locomotion & Size & Weight & Battery life \\ 
- 			\hline\hline
- 			IPR & \euro59 & wheel, 25cm/s & 4.0cm & 21g & 1s\\
- 			HAMR-VP\textsuperscript{1} \cite{bruhwiler_iros_2015} & NS & legged, 1cm/s & 4.4cm & 2.3g & 3m \\
- 			Roverables \cite{dementyev_uist_2016} & NS & wheel, ?? & 4.0cm & ?? & 45m \\ 
- 			Zooids \cite{legoc_uist_2016} & \euro43 & wheel, 50cm/s & 2.6cm & 12g & 1-2h \\ 
- 			mROBerTO \cite{kim_iros_2016} & \euro52\textsuperscript{2} & motor shaft, 15cm/s & 1.5cm & ?? & 1.5h\\
- 			GRITSBot \cite{pickem_icra_2015} & \euro43\textsuperscript{2} & wheel, 25cm/s & 3cm & ?? & 1-5h \\
- 			Kilobot \cite{rubenstein_icra_2012} & \euro43\textsuperscript{2} & vibration, 1cm/s & 3.3cm & ?? & 3-24h\\
- 			TinyTerp \cite{sabelhaus_icra_2013} & \euro43 & wheel, 50cm/s & 1.8cm & ?? & 1h\\
-			\hline
-		\end{tabularx}
-		\begin{tablenotes}
-			\item [1] Modified to include on-board power, sensing and control.
-			\item [2] Cost of parts
-		\end{tablenotes}
-	\end{threeparttable}
-\end{table*}
+	\resizebox{\columnwidth}{!}{%
+		\begin{threeparttable}
+			\caption{Comparison of small robotic platforms}
+			\label{tab:comparison_robot_platforms}
+	 		\begin{tabular}{|l l l l l l l|} 
+				\hline 
+	 			Robot & Locomotion & Size & Weight & Energy Storage & Recharge \\ 
+	 			(Cost) &           &      &        & Size \& Life   & Method   \\ 
+	 			\hline\hline
+	 			IPR  & wheel, & 4.0 cm & 21 g & 0.006 mAh, 1 s & solar \\
+	 			(\euro59) & 25 cm/s &  &      &                &       \\
+	 			HAMR-VP\textsuperscript{1} \cite{bruhwiler_iros_2015}& legged, & 4.4 cm & 2.3 g & 8 mAh, 3 m & manual \\
+	 			(N/A) & 1 cm/s                                                 &        &       &            &        \\
+	 			Roverables \cite{dementyev_uist_2016} & wheel, & 4.0 cm & ?? & 100 mAh, 45 m & inductive \\
+	 			(N/A) & ??                                     &        &    &               &           \\                             
+	 			Zooids \cite{legoc_uist_2016}& wheel, & 2.6 cm & 12 g & 100 mAh 1 h & manual \\
+	 			(\euro43) & 50 cm/s &                 &        &      &             &        \\                    
+	 			mROBerTO \cite{kim_iros_2016} & motor shaft, & 1.5 cm & ?? & 120 mAh, 1.5 h & manual \\
+	 			(\euro52 \textsuperscript{2}) & 15 cm/s      &        &    &               &         \\
+	 			GRITSBot \cite{pickem_icra_2015} & wheel, & 3 cm & ?? & 150 mAh, 1 h & contact \\
+	 			(\euro43\textsuperscript{2}) & 25 cm/s    &      &    &              &         \\ 
+	 			Kilobot \cite{rubenstein_icra_2012} & vibration, & 3.3 cm & ?? & 160 mAh, 3 h & manual \\
+	 			(\euro43\textsuperscript{2}) & 1 cm/s            &        &    &              & bulk \\
+	 			TinyTerp \cite{sabelhaus_icra_2013} & wheel, & 1.8 cm & ?? & 50 mAh, 1 h & manual \\
+	 			(\euro43) & 50 cm/s                 &        &        &    &             &        \\
+				\hline
+			\end{tabular}
+			\begin{tablenotes}
+				\small
+				\item [1] Modified to include on-board power, sensing and control.
+				\item [2] Cost of parts
+			\end{tablenotes}
+		\end{threeparttable}
+	}
+\end{table}
