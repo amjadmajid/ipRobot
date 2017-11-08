@@ -180,7 +180,7 @@ Since the speed of the motor is dependent on the supply voltage the speed of the
 However, the use of a supercapacitor requires a regulator to make efficient use of the energy stored, as described in Section \ref{subsec:energy_harvesting}.
 A benefit of running a constant voltage is that the supply voltage is not a factor anymore which can change the motor speed.
 %TODO NEED MORE EXPLANATION
-By making the assumption that the robot will only travel on a flat surface, the speed is considered "constant" given a certain PWM duty-cycle.
+By making the assumption that the robot will only travel on a flat surface, the steady state speed is considered "constant" given a certain PWM duty-cycle.
 
 
 \subsubsection{PWM frequency for linear motion control}
@@ -262,7 +262,7 @@ With a proportional gain of 0.13 the robot starts light oscillation at the end, 
 % Tell something about how the right values are determined
 To reduce the oscillation a $T_{u}$ of 0.2 was added as can be determined from Figure \ref{fig:gain_tuning}.
 From this figure can be seen that the robot is more stable and doesn't have the tendency to oscillate anymore.
-Robots was driving on surface that was not super flat, therefore the gyro signal is noisy.
+%Robots was driving on surface that was not super flat, therefore the gyro signal is noisy.
 The tuning process was sped up by setting the minimum motor duty-cycle as it made the robot a lot more responsive, this was described earlier in Section \ref{subsub:motor_calib}.
 
 %TODO -Add figure with critcial gain + mark period Tu
@@ -281,17 +281,30 @@ The tuning process was sped up by setting the minimum motor duty-cycle as it mad
 	\caption{Tuning the PID controller using the ultimate gain method}
 \end{figure}
 
+\subsubsection{Controlled curved movements} 
+
+The same PID control loop can be used to command the robot to make curved movements.
+Instead of an angular velocity set point of zero, an turn rate needs to be specified.
+This desired angular velocity can be a determined from the radius of the circle that the robot needs to turn and the calibrated target speed.
+By integrating the angular velocity an angle estimate is obtained, which is used to verify if the angle target given is reached within 2 degrees.
+In case this is true the loop will exit automatically.
+
 \subsubsection{Controlled turns}
 
-The control loop for controlled turning uses the angle, which can be obtained by integrating the yaw-rate sensor data from the gyroscope.
+The control loop for controlled turning uses the angle, which is obtained by integrating the yaw-rate sensor data from the gyroscope.
 A P controller is used to rotate the robot to the desired angle, the proportional gain is directly influencing turn speed of the robot.
 The motor control values are set to run the motors opposite directions and are equal to the output of the P controller.
 These values will keep decreasing until the robot rotates to the desired angle.
 The set point is assumed to be reached when the angle is within two degrees of the target, in this case the loop will stop automatically.
-To allow enough precision to be able to measure if the target is within these two degrees, the timer which executes the control loop was set to run at 100Hz.
+To allow enough precision to measure if the target is within these two degrees, the timer which executes the control loop was set to run at 100Hz.
 Secondly, the proportional gain should not be set to low because it can happen that the robot is not able to reach the target but also not to high as it can overshoot the target.
 
 \subsection{Persistent movement}
+
+% Specifiy exactly which variables are persistent and which are not!
+% All the control loop variables are reset when exiting the loop!
+
+% Store both lspeed and rspeed while not a straight or curved movement is not yet finished
 
 % Checkpointing / State keeping
 
