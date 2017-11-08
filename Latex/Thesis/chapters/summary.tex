@@ -1,33 +1,39 @@
 \chapter{Summary}
 \label{chp:summary}
 
-\section{Limitations and Future Work}
+\section{Limitations}
 
-% Add a low power communcation method for control of multple (swarm)
-% Use custom pcb with MCU + communication circuit instead of WISP
+Section \ref{sec:controlled_movements} shows that the transiently powered robot is able to execute a instructed motion with similar accuracy compared to a battery powered equal.
+However, the distance covered by a robot with frequent power interrupts in a certain amount of time is smaller, i.e the average speed is lower due to more accelerations.
+For this reason the robot needs a method to determine it's speed without wheel encoders.
+One possibility to achieve this would be to determine motor speed by measuring the Back-EMF produced by the motor, as it is proportional to the motors rpm. % ~cite{precision_backemf_2017}.
+The amount of power required to frequently determine the Back-EMF needs to be evaluated carefully.
 
-% Measure back emf to determine rpm and use it to give close loop feedback -- lowering the current peak
-% Or determine the motor rpm / speed of the robot from the current
-% https://www.precisionmicrodrives.com/application-notes/ab-021-measuring-rpm-from-back-emf
+Another possibility is give external feedback to the robot about it's current position or control the robot's movement externally.
+To achieve this the backscatter communication of the wisp could be used.
+% ADD some info about fast downstream communication?
 
-% Use ambient light sensor input to do path planning
+\section{Future Work}
 
-% Scalable collective check part kilobot
-% Not only charging but also programming and activation!
+This work focuses on the development of a single transiently powered robot.
+A new promising area of research could be to create a swarm of transiently powered robots, and investigate the effect of intermittentcy on the behavior and controllability of this type of swarm.
+This research should further investigate the portability of existing swarm algorithms, and if not possible propose new solutions.	
+
+Recently, embedded operating systems~\cite{trenkwalder_iros_2016} and extendable programming~\cite{pinciroli_iros_2016} languages have been created to speed up the development process, removing the need to focus on low level interactions and individual behaviors.
+In addition, multiple task and checkpoint based methods have been developed to enable computation across power cycles as described in Section \ref{sec:comp_pc}.
+Merging both paradigms could help to speed up development of transiently powered swarms.
+
+% Swarms restricted to light availability 
 
 % different locomotion types?
 
-% Combine intermittent computation with swarm operating system.
-% Currently single robot and kind of checkpointing, but multi robot swarms require more advanced software?	
-% OpenSwarm: An Event-driven Embedded Operating System for Miniature Robots \cite{trenkwalder_iros_2016}
-% Buzz: An Extensible Programming Language for Heterogeneous Swarm Robotics \cite{pinciroli_iros_2016}
 
-\subsection{Path planning based on energy availability}
+%\subsection{Path planning based on energy availability}
 
-To capture the optimal amount of solar energy along the way, a map of the expected solar power can be used to compute the optimal path. To distinguish sunny or shaded two methods are proposed in \cite{plonski_tranro_2016}, one being a simple data driven Gaussian Process and the other estimates the geometry of the environment as a latent variable.
-Energy aware path planning is commonly used in combination with mission planning.
-In \cite{kaplan_iros_2016}, an analysis of the solar radiation is used to generate a time-optimized motion plan and power schedule using a cascaded particle swarm optimization algorithm.
-By combining maps of lighting and ground slope a solar-powered robot can be kept illuminated continuously. A connected component analysis is used to plan a optimal route on traversable slopes, as described by \cite{otten_icra_2015}.
+%To capture the optimal amount of solar energy along the way, a map of the expected solar power can be used to compute the optimal path. To distinguish sunny or shaded two methods are proposed in \cite{plonski_tranro_2016}, one being a simple data driven Gaussian Process and the other estimates the geometry of the environment as a latent variable.
+%Energy aware path planning is commonly used in combination with mission planning.
+%In \cite{kaplan_iros_2016}, an analysis of the solar radiation is used to generate a time-optimized motion plan and power schedule using a cascaded particle swarm optimization algorithm.
+%By combining maps of lighting and ground slope a solar-powered robot can be kept illuminated continuously. A connected component analysis is used to plan a optimal route on traversable slopes, as described by \cite{otten_icra_2015}.
 
 \section{Conclusions}
 % TODO CONCLUSIONS
