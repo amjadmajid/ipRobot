@@ -76,14 +76,14 @@ While controlling a swarm or collective is mainly accomplished by means of activ
 Choosing the right locomotion resource can depend on different factors, moving in the most energy efficient way on a particular surface is often the determining factor.
 On a flat surface, robots commonly use a two-wheeled differential drive design to not only move but allow for steering as well~\cite{sabelhaus_icra_2013, pickem_icra_2015}.
 The motor shafts of the motors on the mROBerTO directly contact the surface, eliminating the need for wheels and simplifying the design.
-A tiny 1/8" ball is used as a third support point in the front of the robot~\cite{kim_iros_2016}.
+A tiny 1/8" ball caster is used as a third support point in the front of the robot~\cite{kim_iros_2016}.
 The GRITSBot does not use conventional DC motors, requiring encoders to estimate their speed. 
 Instead by using stepper motors the speed can be set by changing the delay between steps. 
 Estimating it's position therefore is reduced to simply counting steps~\cite{pickem_icra_2015}.  
 Overall cost can be a decisive factor, therefore the Kilobot uses two vibrating motors for locomotion combined with three thin legs.
 When the motors are activated the centripetal forces will generate a forward movement, which can be explained using the slip-stick principle~\cite{rubenstein_icra_2012}.
-Other locomotion types are biologically inspired, the HARM-VP is small scale piezoelectric driven quadrupled robot~\cite{baisch_iros_2013}.
-Each leg as two degrees of freedom, it can move up and down, as well as forward and backward.
+Other locomotion types are biologically inspired, the HARM-VP is small scale piezoelectric driven quadrupled robot.
+Each leg as two degrees of freedom, it can move up and down, as well as forward and backward~\cite{baisch_iros_2013}.
 
 \section{Continuous Operation}
 \label{sec:continous_operation}
@@ -95,10 +95,11 @@ As an alternative to quickly recharging, the battery can also be swapped automat
 Another work shows a robot which is able to swap it's primary battery using a six degree-of-freedom manipulator, used to grab the dead battery and plug it into a wireless recharging charging station~\cite{zhang_conel_2013}.
 Using direct wireless power to replace or supplement to a batteries energy is shown in~\cite{karpelson_icra_2014}, however the robot can only operate or recharge while remaining in close proximity to a transmitter. 
 In these cases the robots are highly reliant on an infrastructure to allow for continuous autonomous operation.
-This can be a severe constraint if the robot moves out of reach or needs to operate in a area where this infrastructure is not present. Persistent operation can also be achieved by harvesting renewable energy, particularly solar energy to complement to the robots internal energy source. 
+This can be a severe constraint if the robot moves out of reach or needs to operate in a area where this infrastructure is not present. 
+Persistent operation can also be achieved by harvesting renewable energy, particularly solar energy to complement to the robots internal energy source. 
 To remove weight from the robot, in~\cite{bruhwiler_iros_2015} the solar energy is used directly without any type of energy buffer. 
 A drawback of this method is that the incoming solar energy should greater or equal to the energy required for operation. 
-This approach has only been tested for basic locomotion and did not yet combine any form of sensing or control.
+This approach has only been tested for basic locomotion and has not combined any form of sensing or control.
 
 % - Provide overview table robots smaller than 15*15cm
 
@@ -130,7 +131,7 @@ This approach has only been tested for basic locomotion and did not yet combine 
 	 			(\euro43) & 50 cm/s &                 &        &      &             &        \\                    
 	 			mROBerTO \cite{kim_iros_2016} & motor shaft, & 1.5 cm & ?? & 120 mAh, 1.5 h & manual \\
 	 			(\euro52 \textsuperscript{2}) & 15 cm/s      &        &    &               &         \\
-	 			GRITSBot \cite{pickem_icra_2015} & wheel, & 3 cm & ?? & 150 mAh, 1 h & contact \\
+	 			GRITSBot \cite{pickem_icra_2015} & wheel, & 3 cm & 60 g & 150 mAh, 1 h & contact \\
 	 			(\euro43\textsuperscript{2}) & 25 cm/s    &      &    &              &         \\ 
 	 			Kilobot \cite{rubenstein_icra_2012} & vibration, & 3.3 cm & 17.6 g & 160 mAh, 3 h & manual \\
 	 			(\euro43\textsuperscript{2}) & 1 cm/s            &        &    &              & bulk \\
