@@ -301,11 +301,9 @@ Secondly, the proportional gain should not be set to low because it can happen t
 
 \subsection{Persistent movement}
 
-% Specifiy exactly which variables are persistent and which are not!
-% All the control loop variables are reset when exiting the loop!
-
-% Store both lspeed and rspeed while not a straight or curved movement is not yet finished
-
-% Checkpointing / State keeping
-
-% Dubble buffering for updating multiple dependent variables (keep consistency)
+Normally when a robot is battery powered, it can execute some predefined movements and stop when required.
+In case of the transiently powered robot one movement or a series of movements is likely to require multiple power cycles to complete.
+To be able to finish a movement and not reset i.e. redo the same movement over and over, a simple check pointing method is used to keep the program state across power cycles.
+A persistent counter registers the progress in the set of movements.
+In the control loop only the set point is stored in non-volatile memory, which depending on the movement can be a required time or angle.
+The right and left motor speed which are tuned by the controllers are not saved and restored after a power interrupt, because the motors have a startup phase the controller needs to react differently compared to the steady state, constant speed movement of the robot. 
