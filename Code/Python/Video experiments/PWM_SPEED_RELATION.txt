@@ -1,0 +1,10 @@
+
+Observations:
+pwm50 a interrupt every 0.25 sec is uncontrollale
+Lower speed is need bigger longer time between interrupts
+Higher speed + more interrupts results in more drift to the left, because of wheel more in the back or weaker motor?
+
+Is distance between power interrupts interesting?
+
+Stepper motor was very inefficient ie only 3 cm per powercycle -> problematic for controlloop
+
