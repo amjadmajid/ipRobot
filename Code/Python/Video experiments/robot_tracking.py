@@ -10,10 +10,12 @@ import imutils
 import cv2
 import matplotlib.pyplot as plt
 
+live = 1
+
 # define the lower and upper boundaries of the "green"
 # ball in the HSV color space, then initialize the
 # list of tracked points
-greenLower = (29, 86, 50)
+greenLower = (29, 100, 50)
 greenUpper = (64, 255, 255)
 
 dir = 'Video Circle/Video_r1_right_r30_battery/'
@@ -86,16 +88,16 @@ while cnt < num_frames:
         #thickness = int(np.sqrt(buffer / float(i + 1)) * 2.5)
         cv2.line(frame, pts[i - 1], pts[i], line_color, 2)
 
-    """
-    # show the frame to our screen
-    cv2.imshow("Frame", frame)
-    #cv2.imshow('mask', mask)
-    key = cv2.waitKey(1) & 0xFF
+    if live:
+        # show the frame to our screen
+        cv2.imshow("Frame", frame)
+        #cv2.imshow('mask', mask)
+        key = cv2.waitKey(1) & 0xFF
 
-    # if the 'q' key is pressed, stop the loop
-    if key == ord("q"):
-        break
-    """
+        # if the 'q' key is pressed, stop the loop
+        if key == ord("q"):
+            break
+
 
     cnt += 1
 
@@ -109,29 +111,30 @@ cv2.waitKey(0)
 camera.release()
 cv2.destroyAllWindows()
 
-list = list(pts)
-clist = [i for i in list if i is not None]
+if not live:
+    list = list(pts)
+    clist = [i for i in list if i is not None]
 
-x = rect_p2[0] - rect_p1[0]
-y = rect_p2[1] - rect_p1[1]
+    x = rect_p2[0] - rect_p1[0]
+    y = rect_p2[1] - rect_p1[1]
 
-x2 = (1920 - x)/2
-y2 = (1080 - y)/2
+    x2 = (1920 - x)/2
+    y2 = (1080 - y)/2
 
-# scale circle acording to square dimensions in cm
-slist = []
-for i in clist:
-    x3 = ((i[0] - x2) * (80 / x))
-    y3 = ((i[1] - y2) * (80 / y))
-    # inverse y while images start in the top left corner instead of bottom left
-    y3 = 80 - y3
-    slist.append((x3, y3))
+    # scale circle acording to square dimensions in cm
+    slist = []
+    for i in clist:
+        x3 = ((i[0] - x2) * (80 / x))
+        y3 = ((i[1] - y2) * (80 / y))
+        # inverse y while images start in the top left corner instead of bottom left
+        y3 = 80 - y3
+        slist.append((x3, y3))
 
-print clist
-print slist
-plt.figure(1)
-plt.plot(*zip(*slist))
-plt.xlim(xmax=80)
-plt.ylim(ymax=80)
-plt.axes().set_aspect('equal', 'datalim')
-plt.show()
+    print clist
+    print slist
+    plt.figure(1)
+    plt.plot(*zip(*slist))
+    plt.xlim(xmax=80)
+    plt.ylim(ymax=80)
+    plt.axes().set_aspect('equal', 'datalim')
+    plt.show()
