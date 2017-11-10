@@ -131,5 +131,7 @@ print clist
 print slist
 plt.figure(1)
 plt.plot(*zip(*slist))
+plt.xlim(xmax=80)
+plt.ylim(ymax=80)
 plt.axes().set_aspect('equal', 'datalim')
 plt.show()
