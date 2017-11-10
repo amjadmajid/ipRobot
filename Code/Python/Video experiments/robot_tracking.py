@@ -11,7 +11,7 @@ import cv2
 # define the lower and upper boundaries of the "green"
 # ball in the HSV color space, then initialize the
 # list of tracked points
-greenLower = (24, 100, 50)
+greenLower = (29, 86, 50)
 greenUpper = (64, 255, 255)
 
 dir = 'Video Circle/Video_r1_right_r30_battery/'
@@ -19,19 +19,18 @@ file = dir + 'DSC_4781.MOV'
 buffer = 25600
 line_color = (0, 0, 255)
 
-pts = deque(maxlen=buffer)
-
 camera = cv2.VideoCapture(file)
 
+# Get total number of frames for OpenCV 3+
+num_frames = int(camera.get(cv2.CAP_PROP_FRAME_COUNT))
+
+pts = deque(maxlen=num_frames)
+
+cnt = 0
 # keep looping
-while True:
+while cnt < num_frames:
     # grab the current frame
     (grabbed, frame) = camera.read()
-
-    # if we are viewing a video and we did not grab a frame,
-    # then we have reached the end of the video
-    if not grabbed:
-        break
 
     # resize the frame, blur it, and convert it to the HSV
     # color space
@@ -83,6 +82,7 @@ while True:
         #thickness = int(np.sqrt(buffer / float(i + 1)) * 2.5)
         cv2.line(frame, pts[i - 1], pts[i], line_color, 2)
 
+    """
     # show the frame to our screen
     cv2.imshow("Frame", frame)
     #cv2.imshow('mask', mask)
@@ -91,6 +91,15 @@ while True:
     # if the 'q' key is pressed, stop the loop
     if key == ord("q"):
         break
+    """
+
+    cnt += 1
+
+print "Finished"
+cv2.rectangle(frame, (440, 40), (1460, 1040), (0, 0, 255), 2)
+cv2.imshow("Frame", frame)
+# wait for any keypress
+cv2.waitKey(0)
 
 # cleanup the camera and close any open windows
 camera.release()
