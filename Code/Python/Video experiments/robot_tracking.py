@@ -22,8 +22,12 @@ greenUpper = (64, 255, 255)
 
 line_color = (0, 0, 255)
 
-rect_p1 = (440, 40)
-rect_p2 = (1460, 1040)
+# Circle
+#rect_p1 = (440, 40)
+#rect_p2 = (1460, 1040)
+# Square
+rect_p1 = (450, 35)
+rect_p2 = (1465, 1040)
 
 square_size = 80
 
