@@ -12,11 +12,12 @@ import matplotlib.pyplot as plt
 import csv
 
 live = 0
+show_result = 1
 
 # define the lower and upper boundaries of the "green"
 # ball in the HSV color space, then initialize the
 # list of tracked points
-greenLower = (29, 100, 50)
+greenLower = (29, 90, 55)
 greenUpper = (64, 255, 255)
 
 line_color = (0, 0, 255)
@@ -40,12 +41,15 @@ for file in glob.glob(os.path.join(mdir+sdir+'/', '*.MOV')):
 
     # Get total number of frames for OpenCV 3+
     num_frames = int(camera.get(cv2.CAP_PROP_FRAME_COUNT))
+    print 'num_frames: ' + str(num_frames)
 
-    pts = deque(maxlen=num_frames)
+    pts = deque(maxlen=(num_frames-2))
 
     lcnt = 0
     # keep looping
-    while lcnt < num_frames:
+    while lcnt < (num_frames-2):
+        #print 'lcnt: ' + str(lcnt)
+
         # grab the current frame
         (grabbed, frame) = camera.read()
 
@@ -87,17 +91,18 @@ for file in glob.glob(os.path.join(mdir+sdir+'/', '*.MOV')):
         # update the points queue
         pts.appendleft(center)
 
-        # loop over the set of tracked points
-        for i in xrange(1, len(pts)):
-            # if either of the tracked points are None, ignore
-            # them
-            if pts[i - 1] is None or pts[i] is None:
-                continue
+        if show_result:
+            # loop over the set of tracked points
+            for i in xrange(1, len(pts)):
+                # if either of the tracked points are None, ignore
+                # them
+                if pts[i - 1] is None or pts[i] is None:
+                    continue
 
-            # otherwise, compute the thickness of the line and
-            # draw the connecting lines
-            #thickness = int(np.sqrt(buffer / float(i + 1)) * 2.5)
-            cv2.line(frame, pts[i - 1], pts[i], line_color, 2)
+                # otherwise, compute the thickness of the line and
+                # draw the connecting lines
+                #thickness = int(np.sqrt(buffer / float(i + 1)) * 2.5)
+                cv2.line(frame, pts[i - 1], pts[i], line_color, 2)
 
         if live:
             # show the frame to our screen
@@ -112,10 +117,11 @@ for file in glob.glob(os.path.join(mdir+sdir+'/', '*.MOV')):
         lcnt += 1
 
     print "Finished"
-    cv2.rectangle(frame, rect_p1, rect_p2, (0, 0, 255), 2)
-    cv2.imshow("Frame", frame)
-    # wait for any keypress
-    cv2.waitKey(0)
+    if show_result:
+        cv2.rectangle(frame, rect_p1, rect_p2, (0, 0, 255), 2)
+        cv2.imshow("Frame", frame)
+        # wait for any keypress
+        cv2.waitKey(0)
 
     # cleanup the camera and close any open windows
     camera.release()
