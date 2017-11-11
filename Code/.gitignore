@@ -18,4 +18,6 @@ Release/
 .idea/
 
 # Do not upload video to git!
-Python/Video experiments/*/
+Python/Video experiments/Video_Straight/
+Python/Video experiments/Video_Square/
+Python/Video experiments/Video_Circle/
