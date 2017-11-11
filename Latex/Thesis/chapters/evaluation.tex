@@ -125,17 +125,65 @@ The 120w lamp has a tubular design and in combination with the light fixture mos
 
 Now that the best performing solar panel / light combination has been found, a performance comparison can be made between the battery-less robot and it' battery powered equal.
 
+
+\subsection{Velocity calibration}
+
+Each movement is then executed at three different PWM target settings: 30, 50 and 70.
+Note that in this experiment a single robot is used with a maximum PWM of 75.
+
+\subsection{Experimental setup}
+
+To be able to compare the accuracy of the robot while it is exposed to increasingly smaller power cycles, a variety of movements is recored using a overhead camera.
+A camera stand with DSLR camera is positioned on a tabletop and in the camera's view the corners of a square of 80 x 80 cm are indicated with a black marker.
+This square can later be used as a reference to convert the robots movement from pixels to cm.
+
+Each of the three movements is a separate experiment where the accuracy of movement is evaluated for different PWM targets and power interrupt period, as can be seen from Table \ref{tab:movement_experiment}.
+%Three different movements are compared, while the robot is moving straight movement of 75 cm, a circle with radius of 30cm and a square of 50 by 50 cm.
+%Each movement is preformed for the three velocities as mentioned in the previous section.
+The power interrupts, i.e the capacitor running out of energy are created artificially for each velocity using a timer that resets the MCU.
+The MSP430FR5969 has the functionality to enable a brownout reset trough software which is used to simulate the event of the supply voltage dropping below the required operating voltage.
+With a capacitor of 22mF the robot can operate around 1 second, this resulted in the chosen interrupt periods.
+Choosing a period smaller than half a second resulted in uncontrolled behavior, while the control loop was not able to stabilize the movement before the robot runs out of energy again.
+
+A robot is programmed to preform the movement at a desired velocity and power interrupt period.
+Before the robot executes the movement a green led is enabled on top of the robot, the bright green color will be the target that the tracking software will try to follow.
+The camera is used to record the movement which is analyzed using Python and OpenCV 3.2, a computer vision library.
+
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.8\textwidth]{pics/movement_setup.jpg}
+	\caption{Camera setup to record the robots movement}
+	\label{fig:movement_setup}
+\end{figure}
+
+\begin{table}
+	\centering
+	\caption{Parameters changed in the experiment}
+	\label{tab:movement_experiment}
+	\resizebox{\columnwidth}{!}{%
+		\begin{tabular}{|l|l|l|l|l|}
+			\hline
+			\textbf{Movement} &  Straight 75 cm & Square 50x50 cm & Circle R30 cm  & \\
+			\hline
+			\textbf{PWM} & 30 & 50 & 70 &  \\
+			\hline
+			\textbf{Interrupt period} & 1.25 s & 1.0 s & 0.75 s  & 0.5 s \\
+			\hline
+		\end{tabular}
+	}
+\end{table}
+
+
+
 \subsection{Straight Movements}
 
-\subsubsection{Experimental setup}
 
 \subsubsection{Results}
 
 
-
 \subsection{Curved Movements and Turns}
 
-\subsubsection{Experimental setup}
 
 \subsubsection{Results}
 
