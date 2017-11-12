@@ -40,13 +40,13 @@ print csv_list
 file_name = 'Video_trg_70_r1_right_r30_battery'
 re_list = ['', '_int1000', '_int1250', '_int500', '_int750']
 
-flist = []
+lcnt = 0
 re_cnt = 0
-for cname in csv_list:
-    if re_cnt == len(re_list):
-        re_cnt = 0
-    elif re.match(file_name + re_list[re_cnt] + '_\d', cname, flags=0) is not None:
-        slist = read_movement_data(ddir + mdir + cname)
+while lcnt < len(csv_list):
+    if re.match(file_name + re_list[re_cnt] + '_\d', csv_list[lcnt], flags=0) is not None:
+        print file_name + re_list[re_cnt] + '_\d'
+
+        slist = read_movement_data(ddir + mdir + csv_list[lcnt])
 
         plt.figure(re_cnt)
         plt.plot(*zip(*slist))
@@ -57,19 +57,11 @@ for cname in csv_list:
         plt.ylabel('y distance in cm')
         plt.axes().set_aspect('equal', 'datalim')
     else:
-        re_cnt += 1
-        if re_cnt == len(re_list):
+        if re_cnt < (len(re_list)-1):
+            re_cnt += 1
+            lcnt -= 1
+        else:
             re_cnt = 0
-        elif re.match(file_name + re_list[re_cnt], cname, flags=0) is not None:
-            slist = read_movement_data(ddir + mdir + cname)
 
-            plt.figure(re_cnt)
-            plt.plot(*zip(*slist))
-            plt.xlim(xmax=80)
-            plt.ylim(ymax=80)
-            plt.title(file_name + re_list[re_cnt])
-            plt.xlabel('x distance in cm')
-            plt.ylabel('y distance in cm')
-            plt.axes().set_aspect('equal', 'datalim')
-
+    lcnt += 1
 plt.show()
