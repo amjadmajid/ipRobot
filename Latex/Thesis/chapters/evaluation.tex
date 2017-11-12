@@ -123,69 +123,72 @@ The 120w lamp has a tubular design and in combination with the light fixture mos
 
 % Video of robot movement
 
-Now that the best performing solar panel / light combination has been found, a performance comparison can be made between the battery-less robot and it' battery powered equal.
-
-
-\subsection{Velocity calibration}
-
-Each movement is then executed at three different PWM target settings: 30, 50 and 70.
-Note that in this experiment a single robot is used with a maximum PWM of 75.
+Now that a variety of solar panel / light combinations has been evaluated, the next Section will evaluate the accuracy of movement of the robot and will compare the battery-less robot and it' battery powered equal.
 
 \subsection{Experimental setup}
 
-To be able to compare the accuracy of the robot while it is exposed to increasingly smaller power cycles, a variety of movements is recored using a overhead camera.
-A camera stand with DSLR camera is positioned on a tabletop and in the camera's view the corners of a square of 80 x 80 cm are indicated with a black marker.
+To be able to compare the accuracy of the robot while it is exposed to increasingly smaller power cycles, a variety of movements is recorded using a overhead camera.
+A camera stand with DSLR camera is positioned on a tabletop and in the camera's view the corners of a square of 80 x 80 cm are indicated with a black marker, see Figure \ref{fig:movement_setup}.
 This square can later be used as a reference to convert the robots movement from pixels to cm.
 
-Each of the three movements is a separate experiment where the accuracy of movement is evaluated for different PWM targets and power interrupt period, as can be seen from Table \ref{tab:movement_experiment}.
-%Three different movements are compared, while the robot is moving straight movement of 75 cm, a circle with radius of 30cm and a square of 50 by 50 cm.
-%Each movement is preformed for the three velocities as mentioned in the previous section.
-The power interrupts, i.e the capacitor running out of energy are created artificially for each velocity using a timer that resets the MCU.
+Three different movements are compared, while the robot is moving straight movement of 75 cm, a circle with radius of 30cm and a square of 50 by 50 cm.
+
+\subsubsection{Artificial Power Interrupts}
+
+%TODO Why bat powered
+During the experiment the robot will be powered from a battery and power interrupts, i.e the capacitor running out of energy are created artificially using a timer that resets the MCU.
 The MSP430FR5969 has the functionality to enable a brownout reset trough software which is used to simulate the event of the supply voltage dropping below the required operating voltage.
 With a capacitor of 22mF the robot can operate around 1 second, this resulted in the chosen interrupt periods.
 Choosing a period smaller than half a second resulted in uncontrolled behavior, while the control loop was not able to stabilize the movement before the robot runs out of energy again.
 
-A robot is programmed to preform the movement at a desired velocity and power interrupt period.
-Before the robot executes the movement a green led is enabled on top of the robot, the bright green color will be the target that the tracking software will try to follow.
-The camera is used to record the movement which is analyzed using Python and OpenCV 3.2, a computer vision library.
+\subsubsection{Velocity calibration}
 
+Each movement is executed at three different PWM target settings: 40\%, 65\% and 90\% of the maximum target setting.
+To let the robot move a particular distance, the average speed needs to be estimated for each PWM target and power interrupt period.
+
+
+\subsubsection{Tracking the robots Movement}
+
+A robot is programmed to preform the movement at a desired velocity and optional power interrupt period.
+Before the robot executes the movement a green led is enabled on top of the robot, this bright green dot will be the reference point that the tracking software will try to follow.
+The camera is used to record the movement which is analyzed using Python and OpenCV 3.2, a example of a tracked movement can be seen from Figure \ref{fig:movement_example}.
 
 \begin{figure}
 	\centering
-	\includegraphics[width=0.8\textwidth]{pics/movement_setup.jpg}
-	\caption{Camera setup to record the robots movement}
-	\label{fig:movement_setup}
+	\begin{subfigure}[b]{0.45\textwidth}
+		\includegraphics[width=\textwidth]{pics/movement_setup.jpg}
+		\caption{Camera setup to record the robots movement}
+		\label{fig:movement_setup}
+	\end{subfigure}
+	\quad
+	\begin{subfigure}[b]{0.45\textwidth}
+		\includegraphics[width=\textwidth]{pics/movement_example.png}
+		\caption{Recorded movement is tracked with OpenCV}
+		\label{fig:movement_example}
+	\end{subfigure}
+	\caption{}
 \end{figure}
 
-\begin{table}
-	\centering
-	\caption{Parameters changed in the experiment}
-	\label{tab:movement_experiment}
-	\resizebox{\columnwidth}{!}{%
-		\begin{tabular}{|l|l|l|l|l|}
-			\hline
-			\textbf{Movement} &  Straight 75 cm & Square 50x50 cm & Circle R30 cm  & \\
-			\hline
-			\textbf{PWM} & 30 & 50 & 70 &  \\
-			\hline
-			\textbf{Interrupt period} & 1.25 s & 1.0 s & 0.75 s  & 0.5 s \\
-			\hline
-		\end{tabular}
-	}
-\end{table}
 
 
+\subsection{Movement Accuracy Metrics}
+
+for straight movements: the amount of curvature
+
+standard deviation in length of movement for each type of movement
 
 \subsection{Straight Movements}
 
 
-\subsubsection{Results}
 
 
 \subsection{Curved Movements and Turns}
 
 
-\subsubsection{Results}
+\subsection{Results}
 
+Hoe de interrupts uitkomen op de beweging heeft invloed!!
+
+Lager snelheid en minder interrupts is hogere precisie??
 
 
