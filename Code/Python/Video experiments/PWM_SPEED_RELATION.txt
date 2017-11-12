@@ -1,7 +1,7 @@
 
 Observations:
 pwm50 a interrupt every 0.25 sec is uncontrollale
-Lower speed is need bigger longer time between interrupts
+Lower speed requires longer time between interrupts
 Higher speed + more interrupts results in more drift to the left, because of wheel more in the back or weaker motor?
 
 Is distance between power interrupts interesting?
