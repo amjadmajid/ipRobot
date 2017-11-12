@@ -140,35 +140,40 @@ During the experiment the robot will be powered from a battery and power interru
 The MSP430FR5969 has the functionality to enable a brownout reset trough software which is used to simulate the event of the supply voltage dropping below the required operating voltage.
 With a capacitor of 22mF the robot can operate around 1 second, this resulted in the chosen interrupt periods.
 Choosing a period smaller than half a second resulted in uncontrolled behavior, while the control loop was not able to stabilize the movement before the robot runs out of energy again.
+Therefore the power interrupt periods evaluated in this experiment are: 1.25, 1, 0.75 and 0.5 seconds.
 
 \subsubsection{Velocity calibration}
 
-Each movement is executed at three different PWM target settings: 40\%, 65\% and 90\% of the maximum target setting.
+%TODO make table with standard deviation of distance traveled 
+Each movement is executed at three different PWM target settings: 40\%, 65\% and 90\% of the maximum duty cycle.
 To let the robot move a particular distance, the average speed needs to be estimated for each PWM target and power interrupt period.
+This is achieved by first determining the time that the robot requires to move approximately 150 cm for each target without power interrupts.
+When the robot experiences power interrupts the average velocity of a active period becomes lower due to frequent acceleration from standstill.
+With power interrupts the runtime is increased to make the robot travel roughly the same distance.
+Finally, the average of five measurements is computed and divided by the commanded runtime of the robot to acquire an average speed for each combination.
 
 
 \subsubsection{Tracking the robots Movement}
 
 A robot is programmed to preform the movement at a desired velocity and optional power interrupt period.
 Before the robot executes the movement a green led is enabled on top of the robot, this bright green dot will be the reference point that the tracking software will try to follow.
-The camera is used to record the movement which is analyzed using Python and OpenCV 3.2, a example of a tracked movement can be seen from Figure \ref{fig:movement_example}.
+The camera is used to record the movement which is analyzed using Python and OpenCV 3.2, a example of a tracked movement can be seen in Figure \ref{fig:movement_example}.
 
 \begin{figure}
 	\centering
 	\begin{subfigure}[b]{0.45\textwidth}
 		\includegraphics[width=\textwidth]{pics/movement_setup.jpg}
-		\caption{Camera setup to record the robots movement}
+		\caption{Camera setup}
 		\label{fig:movement_setup}
 	\end{subfigure}
 	\quad
 	\begin{subfigure}[b]{0.45\textwidth}
 		\includegraphics[width=\textwidth]{pics/movement_example.png}
-		\caption{Recorded movement is tracked with OpenCV}
+		\caption{Tracking with OpenCV}
 		\label{fig:movement_example}
 	\end{subfigure}
-	\caption{}
+	\caption{Recording the robots movement}
 \end{figure}
-
 
 
 \subsection{Movement Accuracy Metrics}
