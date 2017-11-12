@@ -11,6 +11,17 @@ import cv2
 import matplotlib.pyplot as plt
 import csv
 
+
+# cleanup a list with tuples without sorting
+def deduplicate(slist):
+    tcnt = 0
+    while tcnt < len(slist)-1:
+        if slist[tcnt] == slist[tcnt+1]:
+            slist.pop(tcnt)
+        else:
+            tcnt += 1
+    return slist
+
 live = 0
 show_result = 1
 
@@ -149,6 +160,8 @@ for file in glob.glob(os.path.join(mdir+sdir+'/', '*.MOV')):
             # inverse y while images start in the top left corner instead of bottom left
             y3 = square_size - y3
             slist.append((x3, y3))
+
+        slist = deduplicate(slist)
 
         # Write to csv!
         with open(ddir + mdir + sdir + '_' + str(fcnt) + '.csv','wb') as out:
