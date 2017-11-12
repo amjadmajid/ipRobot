@@ -26,14 +26,21 @@ The port is enabled the light source is disabled and the LED is used to drain th
 When the led turns off, indicating that a new charge period begins, the light source is enabled again.
 Now a more detailed description will be given of the different components that were tested.
 
+\subsection{Components evaluated}
 %TODO Why these lamps?
-Three different solar panels were tested in this experiment. Information about the solar panels can be found in Table \ref{tab:solar_panels}.
+
+\subsubsection{Solar panels}
+Three different solar panels were tested in this experiment, each different in composition, efficiency and panel size, as can be seen from Table \ref{tab:solar_panels}.
+
+\subsubsection{Lamps}
 Low cost solar simulators can consist of a combination of LED and halogen light bulbs to simulate sunlight and are used to test the performance of solar panels~\cite{grandi_tia_2014}.
 However, in this case the goal is to have a controlled uniform lighting environment where the robots have roughly constant charge times.
 Solar panels do not only harvest energy from the visual light spectrum but harvest almost at least as much from the infrared light spectrum, therefore not only light but also heat will shorten the charge time.
 Halogen lamps have a lower color temperature than the sun but also emit waves far into the infrared spectrum.
 The light sources used in this experiment are a 60W halogen bulb, a 120W halogen halogen bulb and two 150w IR heat lamps where one is colored red.
-Three measurements were done, where the lamps were positioned 10cm, 30cm and 50cm from the solar panels.
+
+\subsubsection{Parameters Measured}
+Three measurements were preformed, where the lamps were positioned 10cm, 30cm and 50cm from the solar panels.
 Additionally, for these three distance the temperature was measured at the solar panel using a K-type thermocouple supplied with an Extech EX330 multimeter and the light intensity using the luxmeter on a MASTECH MS8229 multimeter.
 
 \begin{table}[t]
@@ -108,6 +115,7 @@ The 120w lamp has a tubular design and in combination with the light fixture mos
 	\caption{The performance of three different solar panels for different distances from different light sources. The data charge times for the last two are normalized with respect to the surface covered by the first panel.}
 \end{figure}
 
+\newpage
 
 \section{Controlled Movements}
 \label{sec:controlled_movements}
@@ -130,7 +138,6 @@ Now that a variety of solar panel / light combinations has been evaluated, the n
 To be able to compare the accuracy of the robot while it is exposed to increasingly smaller power cycles, a variety of movements is recorded using a overhead camera.
 A camera stand with DSLR camera is positioned on a tabletop and in the camera's view the corners of a square of 80 x 80 cm are indicated with a black marker, see Figure \ref{fig:movement_setup}.
 This square can later be used as a reference to convert the robots movement from pixels to cm.
-
 Three different movements are compared, while the robot is moving straight movement of 75 cm, a circle with radius of 30cm and a square of 50 by 50 cm.
 
 \subsubsection{Artificial Power Interrupts}
@@ -140,7 +147,7 @@ During the experiment the robot will be powered from a battery and power interru
 The MSP430FR5969 has the functionality to enable a brownout reset trough software which is used to simulate the event of the supply voltage dropping below the required operating voltage.
 With a capacitor of 22mF the robot can operate around 1 second, this resulted in the chosen interrupt periods.
 Choosing a period smaller than half a second resulted in uncontrolled behavior, while the control loop was not able to stabilize the movement before the robot runs out of energy again.
-Therefore the power interrupt periods evaluated in this experiment are: 1.25, 1, 0.75 and 0.5 seconds.
+Therefore the power interrupt periods evaluated in this experiment are: 1.25 s, 1 s, 0.75 s and 0.5 s.
 
 \subsubsection{Velocity calibration}
 
@@ -155,9 +162,9 @@ Finally, the average of five measurements is computed and divided by the command
 
 \subsubsection{Tracking the robots Movement}
 
-A robot is programmed to preform the movement at a desired velocity and optional power interrupt period.
+A robot is programmed to preform the movement at a desired PWM target and optional power interrupt period.
 Before the robot executes the movement a green led is enabled on top of the robot, this bright green dot will be the reference point that the tracking software will try to follow.
-The camera is used to record the movement which is analyzed using Python and OpenCV 3.2, a example of a tracked movement can be seen in Figure \ref{fig:movement_example}.
+The camera is used to record the movement which is analyzed using Python and OpenCV 3.2, an example of a tracked movement can be seen in Figure \ref{fig:movement_example}.
 
 \begin{figure}
 	\centering
@@ -191,9 +198,10 @@ standard deviation in length of movement for each type of movement
 
 
 \subsection{Results}
+Higher speed + more interrupts results in more drift to the left, because of wheel more in the back or weaker motor?
+How the interrupts are distributed over the distance has a influence or how the last interrupt ends up..
+Lower speed and less interrupts results in a higher accuracy??
 
-Hoe de interrupts uitkomen op de beweging heeft invloed!!
 
-Lager snelheid en minder interrupts is hogere precisie??
-
+For square: Turn\_right speed should be high enough to turn within 0.5 sec
 
