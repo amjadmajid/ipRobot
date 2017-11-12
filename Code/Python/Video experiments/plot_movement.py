@@ -37,14 +37,15 @@ mdir = 'Video_Circle/'
 csv_list = os.listdir(ddir+mdir)
 print csv_list
 
-file_name = 'Video_trg_70_r1_right_r30_battery'
+pwm = 70
+file_name = 'Video_trg_' + str(pwm) + '_r1_right_r30_battery'
 re_list = ['', '_int1000', '_int1250', '_int500', '_int750']
 
 lcnt = 0
 re_cnt = 0
 while lcnt < len(csv_list):
     if re.match(file_name + re_list[re_cnt] + '_\d', csv_list[lcnt], flags=0) is not None:
-        print file_name + re_list[re_cnt] + '_\d'
+        #print file_name + re_list[re_cnt] + '_\d'
 
         slist = read_movement_data(ddir + mdir + csv_list[lcnt])
 
