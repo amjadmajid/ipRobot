@@ -21,6 +21,18 @@ The harvested energy is typically stored in a capacitor, where larger capacitors
 For longer, complex operations the energy budged needs to be evaluated carefully.
 To store the energy an appropriate size storage capacitor needs to be selected~\cite{naderiparizi_rfid_2015}.
 
+%To make efficient use of the energy stored in a supercapacitor a regular is required to supply a stable voltage to the connected loads.
+%The regulated output voltage is a lower threshold for the energy that can be used from the capacitor.
+%The upper threshold is determined by the maximum voltage rating of the supercapacitor.
+%Lowering the output voltage allows for more energy to be used from the supercapacitor, but also lowers the overall power consumption of individual components.
+%The energy stored in supercapacitor is a function of the capacitance and the threshold voltage difference, being equal to:
+
+%\begin{equation}
+%\label{eq:cap2}
+%E = \frac{1}{2}C(V_{\max} - V_{\min})^{2}
+%\end{equation}
+
+
 \section{Computation across Power Cycles}
 \label{sec:comp_pc} 
 % - Short intro into persistent framwork: checkpointing etc
@@ -32,6 +44,18 @@ To store the energy an appropriate size storage capacitor needs to be selected~\
 \label{sec:energy_supply}
 
 % Explain battery vs supercapacitor
+% Mention current high capacitance capacitors: EDLC
+
+% Supercapacitors are safe; forgiving if abused (do not use toxic chemicals or scarce resources (lithium))
+% Allow high charge rates
+
+% Supercapacitors used in F1 (Kers Kinetic energy recovery system)
+% Maxwell proposes use for regenerative breaking!!
+
+% Three alineas:
+% Why are supercapacitors so great
+% Why are they not widely deployed yet?
+% Solution could be capacitor / battery hybrids
 
 Comparing li-ion batteries with super-capacitors there are some big differences.
 Supercapacitors do not need any special charging scheme and circuity for charging, except for overcharging protection.
@@ -41,24 +65,53 @@ Batteries will seldom withstand more than one thousand complete charge/discharge
 Super-capacitors used under extreme condition's, are not likely to explode but instead rupture.
 While the biggest disadvantages of super-capacitors is their low energy density and high price, their lifetime is typically hundred thousands of charge/discharge cycles.
 
-Li-Ion Battery-Supercapacitor Hybrid Storage System for a Long Lifetime, Photovoltaic-Based Wireless Sensor Network	\cite{ongaro_pwre_2012}
+Li-Ion Battery-Supercapacitor Hybrid Storage System for a Long Lifetime, Photovoltaic-Based Wireless Sensor Network~\cite{ongaro_pwre_2012}
 Reincarnation in the Ambiance: Devices and Networks with Energy Harvesting \cite{prasad_comst_2014}
 
+% http://www.pbctechco.com/technology-platform/energy-storage/
+% https://www.supercaptech.com/battery-vs-supercapacitor
+% http://batteryuniversity.com/learn/article/whats_the_role_of_the_supercapacitor
+
+
+\begin{table}[t]
+	\centering
+	\begin{threeparttable}
+		\caption{Performance comparison between li-ion batteries and supercapacitors}
+		\label{tab:battery_vs_supercap}
+		\small
+		\begin{tabular}{|l|l|l|}
+			\hline
+			& Supercapacitor & Li-ion battery \\
+			\hline \hline
+			Charge time & 1-10 s & 10-60 min \\
+			Cycle life & 1 million or 30000h & 500 and higher \\
+			Cell voltage & 2.3 to 2.75 V & 3.6 to 3.7 V \\
+			Specific Energy (Wh/kg) & 5 & 100-200 \\
+			Specific Power (W/kg) & Up to 10.000 & 1.000 to 3.000 \\
+			Cost per Wh & \$20(typical) & \$2(typical) \\
+			Service life & 10 - 15 years & 5 to 10 years \\
+			Charge temperature & -40 to 65 \textdegree C & 0 to 45 \textdegree C \\
+			Discharge temperature & -40 to 65 \textdegree C & -20 to 60 \textdegree C \\
+			\hline
+		\end{tabular}
+		%\begin{tablenotes}
+		%	\small
+		%	\item [1] Two panels in parallel
+		%\end{tablenotes}
+	\end{threeparttable}
+\end{table}
 
 
 \section{Small Robotic Platforms}
 \label{sec:robotic_platforms}
 
-%TODO tell that these robots are used for studing swarm behavior (inspired by nature)
-% require communication to apply different algorithms
+% Swarm robotics requires communication to apply different algorithms
 % need to be low cost and size are key factors for allowing scalability
-% 
-%Main characteristics : https://link.springer.com/article/10.1007/s11721-012-0075-2
-%robots are autonomous;
-%robots are situated in the environment and can act to modify it;
-%robots’ sensing and communication capabilities are local;
-%robots do not have access to centralized control and/or to global knowledge;
-%robots cooperate to tackle a given task.
+
+% Scalable collective check part kilobot
+% Not only charging but also programming and activation!
+% Operate from batteries and some have a method of recharging
+% Robots are typically evaliuated in terms of scalability and capabilities
 
 Low cost robotic platforms have been developed to tackle a variety of challenges anonymously.
 Miniature robots can be used for inspection in difficult to reach places, operating like mobile sensing units.
@@ -66,8 +119,6 @@ Hardware modularity is a way to make the robot adapt its resources to different 
 By separating out power, computation, motor control and sensing a verity of capabilities can be tested~\cite{sabelhaus_icra_2013, pickem_icra_2015, kim_iros_2016}.
 Microrobots typically use infrared-based neighbor to neighbor distance sensing and communication~\cite{rubenstein_icra_2012, pickem_icra_2015, kim_iros_2016}.
 While controlling a swarm or collective is mainly accomplished by means of active low power transceivers~\cite{sabelhaus_icra_2013, pickem_icra_2015, kim_iros_2016}. 
-
-%TODO reference table
 
 \section{Locomotion}
 \label{sec:locomotion}
@@ -118,13 +169,13 @@ This approach has only been tested for basic locomotion and has not combined any
 			\label{tab:comparison_robot_platforms}
 	 		\begin{tabular}{|l l l l l l l|} 
 				\hline 
-	 			Robot & Locomotion & Size & Weight & Energy Storage & Recharge \\ 
-	 			(Cost) &           &      &        & Size \& Life   & Method   \\ 
+	 			Robot & Locomotion & Size & Weight & Energy Storage & Recharge\\ 
+	 			(Cost) &           &      &        & Size \& Life   & Method  \\ 
 	 			\hline\hline
 	 			IPR  & wheel, & 4.0 cm & 21 g & 0.006 mAh, 1 s & solar \\
 	 			(\euro59) & 25 cm/s &  &      &                &       \\
-	 			HAMR-VP\textsuperscript{1} \cite{bruhwiler_iros_2015}& legged, & 4.4 cm & 2.3 g & 8 mAh, 3 m & manual \\
-	 			(N/A) & 1 cm/s                                                 &        &       &            &        \\
+	 			HAMR-VP\textsuperscript{1} \cite{bruhwiler_iros_2015}& legged, & 4.4 cm & 2.3 g & 8 mAh, 3 m & manual\\
+	 			(N/A) & 1 cm/s                                                 &        &       &            &       \\
 	 			Roverables \cite{dementyev_uist_2016} & wheel, & 4.0 cm & ?? & 100 mAh, 45 m & inductive \\
 	 			(N/A) & ??                                     &        &    &               &           \\                             
 	 			Zooids \cite{legoc_uist_2016}& wheel, & 2.6 cm & 12 g & 100 mAh 1 h & manual \\

@@ -4,7 +4,29 @@
 % - Measure start motor overhead and average consumption (show graph?)
 
 
-\section{Performance in different light conditions}
+\section{Energy Harvesting from Ambient Sources}
+
+\subsection{Energy Harvesting from RF}
+
+% Remove robot part from this ??
+% Do same process with bq25570 evaluation board from ti
+
+%TODO explain that the it's more efficient to remove the wisp energy harvester and only use the one on the robot
+\subsubsection{Experimental Setup}
+
+Small modifications have been made to the WISP to allow the energy harvester on the robot to harvest energy from RF.
+The energy harvester, the storage capacitor and the diode to bypass the harvester, were removed from a WISP.
+A wire was soldered to the input pin pad of the now removed harvester on the WISP PCB.
+This wire was connected directly to the input of the harvester on the robot.
+
+To evaluate the time required for the robot to harvest enough energy a small experiment was done.
+Energy was provided to the WISP on the robot trough an Impinj Speedway R1000 RFID reader, which was connected to a Laird antenna.
+
+\subsubsection{Results}
+The robot was placed 20 cm away from the antenna, typically the distance where the most energy is harvested.
+On average the robot required 48 seconds fully charge and move away from the reader.
+
+\subsection{Performance in different light conditions}
 % Casestudy of conditions robot 
 % outdoors/indoors/varying light sources/varying solar panels
 % Do experiment in sunlight for nuna panel
@@ -40,7 +62,7 @@ Halogen lamps have a lower color temperature than the sun but also emit waves fa
 The light sources used in this experiment are a 60W halogen bulb, a 120W halogen halogen bulb and two 150w IR heat lamps where one is colored red.
 
 \subsubsection{Parameters Measured}
-Three measurements were preformed, where the lamps were positioned 10cm, 30cm and 50cm from the solar panels.
+Three measurements were preformed, each lamp was positioned 10cm, 30cm and 50cm from the solar panels.
 Additionally, for these three distance the temperature was measured at the solar panel using a K-type thermocouple supplied with an Extech EX330 multimeter and the light intensity using the luxmeter on a MASTECH MS8229 multimeter.
 
 \begin{table}[t]
@@ -125,9 +147,7 @@ The 120w lamp has a tubular design and in combination with the light fixture mos
 % Try at least one more supercapacitor: 10mF
 % Study reducing the frequency of power interrupts ie smaller energy buffer.
 % How does this effect the accuracy of locomotion?
-
-% Study the effect of checkpoint frequency on the straight and turn accuracy + combination
-% Before and after counting in case of current robot
+% Can the frequency of power interrupts be related to the 
 
 % Video of robot movement
 
