@@ -7,6 +7,19 @@ from collections import OrderedDict
 import matplotlib.pyplot as plt
 
 
+# https://stackoverflow.com/questions/5967500/how-to-correctly-sort-a-string-with-a-number-inside
+def atoi(text):
+    return int(text) if text.isdigit() else text
+
+
+def natural_keys(text):
+    '''
+    alist.sort(key=natural_keys) sorts in human order
+    http://nedbatchelder.com/blog/200712/human_sorting.html
+    (See Toothy's implementation in the comments)
+    '''
+    return [ atoi(c) for c in re.split('(\d+)', text) ]
+
 def read_movement_data(dfile):
     dlist = []
     with open(dfile) as csvfile:
@@ -60,11 +73,12 @@ elif movement == 3:
     file_name = 'Video_trg_' + pwm[set] + '_r1_75_battery'
 
 csv_list = os.listdir(ddir+mdir)
+csv_list.sort(key=natural_keys)
 print csv_list
 
-re_list = ['', '_int1000', '_int1250', '_int500', '_int750']
+re_list = ['', '_int500', '_int750', '_int1000', '_int1250']
 
-label = ['No Interrupt', 'Interrupt 1.0s', 'Interrupt 1.25s', 'Interrupt 0.5s', 'Interrupt 0.75s']
+label = ['No Interrupt', 'Interrupt 0.5s', 'Interrupt 0.75s', 'Interrupt 1.0s', 'Interrupt 1.25s']
 color_list = ['blue', 'orange', 'green', 'red', 'yellow']
 marker_list = ['o', '^', 's', '+', 'x']
 ls_list = [':', '-.', '--', '-']
@@ -99,7 +113,7 @@ if movement == 3:
     plt.hlines(y=76, xmin=35, xmax=43, color='black', linewidth=2)
 plt.xlim(xmin=-10, xmax=90)
 plt.ylim(ymin=-10, ymax=90)
-plt.title(file_name)
+#plt.title(file_name)
 plt.xlabel('x distance in cm')
 plt.ylabel('y distance in cm')
 plt.axes().set_aspect('equal', 'datalim')
