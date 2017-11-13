@@ -13,7 +13,7 @@ Swarms have been proposed as a new form of user interface, robots can display in
 % Establish nice
 % Motivation for this work: Why do we want to remove the battery?
 
-However, one of the fundamental issues that needs to be addressed before swarm robotics can advance is related to energy, small lithium batteries are currently powering the robots and limit their operation time to only a view hours. 
+However, one of the fundamental issues that needs to be addressed before swarm robotics can advance is related to energy, small lithium batteries are currently powering the robots and limit their operation time to only a few hours. 
 The energy density of batteries has improved less than 1 order of magnitude since 1945, in comparison the energy efficiency of computing has improved 12 orders of magnitude~\cite{patel_pvc_2017}.
 The last major advancement in battery technology is 25 years old and came with the introduction of Li-ion batteries.
 Additionally, any new big improvements in energy density of batteries is not likely to happen anytime soon, as new battery technologies are often overhyped and slow to emerge~\cite{zachary_spec_2016}.
@@ -24,9 +24,9 @@ Additionally, any new big improvements in energy density of batteries is not lik
 % Propose a solution: Energy harvesting
 % And discuss current solutions to autonomus operation / battery replenishment
 
-A stable energy supply is a current requirement to allow long term persistent autonomous operation of swarm robots.
+Stable energy supplies are required to allow long term persistent operation of robots.
 Relaxing this constraint by allowing a transient supply of energy could be a potent area of research.
-Wireless sensor nodes that rely on energy harvesting have already been emerging, some are highly energy constrained but fully eliminate the need for batteries.
+Wireless sensor nodes that rely on energy harvesting have already been emerging, some are highly energy constrained but fully eliminate the need for batteries. %TODO cite
 In contrary, different replenishment methods for robot batteries are currently used, robots can be moved to a charging station leaving them nonoperational while recharging or the battery could be replaced, resulting in a high strain on maintenance.
 
 % 4 lines left!
@@ -38,15 +38,16 @@ In contrary, different replenishment methods for robot batteries are currently u
 
 % Intermittently powered robots, that purely rely on harvested power are currently non existent.
 
-Replacing a robots battery with an energy harvesting system could make it more self sufficient and energy-autonomous. 
+Replacing a battery with an energy harvesting system could make a robot more self sufficient and energy-autonomous. 
 This however introduces a new phenomenon to take into account; the intermittent availability of energy produces frequent power interrupts.
-The possibility of sudden power loss is currently not considered when developing software that controls a robots behavior, and for this reason can not be used without adaption.
+The possibility of sudden power loss is currently not considered when developing control software for a robot, and for this reason can not be used without adaption.
 \hfill \break
 
-Secondly, sensors and control techniques used may not be found applicable due to energy budget constrains or their inability to be interrupted by a loss of power. 
+Secondly, sensors and control techniques used may not be found applicable due to energy budget constrains or their inability to be interrupted by a loss of power. %TODO cite?
+%TODO resolve big jump
 Different locomotion types are used and may not all be reliable and/or accurate under the frequent power interruption.
-This research will explore the feasibility of a miniature battery-less robot, allowing persistent operation while being supplied with a small and intermittent source of energy.
-Therefore the main question this work will try to answer is:
+This research will explore the feasibility of a miniature battery-less robot, allowing persistent operation while being supplied by a small and intermittent source of energy.
+Therefore the main question this work addresses is:
 
 \begin{center}
 	\textit{How to enable a transiently powered robot to operate autonomously?}
