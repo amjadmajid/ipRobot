@@ -3,6 +3,7 @@ import os
 import re
 import glob
 import math as m
+from collections import OrderedDict
 import matplotlib.pyplot as plt
 
 
@@ -42,10 +43,11 @@ def length_of_movement(dlist):
         cnt += jump
     return length
 
+
 ddir = 'Csv_Data/'
 
-movement = 2
-set = 1
+movement = 1
+set = 2
 pwm = ['30', '50', '70']
 if movement == 1:
     mdir = 'Video_Circle/'
@@ -62,6 +64,11 @@ print csv_list
 
 re_list = ['', '_int1000', '_int1250', '_int500', '_int750']
 
+label = ['No Interrupt', 'Interrupt 1.25s', 'Interrupt 1.0s', 'Interrupt 0.75s', 'Interrupt 0.5s']
+color_list = ['blue', 'orange', 'green', 'red', 'yellow']
+marker_list = ['o', '^', 's', '+', 'x']
+ls_list = [':', '-.', '--', '-']
+
 lcnt = 0
 re_cnt = 0
 while lcnt < len(csv_list):
@@ -72,23 +79,28 @@ while lcnt < len(csv_list):
         print 'length of list:' + str(len(slist))
         print 'length of movement:' + str(length_of_movement(slist))
 
-        plt.figure(re_cnt)
-        plt.plot(*zip(*slist))
-        if movement == 1:
-            circ = plt.Circle((35, 39), radius=30, color='r', fill=False)
-            plt.gca().add_patch(circ)
-        plt.xlim(xmax=85)
-        plt.ylim(ymax=85)
-        plt.title(file_name + re_list[re_cnt])
-        plt.xlabel('x distance in cm')
-        plt.ylabel('y distance in cm')
-        plt.axes().set_aspect('equal', 'datalim')
+        plt.plot(*zip(*slist), label=label[re_cnt], color=color_list[re_cnt], marker=marker_list[re_cnt], markevery=20)
+
     else:
-        if re_cnt < (len(re_list)-1):
+        if re_cnt < (len(re_list) - 1):
             re_cnt += 1
             lcnt -= 1
         else:
             re_cnt = 0
 
     lcnt += 1
+
+if movement == 1:
+    circ = plt.Circle((35, 38), radius=30, color='black', fill=False)
+    plt.gca().add_patch(circ)
+plt.xlim(xmin=-10, xmax=90)
+plt.ylim(ymin=-10, ymax=90)
+plt.title(file_name)
+plt.xlabel('x distance in cm')
+plt.ylabel('y distance in cm')
+plt.axes().set_aspect('equal', 'datalim')
+# remove duplicate labels
+handles, labels = plt.gca().get_legend_handles_labels()
+by_label = OrderedDict(zip(labels, handles))
+plt.legend(by_label.values(), by_label.keys(), loc='upper right')
 plt.show()
