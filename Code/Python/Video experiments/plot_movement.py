@@ -55,16 +55,16 @@ if movement == 1:
 elif movement == 2:
     mdir = 'Video_Square/'
     file_name = 'Video_trg_70_r1_right_battery'
-else:
+elif movement == 3:
     mdir = 'Video_Straight/'
-    file_name = 'Video_trg_30_r1_75_battery'
+    file_name = 'Video_trg_' + pwm[set] + '_r1_75_battery'
 
 csv_list = os.listdir(ddir+mdir)
 print csv_list
 
 re_list = ['', '_int1000', '_int1250', '_int500', '_int750']
 
-label = ['No Interrupt', 'Interrupt 1.25s', 'Interrupt 1.0s', 'Interrupt 0.75s', 'Interrupt 0.5s']
+label = ['No Interrupt', 'Interrupt 1.0s', 'Interrupt 1.25s', 'Interrupt 0.5s', 'Interrupt 0.75s']
 color_list = ['blue', 'orange', 'green', 'red', 'yellow']
 marker_list = ['o', '^', 's', '+', 'x']
 ls_list = [':', '-.', '--', '-']
@@ -76,10 +76,10 @@ while lcnt < len(csv_list):
         print file_name + re_list[re_cnt]
 
         slist = read_movement_data(ddir + mdir + csv_list[lcnt])
-        print 'length of list:' + str(len(slist))
+        #print 'length of list:' + str(len(slist))
         print 'length of movement:' + str(length_of_movement(slist))
 
-        plt.plot(*zip(*slist), label=label[re_cnt], color=color_list[re_cnt], marker=marker_list[re_cnt], markevery=20)
+        plt.plot(*zip(*slist), label=label[re_cnt], color=color_list[re_cnt], marker=marker_list[re_cnt], markevery=20, alpha=0.5)
 
     else:
         if re_cnt < (len(re_list) - 1):
@@ -91,8 +91,12 @@ while lcnt < len(csv_list):
     lcnt += 1
 
 if movement == 1:
-    circ = plt.Circle((35, 38), radius=30, color='black', fill=False)
+    circ = plt.Circle((36, 38), radius=30, linewidth=2, color='black', fill=False)
     plt.gca().add_patch(circ)
+if movement == 3:
+    plt.vlines(x=39, ymin=1, ymax=76, color='black', linewidth=2)
+    plt.hlines(y=1, xmin=35, xmax=43, color='black', linewidth=2)
+    plt.hlines(y=76, xmin=35, xmax=43, color='black', linewidth=2)
 plt.xlim(xmin=-10, xmax=90)
 plt.ylim(ymin=-10, ymax=90)
 plt.title(file_name)
