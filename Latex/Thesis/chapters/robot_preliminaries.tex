@@ -3,8 +3,8 @@
 In this chapter design requirements for the robot will be determined based on minimal required capabilities. 
 Followed by an evaluation of stepper motor based locomotion for a transiently powered robot.
 
-\section{Modeling a Transiently-powered Robot}
-\label{sec:design_requirements}
+\section{Model Transiently-powered Actuation}
+\label{sec:model_transient}
 
 % 1 Incomming power V * I which scales with solar panel size
 
@@ -23,58 +23,48 @@ Followed by an evaluation of stepper motor based locomotion for a transiently po
 
 % robot dynamics model
 
-\begin{equation}
-	F_{r} = \mu_{r} F_{N} = \mu_{r} mg
-\end{equation}
+%\begin{equation}
+%	F_{r} = \mu_{r} F_{N} = \mu_{r} mg
+%\end{equation}
 
-\begin{equation}
-F_{a} = \frac{1}{2}\rho v^2C_{d}A
-\end{equation}
+%\begin{equation}
+%F_{a} = \frac{1}{2}\rho v^2C_{d}A
+%\end{equation}
 
 \section{Design Considerations}
 \label{sec:design_considerations}
 
-% RF harvesting seems prommesing
-% Wispcam requires approx 4 seconds to harvest 20mJ at a distance of 20cm from the reader \cite{naderiparizi_rfid_2015}
-% better to only use RF for communication and harvest energy from another source \cite{konstantioulos}
-
-% Energy can be harvested from different sources
-
-
-% - Small form factor
-% - Weight of the robot
-% - Power (should not rely on batteries)
-% - Low voltage decreases power consumption of components and allows efficient use of the energy from the supercapacitor
+This section will shortly explain the main areas considered while designing the battery-less transiently-powered robot
 
 % - Optimize or low power consumption (disable or standby sensors and motor ctrl when not used)
 % - Minimal basic functionality (for simple swarm algorithms?) (but no power hungry components ie optical encoders or mouse sensors)
 % - Low power communication
 % - Navigation
 
-Furthermore:
-% - Single mainboard design
-% - Off the chelf components
-% - Swarm robots are typically limited to only operate on flat surfaces!
-% - However should be able to be powered from batteries for testing and tuning!
-
 % Extra extra:
 % - Tradeoff chargetime and operation time
 
+\begin{enumerate}
+\item \textbf{Power} The robot should not rely on batteries, alternatively energy can be harvested from ambient sources and stored in a supercapacitor. 
+The energy stored in the supercapacitor should provide at least an operation time of 1 second, allowing the robot to make small controlled movements.
 
-Current state of the art micro robotic platforms are not bigger than 4.4 cm, as can be seen from Table \ref{tab:comparison_robot_platforms}.
-Keeping the size of the robot to a minimum is beneficial, while the weight will scale accordingly and less energy will be required for movement.
+\item \textbf{Small form factor} By making the robot as small as possible, weight is kept to a minimum reducing the energy required for movement.
+Secondly, by designing the robot to use low cost regular available parts should future proof the robot for use in a transiently-powered swarms.
 
+\item \textbf{Locomotion}
+The energy used for movement will be the biggest part used from the total available energy budget.
+To optimize the distance that can be covered with a single capacitor charge, an efficient locomotion type should be chosen for the movement on flat surfaces.
 
+\item \textbf{Autonomous navigation}
+During operation the robot will experience a very frequent loss of power. 
+Despite regular power interruption the transiently-powered robot should be able to complete a movement with an acceptable error compared to the same robot being battery powered. 
 
-Typically the amount of power that can be harvested 
+\end{enumerate}
 
-The main requirement for the robot is that it should be battery-less, therefore it can only store a small amount of energy in a capacitor / small buffer.
-The leakage current increases with the capacitance of the capacitor and the voltage stored in the capacitor.
-As a result these require longer charge time
 
 To make efficient use of the energy stored in a supercapacitor a regular is required to supply a stable voltage to the connected loads.
 The regulated output voltage is a lower threshold for the energy that can be used from the capacitor.
-The upper threshold is typically determined by the maximum voltage rating of the supercapacitor.
+The upper threshold is determined by the maximum voltage rating of the supercapacitor.
 Lowering the output voltage allows for more energy to be used from the supercapacitor, but also lowers the overall power consumption of individual components.
 The energy stored in supercapacitor is a function of the capacitance and the threshold voltage difference, being equal to:
 
@@ -83,21 +73,11 @@ The energy stored in supercapacitor is a function of the capacitance and the thr
 E = \frac{1}{2}C(V_{\max} - V_{\min})^{2}
 \end{equation}
 
-\section{Energy Harvesting from RF}
+% RF harvesting seems prommesing
+% Wispcam requires approx 4 seconds to harvest 20mJ at a distance of 20cm from the reader \cite{naderiparizi_rfid_2015}
+% better to only use RF for communication and harvest energy from another source \cite{konstantioulos}
 
-% Remove robot part from this ??
-% Do same process with bq25570 evaluation board from ti
-
-%TODO explain that the it's more efficient to remove the wisp energy harvester and only use the one on the robot
-Small modifications have been made to the WISP to allow the energy harvester on the robot to harvest energy from RF.
-The energy harvester, the storage capacitor and the diode to bypass the harvester, were removed from a WISP.
-A wire was soldered to the input pin pad of the now removed harvester on the WISP PCB.
-This wire was connected directly to the input of the harvester on the robot.
-
-To evaluate the time required for the robot to harvest enough energy a small experiment was done.
-Energy was provided to the WISP on the robot trough an Impinj Speedway R1000 RFID reader, which was connected to a Laird antenna.
-The robot was placed 20 cm away from the antenna, typically the distance where the most energy is harvested.
-On average the robot required 48 seconds fully charge and move away from the reader.
+% Energy can be harvested from different sources
 
 \section{Stepper motor-based Locomotion}
 
