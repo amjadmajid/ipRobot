@@ -72,25 +72,28 @@ Despite regular power interruption the transiently-powered robot should be able 
 
 \section{Stepper motor-based Locomotion}
 
-One of the requirements for the robot was that it should have accurate locomotion and basic odometry.
-Wheel encoders are typically used to estimate the angular speed of the wheels.
-A combination of LEDs and photo diodes are used to measure the reflection of a rotating disk.
-However, two LED's on constantly on could consume a lot of power relative to the power budget of the transiently powered robot.
+Autonomous navigation requires robot to have accurate locomotion and basic odometry.
+On bigger robots wheel encoders are commonly used to determine the angular speed of each wheel, used for controlling movement and odometry.
+Miniaturizing encoders significantly reduces their resolution, and can be classified as power hungry when considering a small energy budget and active light source is used.
 The GRITSBot uses stepper motors to achieve accurate locomotion and basic odometry, as described in Section \ref{sec:locomotion}.
 This section will further investigate the use of stepper motor based locomotion in combination with a transiently-powered robot.
 
-\subsection{The stepper motor}
-A stepper motor is a type of permanent magnet dc motor that starts to rotate by supplying current to the motor coils in a specific direction.
+\subsection{The Stepper Motor}
+Stepper motors are a type of permanent magnet dc motor that start to rotate by supplying current to the motor coils in a specific direction.
 The bipolar stepper motor used, requires current to be pulsed trough each of the four connections, in a fixed pattern, in order to rotate it forward or backward.
 A Microcontroller (MCU) is used to keep track and instruct the next stepper motor position from a sequence of four.
 The outputs of the MCU cannot supply enough current to drive a bipolar stepper motor, therefore a dual H-bridge is required to control the current trough each coil.
 
+%TODO make new schematic stepper figure!
+%http://homemaderobo.blogspot.nl/2012/03/stepper-motor.htm
 \begin{figure}
 	\centering
 	\includegraphics[width=\textwidth]{pics/bipolar_stepper.png}
-	\caption{http://homemaderobo.blogspot.nl/2012/03/stepper-motor.html}
+	\caption{Need better / simpler figure here!}
 	\label{fig:bipolarstepper}
 \end{figure}
+
+\subsection{Control and Rotor Synchronization}
 
 The only way to grantee that the teeth on the rotor will stay aligned with the coil is to keep the coil energized until the next position is instructed and the other coil is energized. 
 On the first startup it can happen that the rotor is not aligned with the last position in the sequence.
@@ -99,6 +102,8 @@ When this happens there can be an error between one and three steps of instructi
 In case the stepper motor is rotating and the power is removed, misalignment between the rotor and the last energized coil can occur.
 While the rotor could be moving from one position to the next, it has not moved at all (undershoot) or it overshoots it's next position due to inertia of the rotating mass. 
 To determine what would be more likely, undershooting or overshooting, an experiment has been preformed to determine the error in number of steps.
+
+\subsection{Experimental setup}
 
 A stepper motor is suspended and a needle glued to the motor shaft.
 The needle rotates over a round piece of paper which is divided by markings every 18 degrees, as can be seen from Figure \ref{fig:step_counting}.

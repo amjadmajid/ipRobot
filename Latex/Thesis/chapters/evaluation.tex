@@ -3,16 +3,13 @@
 % - Weight vs current consumption vs distance
 % - Measure start motor overhead and average consumption (show graph?)
 
-
-\section{Energy Harvesting from Ambient Sources}
-
-\subsection{Energy Harvesting from RF}
+\section{Energy Harvesting from RF}
 
 % Remove robot part from this ??
 % Do same process with bq25570 evaluation board from ti
 
 %TODO explain that the it's more efficient to remove the wisp energy harvester and only use the one on the robot
-\subsubsection{Experimental Setup}
+\subsection{Experimental Setup}
 
 Small modifications have been made to the WISP to allow the energy harvester on the robot to harvest energy from RF.
 The energy harvester, the storage capacitor and the diode to bypass the harvester, were removed from a WISP.
@@ -22,11 +19,11 @@ This wire was connected directly to the input of the harvester on the robot.
 To evaluate the time required for the robot to harvest enough energy a small experiment was done.
 Energy was provided to the WISP on the robot trough an Impinj Speedway R1000 RFID reader, which was connected to a Laird antenna.
 
-\subsubsection{Results}
+\subsection{Results}
 The robot was placed 20 cm away from the antenna, typically the distance where the most energy is harvested.
 On average the robot required 48 seconds fully charge and move away from the reader.
 
-\subsection{Performance in different light conditions}
+\subsection{Energy Harvesting from Light}
 % Casestudy of conditions robot 
 % outdoors/indoors/varying light sources/varying solar panels
 % Do experiment in sunlight for nuna panel
@@ -48,12 +45,10 @@ The port is enabled the light source is disabled and the LED is used to drain th
 When the led turns off, indicating that a new charge period begins, the light source is enabled again.
 Now a more detailed description will be given of the different components that were tested.
 
-\subsection{Components evaluated}
-%TODO Why these lamps?
-
 \subsubsection{Solar panels}
 Three different solar panels were tested in this experiment, each different in composition, efficiency and panel size, as can be seen from Table \ref{tab:solar_panels}.
 
+%TODO Why these lamps?
 \subsubsection{Lamps}
 Low cost solar simulators can consist of a combination of LED and halogen light bulbs to simulate sunlight and are used to test the performance of solar panels~\cite{grandi_tia_2014}.
 However, in this case the goal is to have a controlled uniform lighting environment where the robots have roughly constant charge times.
@@ -61,8 +56,8 @@ Solar panels do not only harvest energy from the visual light spectrum but harve
 Halogen lamps have a lower color temperature than the sun but also emit waves far into the infrared spectrum.
 The light sources used in this experiment are a 60W halogen bulb, a 120W halogen halogen bulb and two 150w IR heat lamps where one is colored red.
 
-\subsubsection{Parameters Measured}
-Three measurements were preformed, each lamp was positioned 10cm, 30cm and 50cm from the solar panels.
+\subsubsection{Measurements}
+Three charge time measurements were preformed, each lamp was positioned 10cm, 30cm and 50cm from the solar panels.
 Additionally, for these three distance the temperature was measured at the solar panel using a K-type thermocouple supplied with an Extech EX330 multimeter and the light intensity using the luxmeter on a MASTECH MS8229 multimeter.
 
 \begin{table}[t]
@@ -180,9 +175,9 @@ With power interrupts the runtime is increased to make the robot travel roughly 
 Finally, the average of five measurements is computed and divided by the commanded runtime of the robot to acquire an average speed for each combination.
 
 
-\subsubsection{Tracking the robots Movement}
+\subsubsection{Tracking the Movement}
 
-A robot is programmed to preform the movement at a desired PWM target and optional power interrupt period.
+The robot is programmed to preform the movement at a desired PWM target and optional power interrupt period.
 Before the robot executes the movement a green led is enabled on top of the robot, this bright green dot will be the reference point that the tracking software will try to follow.
 The camera is used to record the movement which is analyzed using Python and OpenCV 3.2, an example of a tracked movement can be seen in Figure \ref{fig:movement_example}.
 
@@ -204,6 +199,9 @@ The camera is used to record the movement which is analyzed using Python and Ope
 
 
 \subsection{Movement Accuracy Metrics}
+
+The first metric that will determine the accuracy of the movements will be the 
+
 
 for straight movements: the amount of curvature
 
