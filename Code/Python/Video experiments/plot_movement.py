@@ -60,7 +60,7 @@ def length_of_movement(dlist):
 ddir = 'Csv_Data/'
 
 movement = 1
-set = 2
+set = 1
 pwm = ['30', '50', '70']
 if movement == 1:
     mdir = 'Video_Circle/'
@@ -79,7 +79,7 @@ print csv_list
 re_list = ['', '_int500', '_int750', '_int1000', '_int1250']
 
 label = ['No Interrupt', 'Interrupt 0.5s', 'Interrupt 0.75s', 'Interrupt 1.0s', 'Interrupt 1.25s']
-color_list = ['blue', 'orange', 'green', 'red', 'yellow']
+color_list = ['blue', 'orange', 'green', 'red', 'cyan']
 marker_list = ['o', '^', 's', '+', 'x']
 ls_list = [':', '-.', '--', '-']
 
@@ -105,12 +105,12 @@ while lcnt < len(csv_list):
     lcnt += 1
 
 if movement == 1:
-    circ = plt.Circle((36, 38), radius=30, linewidth=2, color='black', fill=False)
+    circ = plt.Circle((36, 38), radius=30, linewidth=2, color='black', linestyle='--', fill=False)
     plt.gca().add_patch(circ)
 if movement == 3:
     plt.vlines(x=39, ymin=1, ymax=76, color='black', linewidth=2)
-    plt.hlines(y=1, xmin=35, xmax=43, color='black', linewidth=2)
-    plt.hlines(y=76, xmin=35, xmax=43, color='black', linewidth=2)
+    plt.hlines(y=1, xmin=32, xmax=46, color='black', linewidth=2)
+    plt.hlines(y=76, xmin=32, xmax=46, color='black', linewidth=2)
 plt.xlim(xmin=-10, xmax=90)
 plt.ylim(ymin=-10, ymax=90)
 #plt.title(file_name)
