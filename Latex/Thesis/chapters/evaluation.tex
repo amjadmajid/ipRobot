@@ -200,26 +200,69 @@ The camera is used to record the movement which is analyzed using Python and Ope
 
 \subsection{Movement Accuracy Metrics}
 
-The first metric that will determine the accuracy of the movements will be the 
+\begin{itemize}
+	\item average curvature of straight line movement
+	\item Circle plot, make reference flat and plot difference between measured circle and reference (deviation from ideal circle for circular movements)
+	\item for both straight and curved movements: length of the total movement and  standard deviation in length of movement
+\end{itemize}
 
-
-for straight movements: the amount of curvature
-
-standard deviation in length of movement for each type of movement
 
 \subsection{Straight Movements}
 
+The robot is commanded to move 75cm
+
+\begin{figure}
+	\centering
+	\begin{subfigure}[b]{0.62\textwidth}
+		\includegraphics[width=\textwidth]{pics/straight_40.png}
+		\caption{Target 40\%}
+		\label{fig:stra_exp1}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.62\textwidth}
+		\includegraphics[width=\textwidth]{pics/straight_65.png}
+		\caption{Target 65\%}
+		\label{fig:stra_exp2}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.62\textwidth}
+		\includegraphics[width=\textwidth]{pics/straight_90.png}
+		\caption{Target 90\%}
+		\label{fig:stra_exp3}
+	\end{subfigure}
+	\caption{Straight movements, black horizontal lines show the begin and endpoints}
+\end{figure}
 
 
+\subsection{Circular Movements Results}
 
-\subsection{Curved Movements and Turns}
-
-
-\subsection{Results}
-Higher speed + more interrupts results in more drift to the left, because of wheel more in the back or weaker motor?
-How the interrupts are distributed over the distance has a influence or how the last interrupt ends up..
-Lower speed and less interrupts results in a higher accuracy??
+The robot is commanded make a circle with radius of 30cm
 
 
-For square: Turn\_right speed should be high enough to turn within 0.5 sec
+\begin{figure}
+	\centering
+	\begin{subfigure}[b]{0.62\textwidth}
+		\includegraphics[width=\textwidth]{pics/circle_40.png}
+		\caption{Target 40\%}
+		\label{fig:circ_exp1}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.62\textwidth}
+		\includegraphics[width=\textwidth]{pics/circle_65.png}
+		\caption{Target 65\%}
+		\label{fig:circ_exp2}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.62\textwidth}
+		\includegraphics[width=\textwidth]{pics/circle_90.png}
+		\caption{Target 90\%}
+		\label{fig:circ_exp3}
+	\end{subfigure}
+	\caption{Circular movements, black dashed circle is the target}
+\end{figure}
+
+
+%\subsection{Results}
+%Higher speed + more interrupts results in more drift to the left, because of wheel more in the back or weaker motor?
+%How the interrupts are distributed over the distance has a influence or how the last interrupt ends up..
+%Lower speed and less interrupts results in a higher accuracy??
+
+
+%For square: Turn\_right speed should be high enough to turn within 0.5 sec
 
