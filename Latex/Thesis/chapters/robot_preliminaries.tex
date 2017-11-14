@@ -72,10 +72,10 @@ Despite regular power interruption the transiently-powered robot should be able 
 
 \section{Stepper motor-based Locomotion}
 
-Autonomous navigation requires robot to have accurate locomotion and basic odometry.
-On bigger robots wheel encoders are commonly used to determine the angular speed of each wheel, used for controlling movement and odometry.
+In order for a robot to move between locations without external feedback, accurate locomotion and basic odometry are required.
+Wheel encoders are often used to determine the angular speed of each wheel, which can be used for to correct speed differences between the motors and can be integrated over time to acquire distance.
 Miniaturizing encoders significantly reduces their resolution, and can be classified as power hungry when considering a small energy budget and active light source is used.
-The GRITSBot uses stepper motors to achieve accurate locomotion and basic odometry, as described in Section \ref{sec:locomotion}.
+The GRITSBot~\cite{pickem_icra_2015} uses stepper motors to achieve accurate locomotion and basic odometry, as described in Section \ref{sec:locomotion}.
 This section will further investigate the use of stepper motor based locomotion in combination with a transiently-powered robot.
 
 \subsection{The Stepper Motor}
@@ -105,11 +105,13 @@ To determine what would be more likely, undershooting or overshooting, an experi
 
 \subsection{Experimental setup}
 
+Tiny permanent magnet bipolar stepper motors can be sourced from Ebay, while they are frequently used in digital camera's~\cite{nidec_stepper_2017}.
+
 A stepper motor is suspended and a needle glued to the motor shaft.
-The needle rotates over a round piece of paper which is divided by markings every 18 degrees, as can be seen from Figure \ref{fig:step_counting}.
-First the rotor and coil is synchronized by moving 4 steps.
+The needle rotates over a round piece of paper which is divided by markings in 20 steps, as can be seen from Figure \ref{fig:step_counting}.
+First the rotor and coil are synchronized by moving four steps.
 Then the position of the needle is recorded and the stepper motor is commanded to make one rotation equal to 20 steps.
-After rotating 20 steps the power is removed and the needle position recorded when the needle is not rotating anymore.
+After rotating 20 steps the power is removed from the coils and the needle position recorded when the needle is not rotating anymore.
 
 \begin{figure}
 	\centering
@@ -117,7 +119,7 @@ After rotating 20 steps the power is removed and the needle position recorded wh
 		\includegraphics[width=\textwidth]{pics/step_counting.jpg}
 		\caption{Experimental setup for determining error in the number of counted steps}
 		\label{fig:step_counting}
-	\end{subfigure}
+	\end{subfigure}	
 	\quad
 	\begin{subfigure}[b]{0.55\textwidth}
 		\includegraphics[width=\textwidth]{pics/figure_intertia.png}
@@ -129,8 +131,16 @@ After rotating 20 steps the power is removed and the needle position recorded wh
 
 \subsection{Result}
 
-% Differential drive robot using two stepper motors has a 
+Figure \ref{fig:step_results} shows that stepper motor on average will overshoot, i.e. will do more steps than commanded when the power is removed.
+This effect is probably caused by inertia of the rotor as it becomes more significant with increasing step frequency or speed of rotation.
+However, while this experiment only shows the effect for an unloaded motor, it's likely that a synchronization error will occur when a transiently-powered robot would be powered using two stepper motors in differential drive.
+After every power interrupt each motor first needs to be synchronized, which will result in the robot making a turn if the error between the motors is not equal.
 
+%TODO values that calculate the current per motor?
+Secondly, the current consumed by a stepper motor is constant and independent of the angular velocity of the motor.
+The average current consumed is equal to: $\textrm{I} = V_{supply}/R_{coil}$.
+Therefore running the motor at maximum speed, determined by  is the most efficient, i.e translates the most electrical energy into kinetic energy.
+However, the motor speed is inversely proportional to the motor's output torque and therefore the maximum speed is limited by the minimal required output torque.
 %The current trough the coils is constant, so the faster the stepper motor changes step the more energy can be transformed into movement.
 %Increasing the rotational speed of the stepper motor decreases the torque output of the motor.
 %Therefore the speed is limited by the amount of torque required to preform the movement.
