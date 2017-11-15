@@ -156,7 +156,7 @@ Cost of a single robot to build excluding MCU :
 	\centering
 	\caption{Cost per robot to build 20 or more}
 	\label{tab:cost_robot}
-	\begin{tabularx}{0.7\textwidth}{l@{\hskip 0.6in}l} 
+	\begin{tabularx}{0.5\textwidth}{l@{\hskip 0.7in}l} 
 		\hline
 		\\[-1em]
 		Part & Price \\
@@ -205,15 +205,17 @@ The motors used for the robot have a typical resistance R of 14.5 Ohm and an ind
 Therefore the minimum pulse width should be equal to:
 
 \begin{equation}
-	5\tau = 5 \cdot \frac{70 \cdot 10^{-6}}{14.5} = 24.14 \mu s
+	5\tau = 5 \frac{L}{R} 
 \end{equation}
 
-If a minimum pulse width of 5\% is assumed, than the maximum PWM frequency becomes:
+From this can be calculated that the minimum pulse width should be $5\tau = 5 \cdot \frac{70 \cdot 10^{-6}}{14.5} = 24.14 \mu s $
+If a minimum pulse width of is assumed, than the maximum PWM frequency becomes:
 
 \begin{equation}
-	\frac{1}{24.14 \cdot 10^{-6} \cdot 20 } = 2071.25 Hz
+	f_{max} = \frac{t_{on}}{5\tau \cdot 100 }
 \end{equation}
 
+If the PWM frequency is assumed to be at least 5\% than the maximum PWM frequency is equal to $\frac{5}{24.14 \cdot 100} = 2071.25 Hz$.
 The PWM frequency will be set to 2kHz and later will be verified that the duty cycle will never go below the minimum of 5\%.
 
 % -Write how the pwm control signals are generated for the H-bridge. 
@@ -230,7 +232,7 @@ Each motor is physically different and the friction in the gearbox can variate a
 Since the robot uses two motors in differential drive configuration, a minimum PWM duty cycle has to be found for each motor.
 This is accomplished by setting a PWM duty cycle at which both motors are rotating and slowly backing down the PWM duty cycle until one or both stop turning.
 The minimum PWM duty cycle, allowing the wheels to rotate, is stored as a calibration and added to every motor set point.
-If the robot is set to run at the minimum speed does not imply that the motor run at the same speed.
+If the robot is set to run at the minimum speed does not mean that the motors run at the same speed.
 
 \subsubsection{Maximal Duty Cycle}
 % -Write about maximum speed due to enabling two motors and their startup current peak! show figure!!
