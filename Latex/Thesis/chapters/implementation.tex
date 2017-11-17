@@ -55,18 +55,6 @@ These monocrystalline solar cells have a high efficiency of 22\%, allowing energ
 The solar cells are connected to a Texas Instruments BQ25570 energy harvester. 
 This harvester includes a nanopower boost charger with maximum power point tracking to extract the optimal amount of energy from the solar panel. 
 The harvested energy is stored in a 22mF - 4.5V supercapacitor from AVX, chosen for it's low leakage current and small size.
-
-To make efficient use of the energy stored in a supercapacitor a regular is required to supply a stable voltage to the connected loads.
-The regulated output voltage is a lower threshold for the energy that can be used from the capacitor.
-The upper threshold is determined by the maximum voltage rating of the supercapacitor.
-Lowering the output voltage allows for more energy to be used from the supercapacitor, and also lowers the overall power consumption of individual components.
-The energy stored in supercapacitor is a function of the capacitance and the threshold voltage difference, being equal to:
-
-\begin{equation}
-\label{eq:cap2}
-E = \frac{1}{2}C(V_{\max} - V_{\min})^{2}
-\end{equation}
-
 The Texas Instruments BQ25570 has a buck converter to efficiently regulate the capacitor voltage down to the system voltage of 2.2V.
 External resistors can be used to program voltage thresholds, allowing to automatically enable and disable the buck converter based on minimum and maximum thresholds.
 Additionally the resistors are used to set the overvoltage protection and the buck converter output voltage.
@@ -183,6 +171,7 @@ Cost of a single robot to build excluding MCU :
 \section{Software Implementation}
 
 \subsection{Calibration of the Motors}
+\label{sec:calib_motors}
 
 %TODO STIL VALID? (Write about why valid to assume a constant speed on a single surface)
 The motors used for robots are powered directly from the battery as linear or switch-mode power regulators are not able to supply the high start-up currents.
@@ -288,7 +277,7 @@ With a proportional gain of 0.13 the robot starts light oscillation at the end, 
 To reduce the oscillation a $T_{u}$ of 0.2 was added as can be determined from Figure \ref{fig:gain_tuning}.
 From this figure can be seen that the robot is more stable and doesn't have the tendency to oscillate anymore.
 %Robots was driving on surface that was not super flat, therefore the gyro signal is noisy.
-The tuning process was sped up by setting the minimum motor duty cycle as it made the robot a lot more responsive, this was described earlier in Section \ref{subsub:motor_calib}.
+The tuning process was sped up by setting the minimum motor duty cycle as it made the robot a lot more responsive, this was described earlier in Section \ref{sec:calib_motors}.
 
 %TODO -Add figure with critcial gain + mark period Tu
 

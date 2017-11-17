@@ -1,11 +1,44 @@
 \chapter{Preliminaries}
 
-In this chapter a simple model will explain the relation between power harvested and distance covered by the robot.
+In this chapter a simple model will capture the relation between power harvested and distance covered by the robot.
 The design considerations for the robot will be explained based on minimal required capabilities. 
 Followed by an evaluation of stepper motor based locomotion for a transiently powered robot.
 
-\section{Transiently-powered Actuation Model}
+\section{Transiently-powered Robot Model}
 \label{sec:transient_model}
+
+In this section a simple model will be derived showing the relation between size and weight of the robot, the amount of power that is harvested and stored and how much of this can be translated into linear movement.
+
+\subsection{Modeling Assumptions}
+
+Energy is harvested from an ambient source and stored in a supercapacitor.
+To make efficient use of the energy stored in a supercapacitor a regular is required to supply a stable voltage to the connected loads.
+In this case the loads are two identical dc motors which each drive wheel. \\
+\\ \noindent
+The following assumptions will be used to model the transiently powered robot:
+\begin{itemize}
+	\item The required power by the loads is greater than the incoming power, resulting in repeated power cycling of the robot.
+	\item The amount of input power after conversion is constant due to the use of a controlled environment
+	\item Since a regulator is used, the voltage in the capacitor will never fall below the operating voltage.
+\end{itemize}
+
+%The input power Pin, will be stored in a supercapacitor with capacitance C.
+
+
+%The regulated output voltage is a lower threshold for the energy that can be used from the capacitor.
+%The upper threshold is determined by the maximum voltage rating of the supercapacitor.
+%Lowering the output voltage allows for more energy to be used from the supercapacitor, and also lowers the overall power consumption of individual components.
+%The energy stored in supercapacitor is a function of the capacitance and the threshold voltage difference, being equal to:
+
+\begin{equation}
+\label{eq:cap2}
+E = \frac{1}{2}C(V_{\max} - V_{\min})^{2}
+\end{equation}
+
+
+
+
+
 
 % 1 Incomming power V * I which scales with solar panel size
 
@@ -21,16 +54,37 @@ Followed by an evaluation of stepper motor based locomotion for a transiently po
 
 % Power P(t)  = F * v = T x omega
 
+\subsection{Motor Dynamics}
 
-% robot dynamics model
+The electrical dynamics of a dc motor can be described as:
+\begin{equation}
+	e_{a} = R_{a} \cdot i_{a}(t) + L \frac{di_{a}(t)}{dt} + e_{b}(t)
+\end{equation}
 
-%\begin{equation}
-%	F_{r} = \mu_{r} F_{N} = \mu_{r} mg
-%\end{equation}
+The mechanical dynamics of a motor can be described as:
+\begin{equation}
+T(t) = J_{m} \cdot \frac{d\omega(t)}{dt} + B_{m} \cdot \omega_{m}(t)
+\end{equation}
 
-%\begin{equation}
-%F_{a} = \frac{1}{2}\rho v^2C_{d}A
-%\end{equation}
+And electromechanical equations:
+
+\begin{equation}
+    \begin{gathered}
+		e_{b}(t) = K_{E} \cdot \omega_{m}(t) \\
+		T(t) = K_{T} \cdot i_{a}(t)
+    \end{gathered}
+\end{equation}
+
+\subsection{Robot Dynamics}
+%The robot is modeled as a cube with two disks 
+
+\begin{equation}
+	F_{r} = C_{r} \cdot m \cdot g
+\end{equation}
+
+\begin{equation}
+F_{D} = \frac{1}{2} \cdot C_{d} \cdot \rho_{D} \cdot A \cdot v^2 
+\end{equation}
 
 
 \section{Design Considerations}
