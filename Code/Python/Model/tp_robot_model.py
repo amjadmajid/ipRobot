@@ -1,8 +1,8 @@
 from __future__ import division
-import math as m
+from math import pi, sin
 # Install bms from https://github.com/kpschaper/BMSpy
 import bms
-from bms.signals.functions import Step
+from bms.signals.functions import Step, SignalFunction
 from bms.blocks.continuous import Gain, ODE, Sum, Subtraction, Product
 from bms.blocks.nonlinear import Coulomb
 
@@ -14,9 +14,9 @@ L = 70e-6
 Jm = 1.3e-6  # estimated from python motor current graph
 Jl = 0
 J = Jm + Jl
-No_load_speed = 1200*(2*m.pi/60)  # rad/s
+No_load_speed = 1200*(2*pi/60)  # rad/s
 No_load_current = 35e-3  # A
-Rated_load_speed = 850*(2*m.pi/60)  # rad/s
+Rated_load_speed = 850*(2*pi/60)  # rad/s
 Rated_load = 0.8e-3  # Nm
 Rated_load_current = 80e-3  # A
 Rated_voltage = 3.0
@@ -33,9 +33,14 @@ g = 9.81
 ur = 0.015
 Tr = r * ur * m * g
 
-print 'Tr: ' + str(Tr)
+te = 2
+fs = 2000
+ns = te * fs
+period = 1/fs
 
-Vim = Step(('Voltage Input Motor', 'Vim'), V)
+#Vim = Step(('Voltage Input Motor', 'Vim'), V)
+# Duty cycle 50%
+Vim = SignalFunction(('Voltage Input Motor', 'Vim'), lambda t: V if sin((2*pi*t)/period) > 0 else 0 if sin((2*pi*t)/period) > 0 else 0.5*V)
 
 e = bms.Variable(('Counter electromotive force', 'Cef'))
 Vind = bms.Variable(('Voltage Inductor', 'Vi'))
