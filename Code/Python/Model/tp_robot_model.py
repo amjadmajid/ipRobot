@@ -1,3 +1,4 @@
+from __future__ import division
 import math as m
 # Install bms from https://github.com/kpschaper/BMSpy
 import bms
@@ -26,7 +27,7 @@ Bm = Kt * No_load_current / No_load_speed
 Bl = 0  # %Kt * Rated_load_current / Rated_load_speed; %0; %5e-6;
 B = Bm + Bl
 
-m = 21e-3
+m = 21e-3 / 2
 r = 70e-3
 g = 9.81
 ur = 0.015
@@ -49,14 +50,13 @@ Pm = bms.Variable(('Mechanical power', 'Pm'))
 block1 = Subtraction(Vim, e, Vind)
 block2 = ODE(Vind,Iind, [1], [R, L])
 block3 = Gain(Iind, Tm, Kt)
-block4 = Subtraction(Tm, Text, T)
-block5 = Sum([Tm, Text], T)
-block5a = Coulomb(Tm, W, Text, Tr, 2)
-block6 = ODE(T, W, [1], [B, J])
-block7 = Gain(W, e, Ke)
-block8 = Product(Vim, Iind, Pe)
-block8a = Product(Tm, W, Pm)
-ds = bms.DynamicSystem(2, 1000, [block1, block2, block3, block4, block5, block5a, block6, block7, block8, block8a])
+block4 = Sum([Tm, Text], T)
+block4a = Coulomb(Tm, W, Text, Tr, 2)
+block5 = ODE(T, W, [1], [B, J])
+block6 = Gain(W, e, Ke)
+block7 = Product(Vim, Iind, Pe)
+block7a = Product(Tm, W, Pm)
+ds = bms.DynamicSystem(te, ns, [block1, block2, block3, block4, block4a, block5, block6, block7, block7a])
 
 #ds.DrawModel()
 r = ds.Simulate()
