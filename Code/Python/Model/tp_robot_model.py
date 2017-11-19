@@ -21,7 +21,7 @@ Rated_load = 0.8e-3  # Nm
 Rated_load_current = 80e-3  # A
 Rated_voltage = 3.0
 
-Ke = Rated_voltage / (No_load_speed)
+Ke = Rated_voltage / No_load_speed
 Kt = Rated_load / (Rated_load_current - No_load_current)
 Bm = Kt * No_load_current / No_load_speed
 Bl = 0  # %Kt * Rated_load_current / Rated_load_speed; %0; %5e-6;
@@ -51,6 +51,7 @@ block1 = Subtraction(Vim, e, Vind)
 block2 = ODE(Vind,Iind, [1], [R, L])
 block3 = Gain(Iind, Tm, Kt)
 block4 = Sum([Tm, Text], T)
+# Coulomb = signum function i.e. returns -Text when speed > 0 (note block 4 is sum instead of substraction)
 block4a = Coulomb(Tm, W, Text, Tr, 2)
 block5 = ODE(T, W, [1], [B, J])
 block6 = Gain(W, e, Ke)
