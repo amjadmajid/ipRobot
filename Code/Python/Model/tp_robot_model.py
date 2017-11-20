@@ -28,9 +28,9 @@ Bl = 0  # %Kt * Rated_load_current / Rated_load_speed; %0; %5e-6;
 B = Bm + Bl
 
 m = 21e-3 / 2
-r = 70e-3
+r = 7e-3
 g = 9.81
-ur = 0.015
+ur = 0.15
 Tr = r * ur * m * g
 
 te = 2
@@ -53,6 +53,8 @@ Tm = bms.Variable(('Motor torque', 'Tm'))
 Text = bms.Variable(('Resistant torque', 'Tr'))
 T = bms.Variable(('Torque', 'T'))
 W = bms.Variable(('Rotational speed', 'w'))
+O = bms.Variable(('Angle', 'o'))
+D = bms.Variable(('Distance', 'd'))
 Pe = bms.Variable(('Electrical power', 'Pe'))
 Pm = bms.Variable(('Mechanical power', 'Pm'))
 
@@ -63,15 +65,18 @@ block4 = Sum([Tm, Text], T)
 # Coulomb = signum function i.e. returns -Text when speed > 0 (note block 4 is sum instead of substraction)
 block4a = Coulomb(Tm, W, Text, Tr, 2)
 block5 = ODE(T, W, [1], [B, J])
-block6 = Gain(W, e, Ke)
-block7 = Product(Vim, Iind, Pe)
-block7a = Product(Tm, W, Pm)
-ds = bms.DynamicSystem(te, ns, [block1, block2, block3, block4, block4a, block5, block6, block7, block7a])
+block6 = ODE(W, O, [1], [0,1])
+block6a = Gain(O, D, r)
+block7 = Gain(W, e, Ke)
+block8 = Product(Vim, Iind, Pe)
+block8a = Product(Tm, W, Pm)
+ds = bms.DynamicSystem(te, ns, [block1, block2, block3, block4, block4a, block5, block6, block6a, block7, block8, block8a])
 
 #ds.DrawModel()
 r = ds.Simulate()
-ds.PlotVariables([[W], [Tm, Text, T]])
-ds.PlotVariables([[Iind], [Pe, Pm]])
+#ds.PlotVariables([[W], [Tm, Text, T]])
+#ds.PlotVariables([[Iind], [Pe, Pm]])
+#ds.PlotVariables([[O], [D]])
 #ds.PlotVariables([[Vim, e, Vind]]) #, [Ec]])
 
 ds.PlotShow()
