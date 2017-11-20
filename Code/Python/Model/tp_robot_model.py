@@ -1,12 +1,11 @@
 from __future__ import division
 from math import pi, sin
+import matplotlib.pyplot as plt
 # Install bms from https://github.com/kpschaper/BMSpy
 import bms
 from bms.signals.functions import Step, SignalFunction
 from bms.blocks.continuous import Gain, ODE, Sum, Subtraction, Product
 from bms.blocks.nonlinear import Coulomb
-
-Period = 2000
 
 V = 2.2
 R = 14.5
@@ -34,8 +33,8 @@ ur = 0.15
 Tr = r * ur * m * g
 
 te = 2
-fs = 2000
-duty = 30  # %
+fs = 800
+duty = 60  # %
 ns = te * fs * 20
 period = 1/fs
 
@@ -74,9 +73,26 @@ ds = bms.DynamicSystem(te, ns, [block1, block2, block3, block4, block4a, block5,
 
 #ds.DrawModel()
 r = ds.Simulate()
-#ds.PlotVariables([[W], [Tm, Text, T]])
-#ds.PlotVariables([[Iind], [Pe, Pm]])
-#ds.PlotVariables([[O], [D]])
+ds.PlotVariables([[W], [Tm, Text, T]])
+ds.PlotVariables([[Iind], [Pe, Pm]])
+ds.PlotVariables([[O], [D]])
 #ds.PlotVariables([[Vim, e, Vind]]) #, [Ec]])
 
 ds.PlotShow()
+
+'''
+start = 0
+stop = te
+spacing = int(ns)
+# linspace
+t = [start + float(x)/(spacing-1)*(stop-start) for x in range(spacing)]
+
+icurr = []
+i = 0
+while i < len(t):
+    icurr.append(ds.VariablesValues(Iind, t[i]))
+    i += 1
+
+plt.plot(t, icurr)
+plt.show()
+'''
