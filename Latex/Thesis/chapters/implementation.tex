@@ -7,7 +7,7 @@
 % - EXPLAIN MORE ABOUT HARDWARE CHOISES, why these specific componens. What were the requirements for choosing these components
 
 The first step was to evaluate what components are required for the robot to have basic navigation capabilities.
-Based on this, there was searched for commercially available low power components with the lowest minimal supply voltage.
+Commercially available low power components have been evaluated, where the main criteria was a low minimal supply voltage.
 Currently there are only a limited amount of motor controllers on the market that can operate at the 2.0V.
 To make sure that a small drop in system voltage would not create instability a margin of 0.2V was added.
 Now the system voltage of 2.2V has been determined, each part of the robot will be explained in more detail. 
@@ -319,6 +319,6 @@ Normally when a robot is battery powered, it can execute some predefined movemen
 In case of the transiently powered robot one movement or a series of movements is likely to require multiple power cycles to complete.
 To be able to finish a movement and not reset i.e. redo the same movement over and over, a simple check pointing method is used to keep the program state across power cycles.
 A persistent counter registers the progress in the set of movements.
-In the control loop only the progress in moving towards a set point is stored in non-volatile memory, which depending on the movement can be a required time or angle.
+In the control loop only the progress in moving towards a set point is stored in non-volatile FRAM memory, which depending on the movement can be a required time or angle.
 The right and left motor speed which are tuned by the controllers are not saved and restored after a power interrupt.
 The motors have a startup phase the controller needs to react differently compared to the steady state, constant speed movement of the robot. 
