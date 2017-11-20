@@ -35,12 +35,16 @@ Tr = r * ur * m * g
 
 te = 2
 fs = 2000
-ns = te * fs
+duty = 30  # %
+ns = te * fs * 20
 period = 1/fs
 
 #Vim = Step(('Voltage Input Motor', 'Vim'), V)
 # Duty cycle 50%
-Vim = SignalFunction(('Voltage Input Motor', 'Vim'), lambda t: V if sin((2*pi*t)/period) > 0 else 0 if sin((2*pi*t)/period) < 0 else 0.5*V)
+#Vim = SignalFunction(('Voltage Input Motor', 'Vim'), lambda t: V if sin((2*pi*t)/period) > 0 else 0 if sin((2*pi*t)/period) < 0 else 0.5*V)
+
+Vim = SignalFunction(('Voltage Input Motor', 'Vim'), lambda t: V if t%period < (duty/100*period) else 0 if t%period > (duty/100*period) else 0.5*V)
+
 
 e = bms.Variable(('Counter electromotive force', 'Cef'))
 Vind = bms.Variable(('Voltage Inductor', 'Vi'))
