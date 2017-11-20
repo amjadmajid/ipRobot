@@ -63,7 +63,7 @@ Additionally the resistors are used to set the overvoltage protection and the bu
 
 Now that all the parts have been chosen, they can be connected together to form the robot.
 A Printed Circuit Board (PCB) has been designed to ease connection, increase stability and was required because the ICs come in small no-leads packages.
-A complete overview of the robot can be found in Figure \ref{fig:robot_overview}.
+A complete overview of the robot can be found in Figure \ref{fig:robot_overview} and a more detailed schematic of the PCB can be found in Appendix \ref{app:schematic_robot}.
 Most components are part of the PCB, only the larger components are mounted externally.
 Most reference designs are extendable but this adds complexity, while weight and size are the main constraints of this robot design.
 
@@ -191,7 +191,7 @@ Therefore the minimum pulse width should be equal to:
 	5\tau = 5 \frac{L}{R} 
 \end{equation}
 
-From this can be calculated that the minimum pulse width should be $5\tau = 5 \cdot \frac{70 \cdot 10^{-6}}{14.5} = 24.14 \mu s $
+From this can be calculated that the minimum pulse width should be $5\tau = 5 \cdot \frac{70 \cdot 10^{-6}}{14.5} = 24.14 \mu s$.
 If a minimum pulse width of is assumed, than the maximum PWM frequency becomes:
 
 \begin{equation}
