@@ -165,13 +165,29 @@ Therefore the power interrupt periods evaluated in this experiment are: 1.25 s, 
 \subsubsection{Velocity calibration}
 
 %TODO make table with standard deviation of distance traveled 
-Each movement is executed at three different PWM target settings: 40\%, 65\% and 90\% of the maximum duty cycle.
+Each movement is executed at three different velocity PWM target settings: 40\%, 65\% and 90\% of the maximum duty cycle.
 To let the robot move a particular distance, the average speed needs to be estimated for each PWM target and power interrupt period.
 This is achieved by first determining the time that the robot requires to move approximately 150 cm for each target without power interrupts.
 When the robot experiences power interrupts the average velocity of a active period becomes lower due to frequent acceleration from standstill.
 With power interrupts the runtime is increased to make the robot travel roughly the same distance.
-Finally, the average of five measurements is computed and divided by the commanded runtime of the robot to acquire an average speed for each combination.
+Finally, the average of five measurements is computed and divided by the commanded runtime of the robot to acquire an average speed for each combination, which can be found in Table \ref{tab:val_calib}.
 
+
+\begin{table}[t]
+	\centering
+	\small
+	\caption{Calibrated velocity}
+	\label{tab:val_calib}
+	\begin{tabular}{|l|l|l|l|l|l|}
+		\hline
+		& No int & 1.25s & 1.0s & 0.75s & 0.5s \\
+		\hline \hline
+		Target 40\% & 18.9 m/s & 18.2 cm/s & 18.0 cm/s & 17.1 cm/s & 15.9 cm/s \\
+		Target 65\% & 24.0 m/s & 22.2 cm/s & 21.3 cm/s & 20.8 cm/s & 18.8 cm/s \\
+		Target 90\% & 28.8 m/s & 26.4 cm/s & 25.7 cm/s & 24.5 cm/s & 22.7 cm/s \\
+		\hline
+	\end{tabular}
+\end{table}
 
 \subsubsection{Tracking the Movement}
 
