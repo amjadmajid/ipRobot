@@ -6,20 +6,23 @@ This chapter will provide background information about current state of the art 
 \section{Transiently-powered Systems}
 \label{sec:tp_systems}
 
-% - Roughly everything that is powered fron a Energy harvester
-
-Example of energy harvesting: Prolonged energy harvesting for ingestible devices~\cite{plonski_tranro_2016}
-Drug delivery
-\\
-Converting a Plant to a Battery and Wireless Sensor with Scatter Radio and Ultra-Low Cost
-
-%Other sources available for exploration are often limited by the application. Secondly, most sources can be scarce or completely absent during prolonged time intervals of the day as well \cite{RN15}. 
-
-Fully programmable RFID platforms have been developed to exploring the combination of sensing, computation and communication, while allowing battery-less operation by harvesting RF energy~\cite{sample_transim_2008}.
-The amount of energy collected from RF signals is very small and decreases with the distance of the device to the transmitter.
-The harvested energy is typically stored in a capacitor, where larger capacitors can buffer more energy and smaller capacitors have the advantage of shorter charge times~\cite{gummerson_mobisys_2010}.
+% What are transiently powered systems:
+Transiently-powered systems have evolved from the need to remove batteries, and instead harvest energy from ambient sources.
+The ambient sources available for exploration are limited by the application, and can be scarce or completely absent during prolonged time intervals of the day~\cite{konstantopoulos_im_2016}.
+A result of this is that the amount of power harvested can very significantly over time, and an energy buffer is required to grantee the ability to complete a task.
+Fully programmable RFID platforms have been developed that explore the combination of sensing, computation and communication, while allowing battery-less operation by harvesting energy from RF~\cite{sample_transim_2008}. 
+The harvested energy is stored in a capacitor, where larger capacitors can buffer more energy and smaller capacitors have the advantage of shorter charge times~\cite{gummerson_mobisys_2010}.
 For longer, complex operations the energy budged needs to be evaluated carefully.
 To store the energy an appropriate size storage capacitor needs to be selected~\cite{naderiparizi_rfid_2015}.
+However, the buffer still limits the operation time, resulting in constant power cycling of the system.
+
+
+
+
+
+
+
+
 
 \section{Computation across Power Cycles}
 \label{sec:comp_pc} 
