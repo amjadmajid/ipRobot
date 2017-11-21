@@ -56,36 +56,100 @@ E = \frac{1}{2}C(V_{\max} - V_{\min})^{2}
 
 \subsection{Motor Dynamics}
 
+\begin{circuitikz}
+	%	\draw [help lines] (-1,-2) grid (12,5);
+	
+	% electrical equivalent circuit
+	\draw (0,0) to[V, v_=$v$] (0,3);
+	\draw (0,3) to[R, i>^=$i$, l=$R$] (3,3);
+	\draw (3,3) to[L, l=$L$] (4,3);
+	
+	\draw (4,3) -- (5,3);
+	\draw (5,0) to[V, v_=$U_i$] (5,3);
+	\draw (0,0) -- (5,0);
+	
+	% drive
+	\draw[fill=white] (4.85,0.85) rectangle (5.15,2.15);
+	\draw[fill=white] (5,1.5) ellipse (.45 and .45);
+	
+	% shaft drive -> transmission
+	\draw[fill=black] (5.45,1.45) rectangle (6.5,1.55);
+	
+	% momentum arrow of drive -> transmission
+	\draw[line width=0.7pt,<-] (5.8,1) arc (-30:30:1);
+	
+	% moment of inertia
+	\draw[fill=white] (7.5,1.59)
+	ellipse (.15 and 0.4);
+	\draw[fill=white, color=white] (6.9, 1.99)
+	rectangle (8.49, 1.19);
+	\draw (6.8,1.59) ellipse (.15 and 0.4);
+	\draw (6.8,1.99) -- (7.5,1.99);
+	\draw (6.8,1.19) -- (7.5,1.19);
+	
+	% shaft right from moment of inertia
+	\draw[fill=black] (8.65,1.55) rectangle (8.9,1.65);
+	
+	% momentum arrow (left hand side of brake shoe)
+	\draw[line width=0.7pt,->] (8.05,1.1) arc (-30:30:1);
+
+	% descriptions inside graphic
+	\draw (5.85,2.2) node {$\omega_A, M_A$};
+	\draw (7.25,1.61) node {$J$};
+	\draw (8.05,2.32) node {$M_R$};
+	
+\end{circuitikz}
+\\
+\noindent
 The electrical dynamics of a dc motor can be described as:
 \begin{equation}
-	e_{a} = R_{a} \cdot i_{a}(t) + L \frac{di_{a}(t)}{dt} + e_{b}(t)
+	v = Ri + L \dot{i} + e
 \end{equation}
 
+\noindent
 The mechanical dynamics of a motor can be described as:
 \begin{equation}
-T(t) = J_{m} \cdot \frac{d\omega(t)}{dt} + B_{m} \cdot \omega_{m}(t)
+\tau = J\dot{\omega} + B\omega + m
 \end{equation}
 
-And electromechanical equations:
+\noindent
+The electromechanical equations state that the back emf voltage is proportional to the angular velocity and the motor torque is proportional to the armature current:
 
 \begin{equation}
     \begin{gathered}
-		e_{b}(t) = K_{E} \cdot \omega_{m}(t) \\
-		T(t) = K_{T} \cdot i_{a}(t)
+		e = k_{e} \omega \\
+		\tau = k_{t} i
     \end{gathered}
 \end{equation}
 
+\noindent
+The electrical power consumed and mechanical power consumed will be equal to:
+
+\begin{equation}
+	\begin{gathered}
+		p_{\text{e}} = vi \\
+		p_{\text{m}} = \tau\omega
+	\end{gathered}
+\end{equation}
+	
+
 \subsection{Robot Dynamics}
-%The robot is modeled as a cube with two disks 
+The robot is modeled as a mass $m$, that is moved by two wheels with radius $r$, each connected directly to a motor.
 
+
+The rolling friction between the wheels and the surface is equal to:
 \begin{equation}
-	F_{r} = C_{r} \cdot m \cdot g
+	F_{\text{k}} = \mu_{\text{k}}mg
 \end{equation}
 
+Therefore the torque applied to the motor due to rolling friction, as it is only present while the robot is moving relative to the surface and the equation becomes:
+
 \begin{equation}
-F_{D} = \frac{1}{2} \cdot C_{d} \cdot \rho_{D} \cdot A \cdot v^2 
+	T_{\text{ext}} = rF_{\text{k}} sgn(\omega)
 \end{equation}
 
+\noindent
+The total mass is equal to the 
 
 \section{Design Considerations}
 \label{sec:design_considerations}
@@ -105,7 +169,7 @@ This section will shortly explain the main areas considered while designing the 
 Energy harvested in a controlled environment should charge the capacitor in under 10 seconds and stored energy should provide at least an operation time of 1 second, allowing the robot to make short controlled movements.
 
 \item \textbf{Small form factor} By making the robot as small as possible, weight is kept to a minimum reducing the energy required for movement.
-Secondly, by designing the robot to use low cost regular available parts should future proof the robot for use in a transiently-powered swarms.
+Secondly, the design of the robot should use low cost regular available parts, to make it convenient to build collectives of transiently-powered robots.
 
 \item \textbf{Locomotion}
 The energy used for movement will be the biggest part used from the total available energy budget.
@@ -159,7 +223,7 @@ To determine what would be more likely, undershooting or overshooting, an experi
 
 \subsection{Experimental setup}
 
-Tiny permanent magnet bipolar stepper motors can be sourced from Ebay, while they are frequently used in digital camera's~\cite{nidec_stepper_2017}.
+Tiny permanent magnet bipolar stepper motors can be sourced from China, while they are frequently used in digital camera's~\cite{nidec_stepper_2017}.
 
 A stepper motor is suspended and a needle glued to the motor shaft.
 The needle rotates over a round piece of paper which is divided by markings in 20 steps, as can be seen from Figure \ref{fig:step_counting}.
@@ -193,7 +257,7 @@ After every power interrupt each motor first needs to be synchronized, which wil
 %TODO values that calculate the current per motor?
 Secondly, the current consumed by a stepper motor is constant and independent of the angular velocity of the motor.
 The average current consumed is equal to: $\textrm{I} = V_{supply}/R_{coil}$.
-Therefore running the motor at maximum speed, determined by  is the most efficient, i.e translates the most electrical energy into kinetic energy.
+Therefore running the motor at maximum speed, determined by is the most efficient, i.e translates the most electrical energy into kinetic energy.
 However, the motor speed is inversely proportional to the motor's output torque and therefore the maximum speed is limited by the minimal required output torque.
 %The current trough the coils is constant, so the faster the stepper motor changes step the more energy can be transformed into movement.
 %Increasing the rotational speed of the stepper motor decreases the torque output of the motor.
