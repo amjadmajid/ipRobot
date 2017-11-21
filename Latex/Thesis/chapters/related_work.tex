@@ -14,22 +14,18 @@ Fully programmable RFID platforms have been developed that explore the combinati
 The harvested energy is stored in a capacitor, where larger capacitors can buffer more energy and smaller capacitors have the advantage of shorter charge times~\cite{gummerson_mobisys_2010}.
 For longer, complex operations the energy budged needs to be evaluated carefully.
 To store the energy an appropriate size storage capacitor needs to be selected~\cite{naderiparizi_rfid_2015}.
-However, the buffer still limits the operation time, resulting in constant power cycling of the system.
-
-
-
-
-
-
-
-
+However, the buffer still limits the operation time, resulting in very frequent power cycling of the system.
 
 \section{Computation across Power Cycles}
 \label{sec:comp_pc} 
 % - Short intro into persistent framwork: checkpointing etc
-% mementos
-% chain
-% ratchet
+
+To be able to execute long running-programs under the threat of power loss due to the energy buffer depletion, different methods have been developed to allow computation across power cycles.
+Programs can be automatically transformed to run under frequent loss of power by using energy-aware state checkpointing, the program state is saved in non-volatile memory before running out of energy~\cite{ransford_asplos_2011}
+Another checkpointing method removes the need for special hardware or a programming model, instead it uses a compiler to add non-volatile checkpoints to a program, dividing it into re-executable sections~\cite{vanderwoude_osdi_2016}.
+Other research proposes a new programming model that splits a program into re-executable tasks, where the tasks exchange data trough non-volatile input and output channels, guaranteeing consistency of the program~\cite{Colin_oopsla_2017}.
+
+
 
 \section{Energy Supply}
 \label{sec:energy_supply}
