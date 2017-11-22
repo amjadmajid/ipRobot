@@ -8,18 +8,43 @@
 
 The first step was to evaluate what components are required for the robot to have basic navigation capabilities.
 Commercially available low power components have been evaluated, where the main criteria was a low minimal supply voltage.
-Currently there are only a limited amount of motor controllers on the market that can operate at the 2.0V.
-To make sure that a small drop in system voltage would not create instability a margin of 0.2V was added.
-Now the system voltage of 2.2V has been determined, each part of the robot will be explained in more detail. 
+This section will explain each part of the robot in more detail and a complete overview of the robot is shown in Figure \ref{fig:robot_overview}.
 
-\subsection{Computation and Sensing}
+\vspace{1em}
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=\textwidth]{pics/schematic_robot_v2.png}
+	\caption{Schematic overview of the robot.}
+	\label{fig:robot_overview}
+\end{figure}
+
+\subsection{Energy Source}
+Solar energy is harvested from two IXYS SLMD121H04L-ND solar cells~\cite{ixolar_slmd121h04l_2017} in parallel.
+These monocrystalline solar cells have a high efficiency of 22\%, allowing energy harvesting even in low light conditions.
+The solar cells are connected to a energy harvester. 
+
+\subsection{Energy Harvesting and Storage}
+\label{sec:imp_energy_harvesting}
+Energy is harvested using a Texas Instruments BQ25570 energy harvester~\cite{bq25570_2017}, which includes a nanopower boost charger with maximum power point tracking to extract the optimal amount of energy. 
+The harvested energy is stored in a 22mF - 4.5V supercapacitor from AVX~\cite{avx_bestcap_2017}, chosen for its low leakage current and small size.
+The Texas Instruments BQ25570 has a buck converter to efficiently regulate the capacitor voltage down to the system voltage.
+The minimal supply voltage is determined by the component with the highest minimal voltage requirement, in this case 2.0 V.
+To make sure that a small drop in system voltage would not create instability a margin of 0.2V was added, resulting of a system voltage of 2.2 V.
+External resistors can be used to program voltage thresholds, allowing to automatically enable and disable the buck converter based on minimum and maximum thresholds.
+Additionally the resistors are used to set the overvoltage protection and the buck converter output voltage.
+
+\subsection{Computation}
+\label{sec:imp_computation}
 
 The robot is designed around a WISP 5 \cite{wisp5_wiki_2017}, a battery-free platform for low power sensing, computation and communication.
 This platform has the ability to communicate with RFID readers and is powered by the carrier signal emitted by the reader.
 However, the communication range and the power that can be harvested is limited.
-Therefore communication is currently not implemented and a different energy source for harvesting will be used.
-Currently only the Microcontroller (MCU) is being utilized, a Texas Instruments MSP430FR5969 ultra low power microcontroller.
-This MCU can operate at 16 MHz and features 64 KB FRAM, 2 KB SRAM and 40 IO ports.
+Therefore communication is currently not implemented and a different energy source for harvesting will be used as described in Section \ref{sec:energy_harvesting}.
+Currently only the MCU from the WISP 5 is being utilized: a Texas Instruments MSP430FR5969 ultra low power microcontroller.
+This MCU can operate at 16 MHz and features 64 KB FRAM, 2 KB SRAM and 40 IO ports \cite{msp430fr5969_2017}.
+
+\subsection{Sensing}
+\label{sec:imp_sensing}
 
 The robot has access to basic sensors which can be interfaced trough I2C.
 For detecting obstacles in front of the robot, a Maxim Integrated MAX44000 proximity sensor was added of the robot facing forward.
@@ -31,57 +56,33 @@ To allow for controlled movements the robot has a Bosch Sensortec BMG250 low pow
 
 % tell that also higher geared motors were tried??
 
-Two 26:1 sub-micro plastic planetary gearmotors from Pololu are mounted in a 3d printed frame.
+Two 25:1 sub-micro plastic planetary gearmotors from Precision Microdrives~\cite{gearmotor_206-110_2017} are mounted in a 3D printed frame.
 The motors are positioned diagonally opposite from each other making the robot as compact as possible, while this differential drive configuration allows the robot to steer.
 Small plastic wheels with rubber tires are mounted directly on each of the motor shafts.
 Behind these two motors a free running caster wheel is mounted to the frame, acting as a third support point for the robot.
 
-The speed of each motor can be controlled individually using Pulse-Width-Modulation (PWM) and a Texas Instruments DRV8836 dual H-bridge.
-Typically MCU io-ports are limited in the amount of current that they can supply.
-MOSFETs inside the dual H-bridge allow regulation of larger currents to the motors.
+\subsection{Motor Control}
+\label{sec:imp_motor_control}
+
+The speed (and the current consumption) of each motor can be controlled individually using Pulse-Width-Modulation (PWM).
 The MCU can use the H-bridge to enable, disable and control the direction of rotation of each individual motor.
-
-%TODO tell something about the maximum speed that can be achieved
-
-On average the each motor consumes 38mA while running on a flat surface, which is well within the current limit that the buck converter can supply.
-However when the motors are in not moving yet the start current is approximately equal to the stall current, which is equal to 240mA.
-This amount of current can not be supplied by a most regulators, PWM can be used to reduce the average current allowing a bulk capacitor to supply the voltage.
-
-\subsection{Energy Harvesting}
-\label{sec:energy_harvesting}
-
-Solar energy is harvested from two IXYS SLMD121H04L-ND solar cells in parallel.
-These monocrystalline solar cells have a high efficiency of 22\%, allowing energy harvesting even in low light conditions.
-The solar cells are connected to a Texas Instruments BQ25570 energy harvester. 
-This harvester includes a nanopower boost charger with maximum power point tracking to extract the optimal amount of energy from the solar panel. 
-The harvested energy is stored in a 22mF - 4.5V supercapacitor from AVX, chosen for it's low leakage current and small size.
-The Texas Instruments BQ25570 has a buck converter to efficiently regulate the capacitor voltage down to the system voltage of 2.2V.
-External resistors can be used to program voltage thresholds, allowing to automatically enable and disable the buck converter based on minimum and maximum thresholds.
-Additionally the resistors are used to set the overvoltage protection and the buck converter output voltage.
+Typically MCU IO-ports are limited in the amount of current that they can supply.
+MOSFETs inside a Texas Instruments DRV8836 dual H-bridge~\cite{drv8836_2017} allow efficient regulation of larger currents to the motors.
 
 \subsection{Integration}
 
 Now that all the parts have been chosen, they can be connected together to form the robot.
-A Printed Circuit Board (PCB) has been designed to ease connection, increase stability and was required because the ICs come in small no-leads packages.
-A complete overview of the robot can be found in Figure \ref{fig:robot_overview} and a more detailed schematic of the PCB can be found in Appendix \ref{app:schematic_robot}.
-Most components are part of the PCB, only the larger components are mounted externally.
+A Printed Circuit Board (PCB) has been designed to ease connection, increase stability, reduce the total weight of the robot and was required because of the small size ICs (no lead packaging).
+A detailed schematic of the PCB can be found in Appendix \ref{app:schematic_robot}.
+Most components are part of the PCB only the larger components are mounted externally, the solar panel, WISP 5 and the motors.
+The PCB contains headers to connect the solar panel, a header to connect all the required pins from the WISP and a additional header to connect a battery for testing purposes.
 Most reference designs are extendable but this adds complexity, while weight and size are the main constraints of this robot design.
+A overview of both the top and bottom side of the PCB is shown in Figure \ref{fig:pcb_robot}.
 
 % Features of the pcb, wisp regulator allows powering from battery for testing
 
-The top of the PCB contains all the surface mount components that are soldered to the PCB using a reflow oven. 
-When the boards come out of the oven, the headers, motors and supercapacitor are soldered to the boards by hand.
-The PCB contains headers to connect the solar panel, a header to connect all the required pins from the WISP and a additional header to connect a battery for testing purposes.
-A overview of both the top and bottom side of the PCB can be found in Figure \ref{fig:pcb_robot}.
-
-
-\begin{figure}
-	\centering
-	\includegraphics[width=\textwidth]{pics/schematic_robot_v2.png}
-	\caption{Schematic overview of the robot}
-	\label{fig:robot_overview}
-\end{figure}
-
+%The top of the PCB contains all the surface mount components that are soldered to the PCB using a reflow oven. 
+%When the boards come out of the oven, the headers, motors and supercapacitor are soldered to the boards by hand.
 
 \begin{figure}
 	\centering
@@ -96,24 +97,24 @@ A overview of both the top and bottom side of the PCB can be found in Figure \re
 		\caption{Bottom side of the PCB}
 		\label{fig:pcb_robot_back}
 	\end{subfigure}
-	\caption{The PCB designed for the robot to connect everything to the larger components}
+	\caption{The PCB designed for the robot}
 	\label{fig:pcb_robot}
 \end{figure}
 
+\subsection{Energy Expenditure}
 
 The average current consumed of each component was measured with a Monsoon Power Monitor \cite{monsoon_powermonitor_2017}.
-First a two second current trace was recorded of the current consumed by the microcontroller on the WISP.
-The microcontroller was then used to enable each component one by one.
-After enabling a two second current trace was saved.
-The average of each current trace was calculated, and the current consumed by the microcontroller subtracted from the average current of each component.
-The result can be found in Table \ref{tab:avg_cur_comp}.
+The measurement was preformed as follows, first a two second current trace was recorded of the current consumed by the microcontroller on the WISP.
+The MCU was then used to enable each component individually, followed by a two second current measurement with the enabled component.
+The average of each current trace was calculated, and the current consumed by the microcontroller subtracted from the current consumed by each component.
+The measurement result is provided in Table \ref{tab:avg_cur_comp}.
 
 % Make a overview of the cost to build a robot
 
 \begin{table}[t]
 	\centering
 	\begin{threeparttable}
-		\caption{Average consumed current for each individual component at 2.2V}
+		\caption{Average consumed current for each individual component at 2.2 V.}
 		\label{tab:avg_cur_comp}
 		\begin{tabular}{|l|l|} 
 			\hline
@@ -135,11 +136,15 @@ The result can be found in Table \ref{tab:avg_cur_comp}.
 	\end{threeparttable}
 \end{table}
 
+\subsection{Cost}
+
+This research is mainly concerned with a single robot.
+However, when 
 Cost of a single robot to build excluding MCU :
 
 \begin{table}[t]
 	\centering
-	\caption{Cost per robot to build 20 or more}
+	\caption{Cost per robot (assuming a minimum fabrication quantity of 20)}
 	\label{tab:cost_robot}
 	\begin{tabular}{|l|l|} 
 		\hline
@@ -171,9 +176,9 @@ Cost of a single robot to build excluding MCU :
 The motors used for robots are powered directly from the battery as linear or switch-mode power regulators are not able to supply the high start-up currents.
 When the motors are powered from the battery the supplied voltages drops while energy is consumed for the battery.
 Since the speed of the motor is dependent on the supply voltage the speed of the motor will also decrease while energy is consumed from the battery.
-However, the use of a supercapacitor requires a regulator to make efficient use of the energy stored, as described in Section \ref{sec:energy_harvesting}.
+However, the use of a supercapacitor requires a regulator to make efficient use of the energy stored, as described in Section \ref{sec:imp_energy_harvesting}.
 A benefit of keeping the supply voltage constant is that voltage is eliminated as a factor in determining the motor speed.
-By making the assumption that the robot will only travel on a flat surface, the steady state speed is considered "constant" given a certain PWM duty cycle.
+By making the assumption that the robot will only travel on a flat surface, the steady state speed is considered ``constant" given a certain PWM duty cycle.
 
 
 \subsubsection{PWM Frequency for Linear Motion Control}

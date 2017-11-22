@@ -165,19 +165,23 @@ This section will shortly explain the main areas considered while designing the 
 % - Tradeoff chargetime and operation time
 
 \begin{enumerate}
-\item \textbf{Power} The robot should not rely on batteries, alternatively energy can be harvested from ambient sources and stored in a supercapacitor. 
+\item \textbf{Power}. 
+The robot should not rely on batteries, alternatively energy can be harvested from ambient sources and stored in a supercapacitor. 
 Energy harvested in a controlled environment should charge the capacitor in under 10 seconds and stored energy should provide at least an operation time of 1 second, allowing the robot to make short controlled movements.
 
-\item \textbf{Small form factor} By making the robot as small as possible, weight is kept to a minimum reducing the energy required for movement.
-Secondly, the design of the robot should use low cost regular available parts, to make it convenient to build collectives of transiently-powered robots.
+\item \textbf{Small form factor}. 
+By making the robot as small as possible, weight is kept to a minimum reducing the energy required for movement.
+Secondly, by design the robot using low cost off-the-shelf parts, should make it convenient to build collectives of transiently-powered robots.
 
-\item \textbf{Locomotion}
-The energy used for movement will be the biggest part used from the total available energy budget.
+\item \textbf{Locomotion}.
+Movement will consume the largest amount of energy from the total available energy budget.
 To optimize the distance that can be covered with a single capacitor charge, an efficient locomotion type should be chosen for the movement on flat surfaces.
 
-\item \textbf{Autonomous navigation}
+\item \textbf{Autonomous navigation}.
 During operation the robot will experience a very frequent loss of power. 
-Despite regular power interruption the transiently-powered robot should be able to complete a movement with an acceptable error compared to the same robot being battery powered. 
+Despite regular power interruption the transiently-powered robot should be able to complete a movement with an acceptable error compared to the same robot being battery powered.
+
+%TODO write about ability to expand to swarming
 
 \end{enumerate}
 
@@ -191,13 +195,15 @@ Despite regular power interruption the transiently-powered robot should be able 
 \section{Stepper motor-based Locomotion}
 
 In order for a robot to move between locations without external feedback, accurate locomotion and basic odometry are required.
-Wheel encoders are often used to determine the angular speed of each wheel, which can be used for to correct speed differences between the motors and can be integrated over time to acquire distance.
+%TODO DEFINE AND REFERENCE
+Wheel encoders are often used to determine the angular speed of each wheel, which can be used to correct speed differences between the motors and can be integrated over time to acquire distance.
 Miniaturizing encoders significantly reduces their resolution, and can be classified as power hungry when considering a small energy budget and active light source is used.
+%TODO NEED REFERENCE FOR THIS CLAIM
 The GRITSBot~\cite{pickem_icra_2015} uses stepper motors to achieve accurate locomotion and basic odometry, as described in Section \ref{sec:locomotion}.
 This section will further investigate the use of stepper motor based locomotion in combination with a transiently-powered robot.
 
-\subsection{The Stepper Motor}
-Stepper motors are a type of permanent magnet dc motor that start to rotate by supplying current to the motor coils in a specific direction.
+\subsection{Operation of a Stepper Motor}
+Stepper motors are permanent magnet dc motors that start to rotate by supplying current to the motor coils in a specific direction.
 The bipolar stepper motor used, requires current to be pulsed trough each of the four connections, in a fixed pattern, in order to rotate it forward or backward.
 A Microcontroller (MCU) is used to keep track and instruct the next stepper motor position from a sequence of four.
 The outputs of the MCU cannot supply enough current to drive a bipolar stepper motor, therefore a dual H-bridge is required to control the current trough each coil.
@@ -213,20 +219,20 @@ The outputs of the MCU cannot supply enough current to drive a bipolar stepper m
 
 \subsection{Control and Rotor Synchronization}
 
-The only way to grantee that the teeth on the rotor will stay aligned with the coil is to keep the coil energized until the next position is instructed and the other coil is energized. 
-On the first startup it can happen that the rotor is not aligned with the last position in the sequence.
-When this happens there can be an error between one and three steps of instructing a new steps and the stepper moving to the next position.
+The only way to grantee that the teeth on the rotor will stay aligned with the coil, is to keep the coil energized until the next position is instructed and succeeding coil is energized. 
+On the first startup the rotor may not be aligned with the last position in the sequence of four.
+As a result an error between one and three steps can occur before the energized coil and rotor are synchronized.
 
 In case the stepper motor is rotating and the power is removed, misalignment between the rotor and the last energized coil can occur.
-While the rotor could be moving from one position to the next, it has not moved at all (undershoot) or it overshoots it's next position due to inertia of the rotating mass. 
-To determine what would be more likely, undershooting or overshooting, an experiment has been preformed to determine the error in number of steps.
+While the rotor could be moving from one position to the next, it has not moved at all (undershoot) or can continue to move to the next position due to inertia of the rotating mass (overshoot). 
+To determine what would be more likely, undershooting or overshooting, the following experiment has been preformed to determine the error in the number of steps.
 
 \subsection{Experimental setup}
 
 Tiny permanent magnet bipolar stepper motors can be sourced from China, while they are frequently used in digital camera's~\cite{nidec_stepper_2017}.
 
 A stepper motor is suspended and a needle glued to the motor shaft.
-The needle rotates over a round piece of paper which is divided by markings in 20 steps, as can be seen from Figure \ref{fig:step_counting}.
+The needle rotates over a round piece of paper which is divided by markings in 20 steps, as seen from Figure \ref{fig:step_counting}.
 First the rotor and coil are synchronized by moving four steps.
 Then the position of the needle is recorded and the stepper motor is commanded to make one rotation equal to 20 steps.
 After rotating 20 steps the power is removed from the coils and the needle position recorded when the needle is not rotating anymore.
@@ -247,22 +253,31 @@ After rotating 20 steps the power is removed from the coils and the needle posit
 	\caption{}
 \end{figure}
 
-\subsection{Result}
+\subsection{Stepper Motor Inertia Result}
 
-Figure \ref{fig:step_results} shows that stepper motor on average will overshoot, i.e. will do more steps than commanded when the power is removed.
-This effect is probably caused by inertia of the rotor as it becomes more significant with increasing step frequency or speed of rotation.
-However, while this experiment only shows the effect for an unloaded motor, it's likely that a synchronization error will occur when a transiently-powered robot would be powered using two stepper motors in differential drive.
+Figure \ref{fig:step_results} shows the result of the experiment, the stepper motor on average will overshoot, i.e. will do more steps than commanded when the power is removed.
+This effect is becomes more significant with increasing step frequency or speed of rotation.
+However, while this experiment only shows the effect for an unloaded motor, it is likely that a synchronization error will occur when a transiently-powered robot would be powered using two stepper motors in differential drive.
 After every power interrupt each motor first needs to be synchronized, which will result in the robot making a turn if the error between the motors is not equal.
 
 %TODO values that calculate the current per motor?
 Secondly, the current consumed by a stepper motor is constant and independent of the angular velocity of the motor.
-The average current consumed is equal to: $\textrm{I} = V_{supply}/R_{coil}$.
-Therefore running the motor at maximum speed, determined by is the most efficient, i.e translates the most electrical energy into kinetic energy.
+The average current consumed is equal to: $\textrm{I} = V_{\text{supply}}/R_{\text{coil}}$.
+Therefore running the motor at maximum speed, translates the most electrical energy into kinetic energy.
 However, the motor speed is inversely proportional to the motor's output torque and therefore the maximum speed is limited by the minimal required output torque.
 %The current trough the coils is constant, so the faster the stepper motor changes step the more energy can be transformed into movement.
 %Increasing the rotational speed of the stepper motor decreases the torque output of the motor.
 %Therefore the speed is limited by the amount of torque required to preform the movement.
 
+%TODO Write conclusion here! + link to rest of thesis
+
+\section{DC Motor locomotion}
+
+%TODO tell something about the maximum speed that can be achieved
+
+On average the each motor consumes 38 mA while running on a flat surface, which is well within the current limit that the buck converter can supply.
+However when the motors are in not moving yet the start current is approximately equal to the stall current, which is equal to 240 mA.
+This amount of current can not be supplied by a most regulators, PWM can be used to reduce the average current allowing a bulk capacitor to supply the voltage.
 
 
 
