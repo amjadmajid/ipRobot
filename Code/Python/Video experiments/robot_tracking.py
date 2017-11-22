@@ -27,8 +27,8 @@ show_result = 1
 
 # define the lower and upper boundaries of the "green"
 # ball in the HSV color space, then initialize the
-# list of tracked points
-greenLower = (29, 90, 55)
+# list of tracked point
+greenLower = (29, 86, 55)
 greenUpper = (64, 255, 255)
 
 line_color = (0, 0, 255)
@@ -44,8 +44,10 @@ square_size = 80
 
 ddir = 'Csv_Data/'
 
-mdir = 'Video_Square/'
-sdir = 'Video_trg_50_r1_50_right_battery_int750'
+#mdir = 'Video_Square/'
+#sdir = 'Video_trg_50_r1_50_right_battery_int750'
+mdir = 'Video_Straight_4s/'
+sdir = 'Video_trg_70_r1_battery_int200'
 #file = mdir + sdir + '/' + 'DSC_4945.MOV'
 
 fcnt = 1
