@@ -38,6 +38,8 @@ Other research proposes a new programming model that splits a program into tasks
 
 % https://www.murata.com/en-eu/products/emiconfun/capacitor/2015/03/24/20150324-p1
 
+%Capacitor vs Supercapacitor EDLC vs battery?
+
 IoT devices are currently powered from one of two sources, either form batteries or from supercapacitors. 
 Both sources have very different properties, for example batteries have a high energy density when compared to supercapacitors and in addition batteries experience a lower leakage currents.
 On the other hand, supercapacitors have a higher power density that allows very quick charge and discharge rates without any special charging circuitry.
@@ -165,19 +167,19 @@ This approach has only been tested for basic locomotion and has not combined any
 		\begin{threeparttable}
 			\caption{Comparison of small robotic platforms.}
 			\label{tab:comparison_robot_platforms}
-	 		\begin{tabular}{|l l l l l l l l|} 
+	 		\begin{tabular}{|l l l l l l l l l|} 
 				\hline 
-	 			Robot  & Cost & Locomotion & Speed & Size & Weight & Energy Storage & Recharge\\ 
-	 			       &      &            &       &      & Size \& Life   & Method &         \\ 
+	 			Robot  & Cost & Locomotion & Speed & Size & Weight & Energy  & Operation & Recharge\\ 
+	 			       & (\euro)&          & (cm/s)&      &        & Capacity (mAh)& Time      & Method \\ 
 	 			\hline\hline
-	 			IPR & \euro59 & wheel & 25 cm/s & 4.0 cm & 21 g & 0.006 mAh, 1 s & solar \\
-	 			HAMR-VP\textsuperscript{1} \cite{bruhwiler_iros_2015}& (N/A) & legged & 1 cm/s & 4.4 cm & 2.3 g & 8 mAh, 3 min & manual\\
-	 			Roverables \cite{dementyev_uist_2016} & \euro34 & wheel & ??& 4.0 cm & 36 g\textsuperscript{3} & 100 mAh, 45 min & inductive \\                    
-	 			Zooids \cite{legoc_uist_2016}& \euro43 & wheel & 50 cm/s & 2.6 cm & 12 g & 100 mAh 1 h & manual \\      
-	 			mROBerTO \cite{kim_iros_2016} & \euro52\textsuperscript{2} &motor shaft & 15 cm/s & 1.5 cm & 10 g\textsuperscript{3} & 120 mAh, 1.5 h & manual \\
-	 			GRITSBot \cite{pickem_icra_2015} & \euro43\textsuperscript{2} & wheel & 25 cm/s & 3 cm & 60 g\textsuperscript{3} & 150 mAh, 1 h & contact \\
-	 			Kilobot \cite{rubenstein_icra_2012} & \euro43\textsuperscript{2} & vibration & 1 cm/s & 3.3 cm & 17.6 g\textsuperscript{3} & 160 mAh, 3 h & manual (bulk) \\
-	 			TinyTerp \cite{sabelhaus_icra_2013} & \euro43 & wheel & 50 cm/s & 1.8 cm & N\textbackslash A & 50 mAh, 1 h & manual \\
+	 			IPR & 59 & wheel & 25 & 4.0 cm & 21 g & 0.006 & 1 s & solar \\
+	 			Roverables \cite{dementyev_uist_2016} & 34\textsuperscript{3} & wheel & N/A & 4.0 cm & 36 g\textsuperscript{3} & 100 & 45 min & inductive \\                    
+	 			Zooids \cite{legoc_uist_2016}& 43 & wheel & 50 & 2.6 cm & 12 g & 100 & 1 h & manual \\      
+	 			mROBerTO \cite{kim_iros_2016} & 52\textsuperscript{2} &motor shaft & 15 & 1.5 cm & 10 g\textsuperscript{3} & 120 & 1.5 h & manual \\
+	 			GRITSBot \cite{pickem_icra_2015} & 43\textsuperscript{2} & wheel & 25 & 3 cm & 60 g\textsuperscript{3} & 150 & 1 h & contact \\
+	 			TinyTerp \cite{sabelhaus_icra_2013} & 43 & wheel & 50 & 1.8 cm & N\textbackslash A & 50 & 1 h & manual \\
+	 			Kilobot \cite{rubenstein_icra_2012} & 43\textsuperscript{2} & vibration & 1 & 3.3 cm & 17.6 g\textsuperscript{3} & 160 & 3 h & manual (bulk) \\
+				HAMR-VP\textsuperscript{1} \cite{bruhwiler_iros_2015}& N/A & legged & 44 & 4.4 cm & 2.3 g & 8 & 3 min & manual \\
 				\hline
 			\end{tabular}
 			\begin{tablenotes}
