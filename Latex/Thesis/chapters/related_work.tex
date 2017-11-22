@@ -1,7 +1,7 @@
 \chapter{Related Work}
 \label{chp:related_work}
 
-This chapter will provide background information about current state of the art transiently powered systems. The advantages and disadvantages of different electrical storage types are compared. A short summary of current miniature robotics platforms is given and commonly used locomotion types. Finally different methods that try to ensure continuous operation will be discussed.
+This chapter will provide background information about current state of the art transiently powered systems in Section\ref{sec:tp_systems}. The advantages and disadvantages of different electrical storage types are compared in Section \ref{sec:energy_storage}. A short summary of current miniature robotics platforms is given and commonly used locomotion types are discussed in Section \ref{sec:robotic_platforms} and \ref{sec:locomotion}. Finally different methods that try to ensure continuous operation will be discussed in Section \ref{sec:continous_operation}.
 
 \section{Transiently-powered Systems}
 \label{sec:tp_systems}
@@ -96,6 +96,11 @@ While the biggest disadvantages of super-capacitors is their low energy density 
 % - Dual processor, one for motor control and one for main processing
 % - Or lower level control and one for main computation
 
+% Applications, concrete examples
+% Design
+% Communication and (swarm) organization
+
+
 Reducing the size of robots has a number of benefits, first of all the cost to build a single robot is reduced.
 Low cost robots are developed to make them available for educational use, and allow children to come in contact with robotics and programming at early age~\cite{rubenstein_icra_2015}.
 
@@ -113,15 +118,14 @@ While controlling a swarm or collective is mainly accomplished by means of activ
 
 \section{Locomotion}
 \label{sec:locomotion}
-%TODO tell somthing about their accuracy!
+%TODO first constrain yourself to small robots
 
 Choosing the right locomotion type can depend on different factors, moving in the most energy efficient way on a particular surface is often the determining factor.
 On a flat surface, robots commonly use a two-wheeled differential drive design to not only move but allow for steering as well~\cite{sabelhaus_icra_2013, pickem_icra_2015}.
 The motor shafts of the motors on the mROBerTO directly contact the surface, eliminating the need for wheels and simplifying the design.
-A tiny 1/8" ball caster is used as a third support point in the front of the robot~\cite{kim_iros_2016}.
-The GRITSBot does not use conventional DC motors, requiring encoders to estimate their speed. 
-Instead by using stepper motors the speed can be set by changing the delay between steps. 
-Estimating it's position therefore is reduced to simply counting steps~\cite{pickem_icra_2015}.
+A tiny ball caster is used as a third support point in the front of the robot~\cite{kim_iros_2016}.
+The GRITSBot does not use conventional DC motors, but instead uses stepper motors the speed can be set by changing the delay between steps. 
+Estimating position is therefore reduced to simply counting steps~\cite{pickem_icra_2015}.
 
 Overall cost can be a decisive factor, therefore the Kilobot uses two vibrating motors for locomotion combined with three thin legs.
 When the motors are activated the centripetal forces will generate a forward movement, which can be explained using the slip-stick principle~\cite{rubenstein_icra_2012}.
@@ -131,7 +135,9 @@ Each leg as two degrees of freedom, it can move up and down, as well as forward 
 \section{Continuous Operation}
 \label{sec:continous_operation}
 
+%TODO add example of iros paper mobile recharging station
 Typically the operation time is extended by regularly checking the remaining energy in the battery and move to a recharging station before the robot runs out of energy~\cite{pickem_icra_2015, rubenstein_icra_2012}.
+
 As an alternative to quickly recharging, the battery can also be swapped automatically when the robot moves into the docking station~\cite{kemal_mech_2015}.
 Another work shows a robot which is able to swap it's primary battery using a six degree-of-freedom manipulator, used to grab the dead battery and plug it into a wireless recharging charging station~\cite{zhang_conel_2013}.
 
@@ -157,29 +163,21 @@ This approach has only been tested for basic locomotion and has not combined any
 	\centering
 	\resizebox{\columnwidth}{!}{%
 		\begin{threeparttable}
-			\caption{Comparison of small robotic platforms}
+			\caption{Comparison of small robotic platforms.}
 			\label{tab:comparison_robot_platforms}
-	 		\begin{tabular}{|l l l l l l|} 
+	 		\begin{tabular}{|l l l l l l l l|} 
 				\hline 
-	 			Robot & Locomotion & Size & Weight & Energy Storage & Recharge\\ 
-	 			(Cost) &           &      &        & Size \& Life   & Method  \\ 
+	 			Robot  & Cost & Locomotion & Speed & Size & Weight & Energy Storage & Recharge\\ 
+	 			       &      &            &       &      & Size \& Life   & Method &         \\ 
 	 			\hline\hline
-	 			IPR  & wheel, & 4.0 cm & 21 g & 0.006 mAh, 1 s & solar \\
-	 			(\euro59) & 25 cm/s &  &      &                &       \\
-	 			HAMR-VP\textsuperscript{1} \cite{bruhwiler_iros_2015}& legged, & 4.4 cm & 2.3 g & 8 mAh, 3 m & manual\\
-	 			(N/A) & 1 cm/s                                                 &        &       &            &       \\
-	 			Roverables \cite{dementyev_uist_2016} & wheel, & 4.0 cm & 36 g\textsuperscript{3} & 100 mAh, 45 m & inductive \\
-	 			(\euro34) & ??                                     &        &    &               &           \\                          
-	 			Zooids \cite{legoc_uist_2016}& wheel, & 2.6 cm & 12 g & 100 mAh 1 h & manual \\
-	 			(\euro43)                    & 50 cm/s &       &      &             &        \\                  
-	 			mROBerTO \cite{kim_iros_2016} & motor shaft, & 1.5 cm & 10 g\textsuperscript{3} & 120 mAh, 1.5 h & manual \\
-	 			(\euro52 \textsuperscript{2}) & 15 cm/s      &        &    &               &         \\
-	 			GRITSBot \cite{pickem_icra_2015} & wheel, & 3 cm & 60 g\textsuperscript{3} & 150 mAh, 1 h & contact \\
-	 			(\euro43\textsuperscript{2}) & 25 cm/s    &      &    &                &         \\
-	 			Kilobot \cite{rubenstein_icra_2012} & vibration, & 3.3 cm & 17.6 g\textsuperscript{3} & 160 mAh, 3 h & manual \\
-	 			(\euro43\textsuperscript{2}) & 1 cm/s            &        &    &              & bulk \\
-	 			TinyTerp \cite{sabelhaus_icra_2013} & wheel, & 1.8 cm & N\textbackslash A & 50 mAh, 1 h & manual \\
-	 			(\euro43)                           &50 cm/s &        &    &             &        \\
+	 			IPR & \euro59 & wheel & 25 cm/s & 4.0 cm & 21 g & 0.006 mAh, 1 s & solar \\
+	 			HAMR-VP\textsuperscript{1} \cite{bruhwiler_iros_2015}& (N/A) & legged & 1 cm/s & 4.4 cm & 2.3 g & 8 mAh, 3 min & manual\\
+	 			Roverables \cite{dementyev_uist_2016} & \euro34 & wheel & ??& 4.0 cm & 36 g\textsuperscript{3} & 100 mAh, 45 min & inductive \\                    
+	 			Zooids \cite{legoc_uist_2016}& \euro43 & wheel & 50 cm/s & 2.6 cm & 12 g & 100 mAh 1 h & manual \\      
+	 			mROBerTO \cite{kim_iros_2016} & \euro52\textsuperscript{2} &motor shaft & 15 cm/s & 1.5 cm & 10 g\textsuperscript{3} & 120 mAh, 1.5 h & manual \\
+	 			GRITSBot \cite{pickem_icra_2015} & \euro43\textsuperscript{2} & wheel & 25 cm/s & 3 cm & 60 g\textsuperscript{3} & 150 mAh, 1 h & contact \\
+	 			Kilobot \cite{rubenstein_icra_2012} & \euro43\textsuperscript{2} & vibration & 1 cm/s & 3.3 cm & 17.6 g\textsuperscript{3} & 160 mAh, 3 h & manual (bulk) \\
+	 			TinyTerp \cite{sabelhaus_icra_2013} & \euro43 & wheel & 50 cm/s & 1.8 cm & N\textbackslash A & 50 mAh, 1 h & manual \\
 				\hline
 			\end{tabular}
 			\begin{tablenotes}

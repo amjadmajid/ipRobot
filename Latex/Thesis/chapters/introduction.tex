@@ -12,12 +12,14 @@ Miniature robots with limited capabilities can work together in "swarms" to achi
 The future potential of swarms is widely recognized to have applications in surveillance, search and rescue, and exploration.
 Swarms have been proposed as a new form of user interface, robots can display information and interact with users on tabletops~\cite{legoc_uist_2016}, unmodified clothing~\cite{dementyev_uist_2016} and can be an educational toy for kids~\cite{sony_toio_2017}.
 \hfill \break
+%TODO screenshots of robots to support statements
 
 % Establish nice
 % Motivation for this work: Why do we want to remove the battery?
 
-However, one of the fundamental issues that needs to be addressed before swarm robotics can advance is related to energy, small lithium batteries are currently powering the robots and limit their operation time to only a few hours. 
-The energy density of batteries has improved less than 1 order of magnitude since 1945, in comparison the energy efficiency of computing has improved 12 orders of magnitude~\cite{patel_pvc_2017}.
+However, one of the fundamental issues that needs to be addressed before swarm robotics can advance is related to energy.
+Small lithium batteries are currently powering the robots and limit their operation time to only a few hours. 
+The energy density of batteries has improved less than one order of magnitude since 1945, while in comparison the energy efficiency of computing has improved 12 orders of magnitude~\cite{patel_pvc_2017}.
 The last major advancement in battery technology is 25 years old and came with the introduction of Li-ion batteries.
 Additionally, any new big improvements in energy density of batteries is not likely to happen anytime soon, as new battery technologies are often overhyped and slow to emerge~\cite{zachary_spec_2016}.
 \hfill \break
@@ -49,16 +51,17 @@ The possibility of sudden power loss is currently not considered when developing
 Secondly, sensors and control techniques used may not be found applicable due to energy budget constrains or their inability to be interrupted by a loss of power. %TODO cite?
 %TODO resolve big jump
 Different locomotion types are used and may not all be reliable and/or accurate under the frequent power interruption.
-This research will explore the feasibility of a miniature battery-less robot, allowing persistent operation while being supplied by a small and intermittent source of energy.
-Therefore the main question this work addresses is:
+Therefore the research question this work addresses is:
 
 \begin{center}
 	\textit{How to enable a transiently powered robot to operate autonomously?}
 \end{center}
 
 \section{Contributions}
-Current swarm robots assume that a task can only be completed if sufficient energy is left in the batteries, which also limits their operation time. 
-While surprisingly this is the first study of transiently powered robots, unaware of any platforms being implemented and are operating under the constant threat of power loss. 
+Current robots assume that a task can only be completed if sufficient energy is left in the batteries, which also limits their operation time. 
+This research will explore the feasibility of a miniature battery-less robot, allowing persistent operation while being supplied by a small and intermittent source of energy.
+%This is the first study of transiently powered robots, unaware of any platforms being implemented and are operating under the constant threat of power loss. 
+The list of contributions is as follows:
 
 \begin{enumerate}
 
@@ -66,6 +69,7 @@ While surprisingly this is the first study of transiently powered robots, unawar
 
 \item Design of a battery-less robot that purely operates from harvested energy, with basic capabilities allowing autonomous operation.
 
+%TODO state results of implementation in contribution
 \item Implementation of a control algorithm, that allows the robot to finish a movement across power cycles.
 
 %\item Evaluation of the battery-less robot compared to a battery powered robot in terms of, weight, speed and accuracy of movement.
