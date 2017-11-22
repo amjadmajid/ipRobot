@@ -28,6 +28,7 @@ The solar cells are connected to a energy harvester.
 Energy is harvested using a Texas Instruments BQ25570 energy harvester~\cite{bq25570_2017}, which includes a nanopower boost charger with maximum power point tracking to extract the optimal amount of energy. 
 The harvested energy is stored in a 22mF - 4.5V supercapacitor from AVX~\cite{avx_bestcap_2017}, chosen for its low leakage current and small size.
 The Texas Instruments BQ25570 has a buck converter to efficiently regulate the capacitor voltage down to the system voltage.
+
 The minimal supply voltage is determined by the component with the highest minimal voltage requirement, in this case 2.0 V.
 To make sure that a small drop in system voltage would not create instability a margin of 0.2V was added, resulting of a system voltage of 2.2 V.
 External resistors can be used to program voltage thresholds, allowing to automatically enable and disable the buck converter based on minimum and maximum thresholds.
@@ -71,12 +72,15 @@ MOSFETs inside a Texas Instruments DRV8836 dual H-bridge~\cite{drv8836_2017} all
 
 \subsection{Integration}
 
+%TODO add photograph of complete robot here!
 Now that all the parts have been chosen, they can be connected together to form the robot.
-A Printed Circuit Board (PCB) has been designed to ease connection, increase stability, reduce the total weight of the robot and was required because of the small size ICs (no lead packaging).
+A Printed Circuit Board (PCB) has been designed using EAGLE PCB design and schematic software.
+For the reason of increased stability, ease of connection, reduction of the total weight of the robot and was required because of the small size ICs (no lead packaging).
 A detailed schematic of the PCB can be found in Appendix \ref{app:schematic_robot}.
+
 Most components are part of the PCB only the larger components are mounted externally, the solar panel, WISP 5 and the motors.
 The PCB contains headers to connect the solar panel, a header to connect all the required pins from the WISP and a additional header to connect a battery for testing purposes.
-Most reference designs are extendable but this adds complexity, while weight and size are the main constraints of this robot design.
+Most reference designs are extendable but this adds complexity, while weight and size are the main constraints in this robot design.
 A overview of both the top and bottom side of the PCB is shown in Figure \ref{fig:pcb_robot}.
 
 % Features of the pcb, wisp regulator allows powering from battery for testing
@@ -84,7 +88,7 @@ A overview of both the top and bottom side of the PCB is shown in Figure \ref{fi
 %The top of the PCB contains all the surface mount components that are soldered to the PCB using a reflow oven. 
 %When the boards come out of the oven, the headers, motors and supercapacitor are soldered to the boards by hand.
 
-\begin{figure}
+\begin{figure}[h!]
 	\centering
 	\begin{subfigure}[b]{0.45\textwidth}
 		\includegraphics[width=\textwidth]{pics/pcb_front.jpg}
@@ -104,7 +108,7 @@ A overview of both the top and bottom side of the PCB is shown in Figure \ref{fi
 \subsection{Energy Expenditure}
 
 The average current consumed of each component was measured with a Monsoon Power Monitor \cite{monsoon_powermonitor_2017}.
-The measurement was preformed as follows, first a two second current trace was recorded of the current consumed by the microcontroller on the WISP.
+The measurement was preformed as follows, first a two second current trace was recorded of the current consumed by the MCU on the WISP.
 The MCU was then used to enable each component individually, followed by a two second current measurement with the enabled component.
 The average of each current trace was calculated, and the current consumed by the microcontroller subtracted from the current consumed by each component.
 The measurement result is provided in Table \ref{tab:avg_cur_comp}.
@@ -138,30 +142,34 @@ The measurement result is provided in Table \ref{tab:avg_cur_comp}.
 
 \subsection{Cost}
 
-This research is mainly concerned with a single robot.
-However, when 
-Cost of a single robot to build excluding MCU :
+By using off-the-shelf components that that are readily available allows to build multiples of this robot with ease.
+Keeping the cost down per individual is important when these robots are used in collectives.
+Table \ref{tab:cost_robot} shows the total price to build a single robot, assuming a minimal fabrication quantity of 20.
+The price for the PCB does not include the price of assembling the PCB, as this is currently done by hand.
+Secondly, the cost of a WISP / MCU is currently not included in the price.
+From this table can be concluded that the cost of building a transiently powered robot is comparable to the cost of other reference small robotic platforms.
+
 
 \begin{table}[t]
 	\centering
-	\caption{Cost per robot (assuming a minimum fabrication quantity of 20)}
+	\caption{Cost per robot}
 	\label{tab:cost_robot}
 	\begin{tabular}{|l|l|} 
 		\hline
-		Part & Price \\
+		Part & \euro Price \\
 		\hline\hline
-		Solar panel & \euro9,60\\
-		Supercapacitor & \euro7,43\\
-		Harvester & \euro5,48 \\
-		Proximity sensor & \euro3,98 \\
-		Gyroscope & \euro2,81\\	
-		H-bridge & \euro1,47 \\
-		Two DC motors & \euro18,51 \\
-		Wheels & \euro3,08\\
-		PCB & \euro2,50 \\
-		Small components & \euro4,53\\
+		Solar panel & 9,60\\
+		Supercapacitor & 7,43\\
+		Harvester & 5,48 \\
+		Proximity sensor & 3,98 \\
+		Gyroscope & 2,81\\	
+		H-bridge & 1,47 \\
+		Two DC motors & 18,51 \\
+		Wheels & 3,08\\
+		PCB & 2,50 \\
+		Passive SMD & 4,53\\
 		\hline \hline
-		Total & \euro59,39 \\
+		Total & 59,39 \\
 		\hline
 	\end{tabular}
 \end{table}
