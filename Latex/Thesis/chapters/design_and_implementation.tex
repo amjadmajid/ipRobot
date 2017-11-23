@@ -27,11 +27,11 @@ The solar cells are connected to a energy harvester.
 \subsection{Energy Harvesting and Storage}
 \label{sec:imp_energy_harvesting}
 Energy is harvested using a Texas Instruments BQ25570 energy harvester~\cite{bq25570_2017}, which includes a nanopower boost charger with maximum power point tracking to extract the optimal amount of energy. 
-The harvested energy is stored in a 22mF - 4.5V supercapacitor from AVX~\cite{avx_bestcap_2017}, chosen for its low leakage current and small size.
+The harvested energy is stored in a 22\,mF - 4.5\,V supercapacitor from AVX~\cite{avx_bestcap_2017}, chosen for its low leakage current and small size.
 The Texas Instruments BQ25570 has a buck converter to efficiently regulate the capacitor voltage down to the system voltage.
 
-The minimal supply voltage is determined by the component with the highest minimal voltage requirement, in this case 2.0 V.
-To make sure that a small drop in system voltage would not create instability a margin of 0.2V was added, resulting of a system voltage of 2.2 V.
+The minimal supply voltage is determined by the component with the highest minimal voltage requirement, in this case 2.0\,V.
+To make sure that a small drop in system voltage would not create instability a margin of 0.2\,V was added, resulting of a system voltage of 2.2\,V.
 External resistors can be used to program voltage thresholds, allowing to automatically enable and disable the buck converter based on minimum and maximum thresholds.
 Additionally the resistors are used to set the overvoltage protection and the buck converter output voltage.
 
@@ -42,8 +42,8 @@ The robot is designed around a WISP 5 \cite{wisp5_wiki_2017}, a battery-free pla
 This platform has the ability to communicate with RFID readers and is powered by the carrier signal emitted by the reader.
 However, the communication range and the power that can be harvested is limited.
 Therefore communication is currently not implemented and a different energy source for harvesting will be used as described in Section \ref{sec:energy_harvesting}.
-Currently only the MCU from the WISP 5 is being utilized: a Texas Instruments MSP430FR5969 ultra low power microcontroller.
-This MCU can operate at 16 MHz and features 64 KB FRAM, 2 KB SRAM and 40 IO ports \cite{msp430fr5969_2017}.
+Currently only the MCU from the WISP is being utilized: a Texas Instruments MSP430FR5969 ultra low power microcontroller.
+This MCU can operate at 16\,MHz and features 64\,KB FRAM, 2\,KB SRAM and 40 IO-ports \cite{msp430fr5969_2017}.
 
 \subsection{Sensing}
 \label{sec:imp_sensing}
@@ -79,7 +79,7 @@ A Printed Circuit Board (PCB) has been designed using EAGLE PCB design and schem
 For the reason of increased stability, ease of connection, reduction of the total weight of the robot and was required because of the small size ICs (no lead packaging).
 A detailed schematic of the PCB can be found in Appendix \ref{app:schematic_robot}.
 
-Most components are part of the PCB only the larger components are mounted externally, the solar panel, WISP 5 and the motors.
+Most components are part of the PCB only the larger components are mounted externally, the solar panel, WISP and the motors.
 The PCB contains headers to connect the solar panel, a header to connect all the required pins from the WISP and a additional header to connect a battery for testing purposes.
 Most reference designs are extendable but this adds complexity, while weight and size are the main constraints in this robot design.
 A overview of both the top and bottom side of the PCB is shown in Figure \ref{fig:pcb_robot}.
@@ -201,22 +201,22 @@ Pulse width modulation (PWM) is used to control the speed of the motors, the ave
 When the motor is at rest its equivalent circuit consists of a resistance and inductance in series.
 When voltage is applied to the motor the rate at which the current rises is limited by the inductance. 
 All RL circuits have a time constant: $\tau = L / R$ and the current reaches its maximum steady state at $5\tau$. 
-The motors used for the robot have a typical resistance R of 14.5 $\Omega$ and an inductance of L = 70 $\mu$H~\cite{gearmotor_206-110_2017}.
+The motors used for the robot have a typical resistance R of 14.5\,$\Omega$ and an inductance of L = 70\,$\mu$H~\cite{gearmotor_206-110_2017}.
 Therefore the minimum pulse width should be equal to:
 
 \begin{equation}
 	5\tau_{\min} = 5 \frac{L}{R} 
 \end{equation}
 
-From this can be calculated that the minimum pulse width should be $5\tau = 5 \cdot \frac{70 \cdot 10^{-6}}{14.5} = 24.14 \mu s$.
+From this can be calculated that the minimum pulse width should be $5\tau = 5 \cdot \frac{70 \cdot 10^{-6}}{14.5} = 24.14\,\mu s$.
 If a minimum pulse width of is assumed, than the maximum PWM frequency becomes:
 
 \begin{equation}
 	f_{\max} = \frac{t_{\text{on}}}{5\tau}\cdot 100
 \end{equation}
 
-If the PWM frequency is assumed to be at least 5\% than the maximum PWM frequency is equal to $\frac{5}{24.14 \cdot 100} = 2071.25 Hz$.
-The PWM frequency will be set to 2kHz and later will be verified that the duty cycle will never go below the minimum of 5\%.
+If the PWM frequency is assumed to be at least 5\% than the maximum PWM frequency is equal to $\frac{5}{24.14 \cdot 100} = 2071.25\,Hz$.
+The PWM frequency will be set to 2\,kHz and later will be verified that the duty cycle will never go below the minimum of 5\%.
 
 % -Write how the pwm control signals are generated for the H-bridge. 
 The PWM signals are generated by the microcontroller on the WISP.
@@ -256,7 +256,7 @@ Controlled movements are possible using closed loop feedback, where the heading 
 
 The robot can be controlled using three different commands, one for straight trajectories, one for left and one for right turns.
 When a command is executed a control loop will run until the provided target is reached.
-A timer running periodically calling a interrupt service routine which executes the control loop.   
+A timer running periodically calling an interrupt service routine which executes the control loop.   
 Each command requires different initial values, set points and tuning parameters, these are set accordingly before the control loop is enabled.
 
 \subsubsection{Controlled straight trajectories}
@@ -322,7 +322,7 @@ A P controller is used to rotate the robot to the desired angle, the proportiona
 The motor control values are set to run the motors opposite directions and are equal to the output of the P controller.
 These values will keep decreasing until the robot rotates to the desired angle.
 The set point is assumed to be reached when the angle is within two degrees of the target, in this case the loop will stop automatically.
-To allow enough precision to measure if the target is within these two degrees, the timer which executes the control loop was set to run at 100Hz.
+To allow enough precision to measure if the target is within these two degrees, the timer which executes the control loop was set to run at 100\,Hz.
 Secondly, the proportional gain should not be set to low because the robot might not able to reach the target but also not to high as it can overshoot the target.
 
 \subsection{Persistent movement}
