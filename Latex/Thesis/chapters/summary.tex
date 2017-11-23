@@ -3,14 +3,16 @@
 
 \section{Limitations}
 
+%TODO This is only one limitation (speed accurrracy) but there are more - please list them (lack of more sensors, communciation with the extenal world, size can be even smaller, not managed to develop a swarm).
+
 Section \ref{sec:controlled_movements} shows that the transiently powered robot is able to execute a instructed motion with similar accuracy compared to a battery powered equal.
 However, the distance covered by a robot with frequent power interrupts in a certain amount of time is smaller, i.e the average speed is lower due to more accelerations.
 For this reason the robot needs a method to determine it's speed without wheel encoders.
-One possibility to achieve this would be to determine motor speed by measuring the Back-EMF produced by the motor, as it is proportional to the motors rpm. % ~cite{precision_backemf_2017}.
-The amount of power required to frequently determine the Back-EMF needs to be evaluated carefully.
+One possibility to achieve this would be to determine motor speed by measuring the Back-EMF produced by the motor, as it is proportional to the motors revolutions per minute. % ~cite{precision_backemf_2017}.
+However, the amount of power required to frequently determine the Back-EMF needs to be evaluated carefully.
 
-Another possibility is give external feedback to the robot about it's current position or control the robot's movement externally.
-To achieve this the backscatter communication of the wisp could be used.
+Another possibility is give external feedback to the robot about its current position or control the robot's movement externally.
+To achieve this the backscatter communication channel of the WISP could be used.
 % ADD some info about fast downstream communication?
 
 \section{Future Work}
