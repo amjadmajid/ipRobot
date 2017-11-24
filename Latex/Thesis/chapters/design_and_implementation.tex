@@ -24,29 +24,18 @@ Solar energy is harvested from two IXYS SLMD121H04L-ND solar cells~\cite{ixolar_
 These monocrystalline solar cells have a high efficiency of 22\%, allowing energy harvesting even in low light conditions.
 The solar cells are connected to a energy harvester. 
 
-\subsection{Energy Harvesting and Storage}
-\label{sec:imp_energy_harvesting}
-Energy is harvested using a Texas Instruments BQ25570 energy harvester~\cite{bq25570_2017}, which includes a nanopower boost charger with maximum power point tracking to extract the optimal amount of energy. 
-The harvested energy is stored in a 22\,mF - 4.5\,V supercapacitor from AVX~\cite{avx_bestcap_2017}, chosen for its low leakage current and small size.
-The Texas Instruments BQ25570 has a buck converter to efficiently regulate the capacitor voltage down to the system voltage.
-
-The minimal supply voltage is determined by the component with the highest minimal voltage requirement, in this case 2.0\,V.
-To make sure that a small drop in system voltage would not create instability a margin of 0.2\,V was added, resulting of a system voltage of 2.2\,V.
-External resistors can be used to program voltage thresholds, allowing to automatically enable and disable the buck converter based on minimum and maximum thresholds.
-Additionally the resistors are used to set the overvoltage protection and the buck converter output voltage.
-
 \subsection{Computation}
-\label{sec:imp_computation}
+\label{sec:dai_computation}
 
 The robot is designed around a WISP 5 \cite{wisp5_wiki_2017}, a battery-free platform for low power sensing, computation and communication.
 This platform has the ability to communicate with RFID readers and is powered by the carrier signal emitted by the reader.
 However, the communication range and the power that can be harvested is limited.
-Therefore communication is currently not implemented and a different energy source for harvesting will be used as described in Section \ref{sec:energy_harvesting}.
+Therefore communication is currently not implemented and a different energy source for harvesting will be used as described in Section \ref{sec:dai_energy_harvesting}.
 Currently only the MCU from the WISP is being utilized: a Texas Instruments MSP430FR5969 ultra low power microcontroller.
 This MCU can operate at 16\,MHz and features 64\,KB FRAM, 2\,KB SRAM and 40 IO-ports \cite{msp430fr5969_2017}.
 
 \subsection{Sensing}
-\label{sec:imp_sensing}
+\label{sec:dai_sensing}
 
 The robot has access to basic sensors which can be interfaced trough I2C.
 For detecting obstacles in front of the robot, a Maxim Integrated MAX44000 proximity sensor was added of the robot facing forward.
@@ -64,7 +53,7 @@ Small plastic wheels with rubber tires are mounted directly on each of the motor
 Behind these two motors a free running caster wheel is mounted to the frame, acting as a third support point for the robot.
 
 \subsection{Motor Control}
-\label{sec:imp_motor_control}
+\label{sec:dai_motor_control}
 
 The speed (and the current consumption) of each motor can be controlled individually using Pulse-Width-Modulation (PWM).
 The MCU can use the H-bridge to enable, disable and control the direction of rotation of each individual motor.
@@ -188,7 +177,7 @@ From this table can be concluded that the cost of building a transiently powered
 The motors used for robots are powered directly from the battery as linear or switch-mode power regulators are not able to supply the high start-up currents.
 When the motors are powered from the battery the supplied voltages drops while energy is consumed for the battery.
 Since the speed of the motor is dependent on the supply voltage the speed of the motor will also decrease while energy is consumed from the battery.
-However, the use of a supercapacitor requires a regulator to make efficient use of the energy stored, as described in Section \ref{sec:imp_energy_harvesting}.
+However, the use of a supercapacitor requires a regulator to make efficient use of the energy stored, as described in Section \ref{sec:dai_energy_harvesting}.
 A benefit of keeping the supply voltage constant is that voltage is eliminated as a factor in determining the motor speed.
 By making the assumption that the robot will only travel on a flat surface, the steady state speed is considered ``constant" given a certain PWM duty cycle.
 
