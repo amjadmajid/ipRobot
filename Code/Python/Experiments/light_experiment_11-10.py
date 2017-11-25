@@ -1,8 +1,6 @@
 from __future__ import division
 import matplotlib.pyplot as plt
 
-set_dist = [10, 30, 50]
-
 cp_60w = [[3.034, 3.093, 3.124], [6.489, 6.389, 6.481], [26.04, 26.71, 26.08]]
 
 cp_120w = [[1.156, 2.716, 2.706], [6.703, 6.766, 6.694], [17.09, 18.051, 17.64]]
@@ -27,62 +25,49 @@ ns_150w_w = [[0.7703, 0.7737, 0.7738], [9.602, 10.07, 9.958], [22.36, 22.2, 24.7
 
 ns_150w_r = [[1.605, 1.858, 1.852], [10.1, 10.3, 10.09], [46.53, 47.63, 46.71]]
 
+
 def list_avg(llist):
     i = 0
     avg = []
     while i < len(llist):
         avg.append(sum(llist[i])/len(llist[i]))
-        i+=1
+        i += 1
     return avg
 
-plt.figure(1)
-plt.plot(set_dist, list_avg(cp_60w), ':o')
-plt.plot(set_dist, list_avg(cp_120w), '-.o')
-plt.plot(set_dist, list_avg(cp_150w_w), '--o')
-plt.plot(set_dist, list_avg(cp_150w_r), '-o')
-plt.xlim(xmin=0)  # this line
-plt.ylim(ymin=0, ymax=150)  # this line
-#plt.grid()
-#plt.title('Ebay 17% Monocrystaline 40x30')
-plt.xlabel('Distance from solar panel (cm)', fontsize=11)
-plt.ylabel('Charge time (s)', fontsize=11)
-plt.xticks(fontsize=11)
-plt.yticks(fontsize=11)
-plt.legend(('60W halogen','120W halogen', '150W IR lamp white', '150W IR lamp red'), loc='upper left', fontsize=11)
-
-plt.figure(2)
-plt.plot(set_dist, dk_60w, ':o')
-plt.plot(set_dist, dk_120w, '-.o')
-plt.plot(set_dist, dk_150w_w, '--o')
-plt.plot(set_dist, dk_150w_r, '-o')
-plt.xlim(xmin=0)  # this line
-plt.ylim(ymin=0, ymax=150)  # this line
-#plt.grid()
-#plt.title('IXYS SLMD121H04L-ND 20% Monocrystaline 2x 43x14 (parallel) ')
-plt.xlabel('Distance from solar panel (cm)', fontsize=11)
-plt.ylabel('Charge time (s)', fontsize=11)
-plt.xticks(fontsize=11)
-plt.yticks(fontsize=11)
-plt.legend(('60W halogen','120W halogen', '150W IR lamp white', '150W IR lamp red'), loc='upper left', fontsize=11)
-
-fac = (80*40 -(13.5*13.5))/1200
-
-plt.figure(3)
-plt.plot(set_dist, [i * fac for i in list_avg(ns_60w)], ':o')
-plt.plot(set_dist, [i * fac for i in list_avg(ns_120w)], '-.o')
-plt.plot(set_dist, [i * fac for i in list_avg(ns_150w_w)], '--o')
-plt.plot(set_dist, [i * fac for i in list_avg(ns_150w_r)], '-o')
-plt.xlim(xmin=0)  # this line
-plt.ylim(ymin=0, ymax=150)  # this line
-#plt.grid()
-#plt.title('Azurspace 3G28C 28% Triple Junction GaAs 80x40 (Nuna)')
-plt.xlabel('Distance from solar panel (cm)', fontsize=11)
-plt.ylabel('Charge time (s)', fontsize=11)
-plt.xticks(fontsize=11)
-plt.yticks(fontsize=11)
-plt.legend(('60W halogen','120W halogen', '150W IR lamp white', '150W IR lamp red'), loc='upper left', fontsize=11)
+cp = [list_avg(cp_60w), list_avg(cp_120w), list_avg(cp_150w_w), list_avg(cp_150w_r)]
+dk = [dk_60w, dk_120w, dk_150w_w, dk_150w_r]
+ns = [list_avg(ns_60w), list_avg(ns_120w), list_avg(ns_150w_w), list_avg(ns_150w_r)]
 
 
+def plt_time(var, f):
+    fsize = 12
+    set_dist = ['10', '30', '50']
+    ll = [':o', '-.o', '--o', '-o']
+    cnt = 0
+    plt.figure(figsize=(6,3))
+    while cnt < 4:
+        plt.plot([1, 2, 3], [k * f for k in var[cnt]], ll[cnt])
+        #plt.bar([2+cnt, (2+cnt)+6, (2+cnt)+12], [k * f for k in var[cnt]], width=1)
+        cnt += 1
+    plt.ylim(ymin=0, ymax=60)  # this line
+    plt.xlabel('Distance from solar panel (cm)', fontsize=fsize)
+    plt.ylabel('Charge time (s)', fontsize=fsize)
+    plt.xticks([1, 2, 3], set_dist, fontsize=fsize)
+    plt.yticks(fontsize=fsize)
+    plt.legend(('60W halogen', '120W halogen', '150W IR lamp white', '150W IR lamp red'), loc='upper left', fontsize=fsize)
+
+
+frac = (80 * 40 - (13.5 * 13.5)) / 1200
+# Ebay
+plt_time(cp, 1)
+# IXYS
+plt_time(dk, 1)
+# Azurspace
+plt_time(ns, 1)
+
+plt.show()
+
+'''
 lux_60w = [5790, 2460, 577]
 lux_120w = [8760, 2496, 1179]
 lux_150w_w = [9860, 2046, 1027]
@@ -118,7 +103,7 @@ plt.ylabel('Temperature (C)', fontsize=11)
 plt.xticks(fontsize=11)
 plt.yticks(fontsize=11)
 plt.legend(('60W halogen','120W halogen', '150W IR lamp white', '150W IR lamp red'), loc='upper right', fontsize=11)
+'''
 
-
-plt.show()
+#plt.show()
 
