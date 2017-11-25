@@ -39,7 +39,7 @@ dk = [dk_60w, dk_120w, dk_150w_w, dk_150w_r]
 ns = [list_avg(ns_60w), list_avg(ns_120w), list_avg(ns_150w_w), list_avg(ns_150w_r)]
 
 
-def plt_time(var, f):
+def plt_time(var, yl, ym, f):
     fsize = 12
     set_dist = ['10', '30', '50']
     ll = [':o', '-.o', '--o', '-o']
@@ -49,9 +49,9 @@ def plt_time(var, f):
         plt.plot([1, 2, 3], [k * f for k in var[cnt]], ll[cnt])
         #plt.bar([2+cnt, (2+cnt)+6, (2+cnt)+12], [k * f for k in var[cnt]], width=1)
         cnt += 1
-    plt.ylim(ymin=0, ymax=60)  # this line
+    plt.ylim(ymin=0, ymax=ym)  # this line
     plt.xlabel('Distance from solar panel (cm)', fontsize=fsize)
-    plt.ylabel('Charge time (s)', fontsize=fsize)
+    plt.ylabel(yl, fontsize=fsize)
     plt.xticks([1, 2, 3], set_dist, fontsize=fsize)
     plt.yticks(fontsize=fsize)
     plt.legend(('60W halogen', '120W halogen', '150W IR lamp white', '150W IR lamp red'), loc='upper left', fontsize=fsize)
@@ -59,15 +59,14 @@ def plt_time(var, f):
 
 frac = (80 * 40 - (13.5 * 13.5)) / 1200
 # Ebay
-plt_time(cp, 1)
+plt_time(cp, 'Charge time (s)', 60, 1)
 # IXYS
-plt_time(dk, 1)
+plt_time(dk, 'Charge time (s)', 60, 1)
 # Azurspace
-plt_time(ns, 1)
+plt_time(ns, 'Charge time (s)', 60,1)
 
 plt.show()
 
-'''
 lux_60w = [5790, 2460, 577]
 lux_120w = [8760, 2496, 1179]
 lux_150w_w = [9860, 2046, 1027]
@@ -78,32 +77,12 @@ temp_120w = [35, 25, 23]
 temp_150w_w = [37, 25, 26]
 temp_150w_r = [66, 37, 31]
 
-plt.figure(4)
-plt.plot(set_dist, lux_60w, ':o')
-plt.plot(set_dist, lux_120w, '-.o')
-plt.plot(set_dist, lux_150w_w, '--o')
-plt.plot(set_dist, lux_150w_r, '-o')
-plt.xlim(xmin=0)  # this line
-#plt.ylim(ymin=0)  # this line
-plt.xlabel('Distance from solar panel (cm)', fontsize=11)
-plt.ylabel('Illuminance (lux)', fontsize=11)
-plt.xticks(fontsize=11)
-plt.yticks(fontsize=11)
-plt.legend(('60W halogen','120W halogen', '150W IR lamp white', '150W IR lamp red'), loc='upper right', fontsize=11)
+lux = [lux_60w, lux_120w, lux_150w_w, lux_150w_r]
+temp = [temp_60w, temp_120w, temp_150w_w, temp_150w_r]
 
-plt.figure(5)
-plt.plot(set_dist, temp_60w, ':o')
-plt.plot(set_dist, temp_120w, '-.o')
-plt.plot(set_dist, temp_150w_w, '--o')
-plt.plot(set_dist, temp_150w_r, '-o')
-plt.xlim(xmin=0)  # this line
-plt.ylim(ymin=0)  # this line
-plt.xlabel('Distance from solar panel (cm)', fontsize=11)
-plt.ylabel('Temperature (C)', fontsize=11)
-plt.xticks(fontsize=11)
-plt.yticks(fontsize=11)
-plt.legend(('60W halogen','120W halogen', '150W IR lamp white', '150W IR lamp red'), loc='upper right', fontsize=11)
-'''
+plt_time(lux, 'Illuminance (lux))', 11000, 1)
 
-#plt.show()
+plt_time(temp, 'Temperature (C)', 70, 1)
+
+plt.show()
 
