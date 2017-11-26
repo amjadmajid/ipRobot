@@ -44,7 +44,7 @@ def plt_time(var, yl, ym, f):
     set_dist = ['10', '30', '50']
     ll = [':o', '-.o', '--o', '-o']
     cnt = 0
-    plt.figure(figsize=(6,3))
+    plt.figure(figsize=(5,5))
     while cnt < 4:
         plt.plot([1, 2, 3], [k * f for k in var[cnt]], ll[cnt])
         #plt.bar([2+cnt, (2+cnt)+6, (2+cnt)+12], [k * f for k in var[cnt]], width=1)
@@ -54,7 +54,7 @@ def plt_time(var, yl, ym, f):
     plt.ylabel(yl, fontsize=fsize)
     plt.xticks([1, 2, 3], set_dist, fontsize=fsize)
     plt.yticks(fontsize=fsize)
-    plt.legend(('60W halogen', '120W halogen', '150W IR lamp white', '150W IR lamp red'), loc='upper left', fontsize=fsize)
+    plt.legend(('60 W halogen', '120 W halogen', '150 W IR lamp white', '150 W IR lamp red'), loc='upper left', fontsize=fsize)
 
 
 frac = (80 * 40 - (13.5 * 13.5)) / 1200
@@ -64,8 +64,6 @@ plt_time(cp, 'Charge time (s)', 60, 1)
 plt_time(dk, 'Charge time (s)', 60, 1)
 # Azurspace
 plt_time(ns, 'Charge time (s)', 60,1)
-
-plt.show()
 
 lux_60w = [5790, 2460, 577]
 lux_120w = [8760, 2496, 1179]
