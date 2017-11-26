@@ -30,7 +30,7 @@ The solar cells are connected to a energy harvester.
 The robot is designed around a WISP 5 \cite{wisp5_wiki_2017}, a battery-free platform for low power sensing, computation and communication.
 This platform has the ability to communicate with RFID readers and is powered by the carrier signal emitted by the reader.
 However, the communication range and the power that can be harvested is limited.
-Therefore communication is currently not implemented and a different energy source for harvesting will be used as described in Section \ref{sec:dai_energy_harvesting}.
+Therefore communication is currently not implemented and a different energy source for harvesting will be used as described in Section \ref{sec:pre_energy_harvesting_storage}.
 Currently only the MCU from the WISP is being utilized: a Texas Instruments MSP430FR5969 ultra low power microcontroller.
 This MCU can operate at 16\,MHz and features 64\,KB FRAM, 2\,KB SRAM and 40 IO-ports \cite{msp430fr5969_2017}.
 
@@ -168,16 +168,14 @@ From this table can be concluded that the cost of building a transiently powered
 
 \section{Control Design}
 
-\section{Software Implementation}
-
-\subsection{Calibration of the Motors}
+\subsection{Motor control}
 \label{sec:calib_motors}
 
 %TODO STIL VALID? (Write about why valid to assume a constant speed on a single surface)
 The motors used for robots are powered directly from the battery as linear or switch-mode power regulators are not able to supply the high start-up currents.
 When the motors are powered from the battery the supplied voltages drops while energy is consumed for the battery.
 Since the speed of the motor is dependent on the supply voltage the speed of the motor will also decrease while energy is consumed from the battery.
-However, the use of a supercapacitor requires a regulator to make efficient use of the energy stored, as described in Section \ref{sec:dai_energy_harvesting}.
+However, the use of a supercapacitor requires a regulator to make efficient use of the energy stored, as described in Section \ref{sec:pre_energy_harvesting_storage}.
 A benefit of keeping the supply voltage constant is that voltage is eliminated as a factor in determining the motor speed.
 By making the assumption that the robot will only travel on a flat surface, the steady state speed is considered ``constant" given a certain PWM duty cycle.
 
@@ -194,14 +192,14 @@ The motors used for the robot have a typical resistance R of 14.5\,$\Omega$ and 
 Therefore the minimum pulse width should be equal to:
 
 \begin{equation}
-	5\tau_{\min} = 5 \frac{L}{R} 
+5\tau_{\min} = 5 \frac{L}{R} 
 \end{equation}
 
 From this can be calculated that the minimum pulse width should be $5\tau = 5 \cdot \frac{70 \cdot 10^{-6}}{14.5} = 24.14\,\mu s$.
 If a minimum pulse width of is assumed, than the maximum PWM frequency becomes:
 
 \begin{equation}
-	f_{\max} = \frac{t_{\text{on}}}{5\tau}\cdot 100
+f_{\max} = \frac{t_{\text{on}}}{5\tau}\cdot 100
 \end{equation}
 
 If the PWM frequency is assumed to be at least 5\% than the maximum PWM frequency is equal to $\frac{5}{24.14 \cdot 100} = 2071.25\,Hz$.
@@ -234,43 +232,56 @@ When voltage is applied to the motor, current rises as quickly as the inductance
 The current peaks when the rotor starts to rotate and a back EMF is generated.
 The back EMF will further increase while the motor accelerates to its steady state speed, and the speed is limited by the voltage supplied.
 Lowering the PWM duty cycle reduces both the maximum current peak and the steady state current and therefore can be used to reduce the motor start current demand.
-The maximum PWM duty cycle can be found by increasing the duty cycle until the robot is not able to start a movement from that PWM set point. 
+The maximum PWM duty cycle can be found by increasing the duty cycle until the robot is not able to start a movement from that PWM set point.
+
 
 \subsection{Closed loop feedback for controlled movements}
 
 %The robot uses two physically different motors in differential drive configuration which are mounted in a non-symmetrical way.
 Open loop movement using just a calibrated motor values has been used in previous work \cite{legoc_uist_2016}, but it can be time consuming and any little disturbance will trow the robot off course.
-The gyroscope is used to obtain the current yaw-rate and correct the robots heading.
 Controlled movements are possible using closed loop feedback, where the heading is used to update the motor control values.
+The robots change in heading can be obtained from the gyroscope and corresponds to the yaw-rate.
 
-The robot can be controlled using three different commands, one for straight trajectories, one for left and one for right turns.
-When a command is executed a control loop will run until the provided target is reached.
-A timer running periodically calling an interrupt service routine which executes the control loop.   
-Each command requires different initial values, set points and tuning parameters, these are set accordingly before the control loop is enabled.
-
-\subsubsection{Controlled straight trajectories}
+\subsubsection{PID Controller}
 
 % -Why pid for straight movements and not a simple p controller?
 % --Fast reaction on disturbances without osccilation??
 %TODO -Write about bounding the pid output, because otherwise the motors of the robot could stall, if the motor setpoint is to high
 
-The control loop for straight trajectories obtains the yaw-rate from the gyroscope and uses this as an input for the Proportional Integral Derivative (PID) controller.
-The PID will continuously try to force the yaw-rate to zero for a given target motor speed.
-% $ e(t) = 0 - yaw(t)$
-Using the output of the PID controller the target motor speed of each motor is adjusted in opposite direction.
-The loop will stop automatically when the required target is reached.
-%TODO Explain that the target distance is with a calibrated value.
+Closed loop feedback is achieved by use of a Proportional Integral Derivative (PID) controller.
+The input of the PID controller is the yaw-rate from the gyroscope.
+The controller will periodically try to reduce the yaw error as follows
 
 \begin{equation}
-\text{output}(t) = K_{p}e(t) + K_{i} \int_{0}^{t}e(\tau)d\tau + Kd\frac{d}{dt}e(t) \qquad [\text{rad/s}]
+	e(t) = \psi_{\text{target}} - \psi(t)
 \end{equation}
+
+\noindent
+where $\psi_{\text{target}}$ is the yaw-rate target and $\psi(t)$ the yaw-rate obtained by the gyroscope.
+The PID controller will now adjust its output and correct the speed of each motor, in opposite direction, by the following equation
+
+\begin{equation}
+u(t) = K_{p}e(t) + K_{i} \int_{0}^{t}e(\tau)d\tau + Kd\frac{d}{dt}e(t)
+\end{equation}
+
+\noindent
+where $K_{p}$, $K_{i}$ and $K_{d}$ are the tunable gains from the PID controller.
+
+\subsubsection{Controlled straight movements}
+
+For controlled straight movements horizontal movement is undesired, therefore the target yaw-rate is set to zero.
+The controller will continuously adjust the motor speed in order to achieve this.
+
+\subsubsection{Controlled curved movements} 
+
+Instead of an angular velocity set point of zero, an turn rate needs to be specified.
+This desired angular velocity can be a determined from the radius of the circle that the robot needs to turn and the calibrated target speed.
 
 \subsubsection{PID tuning using Ziegler-Nichols method}
 
 %TODO -Write about tuning the pid controller using Ziegler–Nichols tuning method (method 2), closed loop, Critical gain.
 
-A PID loop can be tuned using three different tunable gains ($K_{p}$, $K_{i}$, $K_{d}$).
-Tuning can be done trough a trail and error approach but a faster way of tuning is to use the Zigeler-Nicholos method.
+Tuning can be done by a trail and error approach but a faster way of tuning is to use the Zigeler-Nicholos method.
 It starts with increasing or decreasing $K_{p}$ until constant oscillation occurs.
 From Figure \ref{fig:ultimate_gain} can be seen how the proportional gain was increased until eventually the robot started to oscillate.
 With a proportional gain of 0.13 the robot starts light oscillation at the end, but this is not always the case and can be a result of the surface the robot was driving on.
@@ -296,14 +307,6 @@ The tuning process was speeded up by setting the minimum motor duty cycle as it 
 	\caption{Tuning the PID controller using the ultimate gain method.}
 \end{figure}
 
-\subsubsection{Controlled curved movements} 
-
-The same PID control loop can be used to command the robot to make curved movements.
-Instead of an angular velocity set point of zero, an turn rate needs to be specified.
-This desired angular velocity can be a determined from the radius of the circle that the robot needs to turn and the calibrated target speed.
-By integrating the angular velocity an angle estimate is obtained, which is used to verify if the angle target given is reached within two degrees.
-In case this is true the loop will exit automatically.
-
 \subsubsection{Controlled turns}
 
 The control loop for controlled turning uses the angle, which is obtained by integrating the yaw-rate sensor data from the gyroscope.
@@ -313,6 +316,27 @@ These values will keep decreasing until the robot rotates to the desired angle.
 The set point is assumed to be reached when the angle is within two degrees of the target, in this case the loop will stop automatically.
 To allow enough precision to measure if the target is within these two degrees, the timer which executes the control loop was set to run at 100\,Hz.
 Secondly, the proportional gain should not be set to low because the robot might not able to reach the target but also not to high as it can overshoot the target.
+
+\section{Software Implementation}
+
+The robot can be controlled using three different commands, one for straight trajectories, one for left and one for right turns.
+When a command is executed a control loop will run until the provided target is reached.
+A timer running periodically calling an interrupt service routine which executes the control loop.   
+Each command requires different initial values, set points and tuning parameters, these are set accordingly before the control loop is enabled.
+
+\subsection{Controlled straight movements}
+
+Target motor speed 
+Using the output of the PID controller the target motor speed of each motor is adjusted in opposite direction.
+
+The loop will stop automatically when the required target is reached.
+%TODO Explain that the target distance is with a calibrated value.
+
+\subsection{Controlled curved movements}
+The same PID control loop can be used to command the robot to make curved movements.
+By integrating the angular velocity an angle estimate is obtained, which is used to verify if the angle target given is reached within two degrees.
+In case this is true the loop will exit automatically.
+
 
 \subsection{Persistent movement}
 

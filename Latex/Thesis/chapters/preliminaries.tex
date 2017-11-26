@@ -126,12 +126,12 @@ Low cost solar simulators can consist of a combination of LED and halogen light 
 However, in this case the goal is to have a controlled uniform lighting environment where the robots have roughly constant charge times.
 Solar panels do not only harvest energy from the visual light spectrum but harvest almost at least as much from the infrared light spectrum, therefore not only light but also heat will shorten the charge time~\cite{ixolar_slmd121h04l_2017}.
 Halogen lamps have a lower color temperature than the sun but also emit waves far into the infrared spectrum.
-The light sources used in this experiment are a 60\,W halogen bulb, a 120\,W halogen halogen bulb and two 150\,W Philips  BR125, infrared (IR) incandescent reflector lamps~\cite{philips_irlamp_2017} where one has a red color and the other is clear.
+The light sources used in this experiment are a 60\,W halogen bulb, a 120\,W halogen halogen bulb and two 150\,W Philips  BR125, infrared (IR) incandescent reflector lamps~\cite{philips_irlamp_2017} where one is clear and the other uses a red filter.
 
 \subsubsection{Measurements}
 Three charge time measurements were preformed, each lamp was positioned 10\,cm, 30\,cm and 50\,cm from the solar panels.
 To have a reference the charge times were also measured on a sunny afternoon. 
-Additionally, for these three distance the temperature was measured at the solar panel using a K-type thermocouple supplied with an Extech EX330 multimeter and the light intensity using the luxmeter on a MASTECH MS8229 multimeter.
+% Additionally, for these three distance the temperature was measured at the solar panel using a K-type thermocouple supplied with an Extech EX330 multimeter and the light intensity using the luxmeter on a MASTECH MS8229 multimeter.
 
 \subsubsection{Results}
 % No difference between the heatlamps in power consumed
@@ -139,61 +139,85 @@ Additionally, for these three distance the temperature was measured at the solar
 % Panel from nuna
 % Refer to appendix for temperature and light data?
 
-Both the temperature and illumination increase by decreasing the distance between the light source and the solar panel. 
-Secondly, increasing the output power of the lamp increases temperature and illumination as well. 
-However the charge times 
-A thing to note is that the both the 60\,W and 150\,W IR lamps have a spherical design. 
-This creates a uneven circular shadowing pattern on the surface the lamps are shining on, which becomes more significant on the bigger distances in this experiment.
+Increasing the output power of the source and decreasing the distance between panel the source, both decrease the charge times.
+However, there is no clear winner as seen from Table \ref{tab:light_results}.
+
+Something to take into consideration is that with some lamps a shadowing pattern is observed due to the construction of the lamps.
+The 60\,W and 150\,W IR lamps have a spherical design, that creates a uneven circular shadowing pattern on the surface the lamps are shining on. 
+This becomes more significant on the bigger distances in this experiment.
 The 120\,W halogen lamp has a tubular design and in combination with the light fixture most of the light is reflected down with minimal shadowing of the lamp resulting in a more even light distribution.
+Therefore, this lamp is chosen to provide light in the controlled setup where the robots can move around with roughly constant charge times.
 
-\begin{figure}
+For this lamp on the distances 30\,cm and 50\,cm the Azure space solar panel seems to preform the best.
+However, the surface area of this panel is more than double when compared to the other two solar panels, as seen from Table \ref{tab:solar_panels}.
+Therefore the charge times should be doubled, which makes the INYS panel the best performer.
+
+%Both the temperature and illumination increase by decreasing the distance between the light source and the solar panel. 
+%Secondly, increasing the output power of the lamp increases temperature and illumination as well. 
+
+\begin{table}[t]
 	\centering
-	\begin{subfigure}[b]{0.62\textwidth}
-		\includegraphics[width=\textwidth]{pics/light_experiment_temp.png}
-		\caption{Temperature at different distances}
-		\label{fig:light_temp}
-	\end{subfigure}
-	\begin{subfigure}[b]{0.62\textwidth}
-		\includegraphics[width=\textwidth]{pics/light_experiment_lux.png}
-		\caption{Light intensity at different distances}
-		\label{fig:light_lux}
-	\end{subfigure}
-	\caption{}
-\end{figure}
+	\caption{The average charge times in seconds for different distances from the sources.}
+	\label{tab:light_results}
+	\begin{tabular}{|l|l||l|l|l|l|}
+		\hline
+		\multicolumn{2}{|c|}{} & \multicolumn{4}{|c|}{Source} \\
+		\hline
+		Distance (cm) & Panel & 60\,W & 120\,W & 150\,W clear & 150\,W red \\
+		\hline \hline
+		\multirow{3}{*}{10} & Banggood & 3.08 & 2.19 & 0.99 & 0.73 \\
+		& INYS & 2.76 & 0.82 & 0.51 & 0.56 \\
+		& Azurspace & 2.81 & 1.61 & 0.77 & 1.77 \\
+		\hline
+		\multirow{3}{*}{30} & Banggood & 6.45 & 6.72 & 7.83 & 1.88 \\
+		& INYS & 8.76 & 6.21 & 2.92 & 1.63 \\
+		& Azurspace& 11.53 & 4.12 & 9.88 & 10.16\\
+		\hline
+		\multirow{3}{*}{50} & Banggood & 26.28 & 17.59 & 17.91 & 9.46 \\
+		& INYS & 49.70 & 17.00 & 10.15 & 7.63 \\
+		& Azurspace & 53.33 & 12.09 & 23.1 & 46.96 \\
+		\hline
+	\end{tabular}
+\end{table}
 
-
-\begin{figure}
+\begin{table}[t]
 	\centering
-	\begin{subfigure}[b]{0.62\textwidth}
-		\includegraphics[width=\textwidth]{pics/light_experiment_figure1.png}
-		\caption{Ebay panel}
-		\label{fig:light_exp1}
-	\end{subfigure}
-	\begin{subfigure}[b]{0.62\textwidth}
-		\includegraphics[width=\textwidth]{pics/light_experiment_figure2.png}
-		\caption{IXYS SLMD121H04L-ND}
-		\label{fig:light_exp2}
-	\end{subfigure}
-	\begin{subfigure}[b]{0.62\textwidth}
-		\includegraphics[width=\textwidth]{pics/light_experiment_figure3.png}
-		\caption{Azurspace 3G28C}
-		\label{fig:light_exp3}
-	\end{subfigure}
-	\caption{The performance of three different solar panels for different distances from different light sources. The data charge times for the last two are normalized with respect to the surface covered by the first panel.}
-\end{figure}
+	\caption{Charge time from solar.}
+	\label{tab:solar_results}
+	\begin{tabular}{|l|l|}
+		\hline
+		Panel & Charge time (s) \\
+		\hline \hline
+		Banggood & 3.84\\
+		INYS & 3.89\\ 
+		Azurspace & 1.40\\
+		\hline
+	\end{tabular}
+\end{table}
+
+\subsection{Conclusion}
+
+The results from RF experiments show that the minimum charge time is 49\,s and more than doubles with only a 20\,cm distance increase from the reader.
+The mobility of the robot will result in widely varying charge times and possible dead spots where the robot is not able to receive any power.
+Light is more readily available and by illuminating the area where the robot moves around with a 120\,W halogen source shows 6\,s charge times when positioned 30\,cm from the solar panel.
 
 \section{Locomotion Selection}
 
-In order for a robot to move between locations without external feedback, accurate locomotion and basic odometry are required.
+Movement will consume the largest amount of energy from the total available energy budget.
+To optimize the distance that can be covered with a single capacitor charge, an efficient locomotion type should be chosen for the movement on flat surfaces.
+In this section two different locomotions types will be evaluated, the stepper motor and the DC motor.
+%TODO Move this part!
+
+%In order for a robot to move between locations without external feedback, accurate locomotion and basic odometry are required.
 %TODO DEFINE AND REFERENCE
-Wheel encoders are often used to determine the angular speed of each wheel, which can be used to correct speed differences between the motors and can be integrated over time to acquire distance.
-Miniaturizing encoders significantly reduces their resolution, and can be classified as power hungry when considering a small energy budget and active light source is used.
+%Wheel encoders are often used to determine the angular speed of each wheel, which can be used to correct speed differences between the motors and can be integrated over time to acquire distance.
+%Miniaturizing encoders significantly reduces their resolution, and can be classified as power hungry when considering a small energy budget and active light source is used.
 %TODO NEED REFERENCE FOR THIS CLAIM
 
 \subsection{Stepper motor-based Locomotion}
 
 The GRITSBot~\cite{pickem_icra_2015} uses stepper motors to achieve accurate locomotion and basic odometry, as described in Section \ref{sec:locomotion}.
-This section will further investigate the use of stepper motor based locomotion in combination with a transiently-powered robot.
+This section will further investigate the use of stepper motor based locomotion for a transiently-powered robot.
 
 \subsubsection{Operation of a Stepper Motor}
 Stepper motors are permanent magnet dc motors that start to rotate by supplying current to the motor coils in a specific direction.
@@ -213,7 +237,7 @@ The outputs of the MCU cannot supply enough current to drive a bipolar stepper m
 \subsubsection{Power Consumption}
 %TODO values that calculate the current per motor?
 %TODO ADD CURRENT MEASUREMENTS @ 2.2 v
-The current consumed by a stepper motor is constant and independent of the angular velocity of the motor.
+The current consumed by a stepper motor is constant and independent of the angular velocity of the rotor.
 The average current consumed is equal to: $\textrm{I} = V_{\text{supply}}/R_{\text{coil}}$.
 Therefore running the motor at maximum speed, translates the most electrical energy into kinetic energy.
 However, the motor speed is inversely proportional to the motor's output torque and therefore the maximum speed is limited by the minimal required output torque.
@@ -233,8 +257,9 @@ To determine what would be more likely, undershooting or overshooting, the follo
 
 \subsubsection{Experimental setup}
 
-Tiny permanent magnet bipolar stepper motors can be sourced from Ebay.com, while they are frequently used in digital camera's~\cite{nidec_stepper_2017}.
-A stepper motor is suspended and a needle glued to the motor shaft.
+Tiny 6\,mm permanent magnet bipolar stepper motors from Nidec are frequently used in digital camera's~\cite{nidec_stepper_2017}.
+For this motor one rotation is equal to 20 steps i.e five times the sequence of four.
+This stepper motor is suspended and a needle glued to the motor shaft.
 The needle rotates over a round piece of paper which is divided by markings in 20 steps, as seen from Figure \ref{fig:step_counting}.
 First the rotor and coil are synchronized by moving four steps, and the position of the needle is visually recorded and written down.  
 Then the stepper motor is commanded to make one rotation equal to 20 steps.
@@ -260,11 +285,9 @@ After rotating 20 steps the power is removed from the coils and the needle posit
 
 Figure \ref{fig:step_results} shows the result of the experiment.
 The stepper motor on average will overshoot, i.e. will do more steps than commanded when the power is removed.
-This effect is becomes more significant with increasing step frequency or speed of rotation.
+This effect is becomes more significant with increasing step frequency.
 However, while this experiment only shows the effect for an unloaded motor, it is likely that a synchronization error will occur when a transiently-powered robot would be powered using two stepper motors in differential drive.
-After every power interrupt each motor first needs to be synchronized, which will result in the robot making a turn if the error between the motors is not equal.
-
-%TODO Write conclusion here! + link to rest of thesis
+After every power interrupt each motor first needs to be synchronized, which will result in the robot making a random turn if the error between the motors is not equal.
 
 \subsection{DC Motor locomotion}
 
@@ -275,10 +298,17 @@ After every power interrupt each motor first needs to be synchronized, which wil
 
 %TODO tell something about the maximum speed that can be achieved
 
+\subsubsection{Operation of a DC Motor}
+
+\subsubsection{Power Consumption}
+
 On average the each motor consumes 38\,mA while running on a flat surface, which is well within the current limit that the buck converter can supply.
 However when the motors are in not moving yet the start current is approximately equal to the stall current, which is equal to 240\,mA.
 This amount of current can not be supplied by a most regulators, PWM can be used to reduce the average current allowing a bulk capacitor to supply the voltage.
 
+
+\subsection{Conclusion}
+%TODO Write conclusion here! + link to rest of thesis
 
 \section{Transiently-powered Robot Model}
 \label{sec:transient_model}
