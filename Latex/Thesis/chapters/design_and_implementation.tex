@@ -97,7 +97,7 @@ A overview of both the top and bottom side of the PCB is shown in Figure \ref{fi
 
 \subsection{Energy Expenditure}
 
-The average current consumed of each component was measured with a Monsoon Power Monitor \cite{monsoon_powermonitor_2017}.
+The average current consumed of each component was measured with a Monsoon Power Monitor~\cite{monsoon_powermonitor_2017}.
 The measurement was preformed as follows, first a two second current trace was recorded of the current consumed by the MCU on the WISP.
 The MCU was then used to enable each component individually, followed by a two second current measurement with the enabled component.
 The average of each current trace was calculated, and the current consumed by the microcontroller subtracted from the current consumed by each component.
@@ -171,11 +171,9 @@ From this table can be concluded that the cost of building a transiently powered
 \subsection{Motor control}
 \label{sec:calib_motors}
 
-%TODO STIL VALID? (Write about why valid to assume a constant speed on a single surface)
-The motors used for robots are powered directly from the battery as linear or switch-mode power regulators are not able to supply the high start-up currents.
-When the motors are powered from the battery the supplied voltages drops while energy is consumed for the battery.
-Since the speed of the motor is dependent on the supply voltage the speed of the motor will also decrease while energy is consumed from the battery.
-However, the use of a supercapacitor requires a regulator to make efficient use of the energy stored, as described in Section \ref{sec:pre_energy_harvesting_storage}.
+%TODO write intro and link to preliminaries
+%When the motors are powered from the battery the supplied voltages drops while energy is consumed for the battery.
+%Since the speed of the motor is dependent on the supply voltage the speed of the motor will also decrease while energy is consumed from the battery.
 A benefit of keeping the supply voltage constant is that voltage is eliminated as a factor in determining the motor speed.
 By making the assumption that the robot will only travel on a flat surface, the steady state speed is considered ``constant" given a certain PWM duty cycle.
 
@@ -189,14 +187,14 @@ When the motor is at rest its equivalent circuit consists of a resistance and in
 When voltage is applied to the motor the rate at which the current rises is limited by the inductance. 
 All RL circuits have a time constant: $\tau = L / R$ and the current reaches its maximum steady state at $5\tau$. 
 The motors used for the robot have a typical resistance R of 14.5\,$\Omega$ and an inductance of L = 70\,$\mu$H~\cite{gearmotor_206-110_2017}.
-Therefore the minimum pulse width should be equal to:
+Therefore the minimum pulse width should be equal to
 
 \begin{equation}
 5\tau_{\min} = 5 \frac{L}{R} 
 \end{equation}
 
 From this can be calculated that the minimum pulse width should be $5\tau = 5 \cdot \frac{70 \cdot 10^{-6}}{14.5} = 24.14\,\mu s$.
-If a minimum pulse width of is assumed, than the maximum PWM frequency becomes:
+If a minimum pulse width of is assumed, than the maximum PWM frequency becomes
 
 \begin{equation}
 f_{\max} = \frac{t_{\text{on}}}{5\tau}\cdot 100

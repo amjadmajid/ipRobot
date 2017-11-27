@@ -291,24 +291,40 @@ After every power interrupt each motor first needs to be synchronized, which wil
 
 \subsection{DC Motor locomotion}
 \label{sec:pre_dc_motor_locomotion}
-In this section a simple model will used to give insight into the power consumed by a DC motor.
+Small dc motors are commonly selected to provide locomotion for small robotic platforms as seen from Table \ref{tab:comparison_robot_platforms}.
+In this section the DC motor will be evaluated as the locomotion type for the transiently-powered robot.
 
 \subsubsection{Operation of a DC Motor}
-\label{sec:pre_operation_dc_motor}
 
-The back electromotive force (back EMF) of a DC motor at rest is equal to zero.
-%TODO ADD ref for above statement
-When voltage is applied to the motor, current rises as quickly as the inductance in the motor windings allows. 
-The current peaks when the rotor starts to rotate and a back EMF is generated.
-The back EMF will further increase while the motor accelerates to its steady state speed, and the speed is limited by the voltage supplied. 
+When voltage is applied to the motor, current rises as quickly as the inductance in the motor windings allows.
+DC motors produce an initial startup peak because the back electromotive force (back EMF) is initially zero.
+The current reaches a maximum when the rotor starts to rotate and a back EMF is generated.
+The back EMF will further increase while the motor accelerates to its steady state speed, and the speed is limited by the voltage supplied.
 
-\subsubsection{Power Consumption}
-%TODO Show measurement / current profile of a dc motor
-%TODO tell something about the maximum speed that can be achieved
+If a load is applied to the DC motor the current consumed by the motor is increased because current is proportional to the torque applied to the motor.
+Additionally, the angular velocity of the motor will decrease because the torque is inversely proportional to the angular velocity of the motor.
 
-On average the each motor consumes 38\,mA while running on a flat surface, which is well within the current limit that the buck converter can supply.
-However when the motors are in not moving yet the start current is approximately equal to the stall current, which is equal to 240\,mA.
-This amount of current can not be supplied by a most regulators, PWM can be used to reduce the average current allowing a bulk capacitor to supply the voltage.
+\subsubsection{Start-up Current Peak}
+The DC motors used for robots are normally powered directly from the battery as linear or switch-mode power regulators are not able to supply the high start-up currents.
+In the worst case the start-up current peak can be equal to the stall current of the motor.
+However, the use of a supercapacitor requires a regulator to make efficient use of the energy stored, as described in Section \ref{sec:pre_energy_harvesting_storage}.
+The switch-mode regulator that is part of the BQ25570 energy harvester is only able to supply a peak output current of 110\,mA~\cite{bq25570_2017}.
+
+To evaluate the magnitude of the current peak, the free running current profile of the selected 206-11 DC motor from Precision Microdrives~\cite{gearmotor_206-110_2017} is recorded using a Monsoon Power Monitor~\cite{monsoon_powermonitor_2017}.
+The measurement results for three different motors is shown in Figure \ref{fig:free_running_current}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.62\textwidth]{pics/free_running_current.png}
+	\caption{Current profile of the dc motor.}
+	\label{fig:free_running_current}
+\end{figure}
+
+
+
+%On average the each motor consumes 38\,mA while running on a flat surface, which is well within the current limit that the buck converter can supply.
+%However when the motors are in not moving yet the start current is approximately equal to the stall current, which is equal to 240\,mA.
+%This amount of current can not be supplied by a most regulators, PWM can be used to reduce the average current allowing a bulk capacitor to supply the voltage.
 
 
 \subsection{Conclusion}
@@ -363,66 +379,88 @@ The following assumptions will be used to model the transiently powered robot:
 
 \subsection{Motor Dynamics}
 
-\begin{circuitikz}
-	%	\draw [help lines] (-1,-2) grid (12,5);
-	
-	% electrical equivalent circuit
-	\draw (0,0) to[V, v_=$v$] (0,3);
-	\draw (0,3) to[R, i>^=$i$, l=$R$] (3,3);
-	\draw (3,3) to[L, l=$L$] (4,3);
-	
-	\draw (4,3) -- (5,3);
-	\draw (5,0) to[V, v_=$U_i$] (5,3);
-	\draw (0,0) -- (5,0);
-	
-	% drive
-	\draw[fill=white] (4.85,0.85) rectangle (5.15,2.15);
-	\draw[fill=white] (5,1.5) ellipse (.45 and .45);
-	
-	% shaft drive -> transmission
-	\draw[fill=black] (5.45,1.45) rectangle (6.5,1.55);
-	
-	% momentum arrow of drive -> transmission
-	\draw[line width=0.7pt,<-] (5.8,1) arc (-30:30:1);
-	
-	% moment of inertia
-	\draw[fill=white] (7.5,1.59)
-	ellipse (.15 and 0.4);
-	\draw[fill=white, color=white] (6.9, 1.99)
-	rectangle (8.49, 1.19);
-	\draw (6.8,1.59) ellipse (.15 and 0.4);
-	\draw (6.8,1.99) -- (7.5,1.99);
-	\draw (6.8,1.19) -- (7.5,1.19);
-	
-	% shaft right from moment of inertia
-	\draw[fill=black] (8.65,1.55) rectangle (8.9,1.65);
-	
-	% momentum arrow (left hand side of brake shoe)
-	\draw[line width=0.7pt,->] (8.05,1.1) arc (-30:30:1);
-	
-	% descriptions inside graphic
-	\draw (5.85,2.2) node {$\omega_A, M_A$};
-	\draw (7.25,1.61) node {$J$};
-	\draw (8.05,2.32) node {$M_R$};
-	
-\end{circuitikz}
-\\
+The electrical equivalent circuit of a brushed dc motor is shown in Figure \ref{fig:pre_model_dc}, where $v$ is the voltage applied to the motor, $i$ the armature current, $R$ the armature resistance, $L$ the armature inductance, $e$ the back EMF voltage, $\tau$ the torque produced by the motor, $\omega$ the angular velocity of the rotor, $J$ is the moment of inertia of the rotor, $B$ is the viscous friction coefficient of the motor bearings and $m$ the external applied torque.
+
+
+\begin{figure}[h!]
+	\centering
+	\begin{circuitikz}
+		%\draw [help lines] (-1,-2) grid (12,5);
+		
+		% electrical equivalent circuit
+		%\draw (0,0) to[V, v_=$v$] (0,3);
+		\draw (0,3) node[ocirc] {}; % ,label=left:+
+		\draw (0,3) to[R, i>^=$i$, l=$R$] (3,3);
+		\draw (3,3) to[L, l=$L$] (4,3);
+		
+		\draw (0,2.25) node {$+$};
+		\draw (0,1.5) node {$v$};
+		\draw (0,0.75) node {$-$};
+		
+		\draw (4,3) -- (5,3);
+		\draw (5,3) -- (5,2);
+		%\draw (5,1.5) node[elmech](motor){M};
+		\draw (5,1) -- (5,0);
+		
+		\draw (4.25,2.25) node {$+$};
+		\draw (4.25,1.5) node {$e$};
+		\draw (4.25,0.75) node {$-$};
+		
+		\draw (0,0) -- (5,0);
+		\draw (0,0) node[ocirc] {}; 
+		
+		% motor
+		\draw[fill=white] (4.85,0.85) rectangle (5.15,2.15);
+		\draw[fill=white] (5,1.5) ellipse (.45 and .45);
+		
+		
+		% shaft drive -> transmission
+		\draw[fill=black] (5.45,1.45) rectangle (7.0,1.55);
+		
+		% momentum arrow of drive -> transmission
+		\draw[line width=0.7pt,<-] (5.8,1) arc (-30:30:1);
+		
+		% moment of inertia
+		\draw[fill=white] (7.5,1.59)
+		ellipse (.15 and 0.4);
+		\draw[fill=white, color=white] (6.9, 1.99)
+		rectangle (8.49, 1.19);
+		\draw (6.8,1.59) ellipse (.15 and 0.4);
+		\draw (6.8,1.99) -- (7.5,1.99);
+		\draw (6.8,1.19) -- (7.5,1.19);
+		
+		% momentum arrow (left hand side of brake shoe)
+		\draw[line width=0.7pt,->] (8.05,1.1) arc (-30:30:1);
+		
+		% descriptions inside graphic
+		\draw (5.85,2.2) node {$\omega_A, M_A$};
+		\draw (7.25,1.61) node {$J$};
+		\draw (8.05,2.32) node {$M_R$};
+		
+	\end{circuitikz}
+	\caption{Brushed DC motor system model.}
+	\label{fig:pre_model_dc}
+\end{figure}
+
 \noindent
-The electrical dynamics of a dc motor can be described as:
+Using Kirchhoff's voltage law the electrical dynamics of a dc motor can be described as
 \begin{equation}
+\label{eq:kirchhoff}
 v = Ri + L \dot{i} + e
 \end{equation}
 
 \noindent
-The mechanical dynamics of a motor can be described as:
+From Newton's second law follows that the mechanical dynamics of a motor can be described as
 \begin{equation}
+\label{eq:newton}
 \tau = J\dot{\omega} + B\omega + m
 \end{equation}
 
 \noindent
-The electromechanical equations state that the back emf voltage is proportional to the angular velocity and the motor torque is proportional to the armature current:
+The electromechanical equations state that the back EMF voltage is proportional to the angular velocity and the motor torque is proportional to the armature current
 
 \begin{equation}
+\label{eq:electomechanical}
 \begin{gathered}
 e = k_{e} \omega \\
 \tau = k_{t} i
@@ -430,7 +468,8 @@ e = k_{e} \omega \\
 \end{equation}
 
 \noindent
-The electrical power consumed and mechanical power consumed will be equal to:
+where $k_{e}$ is the back emf constant of the motor and $k_{i}$ the torque constant of the motor.
+The electrical power consumed and mechanical power consumed will be equal to
 
 \begin{equation}
 \begin{gathered}
@@ -438,6 +477,15 @@ p_{\text{e}} = vi \\
 p_{\text{m}} = \tau\omega
 \end{gathered}
 \end{equation}
+
+\noindent
+Rewriting equation \ref{eq:kirchhoff}, \ref{eq:newton} and \ref{eq:electomechanical} and appling the Lalace transa transfer function from $v$ to $\omega$ can be obtained, assuming $m$ = 0.
+
+\begin{equation}
+\frac{\Omega(s)}{V(s)} = \frac{k_{i}}{(Ls + R)(Js + B) + k_{\omega}k_{i}} 
+\end{equation}
+
+where $V(s)$ and $\Omega$ are the Lapace transformations from $v$ and $\omega$ respectively.
 
 
 \subsection{Robot Dynamics}
