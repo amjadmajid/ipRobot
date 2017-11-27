@@ -23,9 +23,10 @@ fs150 = [21,21,21,22,22,21,21,22,22,21]
 fs160 = [33,27,31,34,30,32,34,33,33,32]
 
 plt.figure(1)
-plt.xlabel('Steps per second (Hz)')
-plt.ylabel('Steps visually counted')
+plt.xlabel('Steps per second (Hz)', fontsize=12)
+plt.ylabel('Steps visually counted', fontsize=12)
 plt.boxplot([fs20, fs30, fs40, fs50, fs60, fs70, fs80, fs90, fs100, fs110, fs120, fs130, fs140, fs150, fs160])
-plt.xticks([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], ['20', '30', '40', '50', '60', '70', '80', '90', '100', '110', '120', '130', '140', '150', '160'])
+plt.xticks([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], ['20', '30', '40', '50', '60', '70', '80', '90', '100', '110', '120', '130', '140', '150', '160'], fontsize=12)
+plt.yticks(fontsize=12)
 
 plt.show()
