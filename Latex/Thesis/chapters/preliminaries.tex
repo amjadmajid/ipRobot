@@ -1,11 +1,12 @@
 \chapter{Preliminaries}
+\label{cap:preliminaries}
 
-In this chapter the design considerations for the robot will be explained based on minimal required capabilities.
-Followed by an evaluation of two sources for energy harvesting and two types of locomotion for the transiently powered robot.
-Finally, a simple model will capture the relation between power harvested and distance covered by the robot.
+In this chapter the design considerations for the robot will be explained based on minimal required capabilities, in Section \ref{sec:pre_design_considerations}.
+Section \ref{sec:pre_design_considerations} will evaluate two sources for energy harvesting and Section \ref{sec:pre_locomotion_selection} two types of locomotion for the transiently powered robot.
+Finally in Section \ref{sec:pre_transient_model}, a simple model will capture the relation between power harvested and distance covered by the robot.
 
 \section{Design Considerations}
-\label{sec:design_considerations}
+\label{sec:pre_design_considerations}
 
 This section will shortly explain the main areas considered while designing the battery-less transiently-powered robot
 
@@ -38,6 +39,7 @@ This section will shortly explain the main areas considered while designing the 
 \end{enumerate}
 
 \section{Energy Source Selection}
+\label{sec:pre_energy_source_selection}
 % RF harvesting seems prommesing
 % Wispcam requires approx 4 seconds to harvest 20mJ at a distance of 20cm from the reader \cite{naderiparizi_rfid_2015}
 % better to only use RF for communication and harvest energy from another source \cite{konstantioulos}
@@ -239,6 +241,7 @@ Light is more readily available and by illuminating the area where the robot mov
 With the solar panel far shorter charge times can be achieved, and therefore solar is chosen to be the energy source for the transiently powered robot.
 
 \section{Locomotion Selection}
+\label{sec:pre_locomotion_selection}
 
 In this section two different locomotions types will be evaluated, the stepper motor and the DC motor.
 Robots can use dead reckoning to move between locations without external feedback, but in order to accomplish this accurate locomotion and basic odometry are required.
@@ -379,7 +382,7 @@ A big bulk capacitor can temporary supply high currents and PWM can be used to r
 Therefore the dc motor is chosen as the locomotion type used for the transiently-powered robot.
 
 \section{Transiently-powered Robot Model}
-\label{sec:transient_model}
+\label{sec:pre_transient_model}
 
 In this section a simple model will be derived showing the relation between size and weight of the robot, the amount of power that is harvested and stored and how much of this can be translated into linear movement.
 
