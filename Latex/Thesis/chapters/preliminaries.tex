@@ -1,8 +1,42 @@
 \chapter{Preliminaries}
 
-In this chapter a simple model will capture the relation between power harvested and distance covered by the robot.
-The design considerations for the robot will be explained based on minimal required capabilities. 
-Followed by an evaluation of stepper motor based locomotion for a transiently powered robot.
+In this chapter the design considerations for the robot will be explained based on minimal required capabilities.
+Two sources for energy harvesting will be compared based on average charge times.
+Followed by an evaluation of two locomotion locomotion types considered for the transiently powered robot.
+Finally, a simple model will capture the relation between power harvested and distance covered by the robot.
+
+\section{Design Considerations}
+\label{sec:design_considerations}
+
+This section will shortly explain the main areas considered while designing the battery-less transiently-powered robot
+
+% - Optimize or low power consumption (disable or standby sensors and motor ctrl when not used)
+% - Minimal basic functionality (for simple swarm algorithms?) (but no power hungry components ie optical encoders or mouse sensors)
+% - Low power communication
+% - Navigation
+
+% Extra extra:
+% - Tradeoff chargetime and operation time
+
+\begin{enumerate}
+	\item \textbf{Power}. 
+	The robot should not rely on batteries, alternatively energy can be harvested from ambient sources and stored in a supercapacitor. 
+	Energy harvested in a controlled environment should charge the capacitor in under 10 seconds and stored energy should provide at least an operation time of 1 second i.e. a minimal 10\% power duty cycle.
+	
+	\item \textbf{Small form factor}. 
+	By making the robot as small as possible, weight is kept to a minimum reducing the energy required for movement.
+	Secondly, by design the robot using low cost off-the-shelf parts, should make it convenient to build collectives of transiently-powered robots.
+	
+	\item \textbf{Locomotion}.
+	Movement will consume the largest amount of energy from the total available energy budget.
+	To optimize the distance that can be covered with a single capacitor charge, an efficient locomotion type should be chosen for the movement on flat surfaces.
+	
+	\item \textbf{Autonomous navigation}.
+	During operation the robot will experience a very frequent loss of power. 
+	Despite regular power interruption the transiently-powered robot should be able to complete a movement with an acceptable error compared to the same robot being battery powered.
+	
+	%TODO write about ability to expand to swarming
+\end{enumerate}
 
 \section{Energy Source Selection}
 % RF harvesting seems prommesing
@@ -200,6 +234,7 @@ Therefore the charge times should be doubled, which makes the INYS panel the bes
 The results from RF experiments show that the minimum charge time is 49\,s and more than doubles with only a 20\,cm distance increase from the reader.
 The mobility of the robot will result in widely varying charge times and possible dead spots where the robot is not able to receive any power.
 Light is more readily available and by illuminating the area where the robot moves around with a 120\,W halogen source shows 6\,s charge times when positioned 30\,cm from the solar panel.
+With the solar panel far shorter charge times can be achieved, and therefore solar is chosen to be the energy source for the transiently powered robot.
 
 \section{Locomotion Selection}
 
@@ -234,7 +269,7 @@ The outputs of the MCU cannot supply enough current to drive a bipolar stepper m
 	\label{fig:bipolarstepper}
 \end{figure}
 
-\subsubsection{Power Consumption}
+\subsubsection{Current Consumption}
 %TODO values that calculate the current per motor?
 %TODO ADD CURRENT MEASUREMENTS @ 2.2 v
 The current consumed by a stepper motor is constant and independent of the angular velocity of the rotor.
@@ -260,26 +295,25 @@ To determine what would be more likely, undershooting or overshooting, the follo
 Tiny 6\,mm permanent magnet bipolar stepper motors from Nidec are frequently used in digital camera's~\cite{nidec_stepper_2017}.
 For this motor one rotation is equal to 20 steps i.e five times the sequence of four.
 This stepper motor is suspended and a needle glued to the motor shaft.
-The needle rotates over a round piece of paper which is divided by markings in 20 steps, as seen from Figure \ref{fig:step_counting}.
+The needle rotates over a round piece of paper which is divided by markings in 20 steps.%, as seen from Figure \ref{fig:step_counting}.
 First the rotor and coil are synchronized by moving four steps, and the position of the needle is visually recorded and written down.  
 Then the stepper motor is commanded to make one rotation equal to 20 steps.
-After rotating 20 steps the power is removed from the coils and the needle position recorded when the needle is not rotating anymore.
+After rotating 20 steps the power is removed from the coils and the needle position is again visually recorded and written down.
 
 \begin{figure}
 	\centering
-	\begin{subfigure}[b]{0.38\textwidth}
-		\includegraphics[width=\textwidth]{pics/step_counting.jpg}
-		\caption{Experimental setup for determining error in the number of counted steps}
-		\label{fig:step_counting}
-	\end{subfigure}	
-	\quad
-	\begin{subfigure}[b]{0.55\textwidth}
-		\includegraphics[width=\textwidth]{pics/figure_intertia.png}
-		\caption{}
-		\label{fig:step_results}
-	\end{subfigure}
+	\includegraphics[width=0.8\textwidth]{pics/figure_intertia.png}
+	\label{fig:step_results}
 	\caption{}
 \end{figure}
+
+
+%\begin{subfigure}[b]{0.38\textwidth}
+%	\includegraphics[width=\textwidth]{pics/step_counting.jpg}
+%	\caption{Experimental setup for determining error in the number of counted steps}
+%	\label{fig:step_counting}
+%\end{subfigure}	
+
 
 \subsubsection{Stepper Motor Inertia Result}
 
@@ -302,33 +336,48 @@ The current reaches a maximum when the rotor starts to rotate and a back EMF is 
 The back EMF will further increase while the motor accelerates to its steady state speed, and the speed is limited by the voltage supplied.
 
 If a load is applied to the DC motor the current consumed by the motor is increased because current is proportional to the torque applied to the motor.
-Additionally, the angular velocity of the motor will decrease because the torque is inversely proportional to the angular velocity of the motor.
+Additionally, the angular velocity of the motor will decrease while the torque is inversely proportional to the angular velocity of the motor.
 
-\subsubsection{Start-up Current Peak}
-The DC motors used for robots are normally powered directly from the battery as linear or switch-mode power regulators are not able to supply the high start-up currents.
-In the worst case the start-up current peak can be equal to the stall current of the motor.
+\subsubsection{Evaluation of the Start Current Peak}
+The DC motors used for robots are normally powered directly from the battery as linear or switch-mode power regulators are not able to supply the high start currents.
+%In the worst case the start current peak can be equal to the stall current of the motor.
 However, the use of a supercapacitor requires a regulator to make efficient use of the energy stored, as described in Section \ref{sec:pre_energy_harvesting_storage}.
 The switch-mode regulator that is part of the BQ25570 energy harvester is only able to supply a peak output current of 110\,mA~\cite{bq25570_2017}.
 
-To evaluate the magnitude of the current peak, the free running current profile of the selected 206-11 DC motor from Precision Microdrives~\cite{gearmotor_206-110_2017} is recorded using a Monsoon Power Monitor~\cite{monsoon_powermonitor_2017}.
-The measurement results for three different motors is shown in Figure \ref{fig:free_running_current}
+%To evaluate the magnitude of the current peak, the free running current profile of 
+The 206-11 DC motor from Precision Microdrives~\cite{gearmotor_206-110_2017} is the selected motor that will be evaluated.
+From the datasheet a typical start current of 185\,mA can be found for its rated operating voltage of 3\,V.
+However, the system voltage chosen for transiently-powered robot is 2.2\,V.
+To determine the startup current of a 206-110 motor when supplied with 2.2\,V, a two second current trace is recorded using a Monsoon Power Monitor~\cite{monsoon_powermonitor_2017}.
 
-\begin{figure}[h!]
+
+\begin{figure}%[h!]
 	\centering
 	\includegraphics[width=0.62\textwidth]{pics/free_running_current.png}
 	\caption{Current profile of the dc motor.}
 	\label{fig:free_running_current}
 \end{figure}
 
-
-
-%On average the each motor consumes 38\,mA while running on a flat surface, which is well within the current limit that the buck converter can supply.
-%However when the motors are in not moving yet the start current is approximately equal to the stall current, which is equal to 240\,mA.
-%This amount of current can not be supplied by a most regulators, PWM can be used to reduce the average current allowing a bulk capacitor to supply the voltage.
+\subsubsection{Results}
+The measurement results for three different motors is shown in Figure \ref{fig:free_running_current}
+The results show that the 2.2\,V supply voltage reduces the start current peak to 140\,mA.
+This is still above 110\,mA and the robot needs to power two motors in a differential drive configuration to allow steering.
+A solution is to use pulse width modulation (PWM) to reduce the motor speed and average current consumed.
+Combining PWM with a large bulk capacitor should enable the buck converter to start the motors.
+However the PWM duty cycle will be limited to a maximum of $100/(2*140/110) = 39.2\%$, and will be further reduced by the load applied to the motors due to the weight of the robot.
 
 
 \subsection{Conclusion}
-%TODO Write conclusion here! + link to rest of thesis
+Stepper motor can be categorized power hungry as this type of motor consumes a constant current independent of the rotational speed.
+The only way retain rotor and stator stay alignment is by keeping the stepper motor coil energized.
+Very frequent power interrupts could lead to loss of synchronization between the energized coil and position of the rotor as a result of rotor inertia.
+The error due to inertia becomes more significant with increase rotational speed.
+Loss of synchronization can result in random behavior of a differential drive robot, as one stepper motor may require a different amount of steps before synchronization than the other.
+
+Alternatively a normal DC motors can be used which do not require any synchronization.
+However, this motor requires a high start current which the buck converter from the harvester, might not be able to supply.
+A big bulk capacitor can temporary supply high currents and PWM can be used to reduce the average current consumed by the motor.
+Therefore the dc motor is chosen as the locomotion type used for the transiently-powered robot.
 
 \section{Transiently-powered Robot Model}
 \label{sec:transient_model}
@@ -505,38 +554,3 @@ T_{\text{ext}} = rF_{\text{k}} sgn(\omega)
 
 \noindent
 The total mass is equal to the 
-
-
-
-\section{Design Considerations}
-\label{sec:design_considerations}
-
-This section will shortly explain the main areas considered while designing the battery-less transiently-powered robot
-
-% - Optimize or low power consumption (disable or standby sensors and motor ctrl when not used)
-% - Minimal basic functionality (for simple swarm algorithms?) (but no power hungry components ie optical encoders or mouse sensors)
-% - Low power communication
-% - Navigation
-
-% Extra extra:
-% - Tradeoff chargetime and operation time
-
-\begin{enumerate}
-	\item \textbf{Power}. 
-	The robot should not rely on batteries, alternatively energy can be harvested from ambient sources and stored in a supercapacitor. 
-	Energy harvested in a controlled environment should charge the capacitor in under 10 seconds and stored energy should provide at least an operation time of 1 second, allowing the robot to make short controlled movements.
-	
-	\item \textbf{Small form factor}. 
-	By making the robot as small as possible, weight is kept to a minimum reducing the energy required for movement.
-	Secondly, by design the robot using low cost off-the-shelf parts, should make it convenient to build collectives of transiently-powered robots.
-	
-	\item \textbf{Locomotion}.
-	Movement will consume the largest amount of energy from the total available energy budget.
-	To optimize the distance that can be covered with a single capacitor charge, an efficient locomotion type should be chosen for the movement on flat surfaces.
-	
-	\item \textbf{Autonomous navigation}.
-	During operation the robot will experience a very frequent loss of power. 
-	Despite regular power interruption the transiently-powered robot should be able to complete a movement with an acceptable error compared to the same robot being battery powered.
-	
-	%TODO write about ability to expand to swarming
-\end{enumerate}
