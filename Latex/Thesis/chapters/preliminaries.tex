@@ -1,8 +1,7 @@
 \chapter{Preliminaries}
 
 In this chapter the design considerations for the robot will be explained based on minimal required capabilities.
-Two sources for energy harvesting will be compared based on average charge times.
-Followed by an evaluation of two locomotion locomotion types considered for the transiently powered robot.
+Followed by an evaluation of two sources for energy harvesting and two types of locomotion for the transiently powered robot.
 Finally, a simple model will capture the relation between power harvested and distance covered by the robot.
 
 \section{Design Considerations}
@@ -186,6 +185,9 @@ For this lamp on the distances 30\,cm and 50\,cm the Azure space solar panel see
 However, the surface area of this panel is more than double when compared to the other two solar panels, as seen from Table \ref{tab:solar_panels}.
 Therefore the charge times should be doubled, which makes the INYS panel the best performer.
 
+Additionally the charge times were recorded for each solar panel during a sunny, blue sky, November afternoon, as seen from Table \ref{tab:solar_results}.
+The Azurspace solar panel is in this case the winner as, this was expected as it has is able to harvest energy from the biggest part of the light spectrum.
+
 %Both the temperature and illumination increase by decreasing the distance between the light source and the solar panel. 
 %Secondly, increasing the output power of the lamp increases temperature and illumination as well. 
 
@@ -238,12 +240,9 @@ With the solar panel far shorter charge times can be achieved, and therefore sol
 
 \section{Locomotion Selection}
 
-Movement will consume the largest amount of energy from the total available energy budget.
-To optimize the distance that can be covered with a single capacitor charge, an efficient locomotion type should be chosen for the movement on flat surfaces.
 In this section two different locomotions types will be evaluated, the stepper motor and the DC motor.
+Robots can use dead reckoning to move between locations without external feedback, but in order to accomplish this accurate locomotion and basic odometry are required.
 %TODO Move this part!
-
-%In order for a robot to move between locations without external feedback, accurate locomotion and basic odometry are required.
 %TODO DEFINE AND REFERENCE
 %Wheel encoders are often used to determine the angular speed of each wheel, which can be used to correct speed differences between the motors and can be integrated over time to acquire distance.
 %Miniaturizing encoders significantly reduces their resolution, and can be classified as power hungry when considering a small energy budget and active light source is used.
@@ -251,7 +250,7 @@ In this section two different locomotions types will be evaluated, the stepper m
 
 \subsection{Stepper motor-based Locomotion}
 
-The GRITSBot~\cite{pickem_icra_2015} uses stepper motors to achieve accurate locomotion and basic odometry, as described in Section \ref{sec:locomotion}.
+The GRITSBot~\cite{pickem_icra_2015} uses stepper motors based locomotion which already include basic odometry, as described in Section \ref{sec:locomotion}.
 This section will further investigate the use of stepper motor based locomotion for a transiently-powered robot.
 
 \subsubsection{Operation of a Stepper Motor}
@@ -304,7 +303,7 @@ After rotating 20 steps the power is removed from the coils and the needle posit
 	\centering
 	\includegraphics[width=0.8\textwidth]{pics/figure_intertia.png}
 	\label{fig:step_results}
-	\caption{}
+	\caption{Stepper motor inertia result}
 \end{figure}
 
 
@@ -368,7 +367,7 @@ However the PWM duty cycle will be limited to a maximum of $100/(2*140/110) = 39
 
 
 \subsection{Conclusion}
-Stepper motor can be categorized power hungry as this type of motor consumes a constant current independent of the rotational speed.
+Stepper motor have a lower efficiency than normal dc motors because a constant current consumed independent of the rotational speed.
 The only way retain rotor and stator stay alignment is by keeping the stepper motor coil energized.
 Very frequent power interrupts could lead to loss of synchronization between the energized coil and position of the rotor as a result of rotor inertia.
 The error due to inertia becomes more significant with increase rotational speed.
