@@ -181,8 +181,8 @@ By making the assumption that the robot will only travel on a flat surface, the 
 
 
 \subsubsection{PWM Frequency for Linear Motion Control}
-% Write about linear motion control dc motor vs pwm
 % Reference: https://www.precisionmicrodrives.com/application-notes/ab-022-pwm-frequency-for-linear-motion-control
+%TODO update after writing preliminaries!
 
 Pulse width modulation (PWM) is used to control the speed of the motors, the average current supplied to the motors can be regulated by changing the duty cycle.
 When the motor is at rest its equivalent circuit consists of a resistance and inductance in series.
@@ -221,16 +221,13 @@ This is accomplished by setting a PWM duty cycle at which both motors are rotati
 The minimum PWM duty cycle, allowing the wheels to rotate, is stored as a calibration and added to every motor set point.
 If the robot is set to run at the minimum speed does not mean that the motors run at the same speed.
 
+
 \subsubsection{Maximal Duty Cycle}
 % -Write about maximum speed due to enabling two motors and their startup current peak! show figure!!
 % Does more gearing (more torque) reduce the current peak??
 
 The maximum PWM duty cycle is bounded by the amount of current that the buck converter and bulk capacitor can supply.
-The back electromotive force (back EMF) of a DC motor at rest is equal to zero.
-%TODO ADD ref for above statement
-When voltage is applied to the motor, current rises as quickly as the inductance in the motor windings allows. 
-The current peaks when the rotor starts to rotate and a back EMF is generated.
-The back EMF will further increase while the motor accelerates to its steady state speed, and the speed is limited by the voltage supplied.
+In Section \ref{sec:pre_dc_motor_locomotion} the current profile of a DC motor is determined by modeling the DC motor with its corresponding parameters.
 Lowering the PWM duty cycle reduces both the maximum current peak and the steady state current and therefore can be used to reduce the motor start current demand.
 The maximum PWM duty cycle can be found by increasing the duty cycle until the robot is not able to start a movement from that PWM set point.
 

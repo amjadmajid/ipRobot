@@ -290,17 +290,21 @@ However, while this experiment only shows the effect for an unloaded motor, it i
 After every power interrupt each motor first needs to be synchronized, which will result in the robot making a random turn if the error between the motors is not equal.
 
 \subsection{DC Motor locomotion}
-
-%TODO expain the general operation of a dc motor!
-%TODO tell something about the motors considered
-%TODO Show measurement / current profile of a dc motor
-
-
-%TODO tell something about the maximum speed that can be achieved
+\label{sec:pre_dc_motor_locomotion}
+In this section a simple model will used to give insight into the power consumed by a DC motor.
 
 \subsubsection{Operation of a DC Motor}
+\label{sec:pre_operation_dc_motor}
+
+The back electromotive force (back EMF) of a DC motor at rest is equal to zero.
+%TODO ADD ref for above statement
+When voltage is applied to the motor, current rises as quickly as the inductance in the motor windings allows. 
+The current peaks when the rotor starts to rotate and a back EMF is generated.
+The back EMF will further increase while the motor accelerates to its steady state speed, and the speed is limited by the voltage supplied. 
 
 \subsubsection{Power Consumption}
+%TODO Show measurement / current profile of a dc motor
+%TODO tell something about the maximum speed that can be achieved
 
 On average the each motor consumes 38\,mA while running on a flat surface, which is well within the current limit that the buck converter can supply.
 However when the motors are in not moving yet the start current is approximately equal to the stall current, which is equal to 240\,mA.
