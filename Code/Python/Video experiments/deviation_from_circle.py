@@ -45,7 +45,6 @@ def plot_dist_multi():
     print 'avg std: ' + str(std[0] + std[1] / 2)
 
 
-
 def plot_raw_data():
     plt.figure(figsize=(5, 5))
     cnt = 1

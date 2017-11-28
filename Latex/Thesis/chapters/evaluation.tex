@@ -63,7 +63,7 @@ Choosing a period of 0.25\,s showed uncontrolled behavior, while the robots cont
 To find the minimal power interrupt period that is required to control the robot, the robot is programmed to preform a four second straight movement.
 The movement is recorded for each target speed and the power interrupt periods of 0.4\,s, 0.3\,s and 0.2\,s are evaluated.
 
-The results show that a interrupt period of 0.2\,s results in uncontrolled behavior, while the robot drifts to the side of the weakest motor, as shown in Figure \ref{fig:decreasing_power_period}.
+The results in Figure \ref{fig:decreasing_power_period} show that a interrupt period of 0.2\,s results in uncontrolled behavior, while the robot drifts to the side of the weakest motor.
 Increasing the target speed shows that also a higher interrupt period period is required to control the movement. 
 The power interrupt periods evaluated in this experiment were set to values above and equal to 0.5\,s: 1.25\,s, 1\,s, 0.75\,s and 0.5\,s.
 
@@ -91,7 +91,7 @@ The power interrupt periods evaluated in this experiment were set to values abov
 \subsubsection{Velocity Calibration}
 Another thing that can be observed from the results in Figure \ref{fig:decreasing_power_period}, is that the distance covered by the robot deceases by deceasing the target and/or power interrupt period.
 Without any sensors or external feedback that can determine the robots speed, it is difficult to determine the distance that the robot has traveled.
-To get a rough estimate the speed is the average speed is estimated for each speed target and power interrupt period.
+The average speed is estimated for each speed target and power interrupt period.
 This is achieved by first determining the time that the robot requires to move approximately 150\,cm for each target without power interrupts.
 When the robot experiences power interrupts the average velocity of an active period becomes lower due to frequent acceleration from a standstill.
 With power interrupts the runtime is increased to make the robot travel roughly the same distance.
@@ -105,11 +105,11 @@ Finally, the average of five complete movement measurements is computed and divi
 	\label{tab:val_calib}
 	\begin{tabular}{|l|l|l|l|l|l|}
 		\hline
-		& No int & 1.25\,s & 1.0\,s & 0.75\,s & 0.5\,s \\
+		Target (\%) & No int & 1.25\,s & 1.0\,s & 0.75\,s & 0.5\,s \\
 		\hline \hline
-		Target 40\% & 18.9\,m/s & 18.2\,cm/s & 18.0\,cm/s & 17.1\,cm/s & 15.9\,cm/s \\
-		Target 65\% & 24.0\,m/s & 22.2\,cm/s & 21.3\,cm/s & 20.8\,cm/s & 18.8\,cm/s \\
-		Target 90\% & 28.8\,m/s & 26.4\,cm/s & 25.7\,cm/s & 24.5\,cm/s & 22.7\,cm/s \\
+		 40 & 18.9\,m/s & 18.2\,cm/s & 18.0\,cm/s & 17.1\,cm/s & 15.9\,cm/s \\
+	     65 & 24.0\,m/s & 22.2\,cm/s & 21.3\,cm/s & 20.8\,cm/s & 18.8\,cm/s \\
+		 90 & 28.8\,m/s & 26.4\,cm/s & 25.7\,cm/s & 24.5\,cm/s & 22.7\,cm/s \\
 		\hline
 	\end{tabular}
 \end{table}
@@ -130,17 +130,17 @@ The robot is commanded to move 75\,cm
 
 \begin{figure}
 	\centering
-	\begin{subfigure}[b]{0.62\textwidth}
+	\begin{subfigure}[b]{0.32\textwidth}
 		\includegraphics[width=\textwidth]{pics/straight_40.png}
 		\caption{Target 40\%}
 		\label{fig:stra_exp1}
 	\end{subfigure}
-	\begin{subfigure}[b]{0.62\textwidth}
+	\begin{subfigure}[b]{0.32\textwidth}
 		\includegraphics[width=\textwidth]{pics/straight_65.png}
 		\caption{Target 65\%}
 		\label{fig:stra_exp2}
 	\end{subfigure}
-	\begin{subfigure}[b]{0.62\textwidth}
+	\begin{subfigure}[b]{0.32\textwidth}
 		\includegraphics[width=\textwidth]{pics/straight_90.png}
 		\caption{Target 90\%}
 		\label{fig:stra_exp3}
@@ -152,21 +152,53 @@ The robot is commanded to move 75\,cm
 \subsection{Circular Movements Results}
 
 The robot is commanded make a circle with radius of 30\,cm
+\subsubsetion{Movement Accuracy Metrics}
 
 
-\begin{figure}
+
+\begin{table}[t]
 	\centering
-	\begin{subfigure}[b]{0.62\textwidth}
+	\caption{The mean and standard deviation of the Euclidean distance from the fitted circle.}
+	\label{tab:circular_results}
+	\begin{tabular}{|l|l||l|l|l|}
+		\hline
+		Target (\%) & Interrupt (s) & Radius (cm) & Mean (cm) & Std (cm)\\
+		\hline \hline
+		\multirow{5}{*}{40} & No int & 34 & 1.7 & 0.88 \\
+		& 1.25 & 32 & 1.92 & 1.04 \\
+		& 1.00 & 32 & 2.53 & 1.44 \\
+		& 0.75 & 33 & 2.17 & 1.48 \\
+		& 0.50 & 32 & 1.96 & 1.47 \\
+		\hline
+		\multirow{5}{*}{65} & No int & 34 & 1.91 & 1.06 \\
+		& 1.25 & 32 & 1.63 & 0.93 \\
+		& 1.00 & 32 & 1.36 & 0.98 \\
+		& 0.75 & 33 & 1.61 & 1.04 \\
+		& 0.50 & 32 & 1.23 & 0.60 \\
+		\hline
+		\multirow{5}{*}{90} & No int & 30 & 1.36 & 0.72 \\
+		& 1.25 & 31 & 1.30 & 0.72 \\
+		& 1.00 & 31 & 1.78 & 1.55 \\
+		& 0.75 & 31 & 1.04 & 0.59 \\
+		& 0.50 & 34 & 3.45 & 3.44 \\
+		\hline
+	\end{tabular}
+\end{table}
+
+
+\begin{figure}[h!]
+	\centering
+	\begin{subfigure}[b]{0.5\textwidth}
 		\includegraphics[width=\textwidth]{pics/circle_40.png}
 		\caption{Target 40\%}
 		\label{fig:circ_exp1}
 	\end{subfigure}
-	\begin{subfigure}[b]{0.62\textwidth}
+	\begin{subfigure}[b]{0.5\textwidth}
 		\includegraphics[width=\textwidth]{pics/circle_65.png}
 		\caption{Target 65\%}
 		\label{fig:circ_exp2}
 	\end{subfigure}
-	\begin{subfigure}[b]{0.62\textwidth}
+	\begin{subfigure}[b]{0.5\textwidth}
 		\includegraphics[width=\textwidth]{pics/circle_90.png}
 		\caption{Target 90\%}
 		\label{fig:circ_exp3}

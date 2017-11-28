@@ -17,6 +17,9 @@ Release/
 # Do not upload pycharm specific files
 .idea/
 
+# Do not upload
+*.pyc
+
 # Do not upload video to git!
 Python/Video experiments/Video_Straight/
 Python/Video experiments/Video_Square/

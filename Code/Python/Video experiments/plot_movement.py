@@ -32,8 +32,9 @@ def plt_distance_from_ref_circle(data_list):
 
     samples = 300
     theta = np.linspace(-np.pi, np.pi, samples)
-    x = 36+30*np.sin(theta)
-    y = 38+30*np.cos(theta)
+    r = 30
+    x = 5.8 + r + (r * np.cos(theta))
+    y = 9.0 + r + (r * np.sin(theta))
 
     plt.figure()
     for dlist in data_list:
@@ -56,7 +57,11 @@ def plt_distance_from_ref_circle(data_list):
 
 def plot_raw_data(data_list):
 
-    plt.figure()
+    if movement == 1:
+        plt.figure(figsize=(5, 5))
+    elif movement == 3:
+        plt.figure(figsize=(3, 5))
+        plt.subplots_adjust(left=0.2)
     for dlist in data_list:
         plt.plot(*zip(*dlist[0]), label=label[dlist[1]], color=color_list[dlist[1]], marker=marker_list[dlist[1]], markevery=20, alpha=0.5)
 
@@ -80,7 +85,7 @@ def plot_raw_data(data_list):
     # remove duplicate labels
     handles, labels = plt.gca().get_legend_handles_labels()
     by_label = OrderedDict(zip(labels, handles))
-    plt.legend(by_label.values(), by_label.keys(), loc='upper right')
+    plt.legend(by_label.values(), by_label.keys(), loc='lower right')
     plt.show()
 
 
@@ -88,7 +93,7 @@ def plot_raw_data(data_list):
 
 ddir = 'Csv_Data/'
 
-movement = 1
+movement = 3
 set = 0
 pwm = ['30', '50', '70']
 re_list = ['', '_int500', '_int750', '_int1000', '_int1250']
