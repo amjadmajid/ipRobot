@@ -112,7 +112,7 @@ The WISP is positioned 25, 35 and 45\,cm away from the reader and the charge tim
 		Distance & 25\,cm & 35\,cm & 45\,cm \\
 		\hline \hline
 		Average charge time & 49.1\,s & 61.1\,s & 164.8\,s \\
-		Average input power & 1.086\,mW & 0.871\,mW & 0.323\,mW \\
+		%Average input power & 1.086\,mW & 0.871\,mW & 0.323\,mW \\
 		\hline
 	\end{tabular}
 \end{table}
@@ -371,7 +371,7 @@ However the PWM duty cycle will be limited to a maximum of $100/(2*140/110) = 39
 
 \subsection{Conclusion}
 Stepper motor have a lower efficiency than normal dc motors because a constant current consumed independent of the rotational speed.
-The only way retain rotor and stator stay alignment is by keeping the stepper motor coil energized.
+The only way the rotor and stator retain alignment is by keeping the stepper motor coil energized.
 Very frequent power interrupts could lead to loss of synchronization between the energized coil and position of the rotor as a result of rotor inertia.
 The error due to inertia becomes more significant with increase rotational speed.
 Loss of synchronization can result in random behavior of a differential drive robot, as one stepper motor may require a different amount of steps before synchronization than the other.

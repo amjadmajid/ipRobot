@@ -18,7 +18,7 @@ This section will explain each part of the robot in more detail and a complete o
 	\label{fig:robot_overview}
 \end{figure}
 
-\subsection{Energy Source}
+\subsection{Energy Harvesting and Storage}
 %TODO refer to preliminaries section
 Solar energy is harvested from two IXYS SLMD121H04L-ND solar cells~\cite{ixolar_slmd121h04l_2017} in parallel.
 These monocrystalline solar cells have a high efficiency of 22\%, allowing energy harvesting even in low light conditions.
@@ -45,8 +45,6 @@ To allow for controlled movements the robot has a Bosch Sensortec BMG250 low pow
 
 \subsection{Locomotion}
 
-% tell that also higher geared motors were tried??
-
 Two 25:1 sub-micro plastic planetary gearmotors from Precision Microdrives~\cite{gearmotor_206-110_2017} are mounted in a 3D printed frame.
 The motors are positioned diagonally opposite from each other making the robot as compact as possible, while this differential drive configuration allows the robot to steer.
 Small plastic wheels with rubber tires are mounted directly on each of the motor shafts.
@@ -55,7 +53,7 @@ Behind these two motors a free running caster wheel is mounted to the frame, act
 \subsection{Motor Control}
 \label{sec:dai_motor_control}
 
-The speed (and the current consumption) of each motor can be controlled individually using Pulse-Width-Modulation (PWM).
+The speed and the current consumption of each motor can be controlled individually using Pulse-Width-Modulation (PWM).
 The MCU can use the H-bridge to enable, disable and control the direction of rotation of each individual motor.
 Typically MCU IO-ports are limited in the amount of current that they can supply.
 MOSFETs inside a Texas Instruments DRV8836 dual H-bridge~\cite{drv8836_2017} allow efficient regulation of larger currents to the motors.
@@ -169,14 +167,13 @@ From this table can be concluded that the cost of building a transiently powered
 \section{Control Design}
 
 \subsection{Motor control}
-\label{sec:calib_motors}
+\label{sec:motor_control}
 
 %TODO write intro and link to preliminaries
 %When the motors are powered from the battery the supplied voltages drops while energy is consumed for the battery.
 %Since the speed of the motor is dependent on the supply voltage the speed of the motor will also decrease while energy is consumed from the battery.
-A benefit of keeping the supply voltage constant is that voltage is eliminated as a factor in determining the motor speed.
+The buck converter supplies a constant voltage to the motors, which eliminates voltage as a factor in determining the motor speed.
 By making the assumption that the robot will only travel on a flat surface, the steady state speed is considered ``constant" given a certain PWM duty cycle.
-
 
 \subsubsection{PWM Frequency for Linear Motion Control}
 % Reference: https://www.precisionmicrodrives.com/application-notes/ab-022-pwm-frequency-for-linear-motion-control
@@ -225,7 +222,7 @@ If the robot is set to run at the minimum speed does not mean that the motors ru
 % Does more gearing (more torque) reduce the current peak??
 
 The maximum PWM duty cycle is bounded by the amount of current that the buck converter and bulk capacitor can supply.
-In Section \ref{sec:pre_dc_motor_locomotion} the current profile of a DC motor is determined by modeling the DC motor with its corresponding parameters.
+In Section \ref{sec:pre_dc_motor_locomotion} the current profile of a DC motor is measured.
 Lowering the PWM duty cycle reduces both the maximum current peak and the steady state current and therefore can be used to reduce the motor start current demand.
 The maximum PWM duty cycle can be found by increasing the duty cycle until the robot is not able to start a movement from that PWM set point.
 
@@ -233,7 +230,7 @@ The maximum PWM duty cycle can be found by increasing the duty cycle until the r
 \subsection{Closed loop feedback for controlled movements}
 
 %The robot uses two physically different motors in differential drive configuration which are mounted in a non-symmetrical way.
-Open loop movement using just a calibrated motor values has been used in previous work \cite{legoc_uist_2016}, but it can be time consuming and any little disturbance will trow the robot off course.
+Open loop movement using calibrated motor values has been used in previous work \cite{legoc_uist_2016}, but it can be time consuming and any little disturbance will trow the robot off course.
 Controlled movements are possible using closed loop feedback, where the heading is used to update the motor control values.
 The robots change in heading can be obtained from the gyroscope and corresponds to the yaw-rate.
 
@@ -308,15 +305,12 @@ The control loop for controlled turning uses the angle, which is obtained by int
 A P controller is used to rotate the robot to the desired angle, the proportional gain is directly influencing turn speed of the robot.
 The motor control values are set to run the motors opposite directions and are equal to the output of the P controller.
 These values will keep decreasing until the robot rotates to the desired angle.
-The set point is assumed to be reached when the angle is within two degrees of the target, in this case the loop will stop automatically.
-To allow enough precision to measure if the target is within these two degrees, the timer which executes the control loop was set to run at 100\,Hz.
-Secondly, the proportional gain should not be set to low because the robot might not able to reach the target but also not to high as it can overshoot the target.
 
 \section{Software Implementation}
 
 The robot can be controlled using three different commands, one for straight trajectories, one for left and one for right turns.
 When a command is executed a control loop will run until the provided target is reached.
-A timer running periodically calling an interrupt service routine which executes the control loop.   
+A timer will call an interrupt service routine with a frequency of a 100\,Hz, that executes the control loop.   
 Each command requires different initial values, set points and tuning parameters, these are set accordingly before the control loop is enabled.
 
 \subsection{Controlled straight movements}
@@ -331,6 +325,11 @@ The loop will stop automatically when the required target is reached.
 The same PID control loop can be used to command the robot to make curved movements.
 By integrating the angular velocity an angle estimate is obtained, which is used to verify if the angle target given is reached within two degrees.
 In case this is true the loop will exit automatically.
+
+\subsection{Controlled Turns}
+The set point is assumed to be reached when the angle is within two degrees of the target, in this case the loop will stop automatically.
+To allow enough precision to measure if the target is within these two degrees, the timer which executes the control loop was set to run at 100\,Hz.
+Secondly, the proportional gain should not be set to low because the robot might not able to reach the target but also not to high as it can overshoot the target.
 
 
 \subsection{Persistent movement}
