@@ -17,24 +17,81 @@ In this section the accuracy of movement of the battery-less robot and its batte
 \subsection{Experimental setup}
 
 To be able to compare the accuracy of the robot while it is exposed to increasingly smaller power cycles, a variety of movements is recorded using a overhead camera.
-A camera stand with DSLR camera is positioned on a tabletop and in the camera's view the corners of a square of 80$\times$80\,cm are indicated with a black marker, see Figure \ref{fig:movement_setup}.
+A camera stand with a Nikkon D610 DSLR camera is positioned on a tabletop and in the camera's view the corners of a square of 80$\times$80\,cm are indicated with a black marker, see Figure \ref{fig:movement_setup}.
 This square is later used as a reference to convert the robots movement from pixels to cm.
-Three different movements are compared, while the robot is moving straight movement of 75\,cm, a circle with radius of 30 cm and a square of 50$\times$50\,cm.
+Three different movements are compared, while the robot is moving straight movement of 75\,cm, a circle with radius of 30\,cm and a square of 50$\times$50\,cm.
 
-\subsubsection{Artificial Power Interrupts}
+\begin{figure}
+	\centering
+	\begin{subfigure}[b]{0.45\textwidth}
+		\includegraphics[width=\textwidth]{pics/movement_setup.jpg}
+		\caption{Camera setup}
+		\label{fig:movement_setup}
+	\end{subfigure}
+	\quad
+	\begin{subfigure}[b]{0.45\textwidth}
+		\includegraphics[width=\textwidth]{pics/movement_example.png}
+		\caption{Tracking with OpenCV}
+		\label{fig:movement_example}
+	\end{subfigure}
+	\caption{Experimental setup to record the robots movement}
+\end{figure}
 
-%TODO Why bat powered
+\subsubsection{Tracking the Movement}
+
+%The robot is programmed to preform the movement at a desired PWM target ie at a specified speed, and optional power interrupt period.
+Before the robot executes the movement a green led is enabled on top of the robot.
+This green dot will be the reference point that the tracking software will try to follow.
+The camera is used to record the movement which then is analyzed using Python and OpenCV 3.2.
+An example of a tracked movement can be seen in Figure \ref{fig:movement_example}.
+
+\subsubsection{Target Speed Setting}
+To evaluate the influence of speed each movement is executed at three different speed target settings: 40\%, 65\% and 90\% of the maximum duty cycle.
+Choosing a target higher than 90\% is undesired while the controller needs some room to adjust the speed up and down to control the robots heading.
+
+\subsubsection{Power Interrupts}
+
+To evaluate different power cycle periods without changing the capacitor size or the minimum and maximum voltage thresholds set using resistors, power interrupts are generated artificially.
 During the experiment the robot will be powered from a battery and power interrupts, i.e the capacitor running out of energy are created artificially using a timer that resets the MCU.
-The MSP430FR5969 has the functionality to enable a brownout reset trough software which is used to simulate the event of the supply voltage dropping below the required operating voltage.
-With a capacitor of 22\,mF the robot can operate around 1 second, this resulted in the chosen interrupt periods.
-Choosing a period smaller than half a second resulted in uncontrolled behavior, while the control loop was not able to stabilize the movement before the robot runs out of energy again.
-Therefore the power interrupt periods evaluated in this experiment were set to th value above and equal to 0.5\,s: 1.25\,s, 1\,s, 0.75\,s and 0.5\,s.
+The MSP430FR5969 has the functionality to enable a brownout reset trough software which is used to simulate the event of the supply voltage dropping below the required operating voltage~\cite{msp430fr_family_guide_2017}.
+A timer is used to generate the power interrupt after a predefined period.
+
+\subsubsection{Power Interrupt Period}
+
+With the selected capacitor of 22\,mF the robot can operate around 1 second. 
+Choosing a period of 0.25\,s showed uncontrolled behavior, while the robots control loop was not able to stabilize the movement before a power interrupt occurs.
+To find the minimal power interrupt period that is required to control the robot, the robot is programmed to preform a four second straight movement.
+The movement is recorded for each target speed and the power interrupt periods of 0.4\,s, 0.3\,s and 0.2\,s are evaluated.
+
+The results show that a interrupt period of 0.2\,s results in uncontrolled behavior, while the robot drifts to the side of the weakest motor, as shown in Figure \ref{fig:decreasing_power_period}.
+Increasing the target speed shows that also a higher interrupt period period is required to control the movement. 
+The power interrupt periods evaluated in this experiment were set to values above and equal to 0.5\,s: 1.25\,s, 1\,s, 0.75\,s and 0.5\,s.
+
+
+\begin{figure}
+	\begin{subfigure}[b]{0.32\textwidth}
+		\includegraphics[width=\textwidth]{pics/figure_40.png}
+		\caption{Target 40\%}
+		\label{fig:target_40}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.32\textwidth}
+		\includegraphics[width=\textwidth]{pics/figure_65.png}
+		\caption{Target 65\%}
+		\label{fig:target_65}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.32\textwidth}
+		\includegraphics[width=\textwidth]{pics/figure_90.png}
+		\caption{Target 90\%}
+		\label{fig:target_90}
+	\end{subfigure}
+	\caption{Accuracy of movement with decreasing the power interrupt period.}
+	\label{fig:decreasing_power_period}
+\end{figure}
 
 \subsubsection{Velocity Calibration}
-
-%TODO make table with standard deviation of distance traveled 
-Each movement is executed at three different velocity PWM target settings: 40\%, 65\% and 90\% of the maximum duty cycle.
-To let the robot move a particular distance, the average speed needs to be estimated for each PWM target and power interrupt period.
+Another thing that can be observed from the results in \ref{fig:decreasing_power_period}, is that the distance covered by the robot deceases by deceasing the target and/or power interrupt period.
+Without any sensors or external feedback that can determine the robots speed, it is difficult to determine the distance that the robot has traveled.
+To get a rough estimate the speed is the average speed is estimated for each speed target and power interrupt period.
 This is achieved by first determining the time that the robot requires to move approximately 150\,cm for each target without power interrupts.
 When the robot experiences power interrupts the average velocity of a active period becomes lower due to frequent acceleration from a standstill.
 With power interrupts the runtime is increased to make the robot travel roughly the same distance.
@@ -56,31 +113,6 @@ Finally, the average of five complete movement measurements is computed and divi
 		\hline
 	\end{tabular}
 \end{table}
-
-\subsubsection{Tracking the Movement}
-
-The robot is programmed to preform the movement at a desired PWM target ie at a specified speed, and optional power interrupt period.
-Before the robot executes the movement a green led is enabled on top of the robot.
-This green dot will be the reference point that the tracking software will try to follow.
-The camera is used to record the movement which then is analyzed using Python and OpenCV 3.2.
-An example of a tracked movement can be seen in Figure \ref{fig:movement_example}.
-
-\begin{figure}
-	\centering
-	\begin{subfigure}[b]{0.45\textwidth}
-		\includegraphics[width=\textwidth]{pics/movement_setup.jpg}
-		\caption{Camera setup}
-		\label{fig:movement_setup}
-	\end{subfigure}
-	\quad
-	\begin{subfigure}[b]{0.45\textwidth}
-		\includegraphics[width=\textwidth]{pics/movement_example.png}
-		\caption{Tracking with OpenCV}
-		\label{fig:movement_example}
-	\end{subfigure}
-	\caption{Experimental setup to record the robots movement}
-\end{figure}
-
 
 \subsection{Movement Accuracy Metrics}
 The following metrics have been collected
