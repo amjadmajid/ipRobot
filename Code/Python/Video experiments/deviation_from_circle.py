@@ -4,11 +4,6 @@ import math as m
 import numpy as np
 import matplotlib.pyplot as plt
 
-ddir = 'Csv_Data/'
-mdir = 'Video_Circle/'
-#file_name = 'Video_trg_30_r1_right_r30_battery_'
-file_name = 'Video_trg_30_r1_right_r30_battery_int1000_'
-
 
 def plt_dist_circle(num_samp, data_list):
     theta = np.linspace(np.pi, -np.pi, num_samp)
@@ -31,28 +26,38 @@ def plt_dist_circle(num_samp, data_list):
         data.append(sdist)
         cnt += 1
     plt.plot(data)
+    return data
 
 
 def plot_dist_multi():
     plt.figure()
     lcnt = 1
+    mean = []
+    std = []
     while lcnt < 3:
         data = read_movement_data(ddir + mdir + file_name + str(lcnt) + '.csv')
-        plt_dist_circle(100, data)
+        result = plt_dist_circle(100, data)
+        npdata = np.asarray(result)
+        mean.append(np.mean(npdata))
+        std.append(np.std(npdata))
         lcnt += 1
+    print 'avg mean:' + str(mean[0] + mean[1] / 2)
+    print 'avg std: ' + str(std[0] + std[1] / 2)
+
+
 
 def plot_raw_data():
     plt.figure(figsize=(5, 5))
     cnt = 1
     while cnt < 3:
         data = read_movement_data(ddir+mdir+file_name+str(cnt)+'.csv')
-        print len(data)
-        print length_of_movement(data, 10)
+        #print len(data)
+        #print length_of_movement(data, 10)
         x, y = zip(*data)
         xdata = np.asarray(x)
         ydata = np.asarray(y)
-        print 'xdata: ' + str(xdata)
-        print 'ydata: ' + str(ydata)
+        #print 'xdata: ' + str(xdata)
+        #print 'ydata: ' + str(ydata)
         plt.plot(xdata, ydata)
 
         cnt += 1
@@ -72,9 +77,14 @@ def plot_raw_data():
     #plt.legend()
 
 
-r = 32
-xoff = 0
-yoff = -5
+ddir = 'Csv_Data/'
+mdir = 'Video_Circle/'
+#file_name = 'Video_trg_30_r1_right_r30_battery_'
+file_name = 'Video_trg_50_r1_right_r30_battery_'
+
+r = 34
+xoff = -1
+yoff = -7
 plot_raw_data()
 
 plot_dist_multi()
