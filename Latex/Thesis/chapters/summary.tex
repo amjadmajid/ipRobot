@@ -6,7 +6,7 @@
 %TODO This is only one limitation (speed accurrracy) but there are more - please list them (lack of more sensors, communciation with the extenal world, size can be even smaller, not managed to develop a swarm).
 
 Section \ref{sec:controlled_movements} shows that the transiently powered robot is able to execute a instructed motion with similar accuracy compared to a battery powered equal.
-However, the distance covered by a robot with frequent power interrupts in a certain amount of time is smaller, i.e the average speed is lower due to more accelerations.
+However, the distance covered by a robot with frequent power interrupts in a certain amount of time is smaller, i.e the average speed is lower due to frequent acceleration from a standstill.
 For this reason the robot needs a method to determine it's speed without wheel encoders.
 One possibility to achieve this would be to determine motor speed by measuring the Back-EMF produced by the motor, as it is proportional to the motors revolutions per minute. % ~cite{precision_backemf_2017}.
 However, the amount of power required to frequently determine the Back-EMF needs to be evaluated carefully.

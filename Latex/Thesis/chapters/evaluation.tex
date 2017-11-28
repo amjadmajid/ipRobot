@@ -89,13 +89,13 @@ The power interrupt periods evaluated in this experiment were set to values abov
 \end{figure}
 
 \subsubsection{Velocity Calibration}
-Another thing that can be observed from the results in \ref{fig:decreasing_power_period}, is that the distance covered by the robot deceases by deceasing the target and/or power interrupt period.
+Another thing that can be observed from the results in Figure \ref{fig:decreasing_power_period}, is that the distance covered by the robot deceases by deceasing the target and/or power interrupt period.
 Without any sensors or external feedback that can determine the robots speed, it is difficult to determine the distance that the robot has traveled.
 To get a rough estimate the speed is the average speed is estimated for each speed target and power interrupt period.
 This is achieved by first determining the time that the robot requires to move approximately 150\,cm for each target without power interrupts.
-When the robot experiences power interrupts the average velocity of a active period becomes lower due to frequent acceleration from a standstill.
+When the robot experiences power interrupts the average velocity of an active period becomes lower due to frequent acceleration from a standstill.
 With power interrupts the runtime is increased to make the robot travel roughly the same distance.
-Finally, the average of five complete movement measurements is computed and divided by the commanded runtime of the robot to acquire an average speed for each combination, which can be found in Table \ref{tab:val_calib}.
+Finally, the average of five complete movement measurements is computed and divided by the commanded runtime of the robot to acquire an average speed for each combination, as seen from Table \ref{tab:val_calib}.
 
 
 \begin{table}[t]
