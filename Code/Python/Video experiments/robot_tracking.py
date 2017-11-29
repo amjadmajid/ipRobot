@@ -28,7 +28,7 @@ show_result = 1
 # define the lower and upper boundaries of the "green"
 # ball in the HSV color space, then initialize the
 # list of tracked point
-greenLower = (29, 86, 55)
+greenLower = (29, 86, 50)
 greenUpper = (64, 255, 255)
 
 line_color = (0, 0, 255)
@@ -37,8 +37,8 @@ line_color = (0, 0, 255)
 #rect_p1 = (440, 40)
 #rect_p2 = (1460, 1040)
 # Square
-rect_p1 = (450, 35)
-rect_p2 = (1465, 1040)
+rect_p1 = (440, 30)
+rect_p2 = (1460, 1050)
 
 square_size = 80
 
@@ -46,9 +46,13 @@ ddir = 'Csv_Data/'
 
 #mdir = 'Video_Square/'
 #sdir = 'Video_trg_50_r1_50_right_battery_int750'
-mdir = 'Video_Straight_4s/'
-sdir = 'Video_trg_70_r1_battery_int200'
+#mdir = 'Video_Straight_4s/'
+#sdir = 'Video_trg_70_r1_battery_int200'
 #file = mdir + sdir + '/' + 'DSC_4945.MOV'
+
+mdir = 'Video_Solar/'
+sdir = 'Video_straight_trg_30_r1_75_solar'
+#sdir = 'Video_circle_trg_30_r1_r30_solar'
 
 fcnt = 1
 for file in glob.glob(os.path.join(mdir+sdir+'/', '*.MOV')):
@@ -123,6 +127,7 @@ for file in glob.glob(os.path.join(mdir+sdir+'/', '*.MOV')):
 
         if live:
             # show the frame to our screen
+            cv2.rectangle(frame, rect_p1, rect_p2, (0, 0, 255), 2)
             cv2.imshow("Frame", frame)
             #cv2.imshow('mask', mask)
             key = cv2.waitKey(1) & 0xFF
