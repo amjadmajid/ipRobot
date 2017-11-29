@@ -103,13 +103,13 @@ Finally, the average of five complete movement measurements is computed and divi
 	\small
 	\caption{Calibrated velocity}
 	\label{tab:val_calib}
-	\begin{tabular}{|l|l|l|l|l|l|}
+	\begin{tabular}{|l|l||l|l|l|l|l|l|}
 		\hline
-		Target (\%) & No int & 1.25\,s & 1.0\,s & 0.75\,s & 0.5\,s \\
+		Target (\%) & & No int & Solar & 1.25\,s & 1.0\,s & 0.75\,s & 0.5\,s \\
 		\hline \hline
-		 40 & 18.9\,m/s & 18.2\,cm/s & 18.0\,cm/s & 17.1\,cm/s & 15.9\,cm/s \\
-	     65 & 24.0\,m/s & 22.2\,cm/s & 21.3\,cm/s & 20.8\,cm/s & 18.8\,cm/s \\
-		 90 & 28.8\,m/s & 26.4\,cm/s & 25.7\,cm/s & 24.5\,cm/s & 22.7\,cm/s \\
+		 40 & cm/s & 18.9 & 16.0 & 18.2 & 18.0 & 17.1 & 15.9 \\
+	     65 & cm/s & 24.0 & 20.8 & 22.2 & 21.3 & 20.8 & 18.8 \\
+		 90 & cm/s & 28.8 & 23.3 & 26.4 & 25.7 & 24.5 & 22.7 \\
 		\hline
 	\end{tabular}
 \end{table}
@@ -144,15 +144,17 @@ The results in Figure \ref{fig:straight_movements} show that the robot roughly m
 \subsubsection{Movement Accuracy Metrics}
 NO EXTERNAL FEEDBACK
 
-Even though the robot is positioned carefully in the same start position, it can happen that the robot is not positioned perpendicular the reference frame of 80$\times$80\cm, i.e. the robot will start moving on a angle.
+Even though the robot is positioned carefully in the same start position, it is inevitable that the robot is positioned non-perpendicular to the reference frame of 80$\times$80\,cm, i.e. the robot will start moving on a angle.
 Therefore 
 
 \begin{itemize}
 	\item average curvature of straight line movement
 
-	\item for both straight and curved movements: length of the total movement and  standard deviation in length of movement
+	\item for both straight and curved movements: length of the total movement and standard deviation in length of movement
 \end{itemize}
 
+
+\subsubsection{Straight Movement Results}
 
 \begin{table}[t]
 	\centering
