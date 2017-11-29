@@ -41,8 +41,8 @@ def plot_dist_multi():
         mean.append(np.mean(npdata))
         std.append(np.std(npdata))
         lcnt += 1
-    print 'avg mean:' + str(mean[0] + mean[1] / 2)
-    print 'avg std: ' + str(std[0] + std[1] / 2)
+    print 'avg mean:' + str(np.mean(mean))
+    print 'avg std: ' + str(np.mean(std))
 
 
 def plot_raw_data():
