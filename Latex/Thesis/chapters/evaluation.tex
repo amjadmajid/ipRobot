@@ -114,19 +114,11 @@ Finally, the average of five complete movement measurements is computed and divi
 	\end{tabular}
 \end{table}
 
-\subsection{Movement Accuracy Metrics}
-The following metrics have been collected
-
-\begin{itemize}
-	\item average curvature of straight line movement
-	\item Circle plot, make reference flat and plot difference between measured circle and reference (deviation from ideal circle for circular movements)
-	\item for both straight and curved movements: length of the total movement and  standard deviation in length of movement
-\end{itemize}
-
-
 \subsection{Straight Movements}
 
-The robot is commanded to move 75\,cm
+Using the calibrated velocities and selected power interrupt periods, the robot is commanded to preform a straight movement of 75\,cm.
+Each combination is recorded multiple times and the motion data is extracted from the video using Python and OpenCV.
+The results in Figure \ref{fig:straight_movements} show that the robot roughly moves the commanded 75\,cm.
 
 \begin{figure}
 	\centering
@@ -145,9 +137,51 @@ The robot is commanded to move 75\,cm
 		\caption{Target 90\%}
 		\label{fig:stra_exp3}
 	\end{subfigure}
-	\caption{Straight movements, black horizontal lines show the begin and endpoints}
+	\caption{Straight movements, the black horizontal line shows the 75\,cm endpoint}
+	\label{fig:straight_movements}
 \end{figure}
 
+\subsubsection{Movement Accuracy Metrics}
+NO EXTERNAL FEEDBACK
+
+Even though the robot is positioned carefully in the same start position, it can happen that the robot is not positioned perpendicular the reference frame of 80$\times$80\cm, i.e. the robot will start moving on a angle.
+Therefore 
+
+\begin{itemize}
+	\item average curvature of straight line movement
+
+	\item for both straight and curved movements: length of the total movement and  standard deviation in length of movement
+\end{itemize}
+
+
+\begin{table}[t]
+	\centering
+	\caption{The Euclidean distance between the recorded data and a straight line between the begin and endpoint of the data.}
+	\label{tab:straight_results}
+	\begin{tabular}{|l|l||l|l|l|}
+		\hline
+		Target (\%) & Interrupt (s) & Max (cm) & Mean (cm) & Std (cm)\\
+		\hline \hline
+		\multirow{5}{*}{40} & No int & 0.86 & 0.36 & 0.16 \\
+		& 1.25 & 0.67 & 0.34 & 0.12 \\
+		& 1.00 & 1.35 & 0.56 & 0.27 \\
+		& 0.75 & 1.04 & 0.60 & 0.27 \\
+		& 0.50 & 0.86 & 0.44 & 0.22 \\
+		\hline
+		\multirow{5}{*}{65} & No int & 0.52 & 0.25 & 0.12 \\
+		& 1.25 & 0.72 & 0.31 & 0.14 \\
+		& 1.00 & 0.91 & 0.44 & 0.21 \\
+		& 0.75 & 1.44 & 0.80 & 0.35 \\
+		& 0.50 & 2.15 & 1.17 & 0.54 \\
+		\hline
+		\multirow{5}{*}{90} & No int & 0.54 & 0.28 & 0.13 \\
+		& 1.25 & 0.90 & 0.42 & 0.17 \\
+		& 1.00 & 1.76 & 0.95 & 0.42 \\
+		& 0.75 & 1.88 & 0.88 & 0.37 \\
+		& 0.50 & 2.18 & 1.09 & 0.61 \\
+		\hline
+	\end{tabular}
+\end{table}
 
 \subsection{Circular Movements Results}
 
