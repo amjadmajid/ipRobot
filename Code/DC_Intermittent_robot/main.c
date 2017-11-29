@@ -76,10 +76,10 @@ int main(void) {
     i2c_init();
     ctrl_init(conf);
 
-    int8_t len = 12;
-    uint16_t inst[12] = {STRAIGHT, 50, TURN_RIGHT, 180, STRAIGHT, 50, TURN_RIGHT, 180, STRAIGHT, 50, TURN_RIGHT, 180};
-    //int8_t len = 2;
-    //uint16_t inst[2] = {TURN_LEFT, 360};
+    //int8_t len = 12;
+    //uint16_t inst[12] = {STRAIGHT, 50, TURN_RIGHT, 180, STRAIGHT, 50, TURN_RIGHT, 180, STRAIGHT, 50, TURN_RIGHT, 180};
+    int8_t len = 2;
+    uint16_t inst[2] = {CURVE_RIGHT, 360};
 
 #if SPI
     // Create power interrupt after approx 1.1sec
@@ -113,3 +113,16 @@ int main(void) {
 
     return 0;
 }
+
+/*int main(){
+
+    init();
+
+    P2DIR |= BIT1;                            // Set P2.1 (UART_RX) to output
+    P2OUT |= (BIT1);                         // Disable DRV8836
+
+    //Enable LED to drain excess energy
+    PJOUT |= BIT6;
+
+    return 0;
+}*/
