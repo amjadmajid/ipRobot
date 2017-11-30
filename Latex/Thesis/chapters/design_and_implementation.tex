@@ -1,13 +1,14 @@
 \chapter{Design and Implementation}
 
-% - Should the subsections more or less reflect the columns in the table?
+In this chapter the hardware design of the transiently-powered robot will be explained in Section \ref{sec:dai_hardware_design}.
+In Section \ref{sec:dai_control_design} the controller will be explained that allows the robot to preform controlled movements without external feedback.
+Finally, Section \ref{sec:dai_software_implementation} will explain the software implementation that enables the robot to execute a movement despite regular power interrupts. 
+
 
 \section{Hardware Design}
-
-% - EXPLAIN MORE ABOUT HARDWARE CHOISES, why these specific componens. What were the requirements for choosing these components
-
+\label{sec:dai_hardware_design}
 The first step was to evaluate what components are required for the robot to have basic navigation capabilities.
-Commercially available low power components have been evaluated, where the main criteria was a low minimal supply voltage.
+Commercially available low power components have been evaluated, where the main criteria was a low minimal supply voltage of 2.0\,V allowing a system voltage of 2.2\,V.
 This section will explain each part of the robot in more detail and a complete overview of the robot is shown in Figure \ref{fig:robot_overview}.
 
 \vspace{1em}
@@ -19,10 +20,8 @@ This section will explain each part of the robot in more detail and a complete o
 \end{figure}
 
 \subsection{Energy Harvesting and Storage}
-%TODO refer to preliminaries section
-Solar energy is harvested from two IXYS SLMD121H04L-ND solar cells~\cite{ixolar_slmd121h04l_2017} in parallel.
-These monocrystalline solar cells have a high efficiency of 22\%, allowing energy harvesting even in low light conditions.
-The solar cells are connected to a energy harvester. 
+Energy is harvested from light using two IXYS SLMD121H04L-ND solar cells~\cite{ixolar_slmd121h04l_2017} in parallel, as determined in Section \ref{sec:pre_energy_source_selection}.
+The solar cells will be connected to a Texas Instruments BQ25570 energy harvester~\cite{bq25570_2017} which stores the harvested energy in a 22\,mF - 4.5\,V supercapactor from AVX~\cite{avx_bestcap_2017}.
 
 \subsection{Computation}
 \label{sec:dai_computation}
@@ -30,7 +29,7 @@ The solar cells are connected to a energy harvester.
 The robot is designed around a WISP 5 \cite{wisp5_wiki_2017}, a battery-free platform for low power sensing, computation and communication.
 This platform has the ability to communicate with RFID readers and is powered by the carrier signal emitted by the reader.
 However, the communication range and the power that can be harvested is limited.
-Therefore communication is currently not implemented and a different energy source for harvesting will be used as described in Section \ref{sec:pre_energy_harvesting_storage}.
+%Therefore communication is currently not implemented and a different energy source for harvesting will be used as described in Section \ref{sec:pre_energy_harvesting_storage}.
 Currently only the MCU from the WISP is being utilized: a Texas Instruments MSP430FR5969 ultra low power microcontroller.
 This MCU can operate at 16\,MHz and features 64\,KB FRAM, 2\,KB SRAM and 40 IO-ports \cite{msp430fr5969_2017}.
 
@@ -38,15 +37,15 @@ This MCU can operate at 16\,MHz and features 64\,KB FRAM, 2\,KB SRAM and 40 IO-p
 \label{sec:dai_sensing}
 
 The robot has access to basic sensors which can be interfaced trough I2C.
-For detecting obstacles in front of the robot, a Maxim Integrated MAX44000 proximity sensor was added of the robot facing forward.
+For detecting obstacles in front of the robot, a Maxim Integrated MAX44000 proximity sensor~\cite{max44000_2017} was added of the robot facing forward.
 This sensor switches a IR led at high frequency to reduce the power consumed.
 The same sensor is based around a photo-diode it can be used to measure the amount of ambient light as well.
-To allow for controlled movements the robot has a Bosch Sensortec BMG250 low power triaxial gyroscope to measure yaw-rate, used to correct it's heading when necessary.
+To allow for controlled movements the robot has a Bosch Sensortec BMG250~\cite{bosch_bmg250_2017} low power triaxial gyroscope to measure yaw-rate, used to correct it's heading when necessary.
 
 \subsection{Locomotion}
 
-Two 25:1 sub-micro plastic planetary gearmotors from Precision Microdrives~\cite{gearmotor_206-110_2017} are mounted in a 3D printed frame.
-The motors are positioned diagonally opposite from each other making the robot as compact as possible, while this differential drive configuration allows the robot to steer.
+In Section \ref{sec:pre_locomotion_selection} the 25:1 sub-micro plastic planetary gearmotor from Precision Microdrives~\cite{gearmotor_206-110_2017} is chosen to provide locomotion for the robot.
+Two motors are mounted diagonally opposite from each other in a 3D printed frame making the robot as compact as possible, and the differential drive configuration allows steering.
 Small plastic wheels with rubber tires are mounted directly on each of the motor shafts.
 Behind these two motors a free running caster wheel is mounted to the frame, acting as a third support point for the robot.
 
@@ -68,7 +67,7 @@ A detailed schematic of the PCB can be found in Appendix \ref{app:schematic_robo
 
 Most components are part of the PCB only the larger components are mounted externally, the solar panel, WISP and the motors.
 The PCB contains headers to connect the solar panel, a header to connect all the required pins from the WISP and a additional header to connect a battery for testing purposes.
-Most reference designs are extendable but this adds complexity, while weight and size are the main constraints in this robot design.
+Most reference designs are extendable but this adds complexity, while weight and size are the main constraints in the design of this robot.
 A overview of both the top and bottom side of the PCB is shown in Figure \ref{fig:pcb_robot}.
 
 % Features of the pcb, wisp regulator allows powering from battery for testing
@@ -165,6 +164,8 @@ From this table can be concluded that the cost of building a transiently powered
 
 
 \section{Control Design}
+\label{sec:dai_control_design}
+
 
 \subsection{Motor control}
 \label{sec:motor_control}
@@ -173,7 +174,8 @@ From this table can be concluded that the cost of building a transiently powered
 %When the motors are powered from the battery the supplied voltages drops while energy is consumed for the battery.
 %Since the speed of the motor is dependent on the supply voltage the speed of the motor will also decrease while energy is consumed from the battery.
 The buck converter supplies a constant voltage to the motors, which eliminates voltage as a factor in determining the motor speed.
-By making the assumption that the robot will only travel on a flat surface, the steady state speed is considered ``constant" given a certain PWM duty cycle.
+By making the assumption that the robot will only travel on a flat surface, the steady state speed is considered ``constant".
+%given a certain PWM duty cycle.
 
 \subsubsection{PWM Frequency for Linear Motion Control}
 % Reference: https://www.precisionmicrodrives.com/application-notes/ab-022-pwm-frequency-for-linear-motion-control
@@ -232,7 +234,7 @@ The maximum PWM duty cycle can be found by increasing the duty cycle until the r
 %The robot uses two physically different motors in differential drive configuration which are mounted in a non-symmetrical way.
 Open loop movement using calibrated motor values has been used in previous work \cite{legoc_uist_2016}, but it can be time consuming and any little disturbance will trow the robot off course.
 Controlled movements are possible using closed loop feedback, where the heading is used to update the motor control values.
-The robots change in heading can be obtained from the gyroscope and corresponds to the yaw-rate.
+The robots relative change in heading can be obtained from the gyroscope and corresponds to the yaw-rate.
 
 \subsubsection{PID Controller}
 
@@ -306,7 +308,9 @@ A P controller is used to rotate the robot to the desired angle, the proportiona
 The motor control values are set to run the motors opposite directions and are equal to the output of the P controller.
 These values will keep decreasing until the robot rotates to the desired angle.
 
+
 \section{Software Implementation}
+\label{sec:dai_software_implementation}
 
 The robot can be controlled using three different commands, one for straight trajectories, one for left and one for right turns.
 When a command is executed a control loop will run until the provided target is reached.
