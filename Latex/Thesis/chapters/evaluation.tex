@@ -17,7 +17,7 @@ In this section the accuracy of movement of the battery-less robot and its batte
 \subsection{Experimental setup}
 
 To be able to compare the accuracy of the robot while it is exposed to increasingly smaller power cycles, a variety of movements is recorded using a overhead camera.
-A camera stand with a Nikkon D610 DSLR camera is positioned on a tabletop and in the camera's view the corners of a square of 80$\times$80\,cm are indicated with a black marker, see Figure \ref{fig:movement_setup}.
+A stand with a Nikon D610 DSLR camera is positioned on a tabletop and in the camera's view the corners of a square of 80$\times$80\,cm are indicated with a black marker, as shown in Figure \ref{fig:movement_setup}.
 This square is later used as a reference to convert the robots movement from pixels to cm.
 Three different movements are compared, while the robot is moving straight movement of 75\,cm, a circle with radius of 30\,cm and a square of 50$\times$50\,cm.
 
@@ -59,13 +59,13 @@ A timer is used to generate the power interrupt after a predefined period.
 \subsubsection{Power Interrupt Period}
 
 With the selected capacitor of 22\,mF the robot can operate around 1 second. 
-Choosing a period of 0.25\,s showed uncontrolled behavior, while the robots control loop was not able to stabilize the movement before a power interrupt occurs.
-To find the minimal power interrupt period that is required to control the robot, the robot is programmed to preform a four second straight movement.
+To find the minimal power interrupt period that is required to allow control the robot, it is programmed to preform a four second straight movement.
 The movement is recorded for each target speed and the power interrupt periods of 0.4\,s, 0.3\,s and 0.2\,s are evaluated.
 
-The results in Figure \ref{fig:decreasing_power_period} show that a interrupt period of 0.2\,s results in uncontrolled behavior, while the robot drifts to the side of the weakest motor.
+The results in Figure \ref{fig:decreasing_power_period} show that an interrupt period of 0.2\,s leads to significant drift to one side which can be classified as uncontrolled behavior.
+The control loop was not able to stabilize the movement before a power interrupt occurs and drifts to the side of the weakest motor.
 Increasing the target speed shows that also a higher interrupt period period is required to control the movement. 
-The power interrupt periods evaluated in this experiment were set to values above and equal to 0.5\,s: 1.25\,s, 1\,s, 0.75\,s and 0.5\,s.
+Therefore the power interrupt periods evaluated in this experiment are set to values above and equal to 0.5\,s: 1.25\,s, 1\,s, 0.75\,s and 0.5\,s.
 
 
 \begin{figure}
@@ -88,20 +88,20 @@ The power interrupt periods evaluated in this experiment were set to values abov
 	\label{fig:decreasing_power_period}
 \end{figure}
 
-\subsubsection{Velocity Calibration}
+\subsubsection{Speed Calibration}
 Another thing that can be observed from the results in Figure \ref{fig:decreasing_power_period}, is that the distance covered by the robot deceases by deceasing the target and/or power interrupt period.
-Without any sensors or external feedback that can determine the robots speed, it is difficult to determine the distance that the robot has traveled.
-The average speed is estimated for each speed target and power interrupt period.
+Without any sensors or external feedback that measure the robots speed, it is difficult to determine the distance that the robot has traveled.
+To have a rough speed estimate which allows the robot to stay within the camera's view, the average speed is estimated for each target and power interrupt period.
 This is achieved by first determining the time that the robot requires to move approximately 150\,cm for each target without power interrupts.
-When the robot experiences power interrupts the average velocity of an active period becomes lower due to frequent acceleration from a standstill.
-With power interrupts the runtime is increased to make the robot travel roughly the same distance.
+When the robot experiences power interrupts the average speed of an active period becomes lower due to frequent acceleration from a standstill.
+With power interrupts the runtime is increased to make the robot travel approximately the same distance.
 Finally, the average of five complete movement measurements is computed and divided by the commanded runtime of the robot to acquire an average speed for each combination, as seen from Table \ref{tab:val_calib}.
 
 
 \begin{table}[t]
 	\centering
 	\small
-	\caption{Calibrated velocity}
+	\caption{Calibrated speed}
 	\label{tab:val_calib}
 	\begin{tabular}{|l|l||l|l|l|l|l|l|}
 		\hline
@@ -116,9 +116,12 @@ Finally, the average of five complete movement measurements is computed and divi
 
 \subsection{Straight Movements}
 
-Using the calibrated velocities and selected power interrupt periods, the robot is commanded to preform a straight movement of 75\,cm.
+Using the calibrated speeds and selected power interrupt periods, the robot is commanded to preform a straight movement of 75\,cm.
 Each combination is recorded multiple times and the motion data is extracted from the video using Python and OpenCV.
-The results in Figure \ref{fig:straight_movements} show that the robot roughly moves the commanded 75\,cm.
+The results in Figure \ref{fig:straight_movements} show that the robot approximately move the commanded 75\,cm.
+Secondly, the results show that there is a varying horizontal deviation between the start and end point.
+This may be a consequence of inaccuracy in preforming the movement or more likely, an error in the start position of the robot is not positioned exactly perpendicular to the reference frame of 80$\times$80\,cm.
+Even though the robot is positioned carefully in the same start position, it is inevitable that a small error in angle can occur.
 
 \begin{figure}
 	\centering
@@ -142,85 +145,51 @@ The results in Figure \ref{fig:straight_movements} show that the robot roughly m
 \end{figure}
 
 \subsubsection{Movement Accuracy Metrics}
-NO EXTERNAL FEEDBACK
 
-Even though the robot is positioned carefully in the same start position, it is inevitable that the robot is positioned non-perpendicular to the reference frame of 80$\times$80\,cm, i.e. the robot will start moving on a angle.
-Therefore 
-
-\begin{itemize}
-	\item average curvature of straight line movement
-
-	\item for both straight and curved movements: length of the total movement and standard deviation in length of movement
-\end{itemize}
-
+The first metric is the length of movement, used to verify the accuracy between multiple iterations of the same calibrated speed and power interrupt combination.
+The second metric is used to describe deviation in path between the start and endpoint.
+The robot has no reference to its surroundings to be able to determine its absolute position and heading direction, and therefore only relative metrics are valid.
+For each measurement a reference line is computed between the start and endpoint, and the Euclidean distance between the measurement and the reference line is computed.
 
 \subsubsection{Straight Movement Results}
 
 \begin{table}[t]
 	\centering
-	\caption{The Euclidean distance between the recorded data and a straight line between the begin and endpoint of the data.}
+	\caption{The Euclidean distance between the recorded data and a reference line.}
 	\label{tab:straight_results}
 	\begin{tabular}{|l|l||l|l|l|}
 		\hline
 		Target (\%) & Interrupt (s) & Max (cm) & Mean (cm) & Std (cm)\\
 		\hline \hline
-		\multirow{5}{*}{40} & No int & 0.86 & 0.36 & 0.16 \\
+		\multirow{6}{*}{40} & No int & 0.86 & 0.36 & 0.16 \\
 		& 1.25 & 0.67 & 0.34 & 0.12 \\
 		& 1.00 & 1.35 & 0.56 & 0.27 \\
 		& 0.75 & 1.04 & 0.60 & 0.27 \\
 		& 0.50 & 0.86 & 0.44 & 0.22 \\
+		& Solar & 0.50 & 0.25 & 1.35 \\
 		\hline
-		\multirow{5}{*}{65} & No int & 0.52 & 0.25 & 0.12 \\
+		\multirow{6}{*}{65} & No int & 0.52 & 0.25 & 0.12 \\
 		& 1.25 & 0.72 & 0.31 & 0.14 \\
 		& 1.00 & 0.91 & 0.44 & 0.21 \\
 		& 0.75 & 1.44 & 0.80 & 0.35 \\
 		& 0.50 & 2.15 & 1.17 & 0.54 \\
+		& Solar & 0.41 & 0.17 & 1.05 \\
 		\hline
-		\multirow{5}{*}{90} & No int & 0.54 & 0.28 & 0.13 \\
+		\multirow{6}{*}{90} & No int & 0.54 & 0.28 & 0.13 \\
 		& 1.25 & 0.90 & 0.42 & 0.17 \\
 		& 1.00 & 1.76 & 0.95 & 0.42 \\
 		& 0.75 & 1.88 & 0.88 & 0.37 \\
 		& 0.50 & 2.18 & 1.09 & 0.61 \\
+		& Solar & 0.30 & 0.15 & 0.69 \\
 		\hline
 	\end{tabular}
 \end{table}
 
-\subsection{Circular Movements Results}
+\subsection{Circular Movements}
 
-The robot is commanded make a circle with radius of 30\,cm
-\subsubsection{Movement Accuracy Metrics}
-
-
-
-\begin{table}[t]
-	\centering
-	\caption{The mean and standard deviation of the Euclidean distance from the fitted circle.}
-	\label{tab:circular_results}
-	\begin{tabular}{|l|l||l|l|l|}
-		\hline
-		Target (\%) & Interrupt (s) & Radius (cm) & Mean (cm) & Std (cm)\\
-		\hline \hline
-		\multirow{5}{*}{40} & No int & 34 & 1.3 & 0.67 \\
-		& 1.25 & 32 & 1.29 & 0.69 \\
-		& 1.00 & 32 & 1.52 & 0.81 \\
-		& 0.75 & 33 & 1.21 & 0.82 \\
-		& 0.50 & 32 & 1.85 & 1.30 \\
-		\hline
-		\multirow{5}{*}{65} & No int & 34 & 1.2 & 0.67 \\
-		& 1.25 & 32 & 1.01 & 0.57 \\
-		& 1.00 & 32 & 1.42 & 0.92 \\
-		& 0.75 & 33 & 1.11 & 0.73 \\
-		& 0.50 & 32 & 0.79 & 0.34 \\
-		\hline
-		\multirow{5}{*}{90} & No int & 30 & 0.9 & 0.45 \\
-		& 1.25 & 30 & 0.81 & 0.43 \\
-		& 1.00 & 31 & 1.06 & 0.65 \\
-		& 0.75 & 31 & 0.71 & 0.41 \\
-		& 0.50 & 35 & 1.69 & 1.23 \\
-		\hline
-	\end{tabular}
-\end{table}
-
+The robot is commanded make a circle with radius of 30\,cm with the predetermined speed and power interrupt settings.
+The results in Figure \ref{fig:circular_movements} show that with each combination the robot is able to make the circular movement.
+However, a clear difference in circle radius can be seen, being a result of an error between the actual and calibrated speeds.
 
 \begin{figure}[h!]
 	\centering
@@ -240,10 +209,54 @@ The robot is commanded make a circle with radius of 30\,cm
 		\label{fig:circ_exp3}
 	\end{subfigure}
 	\caption{Circular movements, black dashed circle is the target}
+	\label{fig:circular_movements}
 \end{figure}
 
+\subsubsection{Movement Accuracy Metrics}
 
-\subsection{Conclusion}
+To determine the accuracy of the circular movement two different metrics will be used.
+The length of the movement will be determined by summing the distance between points in the measurement data.
+For the second metric a circle, with varying radius, will be visually fitted to the circular data of each movement.
+The Euclidean distance will be computed between the reference circle and the measured circular movements.
+
+
+\begin{table}[t]
+	\centering
+	\caption{The mean and standard deviation of the Euclidean distance from the fitted circle.}
+	\label{tab:circular_results}
+	\begin{tabular}{|l|l||l|l|l|l|}
+		\hline
+		Target (\%) & Interrupt (s) & Radius (cm) & Max (cm) & Mean (cm) & Std (cm)\\
+		\hline \hline
+		\multirow{6}{*}{40} & No int & 34 & 4.30 & 1.30 & 0.67 \\
+		& 1.25 & 32 & 2.59 & 1.29 & 0.69 \\
+		& 1.00 & 32 & 3.95 & 1.52 & 0.81 \\
+		& 0.75 & 33 & 4.07 & 1.21 & 0.82 \\
+		& 0.50 & 32 & 6.08 & 1.85 & 1.30 \\
+		& Solar & 32 & 1.93 & 0.89 & 0.46 \\
+		\hline
+		\multirow{6}{*}{65} & No int & 34 & 3.03 & 1.2 & 0.67 \\
+		& 1.25 & 32 & 2.64 & 1.01 & 0.57 \\
+		& 1.00 & 32 & 4.20 & 1.42 & 0.92 \\
+		& 0.75 & 33 & 2.89 & 1.11 & 0.73 \\
+		& 0.50 & 32 & 1.86 & 0.79 & 0.34 \\
+		& Solar & 31 & 1.93 & 0.88 & 0.4 \\
+		\hline
+		\multirow{6}{*}{90} & No int & 30 & 2.37 & 0.9 & 0.45 \\
+		& 1.25 & 30 & 2.99 & 0.81 & 0.43 \\
+		& 1.00 & 31 & 3.50 & 1.06 & 0.65 \\
+		& 0.75 & 31 & 2.12 & 0.71 & 0.41 \\
+		& 0.50 & 35 & 4.53 & 1.69 & 1.23 \\
+		& Solar & 31 & 2.10 & 0.88 & 0.37 \\
+		\hline
+	\end{tabular}
+\end{table}
+
+\subsubsection{Circular movement results}
+
+The increase in length of movement may be a result of integration of the angular velocity in combination with the power interrupts.
+
+\subsection{Summery}
 %Higher speed + more interrupts results in more drift to the left, because of wheel more in the back or weaker motor?
 %How the interrupts are distributed over the distance has a influence or how the last interrupt ends up..
 %Lower speed and less interrupts results in a higher accuracy??

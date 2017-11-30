@@ -33,14 +33,3 @@ def write_movement_data(fname, dlist):
         for row in dlist:
             csv_out.writerow(row)
 
-
-def length_of_movement(dlist, step):
-    jump = int(round(len(dlist)/step))
-    cnt = 0
-    length = 0
-    while cnt < len(dlist)-jump:
-        length += m.hypot(dlist[cnt+jump][0] - dlist[cnt][0], dlist[cnt+jump][1] - dlist[cnt][1])
-        cnt += jump
-    cnt -= jump
-    length += m.hypot(dlist[len(dlist)-1][0] - dlist[cnt][0], dlist[len(dlist)-1][1] - dlist[cnt][1])
-    return length

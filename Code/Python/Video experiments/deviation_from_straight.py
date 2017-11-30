@@ -5,6 +5,34 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
+def length_of_movement(num_samp, dlist):
+    jump = len(dlist)/num_samp
+    cnt = 1
+    length = 0
+    l_new = 0
+    l_old = 0
+    while cnt < num_samp:
+        l_new = int(round(cnt*jump))
+        length += m.hypot(dlist[l_new][0] - dlist[l_old][0], dlist[l_new][1] - dlist[l_old][1])
+        l_old = l_new
+        cnt += 1
+    return length
+
+
+def lom_multi():
+    lcnt = 1
+    result = []
+    while lcnt < 3:
+        data = read_movement_data(ddir + mdir + file_name + str(lcnt) + '.csv')
+        result.append(length_of_movement(300, data))
+        lcnt += 1
+    fix = np.asarray(result)
+    print 'length mean:' + str(np.mean(fix))
+    print 'length std: ' + str(np.std(fix))
+    print 'length max: ' + str(np.max(fix))
+
+
+
 def plt_dist_straight(num_samp, data_list):
     bp = data_list[0]
     ep = data_list[len(data_list)-1]
@@ -77,12 +105,15 @@ def plot_raw_data():
 
 
 ddir = 'Csv_Data/'
-mdir = 'Video_Straight/'
+#mdir = 'Video_Straight/'
+mdir = 'Video_Solar/'
 #file_name = 'Video_trg_30_r1_right_r30_battery_'
-file_name = 'Video_trg_30_r1_75_battery_int500_'
+file_name = 'Video_straight_trg_30_r1_75_solar_'
 
-plot_raw_data()
+#plot_raw_data()
 
-plot_dist_multi()
+#plot_dist_multi()
 
-plt.show()
+#plt.show()
+
+lom_multi()
