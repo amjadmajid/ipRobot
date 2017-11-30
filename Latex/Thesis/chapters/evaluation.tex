@@ -40,8 +40,8 @@ Three different movements are compared, while the robot is moving straight movem
 \subsubsection{Tracking the Movement}
 
 %The robot is programmed to preform the movement at a desired PWM target ie at a specified speed, and optional power interrupt period.
-Before the robot executes the movement a green led is enabled on top of the robot.
-This green dot will be the reference point that the tracking software will try to follow.
+Before the robot executes the movement a green marker is placed on top of the robot.
+This marker will be the reference point that the tracking software will try to follow.
 The camera is used to record the movement which then is analyzed using Python and OpenCV 3.2.
 An example of a tracked movement can be seen in Figure \ref{fig:movement_example}.
 
@@ -51,8 +51,10 @@ Choosing a target higher than 90\% is undesired while the controller needs some 
 
 \subsubsection{Power Interrupts}
 
-To evaluate different power cycle periods without changing the capacitor size or the minimum and maximum voltage thresholds set using resistors, power interrupts are generated artificially.
-During the experiment the robot will be powered from a battery and power interrupts, i.e the capacitor running out of energy are created artificially using a timer that resets the MCU.
+The power cycle period is determined by the energy stored in the capacitor and the power consumed by the robot for movement.
+To evaluate different power cycle periods besides the one created with the 22\,mF supercapacitor without changing the capacitor size or resistors that determine the minimum and maximum voltage thresholds, additional power interrupts are generated artificially.
+The power interrupts, i.e the capacitor running out of energy are created artificially using a timer that resets the MCU.
+If the interrupts are generated artificially the robot will be powered from a battery.
 The MSP430FR5969 has the functionality to enable a brownout reset trough software which is used to simulate the event of the supply voltage dropping below the required operating voltage~\cite{msp430fr_family_guide_2017}.
 A timer is used to generate the power interrupt after a predefined period.
 
@@ -105,11 +107,11 @@ Finally, the average of five complete movement measurements is computed and divi
 	\label{tab:val_calib}
 	\begin{tabular}{|l|l||l|l|l|l|l|l|}
 		\hline
-		Target (\%) & & No int & Solar & 1.25\,s & 1.0\,s & 0.75\,s & 0.5\,s \\
+		Target (\%) & & No int & 1.25\,s & 1.0\,s & 0.75\,s & 0.5\,s & Solar \\
 		\hline \hline
-		 40 & cm/s & 18.9 & 16.0 & 18.2 & 18.0 & 17.1 & 15.9 \\
-	     65 & cm/s & 24.0 & 20.8 & 22.2 & 21.3 & 20.8 & 18.8 \\
-		 90 & cm/s & 28.8 & 23.3 & 26.4 & 25.7 & 24.5 & 22.7 \\
+		 40 & cm/s & 18.9 & 18.2 & 18.0 & 17.1 & 15.9 & 16.0\\
+	     65 & cm/s & 24.0 & 22.2 & 21.3 & 20.8 & 18.8 & 20.8\\
+		 90 & cm/s & 28.8  & 26.4 & 25.7 & 24.5 & 22.7 & 23.3 \\
 		\hline
 	\end{tabular}
 \end{table}
@@ -146,12 +148,21 @@ Even though the robot is positioned carefully in the same start position, it is 
 
 \subsubsection{Movement Accuracy Metrics}
 
-The first metric is the length of movement, used to verify the accuracy between multiple iterations of the same calibrated speed and power interrupt combination.
-The second metric is used to describe deviation in path between the start and endpoint.
-The robot has no reference to its surroundings to be able to determine its absolute position and heading direction, and therefore only relative metrics are valid.
-For each measurement a reference line is computed between the start and endpoint, and the Euclidean distance between the measurement and the reference line is computed.
+%The first metric is the length of movement, used to verify the accuracy between multiple iterations of the same calibrated speed and power interrupt combination.
+%The second metric is used to describe deviation in path between the start and endpoint.
+The robot has no reference to its surroundings to be able to determine its absolute position and heading direction, i.e. no external feedback and therefore only relative metrics are valid.
+For each measurement a reference line is computed between the first and last measured data point.
+The Euclidean distance between the closest measurement and the reference line is computed.
 
 \subsubsection{Straight Movement Results}
+
+The results for the battery powered robot with and without artificial interrupts show that increasing the interrupt period increases the horizontal deviation, as seen in \ref{tab:straight_results}.
+Increasing the speed does not have the same effect and no significant differences can be seen from the results.
+
+The solar powered robot preforms better than the battery powered robot.
+This seems counter intuitive, but from the experiments has been found that weight and especially weight distribution has a big effect on the movement of the robot.
+The weight of the solar panel is more than twice that of the battery, 5.2g and 2.1g respectively and more evenly distributed over the robot.
+The robot without a battery or solar panel has a weight of 16.7g and therefore the weight of the solar panel can be considered significant when compared to the bare weight of the robot.
 
 \begin{table}[t]
 	\centering
@@ -214,9 +225,9 @@ However, a clear difference in circle radius can be seen, being a result of an e
 
 \subsubsection{Movement Accuracy Metrics}
 
-To determine the accuracy of the circular movement two different metrics will be used.
-The length of the movement will be determined by summing the distance between points in the measurement data.
-For the second metric a circle, with varying radius, will be visually fitted to the circular data of each movement.
+%The length of the movement will be determined by summing the distance between points in the measurement data.
+% two different metrics will be used.
+To determine the accuracy of the circular movement a circle, with varying radius, will be visually fitted to the circular data of each movement.
 The Euclidean distance will be computed between the reference circle and the measured circular movements.
 
 
@@ -224,32 +235,34 @@ The Euclidean distance will be computed between the reference circle and the mea
 	\centering
 	\caption{The mean and standard deviation of the Euclidean distance from the fitted circle.}
 	\label{tab:circular_results}
-	\begin{tabular}{|l|l||l|l|l|l|}
-		\hline
-		Target (\%) & Interrupt (s) & Radius (cm) & Max (cm) & Mean (cm) & Std (cm)\\
-		\hline \hline
-		\multirow{6}{*}{40} & No int & 34 & 4.30 & 1.30 & 0.67 \\
-		& 1.25 & 32 & 2.59 & 1.29 & 0.69 \\
-		& 1.00 & 32 & 3.95 & 1.52 & 0.81 \\
-		& 0.75 & 33 & 4.07 & 1.21 & 0.82 \\
-		& 0.50 & 32 & 6.08 & 1.85 & 1.30 \\
-		& Solar & 32 & 1.93 & 0.89 & 0.46 \\
-		\hline
-		\multirow{6}{*}{65} & No int & 34 & 3.03 & 1.2 & 0.67 \\
-		& 1.25 & 32 & 2.64 & 1.01 & 0.57 \\
-		& 1.00 & 32 & 4.20 & 1.42 & 0.92 \\
-		& 0.75 & 33 & 2.89 & 1.11 & 0.73 \\
-		& 0.50 & 32 & 1.86 & 0.79 & 0.34 \\
-		& Solar & 31 & 1.93 & 0.88 & 0.4 \\
-		\hline
-		\multirow{6}{*}{90} & No int & 30 & 2.37 & 0.9 & 0.45 \\
-		& 1.25 & 30 & 2.99 & 0.81 & 0.43 \\
-		& 1.00 & 31 & 3.50 & 1.06 & 0.65 \\
-		& 0.75 & 31 & 2.12 & 0.71 & 0.41 \\
-		& 0.50 & 35 & 4.53 & 1.69 & 1.23 \\
-		& Solar & 31 & 2.10 & 0.88 & 0.37 \\
-		\hline
-	\end{tabular}
+	\resizebox{\columnwidth}{!}{%
+		\begin{tabular}{|l|l||l|l|l|l|}
+			\hline
+			Target (\%) & Interrupt (s) & Radius (cm) & Max (cm) & Mean (cm) & Std (cm)\\
+			\hline \hline
+			\multirow{6}{*}{40} & No int & 34 & 4.30 & 1.30 & 0.67 \\
+			& 1.25 & 32 & 2.59 & 1.29 & 0.69 \\
+			& 1.00 & 32 & 3.95 & 1.52 & 0.81 \\
+			& 0.75 & 33 & 4.07 & 1.21 & 0.82 \\
+			& 0.50 & 32 & 6.08 & 1.85 & 1.30 \\
+			& Solar & 32 & 1.93 & 0.89 & 0.46 \\
+			\hline
+			\multirow{6}{*}{65} & No int & 34 & 3.03 & 1.2 & 0.67 \\
+			& 1.25 & 32 & 2.64 & 1.01 & 0.57 \\
+			& 1.00 & 32 & 4.20 & 1.42 & 0.92 \\
+			& 0.75 & 33 & 2.89 & 1.11 & 0.73 \\
+			& 0.50 & 32 & 1.86 & 0.79 & 0.34 \\
+			& Solar & 31 & 1.93 & 0.88 & 0.4 \\
+			\hline
+			\multirow{6}{*}{90} & No int & 30 & 2.37 & 0.9 & 0.45 \\
+			& 1.25 & 30 & 2.99 & 0.81 & 0.43 \\
+			& 1.00 & 31 & 3.50 & 1.06 & 0.65 \\
+			& 0.75 & 31 & 2.12 & 0.71 & 0.41 \\
+			& 0.50 & 35 & 4.53 & 1.69 & 1.23 \\
+			& Solar & 31 & 2.10 & 0.88 & 0.37 \\
+			\hline
+		\end{tabular}
+	}
 \end{table}
 
 \subsubsection{Circular movement results}
