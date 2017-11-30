@@ -104,15 +104,6 @@ ls_list = [':', '-.', '--', '-']
 
 data_list = read_csv_data_to_list(csv_list, re_list)
 
-for dlist in data_list:
-
-    # print 'length of list:' + str(len(slist))
-    print label[dlist[1]] + ' length of movement:' + str(length_of_movement(dlist[0], 10))
-
-    #if movement == 3:
-        #print 'avg ang of movement:' + str(avg_ang_of_straight(dlist[0]))
-
-
 if movement == 1:
     plt_distance_from_ref_circle(data_list)
 

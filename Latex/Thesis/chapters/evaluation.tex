@@ -64,9 +64,10 @@ With the selected capacitor of 22\,mF the robot can operate around 1 second.
 To find the minimal power interrupt period that is required to allow control the robot, it is programmed to preform a four second straight movement.
 The movement is recorded for each target speed and the power interrupt periods of 0.4\,s, 0.3\,s and 0.2\,s are evaluated.
 
-The results in Figure \ref{fig:decreasing_power_period} show that an interrupt period of 0.2\,s leads to significant drift to one side which can be classified as uncontrolled behavior.
-The control loop was not able to stabilize the movement before a power interrupt occurs and drifts to the side of the weakest motor.
-Increasing the target speed shows that also a higher interrupt period period is required to control the movement. 
+The results in Figure \ref{fig:decreasing_power_period} show that for the higher duty cycle targets an interrupt period of 0.3\,s leads to significant drift to one side, and is classified as uncontrolled behavior.
+The control loop was not able to stabilize the movement before a power interrupt occurs and the robot drifts to the side of its weakest motor.
+The duration that power is available might not be long enough for the motors to reach their steady state speed, making linear control of the motors impossible.
+Increasing the target speed shows that also a higher interrupt period is required to control the movement. 
 Therefore the power interrupt periods evaluated in this experiment are set to values above and equal to 0.5\,s: 1.25\,s, 1\,s, 0.75\,s and 0.5\,s.
 
 
@@ -103,7 +104,7 @@ Finally, the average of five complete movement measurements is computed and divi
 \begin{table}[t]
 	\centering
 	\small
-	\caption{Calibrated speed}
+	\caption{The calibrated speeds.}
 	\label{tab:val_calib}
 	\begin{tabular}{|l|l||l|l|l|l|l|l|}
 		\hline
@@ -117,6 +118,7 @@ Finally, the average of five complete movement measurements is computed and divi
 \end{table}
 
 \subsection{Straight Movements}
+\label{eval:straight_movements}
 
 Using the calibrated speeds and selected power interrupt periods, the robot is commanded to preform a straight movement of 75\,cm.
 Each combination is recorded multiple times and the motion data is extracted from the video using Python and OpenCV.
@@ -142,7 +144,7 @@ Even though the robot is positioned carefully in the same start position, it is 
 		\caption{Target 90\%}
 		\label{fig:stra_exp3}
 	\end{subfigure}
-	\caption{Straight movements, the black horizontal line shows the 75\,cm endpoint}
+	\caption{Straight movements, the black horizontal line marks the 75\,cm endpoint.}
 	\label{fig:straight_movements}
 \end{figure}
 
@@ -156,17 +158,17 @@ The Euclidean distance between the closest measurement and the reference line is
 
 \subsubsection{Straight Movement Results}
 
-The results for the battery powered robot with and without artificial interrupts show that increasing the interrupt period increases the horizontal deviation, as seen in \ref{tab:straight_results}.
+The results for the battery powered robot with and without artificial interrupts show that decreasing the interrupt period increases the horizontal deviation, as seen in Table \ref{tab:straight_results}.
 Increasing the speed does not have the same effect and no significant differences can be seen from the results.
 
 The solar powered robot preforms better than the battery powered robot.
-This seems counter intuitive, but from the experiments has been found that weight and especially weight distribution has a big effect on the movement of the robot.
-The weight of the solar panel is more than twice that of the battery, 5.2g and 2.1g respectively and more evenly distributed over the robot.
-The robot without a battery or solar panel has a weight of 16.7g and therefore the weight of the solar panel can be considered significant when compared to the bare weight of the robot.
+This seems counter intuitive, however from the experiments has been found that weight and especially weight distribution has a big effect on the movement of the robot.
+The weight of the solar panel is more than twice that of the battery, 5.2\,g and 2.1\,g respectively and more evenly distributed over the robot.
+The robot without a battery or solar panel has a weight of 16.7\,g and therefore the weight of the solar panel can be considered significant when compared to the bare weight of the robot.
 
 \begin{table}[t]
 	\centering
-	\caption{The Euclidean distance between the recorded data and a reference line.}
+	\caption{The Euclidean distance between the measurements and a reference line.}
 	\label{tab:straight_results}
 	\begin{tabular}{|l|l||l|l|l|}
 		\hline
@@ -201,25 +203,27 @@ The robot without a battery or solar panel has a weight of 16.7g and therefore t
 The robot is commanded make a circle with radius of 30\,cm with the predetermined speed and power interrupt settings.
 The results in Figure \ref{fig:circular_movements} show that with each combination the robot is able to make the circular movement.
 However, a clear difference in circle radius can be seen, being a result of an error between the actual and calibrated speeds.
+In some cases the robot overshoots the end set point which can be a result of integration of the angular velocity in combination with power interrupts.
 
 \begin{figure}[h!]
 	\centering
-	\begin{subfigure}[b]{0.5\textwidth}
+	\begin{subfigure}[b]{0.49\textwidth}
 		\includegraphics[width=\textwidth]{pics/circle_40.png}
 		\caption{Target 40\%}
 		\label{fig:circ_exp1}
 	\end{subfigure}
-	\begin{subfigure}[b]{0.5\textwidth}
+	\begin{subfigure}[b]{0.49\textwidth}
 		\includegraphics[width=\textwidth]{pics/circle_65.png}
 		\caption{Target 65\%}
 		\label{fig:circ_exp2}
 	\end{subfigure}
-	\begin{subfigure}[b]{0.5\textwidth}
+
+	\begin{subfigure}[b]{0.49\textwidth}
 		\includegraphics[width=\textwidth]{pics/circle_90.png}
 		\caption{Target 90\%}
 		\label{fig:circ_exp3}
 	\end{subfigure}
-	\caption{Circular movements, black dashed circle is the target}
+	\caption{Circular movements, the black dashed circle marks the programmed circle of 30\,cm.}
 	\label{fig:circular_movements}
 \end{figure}
 
@@ -227,7 +231,7 @@ However, a clear difference in circle radius can be seen, being a result of an e
 
 %The length of the movement will be determined by summing the distance between points in the measurement data.
 % two different metrics will be used.
-To determine the accuracy of the circular movement a circle, with varying radius, will be visually fitted to the circular data of each movement.
+To determine the accuracy of the circular movement a circle, with varying radius due to the differences in the calibrated speed, will be visually fitted to the circular data of each movement.
 The Euclidean distance will be computed between the reference circle and the measured circular movements.
 
 
@@ -265,26 +269,16 @@ The Euclidean distance will be computed between the reference circle and the mea
 	}
 \end{table}
 
-\subsubsection{Circular movement results}
+\subsubsection{Circular Movement Results}
+The average deviation from the reference circle reduces when the target duty cycle is increased, as seen from Table \ref{tab:circular_results}.
+From the results it is not clear that the same relation holds for the maximum and standard deviation from the fitted circle.
+The solar powered robot again shows to be more stable when compared to the battery powered robot.
+Which is seems to be a positive effect of weight and weight distribution, as explained in the results of Section \ref{eval:straight_movements}.
 
-The increase in length of movement may be a result of integration of the angular velocity in combination with the power interrupts.
+\subsection{Summary}
 
-\subsection{Summery}
-%Higher speed + more interrupts results in more drift to the left, because of wheel more in the back or weaker motor?
-%How the interrupts are distributed over the distance has a influence or how the last interrupt ends up..
-%Lower speed and less interrupts results in a higher accuracy??
-
-
-%For square: Turn\_right speed should be high enough to turn within 0.5 sec
-
-
-%Observations:
-%pwm50 an interrupt every 0.25 sec is uncontrollable
-%Lower speed requires longer time between interrupts
-%Higher speed + more interrupts results in more drift to the left, because of wheel more in the back or weaker motor?
-
-%Hoe de interrupts uitkomen op de beweging heeft invloed!!
-
-%Lager snelheid en minder interrupts is hogere precisie??
-
-
+By decreasing the interrupt period a lower threshold of 0.3\,s has been found where the robot started to show uncontrolled behavior, i.e. significant drift to the side of the weakest motor.
+While the amount of time that power is available might not be sufficient for the motors to reach their steady state speed, making controlled movements by linear motor control impossible.
+The straight line movements show more horizontal deviation by decreasing the interrupt period towards the lower threshold.
+For the circular movements the average deviation from the reference circle is reduced by increasing the target duty cycle.
+The solar powered robot outperforms the battery powered robot, as the additional weight and weight distribution of the solar panel has a positive effect on the accuracy of movement of the robot.
