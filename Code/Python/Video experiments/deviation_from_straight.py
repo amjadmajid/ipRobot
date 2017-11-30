@@ -6,16 +6,17 @@ import matplotlib.pyplot as plt
 
 
 def length_of_movement(num_samp, dlist):
-    jump = len(dlist)/num_samp
+    dlist.reverse()
+    print 'max xy: ' + str(m.hypot(dlist[len(dlist)-1][0] - dlist[0][0], dlist[len(dlist)-1][1] - dlist[0][1]))
     cnt = 1
+    cnt2 = 0
     length = 0
-    l_new = 0
-    l_old = 0
-    while cnt < num_samp:
-        l_new = int(round(cnt*jump))
-        length += m.hypot(dlist[l_new][0] - dlist[l_old][0], dlist[l_new][1] - dlist[l_old][1])
-        l_old = l_new
+    while cnt < len(dlist)-1:
+        if dlist[cnt][1] > dlist[cnt2][1]:
+            length += m.hypot(dlist[cnt][0] - dlist[cnt2][0], dlist[cnt][1] - dlist[cnt2][1])
+            cnt2 += (cnt-cnt2)
         cnt += 1
+    #print 'length: ' + str(length)
     return length
 
 
@@ -27,10 +28,9 @@ def lom_multi():
         result.append(length_of_movement(300, data))
         lcnt += 1
     fix = np.asarray(result)
-    print 'length mean:' + str(np.mean(fix))
+    print 'length mean: ' + str(np.mean(fix))
     print 'length std: ' + str(np.std(fix))
     print 'length max: ' + str(np.max(fix))
-
 
 
 def plt_dist_straight(num_samp, data_list):
@@ -105,15 +105,16 @@ def plot_raw_data():
 
 
 ddir = 'Csv_Data/'
-#mdir = 'Video_Straight/'
-mdir = 'Video_Solar/'
-#file_name = 'Video_trg_30_r1_right_r30_battery_'
-file_name = 'Video_straight_trg_30_r1_75_solar_'
+mdir = 'Video_Straight/'
+#mdir = 'Video_Solar/'
+file_name = 'Video_trg_70_r1_75_battery_int500_'
+#file_name = 'Video_straight_trg_30_r1_75_solar_'
 
-#plot_raw_data()
+lom_multi()
+
+plot_raw_data()
 
 #plot_dist_multi()
 
-#plt.show()
+plt.show()
 
-lom_multi()
