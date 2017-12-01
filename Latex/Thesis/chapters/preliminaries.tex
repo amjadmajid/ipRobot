@@ -25,15 +25,15 @@ This section will shortly explain the main areas considered while designing the 
 	
 	\item \textbf{Small form factor}. 
 	By making the robot as small as possible, weight is kept to a minimum reducing the energy required for movement.
-	Secondly, by design the robot using low cost off-the-shelf parts, should make it convenient to build collectives of transiently-powered robots.
+	Secondly, designing the robot to use low cost off-the-shelf parts makes it convenient to build collectives of transiently-powered robots.
 	
 	\item \textbf{Locomotion}.
 	Movement will consume the largest amount of energy from the total available energy budget.
-	To optimize the distance that can be covered with a single capacitor charge, an efficient locomotion type should be chosen for the movement on flat surfaces.
+	To optimize the distance that can be covered with a single capacitor charge, an efficient locomotion type needs to be selected for the movement on flat surfaces.
 	
 	\item \textbf{Autonomous navigation}.
 	During operation the robot will experience a very frequent loss of power. 
-	Despite regular power interruption the transiently-powered robot should be able to complete a movement with an acceptable error compared to the same robot being battery powered.
+	Despite regular power interruption the transiently-powered robot should be able to complete a movement with an acceptable error when compared to its battery powered equal.
 	
 	%TODO write about ability to expand to swarming
 \end{enumerate}
@@ -188,7 +188,7 @@ However, the surface area of this panel is more than double when compared to the
 Therefore the charge times should be doubled, which makes the INYS panel the best performer.
 
 Additionally the charge times were recorded for each solar panel during a sunny, blue sky, November afternoon, as seen from Table \ref{tab:solar_results}.
-The Azurspace solar panel is in this case the winner as, this was expected as it has is able to harvest energy from the biggest part of the light spectrum.
+The Azurspace solar panel is in this case the winner as, this was expected as it has is able to harvest energy from the broadest part of the light spectrum.
 
 %Both the temperature and illumination increase by decreasing the distance between the light source and the solar panel. 
 %Secondly, increasing the output power of the lamp increases temperature and illumination as well. 
@@ -364,9 +364,9 @@ To determine the startup current of a 206-110 motor when supplied with 2.2\,V, a
 The measurement results for three different motors is shown in Figure \ref{fig:free_running_current}
 The results show that the 2.2\,V supply voltage reduces the start current peak to 140\,mA.
 This is still above 110\,mA and the robot needs to power two motors in a differential drive configuration to allow steering.
-A solution is to use pulse width modulation (PWM) to reduce the motor speed and average current consumed.
+A solution is to use Pulse Width Modulation (PWM) to reduce the motor speed and average current consumed.
 Combining PWM with a large bulk capacitor should enable the buck converter to start the motors.
-However the PWM duty cycle will be limited to a maximum of $100/(2*140/110) = 39.2\%$, and will be further reduced by the load applied to the motors due to the weight of the robot.
+However the PWM duty cycle will be limited to a maximum of $100/(2*140/110) = 39.2\%$, and will be further reduced by the load applied to the motors as a result of the robots own weight.
 
 
 \subsection{Conclusion}
@@ -378,7 +378,7 @@ Loss of synchronization can result in random behavior of a differential drive ro
 
 Alternatively a normal DC motors can be used which do not require any synchronization.
 However, this motor requires a high start current which the buck converter from the harvester, might not be able to supply.
-A big bulk capacitor can temporary supply high currents and PWM can be used to reduce the average current consumed by the motor.
+PWM can be used to reduce the average current consumed by the motor and a large bulk capacitor can supply short high current demand from the motors.
 Therefore the dc motor is chosen as the locomotion type used for the transiently-powered robot.
 
 \section{Transiently-powered Robot Model}
