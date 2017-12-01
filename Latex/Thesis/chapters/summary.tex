@@ -1,36 +1,56 @@
 \chapter{Summary}
 \label{chp:summary}
 
-\section{Limitations}
+This thesis is surmised by a conclusion in Section \ref{sec:conclusion} and in Section \ref{sec:limitations_future_work} possibilities for future work will be presented.
 
-%TODO This is only one limitation (speed accurrracy) but there are more - please list them (lack of more sensors, communciation with the extenal world, size can be even smaller, not managed to develop a swarm).
+\section{Conclusion}
+\label{sec:conclusion}
+% TODO CONCLUSIONS
 
-Section \ref{sec:controlled_movements} shows that the transiently powered robot is able to execute a instructed motion with similar accuracy compared to a battery powered equal.
-However, the distance covered by a robot with frequent power interrupts in a certain amount of time is smaller, i.e the average speed is lower due to frequent acceleration from a standstill.
-For this reason the robot needs a method to determine it's speed without wheel encoders.
-One possibility to achieve this would be to determine motor speed by measuring the Back-EMF produced by the motor, as it is proportional to the motors revolutions per minute. % ~cite{precision_backemf_2017}.
-However, the amount of power required to frequently determine the Back-EMF needs to be evaluated carefully.
-
-Another possibility is give external feedback to the robot about its current position or control the robot's movement externally.
-To achieve this the backscatter communication channel of the WISP could be used.
-% ADD some info about fast downstream communication?
+Section \ref{sec:controlled_movements} shows that the transiently powered robot is able to execute an instructed motion with similar accuracy compared to a battery powered equal.The distance covered by a robot with frequent power interrupts in a certain amount of time is smaller, i.e the average speed is lower due to frequent acceleration from a standstill.
 
 \section{Future Work}
+\label{sec:limitations_future_work}
 
-This work focuses on the development of a single transiently powered robot.
-A new promising area of research could be to create a swarm of transiently powered robots, and investigate the effect of intermittentcy on the behavior and controllability of this type of swarm.
-This research should further investigate the portability of existing swarm algorithms, and if not possible propose new solutions.	
+The current robot has very limited capabilities, which should be easy to extend by using more features from the WISP or by building a custom microcontroller board.
+Additional features that could be implemented in feature work are:
 
-Recently, embedded operating systems~\cite{trenkwalder_iros_2016} and extendable programming~\cite{pinciroli_iros_2016} languages have been created to speed up the development process, removing the need to focus on low level interactions and individual behaviors.
-In addition, multiple task and checkpoint based methods have been developed to enable computation across power cycles as described in Section \ref{sec:comp_pc}.
-Merging both paradigms could help to speed up development of transiently powered swarms.
+\begin{itemize}
 
-% Swarms restricted to light availability 
+\item \textbf{Speed feedback} 
+In order to move a certain distance with a higher accuracy, an energy efficient speed feedback method is required.
+One option is to add local speed sensing or external position feedback could be supplied to the robot.
 
-% different locomotion types?
-In order to further significantly reduce the weight of a robot there is a need to move away from DC-motors, because further miniaturizing DC-motors has become a challenge.
-Alternative forms of locomotion has been discussed in Section \ref{sec:locomotion}.
-Micro size legged robots that make use of piezoelectric actuators have been developed but currently lack any intelligence. REF I-SWARM?
+%One option could be to determine motor speed by measuring the Back-EMF produced by the motor, as it is proportional to the motors revolutions per minute~\cite{precision_backemf_2017}.
+%Another method could use wheel encoders without an active light source and instead use ambient light, already available in abundance because it is used as the source of energy.
+
+\item \textbf{Lack of communication}
+At this moment communication with an external host is not implemented.
+The backscatter communication channel of the WISP could be used.
+While power cycles are less frequent when compared to the RFID, due to relative big supercapacitor, they still pose a challenge in externally controlling the robot.
+
+\item \textbf{Transiently-powered swarm}
+With an working communication channel, a new promising area of research could be to create a swarm of transiently powered robots, investigate the effect of intermittentcy on the behavior and controllability of this type of swarm.
+This research could further investigate the portability of existing swarm algorithms, and if not possible propose new solutions.	
+
+\item \textbf{Size reduction} 
+In order to further significantly reduce the weight of a robot there is a need to move away from DC-motors, as significant smaller and efficient DC-motors are not available.
+%Alternative legged locomotion types have been discussed in Section \ref{sec:rw_locomotion}.
+Micro size legged robots that make use of piezoelectric actuators seem promising, but most are still in an early stage of development.
+
+\item \textbf{Sensing capabilities}
+Depending on future research or applications additional sensors could be added to the robot to extend its capabilities.
+However, the power consumption, frequency of use and accuracy trade off needs to be evaluated carefully while the energy budget is limited.
+
+
+\end{itemize}
+
+%\item \textbf{TP swarm OS} 
+%Recently, embedded operating systems~\cite{trenkwalder_iros_2016} and extendable programming~\cite{pinciroli_iros_2016} languages have been created to speed up the development process of swarms, removing the need to focus on low level interactions and individual behaviors.
+%In addition, multiple task and checkpoint based methods have been developed to enable computation across power cycles as described in Section \ref{sec:comp_pc}.
+%Merging both paradigms could help to speed up development of transiently powered swarms. 
+
+
 
 %\subsection{Path planning based on energy availability}
 
@@ -38,6 +58,3 @@ Micro size legged robots that make use of piezoelectric actuators have been deve
 %Energy aware path planning is commonly used in combination with mission planning.
 %In \cite{kaplan_iros_2016}, an analysis of the solar radiation is used to generate a time-optimized motion plan and power schedule using a cascaded particle swarm optimization algorithm.
 %By combining maps of lighting and ground slope a solar-powered robot can be kept illuminated continuously. A connected component analysis is used to plan a optimal route on traversable slopes, as described by \cite{otten_icra_2015}.
-
-\section{Conclusions}
-% TODO CONCLUSIONS
