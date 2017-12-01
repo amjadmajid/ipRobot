@@ -1,10 +1,13 @@
 \chapter{Related Work}
 \label{chp:related_work}
 
-This chapter will provide background information about current state of the art transiently powered systems in Section\ref{sec:tp_systems}. The advantages and disadvantages of different electrical storage types are compared in Section \ref{sec:energy_storage}. A short summary of current miniature robotics platforms is given and commonly used locomotion types are discussed in Section \ref{sec:robotic_platforms} and \ref{sec:locomotion}. Finally different methods that try to ensure continuous operation will be discussed in Section \ref{sec:continous_operation}.
+This chapter will provide background information about current state of the art transiently powered systems and methods that allow computation across power cycles in Section \ref{sec:rw_tp_systems} and \ref{sec:rw_comp_pc}. 
+The advantages and disadvantages of different electrical storage types are compared in Section \ref{sec:rw_energy_storage}. 
+A short summary of current miniature robotics platforms is given and commonly used locomotion types are discussed in Section \ref{sec:rw_robotic_platforms} and \ref{sec:rw_locomotion}. 
+Finally, different methods that try to ensure continuous operation will be discussed in Section \ref{sec:rw_continous_operation}.
 
 \section{Transiently-powered Systems}
-\label{sec:tp_systems}
+\label{sec:rw_tp_systems}
 
 % What are transiently powered systems:
 Transiently-powered systems have evolved from the need to remove batteries, and instead harvest energy from ambient sources.
@@ -18,7 +21,7 @@ To store the energy an appropriate size storage capacitor needs to be selected~\
 However, the buffer still limits the operation time, resulting in very frequent power cycling of the system.
 
 \section{Computation across Power Cycles}
-\label{sec:comp_pc} 
+\label{sec:rw_comp_pc} 
 % - Short intro into persistent framwork: checkpointing etc
 % TODO longer introduction + add alinea
 
@@ -29,7 +32,7 @@ Other research proposes a new programming model that splits a program into tasks
 
 
 \section{Energy Storage}
-\label{sec:energy_storage}
+\label{sec:rw_energy_storage}
 
 % Three alineas:
 % Why are supercapacitors so great
@@ -86,7 +89,7 @@ While the biggest disadvantages of super-capacitors is their low energy density 
 
 
 \section{Small Robotic Platforms}
-\label{sec:robotic_platforms}
+\label{sec:rw_robotic_platforms}
 
 % Swarm robotics requires communication to apply different algorithms
 % need to be low cost and size are key factors for allowing scalability
@@ -120,7 +123,7 @@ Microrobots typically use infrared-based neighbor to neighbor distance sensing a
 While controlling a swarm or collective is mainly accomplished by means of active low power transceivers~\cite{sabelhaus_icra_2013, pickem_icra_2015, kim_iros_2016}. 
 
 \section{Locomotion}
-\label{sec:locomotion}
+\label{sec:rw_locomotion}
 %TODO first constrain yourself to small robots
 
 Choosing the right locomotion type can depend on different factors, moving in the most energy efficient way on a particular surface is often the determining factor.
@@ -136,7 +139,7 @@ Other locomotion types are biologically inspired, the HARM-VP is small scale pie
 Each leg as two degrees of freedom, it can move up and down, as well as forward and backward~\cite{baisch_iros_2013}.
 
 \section{Continuous Operation}
-\label{sec:continous_operation}
+\label{sec:rw_continous_operation}
 
 %TODO add example of iros paper mobile recharging station
 Typically the operation time is extended by regularly checking the remaining energy in the battery and move to a recharging station before the robot runs out of energy~\cite{pickem_icra_2015, rubenstein_icra_2012}.
