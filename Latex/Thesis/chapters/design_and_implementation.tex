@@ -232,13 +232,14 @@ The maximum duty cycle is bounded by the amount of current that the buck convert
 Lowering the duty cycle reduces both the maximum current peak and the steady state current, which is used to reduce the motor start current demand.
 The maximum duty cycle can be found by increasing the minimum duty cycle of each motor with the same value until the robot is unable to start a movement.
 The last working value is stored as a calibration value to limit the duty cycle, and the average maximum duty cycle is given in Table \ref{tab:duty_cycle}.
+The maximum duty cycle values are all below the calculated free running maximum duty cycle, as previously determined in Section \ref{sec:pre_dc_motor_locomotion}
 
 
 \subsection{Closed loop feedback for controlled movements}
 
 %The robot uses two physically different motors in differential drive configuration which are mounted in a non-symmetrical way.
 Open loop movement using calibrated motor values has been used in previous work \cite{legoc_uist_2016}, but it can be time consuming and any little disturbance will trow the robot off course.
-Controlled movements are possible using closed loop feedback, where the heading is used to update the motor control values.
+Controlled movements can be achieved using closed loop feedback, where the heading is used to update the motor control values.
 The robots relative change in heading can be obtained from the gyroscope and corresponds to the yaw-rate.
 
 \subsubsection{PID Controller}
@@ -257,38 +258,55 @@ The controller will periodically try to reduce the yaw error as follows
 
 \noindent
 where $\psi_{\text{target}}$ is the yaw-rate target and $\psi(t)$ the yaw-rate obtained by the gyroscope.
-The PID controller will now adjust its output and correct the speed of each motor, in opposite direction, by the following equation
+The PID controller will now adjust its output, and correct the speed of each motor in opposite direction, by the following equation
 
 \begin{equation}
-u(t) = K_{p}e(t) + K_{i} \int_{0}^{t}e(\tau)d\tau + Kd\frac{d}{dt}e(t)
+u(t) = K_{\text{p}}e(t) + K_{\text{i}} \int_{0}^{t}e(\tau)d\tau + K_{\text{d}}\frac{d}{dt}e(t)
 \end{equation}
 
 \noindent
 where $K_{p}$, $K_{i}$ and $K_{d}$ are the tunable gains from the PID controller.
+Using the gains the controller will continuously adjust the motor speed in order to reduce the error to zero.
 
-\subsubsection{Controlled straight movements}
+\subsubsection{Controlled movements}
 
+The robot will be able to execute two distinct movement, straight and curved movements.
 For controlled straight movements horizontal movement is undesired, therefore the target yaw-rate is set to zero.
-The controller will continuously adjust the motor speed in order to achieve this.
+For curved movements however, an desired yaw-rate set point needs to be specified.
+The yaw-rate set point can for example be determined from the radius of the circle that the robot needs to turn and a calibrated speed.
 
-\subsubsection{Controlled curved movements} 
-
-Instead of an angular velocity set point of zero, an turn rate needs to be specified.
-This desired angular velocity can be a determined from the radius of the circle that the robot needs to turn and the calibrated target speed.
+\begin{table}[t]
+	\centering
+	\caption{Ziegler-Nicholos PID gain estimator chart}
+	\label{tab:gain_chart}
+	\begin{tabular}{|l|l|l|} 
+		\hline
+		$K_{\text{p}}$ & $T_{\text{i}}$ & $T_{\text{d}}$ \\
+		\hline \hline
+		0.6$K_{\text{u}}$ & $T_{\text{u}}/2$ & $T_{\text{u}}/8$ \\
+		\hline
+	\end{tabular}
+\end{table}
 
 \subsubsection{PID tuning using Ziegler-Nichols method}
 
-%TODO -Write about tuning the pid controller using Ziegler–Nichols tuning method (method 2), closed loop, Critical gain.
+Tuning can be done by a trail and error approach but a faster way of tuning is to use the closed loop Ziegler-Nichols method~\cite{franklin_feedback_2015}.
+In the ultimate gain method, the tunable gains are adjusted by evaluating the amplitude and frequency of observed oscillations by the system.
+Initially the integral gain and the derivative gain, $K_{\text{i}}$ and $K_{\text{d}}$ respectively, are set to zero.
+Then the proportional gain $K_{p}$ is increased from zero until stable and constant oscillation occurs, which corresponds to the ultimate gain $K_{\text{u}}$.
+The ultimate period $T_{\text{u}}$ is equal to the corresponding period and should be measured at zero crossings of the oscillation.
 
-Tuning can be done by a trail and error approach but a faster way of tuning is to use the Zigeler-Nicholos method.
-It starts with increasing or decreasing $K_{p}$ until constant oscillation occurs.
-From Figure \ref{fig:ultimate_gain} can be seen how the proportional gain was increased until eventually the robot started to oscillate.
-With a proportional gain of 0.13 the robot starts light oscillation at the end, but this is not always the case and can be a result of the surface the robot was driving on.
-% Tell something about how the right values are determined
-To reduce the oscillation a $T_{u}$ of 0.2 was added as can be determined from Figure \ref{fig:gain_tuning}.
-From this figure can be seen that the robot is more stable and does not have the tendency to oscillate anymore.
-%Robots was driving on surface that was not super flat, therefore the gyro signal is noisy.
-The tuning process was speeded up by setting the minimum motor duty cycle as it made the robot a lot more responsive, this was described earlier in Section \ref{sec:motor_control}.
+\subsubsection{Experimental ultimate gain and period determination}
+
+To find the ultimate gain and period, a robot is programmed to execute a two second straight movement.
+The yaw-rate data is stored in non-volatile memory in order to retrieve it using a programmer, after the robot has preformed the movement.
+In Figure \ref{fig:ultimate_gain} two second yaw-rate measurement traces are shown for increased proportional gains.
+With a proportional gain of 0.13 the robot shows roughly constant oscillation.
+On the other hand for a gain of 0.14 the robot shows unstable behavior due to a small disturbance after one second, resulting in oscillations that keep increasing in amplitude.
+The ultimate period is determined to be equal to $T_{u} = 0.2$, and is used together with the ultimate gain to determine the tuning parameters from the gain chart in Table \ref{tab:gain_chart}.
+The integral gain and derivative gain can now be determined to be equal to $K_{\text{i}}  = K_{\text{p}} / T_{\text{i}}$ and $K_{\text{d}}  = K_{\text{p}}T_{\text{d}}$ respectively.
+Figure \ref{fig:gain_tuning} shows how the oscillations were removed by setting the tunable gains according to the closed loop Ziegler-Nichols method.
+The tuning process was speeded up by setting the minimum motor duty cycle as it made the robot a lot more responsive, this was described earlier in Section \ref{sec:cd_pwm_frequency}.
 
 %TODO -Add figure with critcial gain + mark period Tu
 
@@ -306,20 +324,21 @@ The tuning process was speeded up by setting the minimum motor duty cycle as it 
 	\caption{Tuning the PID controller using the ultimate gain method.}
 \end{figure}
 
-\subsubsection{Controlled turns}
+%\subsubsection{Controlled turns}
 
-The control loop for controlled turning uses the angle, which is obtained by integrating the yaw-rate sensor data from the gyroscope.
-A P controller is used to rotate the robot to the desired angle, the proportional gain is directly influencing turn speed of the robot.
-The motor control values are set to run the motors opposite directions and are equal to the output of the P controller.
-These values will keep decreasing until the robot rotates to the desired angle.
+%The control loop for controlled turning uses the angle, which is obtained by integrating the yaw-rate sensor data from the gyroscope.
+%A P controller is used to rotate the robot to the desired angle, the proportional gain is directly influencing turn speed of the robot.
+%The motor control values are set to run the motors opposite directions and are equal to the output of the P controller.
+%These values will keep decreasing until the robot rotates to the desired angle.
 
 
 \section{Software Implementation}
 \label{sec:dai_software_implementation}
 
-The robot can be controlled using three different commands, one for straight trajectories, one for left and one for right turns.
-When a command is executed a control loop will run until the provided target is reached.
-A timer will call an interrupt service routine with a frequency of a 100\,Hz, that executes the control loop.   
+The robot can be controlled using three different commands, one for straight trajectories, one for curved right turns and one for curved left turns.
+%one for left and one for right turns.
+When a command is executed a control loop will run until the provided target is reached
+A timer running at a frequency of a 100\,Hz will call an interrupt service routine that executes the control loop.   
 Each command requires different initial values, set points and tuning parameters, these are set accordingly before the control loop is enabled.
 
 
@@ -332,6 +351,7 @@ When the timer reaches a value that corresponds to a value one of the compare re
 This way the overhead is minimized because no interrupt service routine is required.
 
 and will be added to the added to every motor set point.
+
 \subsection{Controlled Straight Movements}
 
 Target motor speed 

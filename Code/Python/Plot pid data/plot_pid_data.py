@@ -140,6 +140,6 @@ if 1:
     plt.xlabel('Time (s)', fontsize=11)
     plt.xticks(fontsize=11)
     plt.yticks(fontsize=11)
-    plt.legend(('Ku: 0.13, Tu = 0', 'Ku: 0.13, Tu = 0.20'), loc='upper left', fontsize=11)
+    plt.legend(('Ku: 0.13, Ki = 0, Kd = 0', 'Kp: 0.078, Ki = 1.3, Kd = 0.0325'), loc='upper left', fontsize=11)
 
     plt.show()

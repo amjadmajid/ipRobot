@@ -253,7 +253,7 @@ In this section two different locomotions types will be evaluated, the stepper m
 
 \subsection{Stepper motor-based Locomotion}
 
-The GRITSBot~\cite{pickem_icra_2015} uses stepper motors based locomotion which already include basic odometry, as described in Section \ref{sec:locomotion}.
+The GRITSBot~\cite{pickem_icra_2015} uses stepper motors based locomotion which already include basic odometry, as described in Section \ref{sec:rw_locomotion}.
 This section will further investigate the use of stepper motor based locomotion for a transiently-powered robot.
 
 \subsubsection{Operation of a Stepper Motor}
@@ -366,7 +366,7 @@ The results show that the 2.2\,V supply voltage reduces the start current peak t
 This is still above 110\,mA and the robot needs to power two motors in a differential drive configuration to allow steering.
 A solution is to use Pulse Width Modulation (PWM) to reduce the motor speed and average current consumed.
 Combining PWM with a large bulk capacitor should enable the buck converter to start the motors.
-However the PWM duty cycle will be limited to a maximum of $100/(2*140/110) = 39.2\%$, and will be further reduced by the load applied to the motors as a result of the robots own weight.
+However the PWM duty cycle will be limited to a maximum of $100/(2*140/110) \approx 39\%$, and will be further reduced by the load applied to the motors as a result of the robots own weight.
 
 
 \subsection{Conclusion}
