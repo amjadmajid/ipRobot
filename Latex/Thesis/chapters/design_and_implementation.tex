@@ -371,7 +371,7 @@ When the timer reaches a value that corresponds to a value one of the compare re
 \subsection{Persistent Movement}
 
 The transiently powered robot can make one movement or a series of movements is likely to require multiple power cycles to complete.
-To be able to finish a movement and not reset i.e. redo the same movement, a simple check pointing method is used to keep the program state across power cycles.
+To be able to finish a movement and not reset i.e. redo the same movement, a simple checkpointing method is used to keep the program state across power cycles.
 A persistent counter registers the progress in the set of movements.
 Each control loop iteration the persistent variable that captures the progress towards the movement target is updated, and depending on the movement can be a required time or angle.
 The right and left motor speed tuned by the PID controller are not saved and restored after a power interrupt.
