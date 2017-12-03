@@ -8,8 +8,8 @@
 
 % Estabish your territory
 
-Miniature robots with limited capabilities can work together in ``swarms" to achieve more than an individual could by itself, but are still far from being applicable in real world applications~\cite{barca_sekercioglu_2013}.
-The future potential of swarms is widely recognized to have applications in surveillance, search and rescue, and exploration.
+Miniature robots with limited capabilities can work together as a collective to achieve more than an individual could by itself, but are still far from being applicable in real world applications~\cite{barca_sekercioglu_2013}.
+The future potential of collectives of small robots, i.e. swarms, is widely recognized to have applications in surveillance, search and rescue, and exploration.
 Swarms have been proposed as a new form of user interface, robots can display information and interact with users on tabletops~\cite{legoc_uist_2016}, unmodified clothing~\cite{dementyev_uist_2016} and can be an educational toy for kids~\cite{sony_toio_2017}.
 \hfill \break
 %TODO screenshots of robots to support statements
@@ -30,9 +30,9 @@ Additionally, any new big improvements in energy density of batteries is not lik
 % And discuss current solutions to autonomus operation / battery replenishment
 
 Stable energy supplies are required to allow long term persistent operation of robots.
-Relaxing this constraint by allowing a transient supply of energy could be a potent area of research.
-Wireless sensor nodes that rely on energy harvesting have already been emerging, some are highly energy constrained but fully eliminate the need for batteries. %TODO cite
-In contrary, different replenishment methods for robot batteries are currently used, robots can be moved to a charging station leaving them nonoperational while recharging or the battery could be replaced, resulting in a high strain on maintenance.
+Wireless sensor nodes that rely on energy harvesting have already been emerging, are highly energy constrained but fully eliminate the need for batteries~\cite{wisp5_wiki_2017}.
+In contrary, different replenishment methods for robot batteries are currently used, robots can be moved to a charging station leaving them nonoperational, and manual recharging or battery replacement results in a high strain on maintenance.
+Therefore, relaxing the stable energy supply constraint by allowing a transient supply of harvested energy could be a potent area of research.
 
 % 4 lines left!
 \newpage
@@ -45,7 +45,7 @@ In contrary, different replenishment methods for robot batteries are currently u
 
 % swarm robots ie kilobot operate form batteries -> need recharging -> move to tosti irond cannot be used while charging .
 
-Replacing a battery with an energy harvesting system could make a robot more self sufficient and energy-autonomous. 
+Replacing a battery with an energy harvesting system could make a robot self sufficient and energy-autonomous. 
 This however introduces a new phenomenon to take into account; the intermittent availability of energy produces frequent power interrupts.
 The possibility of sudden power loss is currently not considered when developing control software for a robot, and for this reason can not be used without adaption.
 \hfill \break
@@ -81,11 +81,12 @@ The list of contributions is as follows:
 
 
 \section{Thesis Outline}
-%What will be discussed in the coming chapters
+
+The rest of the this is organized as follows: Chapter \ref{chp:related_work} provides background information and related work.
+The preliminaries in designing the transiently-powered robot are presented in Chapter \ref{chp:preliminaries}.
+In Chapter \ref{chp:design_and_implementation} explains the hardware design and software implementation..
+Next, the performance of a transiently powered robot will be evaluated in Chapter \ref{chp:evaluation}.
+Finally, Chapter \ref{chp:summary} concludes this thesis and proposes potential future work.
 
 
-\vspace{1\baselineskip}
-
-\noindent
-TODO ORGANISATIONAL DESCRIPTION OF THESIS
 
