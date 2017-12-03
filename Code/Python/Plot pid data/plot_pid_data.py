@@ -124,11 +124,11 @@ if 1:
     plt.plot(x, data3, '--')
     plt.plot(x, data4, '-')
 
-    plt.ylabel('Yaw-rate (deg/s)', fontsize=11)
-    plt.xlabel('Time (s)', fontsize=11)
-    plt.xticks(fontsize=11)
-    plt.yticks(fontsize=11)
-    plt.legend(('Ku: 0.10', 'Ku: 0.12','Ku: 0.13', 'Ku: 0.14'), loc='upper left', fontsize=11)
+    plt.ylabel('Yaw-rate (deg/s)', fontsize=12)
+    plt.xlabel('Time (s)', fontsize=12)
+    plt.xticks(fontsize=12)
+    plt.yticks(fontsize=12)
+    plt.legend(('Ku: 0.10', 'Ku: 0.12','Ku: 0.13', 'Ku: 0.14'), loc='upper left', fontsize=12)
 
     plt.figure(2)
     # avg = savgol_filter(data3, 5, 2)  # window size 51, polynomial order 3
@@ -136,10 +136,10 @@ if 1:
 
     plt.plot(x, data3, ':')
     plt.plot(x, data5, '-.')
-    plt.ylabel('Yaw-rate (deg/s)', fontsize=11)
-    plt.xlabel('Time (s)', fontsize=11)
-    plt.xticks(fontsize=11)
-    plt.yticks(fontsize=11)
-    plt.legend(('Ku: 0.13, Ki = 0, Kd = 0', 'Kp: 0.078, Ki = 1.3, Kd = 0.0325'), loc='upper left', fontsize=11)
+    plt.ylabel('Yaw-rate (deg/s)', fontsize=12)
+    plt.xlabel('Time (s)', fontsize=12)
+    plt.xticks(fontsize=12)
+    plt.yticks(fontsize=12)
+    plt.legend(('Ku: 0.13, Ki = 0, Kd = 0', 'Kp: 0.078, Ki = 1.3, Kd = 0.0325'), loc='upper left', fontsize=12)
 
     plt.show()
