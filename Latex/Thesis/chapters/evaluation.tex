@@ -69,7 +69,7 @@ The results in Figure \ref{fig:decreasing_power_period} show that for the higher
 The control loop was not able to stabilize the movement before a power interrupt occurs and the robot drifts to the side of its weakest motor.
 The duration that power is available might not be long enough for the motors to reach their steady state speed, making linear control of the motors impossible.
 Increasing the target speed shows that also a higher interrupt period is required to control the movement. 
-Therefore the power interrupt periods evaluated in this experiment are set to values above and equal to 0.5\,s: 1.25\,s, 1\,s, 0.75\,s and 0.5\,s.
+Therefore the power interrupt periods evaluated in this experiment are set to 1.0\,s and 0.5\,s.
 
 
 \begin{figure}
@@ -109,14 +109,30 @@ Finally, the average of five complete movement measurements is computed and divi
 	\label{tab:val_calib}
 	\begin{tabular}{|l|l||l|l|l|l|l|l|}
 		\hline
-		Target (\%) & & No int & 1.25\,s & 1.0\,s & 0.75\,s & 0.5\,s & Solar \\
+		Target (\%) & & No interrupt & 1.0\,s & 0.5\,s & Solar \\
 		\hline \hline
-		 40 & cm/s & 18.9 & 18.2 & 18.0 & 17.1 & 15.9 & 16.0\\
-	     65 & cm/s & 24.0 & 22.2 & 21.3 & 20.8 & 18.8 & 20.8\\
-		 90 & cm/s & 28.8  & 26.4 & 25.7 & 24.5 & 22.7 & 23.3 \\
+		 40 & cm/s & 18.9 & 18.0 & 15.9 & 16.0\\
+	     65 & cm/s & 24.0 & 21.3 & 18.8 & 20.8\\
+		 90 & cm/s & 28.8 & 25.7 & 22.7 & 23.3 \\
 		\hline
 	\end{tabular}
 \end{table}
+
+%\begin{table}[t]
+%	\centering
+%	\small
+%	\caption{The calibrated speeds.}
+%	\label{tab:val_calib}
+%	\begin{tabular}{|l|l||l|l|l|l|l|l|}
+%		\hline
+%		Target (\%) & & No int & 1.25\,s & 1.0\,s & 0.75\,s & 0.5\,s & Solar \\
+%		\hline \hline
+%		40 & cm/s & 18.9 & 18.2 & 18.0 & 17.1 & 15.9 & 16.0\\
+%		65 & cm/s & 24.0 & 22.2 & 21.3 & 20.8 & 18.8 & 20.8\\
+%		90 & cm/s & 28.8  & 26.4 & 25.7 & 24.5 & 22.7 & 23.3 \\
+%		\hline
+%	\end{tabular}
+%\end{table}
 
 \subsection{Straight Movements}
 \label{eval:straight_movements}
@@ -175,24 +191,24 @@ The robot without a battery or solar panel has a weight of 16.7\,g and therefore
 		\hline
 		Target (\%) & Interrupt (s) & Max (cm) & Mean (cm) & Std (cm)\\
 		\hline \hline
-		\multirow{6}{*}{40} & No int & 0.86 & 0.36 & 0.16 \\
-		& 1.25 & 0.67 & 0.34 & 0.12 \\
+		\multirow{4}{*}{40} & No interrupt & 0.86 & 0.36 & 0.16 \\
+		%& 1.25 & 0.67 & 0.34 & 0.12 \\
 		& 1.00 & 1.35 & 0.56 & 0.27 \\
-		& 0.75 & 1.04 & 0.60 & 0.27 \\
+		%& 0.75 & 1.04 & 0.60 & 0.27 \\
 		& 0.50 & 0.86 & 0.44 & 0.22 \\
 		& Solar & 0.50 & 0.25 & 1.35 \\
 		\hline
-		\multirow{6}{*}{65} & No int & 0.52 & 0.25 & 0.12 \\
-		& 1.25 & 0.72 & 0.31 & 0.14 \\
+		\multirow{4}{*}{65} & No interrupt & 0.52 & 0.25 & 0.12 \\
+		%& 1.25 & 0.72 & 0.31 & 0.14 \\
 		& 1.00 & 0.91 & 0.44 & 0.21 \\
-		& 0.75 & 1.44 & 0.80 & 0.35 \\
+		%& 0.75 & 1.44 & 0.80 & 0.35 \\
 		& 0.50 & 2.15 & 1.17 & 0.54 \\
 		& Solar & 0.41 & 0.17 & 1.05 \\
 		\hline
-		\multirow{6}{*}{90} & No int & 0.54 & 0.28 & 0.13 \\
-		& 1.25 & 0.90 & 0.42 & 0.17 \\
+		\multirow{4}{*}{90} & No interrupt & 0.54 & 0.28 & 0.13 \\
+		%& 1.25 & 0.90 & 0.42 & 0.17 \\
 		& 1.00 & 1.76 & 0.95 & 0.42 \\
-		& 0.75 & 1.88 & 0.88 & 0.37 \\
+		%& 0.75 & 1.88 & 0.88 & 0.37 \\
 		& 0.50 & 2.18 & 1.09 & 0.61 \\
 		& Solar & 0.30 & 0.15 & 0.69 \\
 		\hline
@@ -245,24 +261,24 @@ The Euclidean distance will be computed between the reference circle and the mea
 			\hline
 			Target (\%) & Interrupt (s) & Radius (cm) & Max (cm) & Mean (cm) & Std (cm)\\
 			\hline \hline
-			\multirow{6}{*}{40} & No int & 34 & 4.30 & 1.30 & 0.67 \\
-			& 1.25 & 32 & 2.59 & 1.29 & 0.69 \\
+			\multirow{4}{*}{40} & No interrupt & 34 & 4.30 & 1.30 & 0.67 \\
+			%& 1.25 & 32 & 2.59 & 1.29 & 0.69 \\
 			& 1.00 & 32 & 3.95 & 1.52 & 0.81 \\
-			& 0.75 & 33 & 4.07 & 1.21 & 0.82 \\
+			%& 0.75 & 33 & 4.07 & 1.21 & 0.82 \\
 			& 0.50 & 32 & 6.08 & 1.85 & 1.30 \\
 			& Solar & 32 & 1.93 & 0.89 & 0.46 \\
 			\hline
-			\multirow{6}{*}{65} & No int & 34 & 3.03 & 1.2 & 0.67 \\
-			& 1.25 & 32 & 2.64 & 1.01 & 0.57 \\
+			\multirow{4}{*}{65} & No interrupt & 34 & 3.03 & 1.2 & 0.67 \\
+			%& 1.25 & 32 & 2.64 & 1.01 & 0.57 \\
 			& 1.00 & 32 & 4.20 & 1.42 & 0.92 \\
-			& 0.75 & 33 & 2.89 & 1.11 & 0.73 \\
+			%& 0.75 & 33 & 2.89 & 1.11 & 0.73 \\
 			& 0.50 & 32 & 1.86 & 0.79 & 0.34 \\
 			& Solar & 31 & 1.93 & 0.88 & 0.4 \\
 			\hline
-			\multirow{6}{*}{90} & No int & 30 & 2.37 & 0.9 & 0.45 \\
-			& 1.25 & 30 & 2.99 & 0.81 & 0.43 \\
+			\multirow{4}{*}{90} & No interrupt & 30 & 2.37 & 0.9 & 0.45 \\
+			%& 1.25 & 30 & 2.99 & 0.81 & 0.43 \\
 			& 1.00 & 31 & 3.50 & 1.06 & 0.65 \\
-			& 0.75 & 31 & 2.12 & 0.71 & 0.41 \\
+			%& 0.75 & 31 & 2.12 & 0.71 & 0.41 \\
 			& 0.50 & 35 & 4.53 & 1.69 & 1.23 \\
 			& Solar & 31 & 2.10 & 0.88 & 0.37 \\
 			\hline

@@ -85,7 +85,7 @@ def plot_raw_data(data_list):
     # remove duplicate labels
     handles, labels = plt.gca().get_legend_handles_labels()
     by_label = OrderedDict(zip(labels, handles))
-    plt.legend(by_label.values(), by_label.keys(), loc='lower right')
+    plt.legend(by_label.values(), by_label.keys(), loc='upper right')
     plt.show()
 
 
@@ -93,19 +93,20 @@ def plot_raw_data(data_list):
 
 ddir = 'Csv_Data/'
 
-movement = 3
-set = 0
+movement = 1
+set = 2
 pwm = ['30', '50', '70']
-re_list = ['', '_int500', '_int750', '_int1000', '_int1250']
+#re_list = ['', '_int500', '_int750', '_int1000', '_int1250']
+re_list = ['battery', 'battery_int500', 'battery_int1000', 'solar']
 if movement == 1:
     mdir = 'Video_Circle/'
-    file_name = 'Video_trg_' + pwm[set] + '_r1_right_r30_battery'
+    file_name = 'Video_trg_' + pwm[set] + '_r1_right_r30_'
 elif movement == 2:
     mdir = 'Video_Square/'
     file_name = 'Video_trg_70_r1_right_battery'
 elif movement == 3:
     mdir = 'Video_Straight/'
-    file_name = 'Video_trg_' + pwm[set] + '_r1_75_battery'
+    file_name = 'Video_trg_' + pwm[set] + '_r1_75_'
 elif movement == 4:
     mdir = 'Video_Straight_4s/'
     file_name = 'Video_trg_' + pwm[set] + '_r1_battery'
@@ -115,7 +116,8 @@ csv_list = os.listdir(ddir+mdir)
 csv_list.sort(key=natural_keys)
 
 if movement != 4:
-    label = ['No Interrupt', 'Interrupt 0.5s', 'Interrupt 0.75s', 'Interrupt 1.0s', 'Interrupt 1.25s']
+    # label = ['No Interrupt', 'Interrupt 0.5s', 'Interrupt 0.75s', 'Interrupt 1.0s', 'Interrupt 1.25s']
+    label = ['No Interrupt', 'Interrupt 0.5s', 'Interrupt 1.0s', 'Solar']
 else:
     label = ['Interrupt 0.2s', 'Interrupt 0.3s', 'Interrupt 0.4s']
 color_list = ['blue', 'orange', 'green', 'red', 'cyan']
@@ -124,10 +126,10 @@ ls_list = [':', '-.', '--', '-']
 
 data_list = read_csv_data_to_list(csv_list, re_list)
 
-for dlist in data_list:
+#for dlist in data_list:
 
     # print 'length of list:' + str(len(slist))
-    print label[dlist[1]] + ' length of movement:' + str(length_of_movement(dlist[0], 10))
+    #print label[dlist[1]] + ' length of movement:' + str(length_of_movement(dlist[0], 10))
 
     #if movement == 3:
         #print 'avg ang of movement:' + str(avg_ang_of_straight(dlist[0]))

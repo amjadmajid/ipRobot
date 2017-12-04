@@ -102,7 +102,7 @@ The WISP is positioned 25, 35 and 45\,cm away from the reader and the charge tim
 		\hline
 		Distance & 25\,cm & 35\,cm & 45\,cm \\
 		\hline \hline
-		Average charge time & 49.1\,s & 61.1\,s & 164.8\,s \\
+		Average charge time (s) & 49.1 & 61.1 & 164.8 \\
 		%Average input power & 1.086\,mW & 0.871\,mW & 0.323\,mW \\
 		\hline
 	\end{tabular}
@@ -117,7 +117,7 @@ While the distance increases more power is directed away from the WISP due to re
 
 In this section the charge time of small solar panels under different light sources is evaluated.
 Sunlight is not always available or enough to charge the robots in a acceptable time.
-A lighting setup needs to be created that provides a reasonable amount of uniform light to the area where the robot moves around.
+Artificial light can provides a reasonable amount of uniform light to the area where the robot moves around.
 To accurately measure the power that is harvested from each solar panel, their performance was evaluated in a darkroom at TU Delft Embedded Software Lab.
 
 \subsubsection{Solar panels}
@@ -186,25 +186,25 @@ The Azurspace solar panel is in this case the winner as, this was expected as it
 
 \begin{table}[t]
 	\centering
-	\caption{The average charge times in seconds for different distances from the sources.}
+	\caption{The average charge times for different distances from the sources.}
 	\label{tab:light_results}
-	\begin{tabular}{|l|l||l|l|l|l|}
+	\begin{tabular}{|l|l|l||l|l|l|l|}
 		\hline
-		\multicolumn{2}{|c|}{} & \multicolumn{4}{|c|}{Source} \\
+		\multicolumn{3}{|c|}{} & \multicolumn{4}{|c|}{Source} \\
 		\hline
-		Distance (cm) & Panel & 60\,W & 120\,W & 150\,W clear & 150\,W red \\
+		Distance (cm) & Panel & & 60\,W & 120\,W & 150\,W clear & 150\,W red \\
 		\hline \hline
-		\multirow{3}{*}{10} & Banggood & 3.08 & 2.19 & 0.99 & 0.73 \\
-		& INYS & 2.76 & 0.82 & 0.51 & 0.56 \\
-		& Azurspace & 2.81 & 1.61 & 0.77 & 1.77 \\
+		\multirow{3}{*}{10} & Banggood& s & 3.08 & 2.19 & 0.99 & 0.73 \\
+		& INYS & s & 2.76 & 0.82 & 0.51 & 0.56 \\
+		& Azurspace & s & 2.81 & 1.61 & 0.77 & 1.77 \\
 		\hline
-		\multirow{3}{*}{30} & Banggood & 6.45 & 6.72 & 7.83 & 1.88 \\
-		& INYS & 8.76 & 6.21 & 2.92 & 1.63 \\
-		& Azurspace& 11.53 & 4.12 & 9.88 & 10.16\\
+		\multirow{3}{*}{30} & Banggood & s & 6.45 & 6.72 & 7.83 & 1.88 \\
+		& INYS & s & 8.76 & 6.21 & 2.92 & 1.63 \\
+		& Azurspace & s & 11.53 & 4.12 & 9.88 & 10.16\\
 		\hline
-		\multirow{3}{*}{50} & Banggood & 26.28 & 17.59 & 17.91 & 9.46 \\
-		& INYS & 49.70 & 17.00 & 10.15 & 7.63 \\
-		& Azurspace & 53.33 & 12.09 & 23.1 & 46.96 \\
+		\multirow{3}{*}{50} & Banggood & s & 26.28 & 17.59 & 17.91 & 9.46 \\
+		& INYS & s & 49.70 & 17.00 & 10.15 & 7.63 \\
+		& Azurspace & s & 53.33 & 12.09 & 23.1 & 46.96 \\
 		\hline
 	\end{tabular}
 \end{table}
@@ -224,11 +224,24 @@ The Azurspace solar panel is in this case the winner as, this was expected as it
 	\end{tabular}
 \end{table}
 
+\subsubsection{Light setup}
+
+To create an area where the transiently-powered robots can move around with approximately constant charge times a light setup is created using wooden beams, as shown in Figure \ref{fig:light_setup}.
+Mounted in this frame are four 120\,W halogen lamps, previously determined to provide the most uniform light distribution and short charge times.
+The frame spans a area of 95$\times$66 cm and distances the lamps 30\,cm from the tabletop.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\textwidth]{pics/light_setup.jpg}
+	\caption{Light setup to provide energy to the robot.}
+	\label{fig:light_setup}
+\end{figure}
+
 \subsection{Conclusion}
 
 The results from RF experiments show that the minimum charge time is 49\,s and more than doubles with only a 20\,cm distance increase from the reader.
 The mobility of the robot will result in widely varying charge times and possible dead spots where the robot is not able to receive any power.
-Light is more readily available and by illuminating the area where the robot moves around with a 120\,W halogen source shows 6\,s charge times when positioned 30\,cm from the solar panel.
+Light is more readily available and by illuminating the area where the robot moves around with a 120\,W halogen lamp source, 6\,s charge times can be achieved when the light positioned 30\,cm from the solar panel.
 With the solar panel far shorter charge times can be achieved, and therefore solar is chosen to be the energy source for the transiently powered robot.
 
 \section{Locomotion Selection}
@@ -295,7 +308,7 @@ After rotating 20 steps the power is removed from the coils and the needle posit
 
 \begin{figure}
 	\centering
-	\includegraphics[width=0.8\textwidth]{pics/figure_intertia.png}
+	\includegraphics[width=0.7\textwidth]{pics/figure_intertia.png}
 	\caption{Stepper motor inertia result}
 	\label{fig:step_results}
 \end{figure}
@@ -313,7 +326,7 @@ After rotating 20 steps the power is removed from the coils and the needle posit
 Figure \ref{fig:step_results} shows the result of the experiment.
 The stepper motor on average will overshoot, i.e. will do more steps than commanded when the power is removed.
 This effect is becomes more significant with increasing step frequency.
-However, while this experiment only shows the effect for an unloaded motor, it is likely that a synchronization error will occur when a transiently-powered robot would be powered using two stepper motors in differential drive.
+However, while this experiment only shows the effect for an unloaded motor, it is suspected that a synchronization error will also occur when a transiently-powered robot would be powered using two stepper motors in differential drive.
 After every power interrupt each motor first needs to be synchronized, which will result in the robot making a random turn if the error between the motors is not equal.
 
 \subsection{DC Motor locomotion}
@@ -346,7 +359,7 @@ To determine the startup current of a 206-110 motor when supplied with 2.2\,V, a
 
 \begin{figure}%[h!]
 	\centering
-	\includegraphics[width=0.62\textwidth]{pics/free_running_current.png}
+	\includegraphics[width=0.7\textwidth]{pics/free_running_current.png}
 	\caption{Current profile of the dc motor.}
 	\label{fig:free_running_current}
 \end{figure}
