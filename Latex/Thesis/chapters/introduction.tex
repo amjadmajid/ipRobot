@@ -10,9 +10,8 @@
 
 Miniature robots with limited capabilities can work together as a collective to achieve more than an individual could by itself, but are still far from being applicable in real world applications~\cite{barca_sekercioglu_2013}.
 The future potential of collectives of small robots, i.e. swarms, is widely recognized to have applications in surveillance, search and rescue, and exploration.
-Swarms have been proposed as a new form of user interface, robots can display information and interact with users on tabletops~\cite{legoc_uist_2016}, unmodified clothing~\cite{dementyev_uist_2016} and can be an educational toy for kids~\cite{sony_toio_2017}.
-\hfill \break
-%TODO screenshots of robots to support statements
+Swarms have been proposed as a new form of user interface, robots can display information and interact with users on tabletops~\cite{legoc_uist_2016}, unmodified clothing~\cite{dementyev_uist_2016} and can be an educational toy for kids~\cite{sony_toio_2017}, as seen in Figure \ref{fig:int_example_sui}.
+%\hfill \break
 
 % Establish nice
 % Motivation for this work: Why do we want to remove the battery?
@@ -22,7 +21,7 @@ Small lithium batteries are currently powering the robots and limit their operat
 The energy density of batteries has improved less than one order of magnitude since 1945, while in comparison the energy efficiency of computing has improved 12 orders of magnitude~\cite{patel_pvc_2017}.
 The last major advancement in battery technology is 25 years old and came with the introduction of Li-ion batteries.
 Additionally, any new big improvements in energy density of batteries is not likely to happen anytime soon, as new battery technologies are often overhyped and slow to emerge~\cite{zachary_spec_2016}.
-\hfill \break
+%	\hfill \break
 
 %TODO introduce current research
 
@@ -37,6 +36,26 @@ Therefore, relaxing the stable energy supply constraint by allowing a transient 
 % 4 lines left!
 \newpage
 
+\begin{figure}
+	\begin{subfigure}[b]{0.32\textwidth}
+		\includegraphics[width=\textwidth]{pics/zooids.jpg}
+		\caption{Zooids}
+		\label{fig:int_zooids}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.324\textwidth}
+		\includegraphics[width=\textwidth]{pics/rovables.jpg}
+		\caption{Rovables}
+		\label{fig:int_roverables}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.323\textwidth}
+		\includegraphics[width=\textwidth]{pics/toio.jpg}
+		\caption{Sony Toio}
+		\label{fig:int_toio}
+	\end{subfigure}
+	\caption{Current applications for small robotic platforms.}
+	\label{fig:int_example_sui}
+\end{figure}
+
 \section{Problem statement}
 
 % What why how
@@ -48,19 +67,20 @@ Therefore, relaxing the stable energy supply constraint by allowing a transient 
 Replacing a battery with an energy harvesting system could make a robot self sufficient and energy-autonomous. 
 This however introduces a new phenomenon to take into account; the intermittent availability of energy produces frequent power interrupts.
 The possibility of sudden power loss is currently not considered when developing control software for a robot, and for this reason can not be used without adaption.
-\hfill \break
+%\hfill \break
 
-Secondly, sensors and control techniques used may not be found applicable due to energy budget constrains or their inability to be interrupted by a loss of power. %TODO cite?
-%TODO resolve big jump
-Different locomotion types are used and may not all be reliable and/or accurate under the frequent power interruption.
+Secondly, applicable sensors and/or sensing frequency may be constrained due to the limited energy budget.
+The largest part of the energy budget will already be consumed by the actuators that supply movement to the robot.
+Not every locomotion type currently used may reliable and/or accurate under the frequent power interruption.
 Therefore the research question this work addresses is:
 
 \begin{center}
-	\textit{How to enable a transiently powered robot to operate autonomously?}
+	\textit{What is the effect of intermittentcy on the movement accuracy of a transiently powered robot without external feedback?}
+	%\textit{How to enable a transiently powered robot to operate autonomously?}
 \end{center}
 
 \section{Contributions}
-Current robots assume that a task can only be completed if sufficient energy is left in the batteries, which also limits their operation time. 
+Current robots assume that a task can only be completed if sufficient energy is left in the batteries, which inherently limits their operation time. 
 This research will explore the feasibility of a miniature battery-less robot, allowing persistent operation while being supplied by a small and intermittent source of energy.
 %This is the first study of transiently powered robots, unaware of any platforms being implemented and are operating under the constant threat of power loss. 
 The list of contributions is as follows:
@@ -85,7 +105,7 @@ The list of contributions is as follows:
 The rest of the this is organized as follows: Chapter \ref{chp:related_work} provides background information and related work.
 The preliminaries in designing the transiently-powered robot are presented in Chapter \ref{chp:preliminaries}.
 In Chapter \ref{chp:design_and_implementation} explains the hardware design and software implementation..
-Next, the performance of a transiently powered robot will be evaluated in Chapter \ref{chp:evaluation}.
+Next, the performance of the transiently powered robot will be evaluated in Chapter \ref{chp:evaluation}.
 Finally, Chapter \ref{chp:summary} concludes this thesis and proposes potential future work.
 
 

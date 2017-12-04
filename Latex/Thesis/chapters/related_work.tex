@@ -17,7 +17,7 @@ A result of this is that the amount of power harvested can very significantly ov
 Fully programmable RFID platforms have been developed that explore the combination of sensing, computation and communication, while allowing battery-less operation by harvesting energy from RF~\cite{sample_transim_2008}. 
 The harvested energy is stored in a capacitor, where larger capacitors can buffer more energy and smaller capacitors have the advantage of shorter charge times~\cite{gummerson_mobisys_2010}.
 For longer, complex operations the energy budged needs to be evaluated carefully.
-To store the energy an appropriate size storage capacitor needs to be selected~\cite{naderiparizi_rfid_2015}.
+To store the energy an appropriate size storage capacitor needs to be selected, as increasing the size also increases the self discharge rate of the capacitor~\cite{naderiparizi_rfid_2015}.
 However, the buffer still limits the operation time, resulting in very frequent power cycling of the system.
 
 \section{Computation across Power Cycles}
@@ -43,41 +43,39 @@ Other research proposes a new programming model that splits a program into tasks
 
 %Capacitor vs Supercapacitor EDLC vs battery?
 
-IoT devices are currently powered from one of two sources, either form batteries or from supercapacitors. 
-Both sources have very different properties, for example batteries have a high energy density when compared to supercapacitors and in addition batteries experience a lower leakage currents.
-On the other hand, supercapacitors have a higher power density that allows very quick charge and discharge rates without any special charging circuitry.
-Supercapacitors are more safe when abused or operating under extreme conditions, as they do not contain any toxic chemicals like batteries.
-Overheating of batteries can severely reduce a batteries lifetime and in worst case lead to explosion.
-Batteries will seldom withstand more than one thousand complete charge/discharge cycles.
+IoT devices are currently powered from one of two sources, either from batteries or supercapacitors.
+Normal capacitors are mainly used to stabilize the converted power from these sources.
+Each electrical storage technology has different properties, as seen from Table \ref{tab:cap_scap_battery}.
+For example, supercapacitors have a higher power density that allows very quick charge and discharge rates without any special charging circuitry~\cite{prasad_comst_2014}.
+Supercapacitors are more safe when abused or operating under extreme conditions, as they do not contain any toxic chemicals like batteries~\cite{maxwell_overview_2017}.
+The biggest disadvantages of super-capacitors is their low energy density and high price.
 
-% Why are capacitors not widely deployed yet?
-While the biggest disadvantages of super-capacitors is their low energy density and high price.
-
-%Review on supercapacitors: Technologies and materials~\cite{Gonzalez_rser_2017}
-
-%Li-Ion Battery-Supercapacitor Hybrid Storage System for a Long Lifetime, Photovoltaic-Based Wireless Sensor Network~\cite{ongaro_pwre_2012}
-%Reincarnation in the Ambiance: Devices and Networks with Energy Harvesting \cite{prasad_comst_2014}
+On the other hand, batteries have a high energy density when compared to supercapacitors and in addition batteries experience a lower leakage currents.
+Overheating of batteries can severely reduce a batteries lifetime and in worst case lead to explosion, as seen back in January of this year with the Galaxy Note 7 from Samsung~\cite{samsung_note7_2017}.
+%Batteries will seldom withstand more than one thousand complete charge/discharge cycles.
+A combination of a li-ion battery and supercapacitor is proposed in~\cite{ongaro_pwre_2012}, and shows that the number of charge/discharge cycles of the battery can be reduced by a factor of four.
 
 
 \begin{table}[t]
 	\centering
 	\begin{threeparttable}
-		\caption{Performance comparison between li-ion batteries and supercapacitors}
-		\label{tab:battery_vs_supercap}
+		\caption{Comparison of capacitors, supercapacitors and batteries~\cite{Gonzalez_rser_2016}.}
+		\label{tab:cap_scap_battery}
 		\small
-		\begin{tabular}{|l|l|l|}
+		\begin{tabular}{|l||l|l|l|}
 			\hline
-			& Supercapacitor & Li-ion battery \\
+			Characteristics & Capacitor & Supercapacitor & Li-ion battery \\
 			\hline \hline
-			Charge time & 1-10 s & 10-60 min \\
-			Cycle life & 1 million or 30000h & 500 and higher \\
-			Cell voltage & 2.3 to 2.75 V & 3.6 to 3.7 V \\
-			Specific Energy (Wh/kg) & 5 & 100-200 \\
-			Specific Power (W/kg) & Up to 10.000 & 1.000 to 3.000 \\
-			Cost per Wh & \$20(typical) & \$2(typical) \\
-			Service life & 10 - 15 years & 5 to 10 years \\
-			Charge temperature & -40 to 65 \textdegree C & 0 to 45 \textdegree C \\
-			Discharge temperature & -40 to 65 \textdegree C & -20 to 60 \textdegree C \\
+			Specific Energy (Wh/kg) & \textless 0.1 & 1--10 & 10--100 \\
+			Specific Power (W/kg) & \textgreater 10.000 & 500--10.000 & \textless 1000 \\
+			Discharge time & 10\textsuperscript{5} to 10\textsuperscript{3} & s to min & 0.3--3\,h \\
+			Charge time & 10\textsuperscript{5} to 10\textsuperscript{3} & s to min & 1--5\,h \\
+			Coulombic efficiency (\%) & About 100 & 85--98 & 70--85 \\
+			Cycle life & Almost infinite & \textgreater 500.000 & about 1000 \\
+			%Cost per Wh & \$20 (typical) & \$2 (typical) \\
+			%Service life & ~10--15 years & ~5--10 years \\
+			%Charge temperature & -40--65\,\textdegree C & 0--45\,\textdegree C \\
+			%Discharge temperature & -40--65\,\textdegree C & -20--60\,\textdegree C \\
 			\hline
 		\end{tabular}
 		%\begin{tablenotes}
@@ -110,17 +108,16 @@ While the biggest disadvantages of super-capacitors is their low energy density 
 Reducing the size of robots has a number of benefits, first of all the cost to build a single robot is reduced.
 Low cost robots are developed to make them available for educational use, and allow children to come in contact with robotics and programming at early age~\cite{rubenstein_icra_2015}.
 
-
-Cost and size can also be a main design considerations when developing miniature robots to research swarm behavior.
+On the other hand, cost and size can also be a main design considerations when developing miniature robots to research swarm behavior.
 Keeping the cost down allows experiments with larger collectives of swarm robots that work together to achieve a single goal.
-
-
-Hardware modularity is a way to make the robot adapt its resources to different environments and sensing operations.
+Hardware modularity exploited to make the robot adapt its resources to different environments and sensing operations.
 By separating out power, computation, motor control and sensing a verity of capabilities can be tested~\cite{sabelhaus_icra_2013, pickem_icra_2015, kim_iros_2016}.
 
-Microrobots typically use infrared-based neighbor to neighbor distance sensing and communication~\cite{rubenstein_icra_2012, pickem_icra_2015, kim_iros_2016}.
+In order to remotely operate and/or coordinate a collective, the robots require communication with a global host accomplished by means of active low power transceivers~\cite{sabelhaus_icra_2013, pickem_icra_2015, kim_iros_2016}. 
+While other microrobots use infrared-based communication, which is additionally used for neighbor to neighbor distance sensing~\cite{rubenstein_icra_2012}.
+Batteries power these small robots and provide roughly one to three hours of energy.
+An overview of current state of the art small robotic platforms is provided in Table \ref{tab:comparison_robot_platforms}.
 
-While controlling a swarm or collective is mainly accomplished by means of active low power transceivers~\cite{sabelhaus_icra_2013, pickem_icra_2015, kim_iros_2016}. 
 
 \section{Locomotion}
 \label{sec:rw_locomotion}
@@ -167,7 +164,8 @@ This approach has only been tested for basic locomotion and has not combined any
 
 \begin{table}[t]
 	\centering
-	\resizebox{\columnwidth}{!}{%
+	%\resizebox{\columnwidth}{!}{%
+	\rotatebox{90}{
 		\begin{threeparttable}
 			\caption{Comparison of small robotic platforms.}
 			\label{tab:comparison_robot_platforms}
@@ -181,7 +179,7 @@ This approach has only been tested for basic locomotion and has not combined any
 	 			Zooids \cite{legoc_uist_2016}& 43 & wheel & 50 & 2.6 & 12 & 100 & 1 h & manual \\      
 	 			mROBerTO \cite{kim_iros_2016} & 52\textsuperscript{2} &motor shaft & 15 & 1.5 & 10\textsuperscript{3} & 120 & 1.5 h & manual \\
 	 			GRITSBot \cite{pickem_icra_2015} & 43\textsuperscript{2} & wheel & 25 & 3 & 60\textsuperscript{3} & 150 & 1 h & contact \\
-	 			TinyTerp \cite{sabelhaus_icra_2013} & 43 & wheel & 50 & 1.8 & N\textbackslash A & 50 & 1 h & manual \\
+	 			TinyTerp \cite{sabelhaus_icra_2013} & 43 & wheel & 50 & 1.8 & N/A & 50 & 1 h & manual \\
 	 			Kilobot \cite{rubenstein_icra_2012} & 43\textsuperscript{2} & vibration & 1 & 3.3 & 17.6\textsuperscript{3} & 160 & 3 h & manual (bulk) \\
 				HAMR-VP\textsuperscript{1} \cite{bruhwiler_iros_2015}& N/A & legged & 44 & 4.4 & 2.3 & 8 & 3 min & manual \\
 				\hline
