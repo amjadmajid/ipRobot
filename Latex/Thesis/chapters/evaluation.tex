@@ -46,9 +46,9 @@ This marker will be the reference point that the tracking software will try to f
 The camera is used to record the movement which then is analyzed using Python and OpenCV 3.2.
 An example of a tracked movement can be seen in Figure \ref{fig:movement_example}.
 
-\subsubsection{Target Speed Setting}
-To evaluate the influence of speed each movement is executed at three different speed target settings: 40\%, 65\% and 90\% of the maximum duty cycle.
-Choosing a target higher than 90\% is undesired while the controller needs some room to adjust the speed up and down to control the robots heading.
+\subsubsection{Target Duty Cycle}
+To evaluate the influence of speed each movement is executed at three different target duty cycle settings: 40\%, 65\% and 90\% of the maximum duty cycle.
+Higher than a duty cycle of 90\% is undesired while the controller needs some room to adjust the speed up and down to control the robots heading.
 
 \subsubsection{Power Interrupts}
 
@@ -63,12 +63,12 @@ A timer is used to generate the power interrupt after a predefined period.
 
 With the selected capacitor of 22\,mF the robot can operate around 1 second. 
 To find the minimal power interrupt period that is required to allow control the robot, it is programmed to preform a four second straight movement.
-The movement is recorded for each target speed and the power interrupt periods of 0.4\,s, 0.3\,s and 0.2\,s are evaluated.
+The movement is recorded for each target duty cycle and the power interrupt periods of 0.4\,s, 0.3\,s and 0.2\,s are evaluated.
 
 The results in Figure \ref{fig:decreasing_power_period} show that for the higher duty cycle targets an interrupt period of 0.3\,s leads to significant drift to one side, and is classified as uncontrolled behavior.
 The control loop was not able to stabilize the movement before a power interrupt occurs and the robot drifts to the side of its weakest motor.
 The duration that power is available might not be long enough for the motors to reach their steady state speed, making linear control of the motors impossible.
-Increasing the target speed shows that also a higher interrupt period is required to control the movement. 
+Increasing the target duty cycle shows that also a higher interrupt period is required to control the movement. 
 Therefore the power interrupt periods evaluated in this experiment are set to 1.0\,s and 0.5\,s.
 
 
@@ -95,8 +95,8 @@ Therefore the power interrupt periods evaluated in this experiment are set to 1.
 \subsubsection{Speed Calibration}
 Another thing that can be observed from the results in Figure \ref{fig:decreasing_power_period}, is that the distance covered by the robot deceases by deceasing the target and/or power interrupt period.
 Without any sensors or external feedback that measure the robots speed, it is difficult to determine the distance that the robot has traveled.
-To have a rough speed estimate which allows the robot to stay within the camera's view, the average speed is estimated for each target and power interrupt period.
-This is achieved by first determining the time that the robot requires to move approximately 150\,cm for each target without power interrupts.
+To have a rough speed estimate which allows the robot to stay within the camera's view, the average speed is estimated for each target duty cycle and power interrupt period combination.
+This is achieved by first determining the time that the robot requires to move approximately 150\,cm for each target duty cycle without power interrupts.
 When the robot experiences power interrupts the average speed of an active period becomes lower due to frequent acceleration from a standstill.
 With power interrupts the runtime is increased to make the robot travel approximately the same distance.
 Finally, the average of five complete movement measurements is computed and divided by the commanded runtime of the robot to acquire an average speed for each combination, as seen from Table \ref{tab:val_calib}.
@@ -105,7 +105,7 @@ Finally, the average of five complete movement measurements is computed and divi
 \begin{table}[t]
 	\centering
 	\small
-	\caption{The calibrated speeds.}
+	\caption{The calibrated speeds for each target duty cycle and interrupt period combination.}
 	\label{tab:val_calib}
 	\begin{tabular}{|l|l||l|l|l|l|l|l|}
 		\hline
@@ -161,7 +161,7 @@ Even though the robot is positioned carefully in the same start position, it is 
 		\caption{Target 90\%}
 		\label{fig:stra_exp3}
 	\end{subfigure}
-	\caption{Straight movements, the black horizontal line marks the 75\,cm endpoint.}
+	\caption{Straight movements for the different target duty cycles, the black horizontal line marks the 75\,cm endpoint.}
 	\label{fig:straight_movements}
 \end{figure}
 
@@ -220,7 +220,8 @@ The robot without a battery or solar panel has a weight of 16.7\,g and therefore
 The robot is commanded make a circle with radius of 30\,cm with the predetermined speed and power interrupt settings.
 The results in Figure \ref{fig:circular_movements} show that with each combination the robot is able preform the circular movement.
 However, a clear difference in circle radius can be seen for the interrupt periods, being a result of an error between the actual and calibrated speeds.
-In some cases the robot overshoots its final position, this error can be a result integration of the angular velocity in combination with power interrupts.
+Because the movement target is equal to an angle obtained by integrating the angular velocity, the robot sometimes overshoots its final position.
+Decreasing the power interrupt frequency increases the integration error due to frequent accelerations from zero by the robot.
 
 \begin{figure}[h!]
 	\centering
@@ -240,7 +241,7 @@ In some cases the robot overshoots its final position, this error can be a resul
 		\caption{Target 90\%}
 		\label{fig:circ_exp3}
 	\end{subfigure}
-	\caption{Circular movements, the black dashed circle marks the programmed circle of 30\,cm.}
+	\caption{Circular movements for the different target duty cycles, the black dashed circle marks the programmed circle with a radius of 30\,cm.}
 	\label{fig:circular_movements}
 \end{figure}
 
@@ -254,7 +255,7 @@ The Euclidean distance is computed between the reference circle and the measured
 
 \begin{table}[t]
 	\centering
-	\caption{The mean and standard deviation of the Euclidean distance from the fitted circle.}
+	\caption{The Euclidean distance between the measurements and the best fitting circle.}
 	\label{tab:circular_results}
 	\resizebox{\columnwidth}{!}{%
 		\begin{tabular}{|l|l||l|l|l|l|}
@@ -288,6 +289,6 @@ The Euclidean distance is computed between the reference circle and the measured
 
 \subsubsection{Circular Movement Results}
 The average deviation from the reference circle reduces when the target duty cycle is increased, as seen from Table \ref{tab:circular_results}.
-The additional velocity is suspected provide a more stable movement because less interrupts are required to complete the circular movement, i.e the controller able to provide more direction.
+The additional speed is suspected provide a more stable movement because less interrupts are required to complete the circular movement, i.e the controller able to provide more direction.
 The solar powered robot again shows to be more stable when compared to the battery powered robot.
 Which is suspected to be a positive effect of weight and weight distribution, as explained in the results of Section \ref{eval:straight_movements}.

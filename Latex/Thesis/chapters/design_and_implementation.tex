@@ -93,7 +93,7 @@ Most reference designs are extendable but this adds complexity, while weight and
 		\caption{Bottom side of the PCB}
 		\label{fig:pcb_robot_back}
 	\end{subfigure}
-	\caption{The PCB designed for the robot}
+	\caption{The PCB designed for the robot, on the top side of the PCB the ICs are marked, harvester (U1), gyroscope (U2) and H-bridge (U3). The bottom side contains only the supercapacitor.}
 	\label{fig:pcb_robot}
 \end{figure}
 
@@ -249,18 +249,18 @@ The robots relative change in heading can be obtained from the gyroscope and cor
 
 Closed loop feedback is achieved by use of a Proportional Integral Derivative (PID) controller.
 The input of the PID controller is the yaw-rate from the gyroscope.
-The controller will periodically try to reduce the yaw error as follows
+The controller will periodically try to reduce the yaw error as
 
 \begin{equation}
-	e(t) = \psi_{\text{target}} - \psi(t)
+	e(t) = \psi_{\text{target}} - \psi(t),
 \end{equation}
 
 \noindent
 where $\psi_{\text{target}}$ is the yaw-rate target and $\psi(t)$ the yaw-rate obtained by the gyroscope.
-The PID controller will now adjust its output, and correct the speed of each motor in opposite direction, by the following equation
+The PID controller adjusts its output, and correct the speed of each motor in opposite direction, by the following equation
 
 \begin{equation}
-u(t) = K_{\text{p}}e(t) + K_{\text{i}} \int_{0}^{t}e(\tau)d\tau + K_{\text{d}}\frac{d}{dt}e(t)
+u(t) = K_{\text{p}}e(t) + K_{\text{i}} \int_{0}^{t}e(\tau)d\tau + K_{\text{d}}\frac{d}{dt}e(t),
 \end{equation}
 
 \noindent
@@ -276,7 +276,7 @@ The yaw-rate set point can for example be determined from the radius of the circ
 
 \begin{table}[t]
 	\centering
-	\caption{Ziegler-Nicholos PID gain estimator chart}
+	\caption{Ziegler-Nicholos PID gain estimator chart~\cite{franklin_feedback_2015}.}
 	\label{tab:gain_chart}
 	\begin{tabular}{|l|l|l|} 
 		\hline
@@ -307,8 +307,6 @@ The integral gain and derivative gain can now be determined to be equal to $K_{\
 Figure \ref{fig:gain_tuning} shows how the oscillations were removed by setting the tunable gains according to the closed loop Ziegler-Nichols method.
 The tuning process was speeded up by setting the minimum motor duty cycle as it made the robot a lot more responsive, as described in Section \ref{sec:cd_pwm_frequency}.
 
-%TODO -Add figure with critcial gain + mark period Tu
-
 \begin{figure}
 	\begin{subfigure}[b]{0.49\textwidth}
 		\includegraphics[width=\textwidth]{pics/straight_ku.png}
@@ -320,7 +318,7 @@ The tuning process was speeded up by setting the minimum motor duty cycle as it 
 		\caption{Determining the ultimate period}
 		\label{fig:gain_tuning}
 	\end{subfigure}
-	\caption{Tuning the PID controller using the ultimate gain method.}
+	\caption{Tuning the PID controller using the ultimate gain method, first the ultimate gain is determined to be equal to 0.13. Then the ultimate period is determined equal to 0.2 and using Table \ref{tab:gain_chart} the tunable gains are determined.}
 \end{figure}
 
 %\subsubsection{Controlled turns}

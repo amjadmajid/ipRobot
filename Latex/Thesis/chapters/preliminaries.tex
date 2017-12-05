@@ -39,7 +39,7 @@ To determine which source is the most suitable for powering the transiently-powe
 The average input power will be determined from the time to charge a capacitor as
 
 \begin{equation}
-	P_{\text{in}} = \frac{E_{\text{cap}}}{t_{\text{charge}}}
+	P_{\text{in}} = \frac{E_{\text{cap}}}{t_{\text{charge}}},
 \end{equation}
 
 \noindent
@@ -48,7 +48,7 @@ The energy stored in a capacitor given a minimum and maximum voltage level can b
 
 \begin{equation}
 \label{eqn:energy_cap}
-	E_{\text{cap}} = \frac{1}{2}C(V_{\max} - V_{\min})^{2}
+	E_{\text{cap}} = \frac{1}{2}C(V_{\max} - V_{\min})^{2},
 \end{equation}
 
 \noindent
@@ -58,14 +58,14 @@ where $C$ is the capacity of a the capacitor, $V_{\min}$ the minimum and $V_{\ma
 \label{sec:pre_energy_harvesting_storage}
 Energy is harvested using a Texas Instruments BQ25570 energy harvester~\cite{bq25570_2017}, which includes a nanopower boost charger with maximum power point tracking to extract the optimal amount of energy. 
 The harvested energy is stored in a 22\,mF - 4.5\,V supercapacitor from AVX~\cite{avx_bestcap_2017}, chosen for its low leakage current and small size.
-The Texas Instruments BQ25570 has a buck converter to efficiently regulate the capacitors voltage down to the system voltage of 2.2\,V.
+The BQ25570 comes with a buck converter to efficiently regulate the capacitors voltage down to the system voltage of 2.2\,V.
 External resistors are used to program voltage thresholds, allowing to automatically enable and disable the buck converter based on minimum and maximum thresholds.
 The minimum threshold is set to 2.2\,V and the maximum threshold is set to 4.2\,V.
-Using Equation \ref{eqn:energy_cap} the energy stored in the capacitor can be determined to be equal to
+Using [\ref{eqn:energy_cap}] the energy stored in the capacitor can be determined as
 
 \begin{equation}
 \label{eq:cap2}
-E_{\text{cap}} = \frac{1}{2} 0.022 (4.4 - 2.2)^2 = 53.24 \text{\,mJ}
+E_{\text{cap}} = \frac{1}{2} 0.022 (4.4 - 2.2)^2 = 53.24 \text{\,mJ}.
 \end{equation}
 
 %Additionally the resistors are used to set the overvoltage protection and the buck converter output voltage.
@@ -83,10 +83,10 @@ The time that the output of the buck converter is disabled will be equal to the 
 \subsection{Energy Harvesting from RF}
 
 \subsubsection{Harvesting using a WISP}
-To be able to connect an external harvester, a WISP 5~\cite{sample_transim_2008} was modified.
-The integrated energy harvester, the storage capacitor and the diode to bypass the harvester, were removed from a WISP.
-A wire was soldered to the input pin pad of the now removed harvester on the WISP PCB.
-This wire was connected directly to the input of the external energy harvester.
+To be able to connect an external harvester, a WISP 5~\cite{sample_transim_2008} is modified.
+The integrated energy harvester, the storage capacitor and the diode to bypass the harvester, are removed from the WISP.
+A wire is soldered to the input pin pad of the now removed harvester on the WISP PCB.
+This wire is connected directly to the input of the external energy harvester.
 
 \subsection{Measurements}
 Energy is provided to the WISP using a Impinj Speedway R1000 RFID reader~\cite{impinj_eol_2017, indy_r1000_2017}.
@@ -168,7 +168,7 @@ Increasing the output power of the source and decreasing the distance between pa
 However, there is no clear winner as seen from Table \ref{tab:light_results}.
 
 Something to take into consideration is that with some lamps a shadowing pattern is observed due to the construction of the lamps.
-The 60\,W and 150\,W IR lamps have a spherical design, that creates a uneven circular shadowing pattern on the surface the lamps are shining on. 
+The 60\,W and 150\,W IR lamps have a spherical design, that creates an uneven circular shadowing pattern on the surface the lamps are shining on. 
 This becomes more significant on the bigger distances in this experiment.
 The 120\,W halogen lamp has a tubular design and in combination with the light fixture most of the light is reflected down with minimal shadowing of the lamp resulting in a more even light distribution.
 Therefore, this lamp is chosen to provide light in the controlled setup where the robots can move around with roughly constant charge times.
@@ -359,7 +359,7 @@ To determine the startup current of a 206-110 motor when supplied with 2.2\,V, a
 \begin{figure}%[h!]
 	\centering
 	\includegraphics[width=0.7\textwidth]{pics/free_running_current.png}
-	\caption{Current profile of the dc motor.}
+	\caption{Current profile of the evaluated dc motors.}
 	\label{fig:free_running_current}
 \end{figure}
 
