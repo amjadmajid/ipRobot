@@ -60,7 +60,20 @@ dr. Javier Alonso-Mora & Delft University of Technology \\
 %examples: 
 %prof. dr. ir. H. J. Sips (chair) & Delft University of Technology \\ 
 %ir. dr. D. H. J. Epema           & Delft University of Technology \\ 
-\newcommand{\reportAbstract}{TODO ABSTRACT}
+\newcommand{\reportAbstract}{
+	%Small robotic platforms have become increasingly popular as an educational toy for kids and are widely used by researchers to study swarm behavior with a collective of robots.
+	Collectives of miniature robots are envisioned to have future applications in surveillance, search and rescue, and exploration. 
+	Before these robots can become applicable in real world applications, a fundamental challenge related to energy needs to be addressed first.
+	The operation time of these robots is currently limited by the energy stored in batteries.
+	New advancements in batteries are not expected to happen anytime soon as history shows that new battery technologies are often overhyped.
+	This thesis proposes to replace the battery with an energy harvester and temporarily store harvested energy in a supercapacitor.
+	However, this creates a new phenomenon to take into consideration; the intermittent source of energy results in very frequent power interrupts.
+	Intermittentcy is currently not taken into account when developing a robot, and its effect on control techniques and locomotion are unexplored.
+	In this work a transiently-powered battery-free robot is developed that purely operates from harvested energy.
+	Energy is harvested from light and using a lighting setup containing four halogen lamps the robot is able to move with a 16\% power duty cycle.
+	Using local feedback the robot is able to make controlled movements, while peristent state variables enable the robot to save the movement progress across power cycles.
+	The performance of the transiently-powered robot is evaluated and shows no sigificant differences in movement accuracy when compared to its battery powered equal, given an minimum interrupt period of 0.3\,s.
+}
 \newcommand{\reportKeywords}{TODO KEYWORDS}
 
 % For pdflatex
