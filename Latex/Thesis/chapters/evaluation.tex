@@ -20,7 +20,7 @@ In this section the accuracy of movement of the battery-less robot and its batte
 To be able to compare the accuracy of the robot while it is exposed to increasingly smaller power cycles, a variety of movements is recorded using a overhead camera.
 A stand with a Nikon D610 DSLR camera is positioned on a tabletop and in the camera's view the corners of a square of 80$\times$80\,cm are indicated with a black marker, as shown in Figure \ref{fig:movement_setup}.
 This square is later used as a reference to convert the robots movement from pixels to cm.
-Three different movements are compared, while the robot is moving straight movement of 75\,cm, a circle with radius of 30\,cm and a square of 50$\times$50\,cm.
+Two movements are compared, while the robot is moving straight movement of 75\,cm and a circle with radius of 30\,cm.
 
 \begin{figure}
 	\centering
@@ -34,7 +34,7 @@ Three different movements are compared, while the robot is moving straight movem
 		\caption{Tracking with OpenCV}
 		\label{fig:movement_example}
 	\end{subfigure}
-	\caption{Experimental setup to record the robots movement}
+	\caption{Experimental setup to record the robots movement.}
 	\label{fig:movement_setup}
 \end{figure}
 
@@ -137,9 +137,9 @@ Finally, the average of five complete movement measurements is computed and divi
 \subsection{Straight Movements}
 \label{eval:straight_movements}
 
-Using the calibrated speeds and selected power interrupt periods, the robot is commanded to preform a straight movement of 75\,cm.
+Using the calibrated speeds and selected power interrupt periods, the robot is commanded to preform a straight movement of 75\,cm from position (40,0) cm within the reference frame.
 Each combination is recorded multiple times and the motion data is extracted from the video using Python and OpenCV.
-The results in Figure \ref{fig:straight_movements} show that the robot approximately move the commanded 75\,cm.
+The results in Figure \ref{fig:straight_movements} show that the robot approximates the commanded 75\,cm.
 Secondly, the results show that there is a varying horizontal deviation between the start and end point.
 This may be a consequence of inaccuracy in preforming the movement or more likely, an error in the start position of the robot is not positioned exactly perpendicular to the reference frame of 80$\times$80\,cm.
 Even though the robot is positioned carefully in the same start position, it is inevitable that a small error in angle can occur.
@@ -169,18 +169,18 @@ Even though the robot is positioned carefully in the same start position, it is 
 
 %The first metric is the length of movement, used to verify the accuracy between multiple iterations of the same calibrated speed and power interrupt combination.
 %The second metric is used to describe deviation in path between the start and endpoint.
-The robot has no reference to its surroundings to be able to determine its absolute position and heading direction, i.e. no external feedback and therefore only relative metrics are valid.
+The robot has no reference to its surroundings to determine its absolute position and heading direction, i.e. no external feedback and therefore only relative metrics are valid.
 For each measurement a reference line is computed between the first and last measured data point.
 The Euclidean distance between the closest measurement and the reference line is computed.
 
 \subsubsection{Straight Movement Results}
 
-The results for the battery powered robot with and without artificial interrupts show that decreasing the interrupt period increases the horizontal deviation, as seen in Table \ref{tab:straight_results}.
+The results for the battery powered robot with and without artificial interrupts show that decreasing the interrupt period increases the maximum, average and standard deviation of the horizontal deviation, as seen in Table \ref{tab:straight_results}.
 Increasing the speed does not have the same effect and no significant differences can be seen from the results.
 
 The solar powered shows less horizontal deviation when compared to the battery powered robot.
 This seems counter intuitive, however there is a suspicion that the weight and especially weight distribution has a big effect on the movement of the robot.
-The weight of the solar panel is more than twice that of the battery, 5.2\,g and 2.1\,g respectively and more evenly distributed over the robot.
+The weight of the solar panel is more than twice that of the battery, 5.2\,g and 2.1\,g respectively and is more evenly distributed over the robot.
 The robot without a battery or solar panel has a weight of 16.7\,g and therefore the weight of the solar panel can be considered significant when compared to the bare weight of the robot.
 
 \begin{table}[t]
@@ -218,9 +218,9 @@ The robot without a battery or solar panel has a weight of 16.7\,g and therefore
 \subsection{Circular Movements}
 
 The robot is commanded make a circle with radius of 30\,cm with the predetermined speed and power interrupt settings.
-The results in Figure \ref{fig:circular_movements} show that with each combination the robot is able to make the circular movement.
-However, a clear difference in circle radius can be seen, being a result of an error between the actual and calibrated speeds.
-In some cases the robot overshoots the end set point which can be a result of integration of the angular velocity in combination with power interrupts.
+The results in Figure \ref{fig:circular_movements} show that with each combination the robot is able preform the circular movement.
+However, a clear difference in circle radius can be seen for the interrupt periods, being a result of an error between the actual and calibrated speeds.
+In some cases the robot overshoots its final position, this error can be a result integration of the angular velocity in combination with power interrupts.
 
 \begin{figure}[h!]
 	\centering
@@ -248,8 +248,8 @@ In some cases the robot overshoots the end set point which can be a result of in
 
 %The length of the movement will be determined by summing the distance between points in the measurement data.
 % two different metrics will be used.
-To determine the accuracy of the circular movement a circle, with varying radius due to the differences in the calibrated speed, will be visually fitted to the circular data of each movement.
-The Euclidean distance will be computed between the reference circle and the measured circular movements.
+To determine the accuracy of the circular movement a circle, with varying radius due to the differences in the calibrated speed, is visually fitted to the circular data of each movement.
+The Euclidean distance is computed between the reference circle and the measured circular movements.
 
 
 \begin{table}[t]
@@ -288,6 +288,6 @@ The Euclidean distance will be computed between the reference circle and the mea
 
 \subsubsection{Circular Movement Results}
 The average deviation from the reference circle reduces when the target duty cycle is increased, as seen from Table \ref{tab:circular_results}.
-From the results it is not clear that the same relation holds for the maximum and standard deviation from the fitted circle.
+The additional velocity is suspected provide a more stable movement because less interrupts are required to complete the circular movement, i.e the controller able to provide more direction.
 The solar powered robot again shows to be more stable when compared to the battery powered robot.
 Which is suspected to be a positive effect of weight and weight distribution, as explained in the results of Section \ref{eval:straight_movements}.

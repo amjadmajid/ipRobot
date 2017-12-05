@@ -72,10 +72,10 @@ A Printed Circuit Board (PCB) has been designed using EAGLE PCB design and schem
 For the reason of increased stability, ease of connection, reduction of the total weight of the robot and was required because of the small size ICs (no lead packaging).
 A detailed schematic of the PCB can be found in Appendix \ref{app:schematic_robot}.
 
+An overview of both the top and bottom side of the PCB is shown in Figure \ref{fig:pcb_robot}.
 Most components are part of the PCB only the larger components are mounted externally, the solar panel, WISP and the motors.
 The PCB contains headers to connect the solar panel, a header to connect all the required pins from the WISP and a additional header to connect a battery for testing purposes.
 Most reference designs are extendable but this adds complexity, while weight and size are the main constraints in the design of this robot.
-A overview of both the top and bottom side of the PCB is shown in Figure \ref{fig:pcb_robot}.
 
 %The top of the PCB contains all the surface mount components that are soldered to the PCB using a reflow oven. 
 %When the boards come out of the oven, the headers, motors and supercapacitor are soldered to the boards by hand.
@@ -110,7 +110,7 @@ The measurement result is provided in Table \ref{tab:avg_cur_comp}.
 \begin{table}[t]
 	\centering
 	\begin{threeparttable}
-		\caption{Average consumed current for each individual component at 2.2 V.}
+		\caption{Average consumed current for each individual component at 2.2\,V.}
 		\label{tab:avg_cur_comp}
 		\begin{tabular}{|l|l|} 
 			\hline
@@ -188,14 +188,14 @@ The motors used for the robot have a typical resistance of R = 14.5\,$\Omega$ an
 Therefore the minimum pulse width should be equal to
 
 \begin{equation}
-T_{\min} = 5 \frac{L}{R} = 24.14\,\mu s
+T_{\min} = 5 \frac{L}{R} = 24.14\,\mu\text{s}
 \end{equation}
 
 \noindent
 If a minimum duty cycle $D_{\min}$ of 5\% assumed, than the maximum PWM frequency becomes
 
 \begin{equation}
-f_{\max} = \frac{D_{\min}}{T_{\min}}\cdot 100 = 2071.25\,Hz
+f_{\max} = \frac{D_{\min}}{T_{\min}}\cdot 100 = 2071.25\,\text{Hz}
 \end{equation}
 
 \noindent
@@ -334,7 +334,7 @@ The tuning process was speeded up by setting the minimum motor duty cycle as it 
 \section{Software Implementation}
 \label{sec:dai_software_implementation}
 
-The software implementation that allows the robot to preform controlled movements consists of 700 lines of MSP430 specific C code and is divided in three parts, the main program, a control loop and motor control.
+The software implementation that allows the robot to preform controlled movements is divided in three parts, the main program, a control loop and motor control.
 In the main program a set of movements can be defined that the robot needs to execute.
 The robot can be controlled using three movement commands, one for straight trajectories, one for curved right turns and one for curved left turns.
 For each movement an additional movement target needs to be defined that specifies the duration, i.e. when the control loop can consider the movement to be finished.
@@ -342,11 +342,12 @@ For each movement an additional movement target needs to be defined that specifi
 \subsection{Control loop}
 
 When the control loop is instructed to execute a movement, yaw-rate set point, movement target and motor duty cycle target are set accordingly.
-A timer is enabled running at a frequency of a 100\,Hz, used to periodically call an interrupt service routine (ISR) and execute the control loop.
+A timer is enabled running at a frequency of a 100\,Hz, is used to periodically call an interrupt service routine (ISR) and execute the control loop.
+Using a interrupt has the benefit of a constant sample time, which simplifies the PID loop because the integration and differentiation time are also constant and known in advance.
 If the ISR is triggered, first a yaw-rate sample is requested from the gyroscope.
-Then based on the movement that is currently executed, an evaluation is done to determine if the movement target is reached.
-If this is not the case then the yaw-rate supplied to the PID controller to produce an output, which is used to update the motor values.
-The output is subtracted from the left motor value and added to the right motor value, in order to keep the average speed roughly the same.
+Then based on the current movement, an evaluation is preformed to determine if the movement target is reached.
+If this is not the case then the yaw-rate supplied to the PID controller to produce an output, which in turn updates the motor values.
+The output is subtracted from the left motor value and added to the right motor value, in order to keep the average speed approximately the same.
 
 \subsubsection{Movement target}
 
@@ -370,12 +371,17 @@ When the timer reaches a value that corresponds to a value one of the compare re
 %Secondly, the proportional gain should not be set to low because the robot might not able to reach the target but also not to high as it can overshoot the target.
 
 \subsection{Persistent Movement}
-
-The transiently powered robot can make one movement or a series of movements is likely to require multiple power cycles to complete.
-To be able to finish a movement and not reset i.e. redo the same movement, a simple checkpointing method is used to keep the program state across power cycles.
+The transiently-powered robot can make one movement or a series of movements, which probably require multiple power cycles to complete.
+To be able to finish a movement and not reset i.e. redo the same movement, a simple checkpointing method is used to save the progress across power cycles.
 A persistent counter registers the progress in the set of movements.
-Each control loop iteration the persistent variable that captures the progress towards the movement target is updated, and depending on the movement can be a required time or angle.
+Every control loop iteration the persistent variable that captures the progress towards the movement target is updated, and depending on the movement can be a time or angle.
 The right and left motor speed tuned by the PID controller are not saved and restored after a power interrupt.
-Due to the startup phase of the motors, previously tuned motor speeds are not valid and cannot be used after a power interrupt. 
+Due to the startup phase of the motors, previously tuned motor speeds are suspected to be invalid and cannot be used after a power interrupt. 
 
+\subsection{Extendability}
+The current software implementation consists of 700 lines of MSP430 specific C code, which compiled take up 14\% of the SRAM and 14\% of the FRAM.
+The control loop is implemented using a ISR leaving the main processor available for other computation tasks.
+The backscatter communication channel on the WISP is currently not implemented, but can potentially be used to provide communication with a global host. 
+Two of the five available timers are used for the control loop and the motor control, while the other three timers have been found to be used by the WISP software communication stack.
+ 
 

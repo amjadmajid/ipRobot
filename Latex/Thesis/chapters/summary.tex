@@ -8,11 +8,11 @@
 
 In this thesis, a transiently-powered robot is designed and implemented that uses light as a source of energy.
 Two geared dc motors have been chosen to provide locomotion to the robot, while the motor startup current peak is limited using PWM.
-A controller is designed that allows controlled straight and curved movements and a simple check pointing method combined with persistent movement targets allows a movement to be completed across multiple power cycles.
+A controller is designed that allows controlled straight and curved movements, while a simple check pointing method combined with persistent movement targets allows a movement to be completed across multiple power cycles.
 Multiple movements have been executed and recorded using a overhead camera.
 Tracking software is used to verify the the accuracy of movement by comparing a transiently-powered robot to its battery powered equal.
 By decreasing the interrupt period a lower threshold of 0.3\,s has been found where the robot started to show uncontrolled behavior, i.e. significant drift to the side of the weakest motor.
-While the amount of time that power is available might not be sufficient for the motors to reach their steady state speed, making controlled movements using linear motor control impossible.
+The amount of time that power is available might not be sufficient for the motors to reach their steady state speed, making controlled movements using linear motor control impossible.
 Using artificial power interrupts, the results show that decreasing the interrupt period towards the lower threshold results in more horizontal deviation in case of straight movements.
 For curved movements the results show a decreased average deviation from the fitted circle by increasing the target duty cycle.
 The solar powered robot surprisingly outperforms the battery-powered robot in terms of movement accuracy, as the additional weight and weight distribution of the solar panel is suspected to have a positive effect on the movement of the robot.
@@ -23,7 +23,7 @@ The solar powered robot surprisingly outperforms the battery-powered robot in te
 \section{Future Work}
 \label{sec:limitations_future_work}
 
-The capabilities of the current robot are limited, but are easy to extend by using more features from the WISP or designing a custom alternative.
+The capabilities of the current robot are limited, but are easy to extend by using more features from the WISP or by design of a custom alternative.
 Additional features that could be implemented in feature work are:
 
 \begin{itemize}
@@ -51,7 +51,7 @@ Micro size legged robots that make use of piezoelectric actuators seem promising
 
 \item \textbf{Sensing capabilities}
 Depending on future research or applications additional sensors could be added to the robot to extend its capabilities.
-However, the power consumption, frequency of use and accuracy trade off needs to be evaluated carefully while the energy budget is limited.
+However, the power consumption, frequency of use and the accuracy trade off needs to be evaluated carefully while the energy budget is limited.
 
 
 \end{itemize}

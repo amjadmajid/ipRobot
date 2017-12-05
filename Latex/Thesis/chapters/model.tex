@@ -1,2 +1,176 @@
+\section{Transiently-powered Robot Model}
+\label{sec:pre_transient_model}
 
+In this section a simple model will be derived showing the relation between size and weight of the robot, the amount of power that is harvested and stored and how much of this can be translated into linear movement.
+
+\subsection{Modeling Assumptions}
+
+Energy is harvested from an ambient source and stored in a supercapacitor.
+To make efficient use of the energy stored in a supercapacitor a regular is required to supply a stable voltage to the connected loads.
+In this case the loads are two identical dc motors which each drive wheel. \\
+\\ \noindent
+The following assumptions will be used to model the transiently powered robot:
+\begin{itemize}
+	\item The required power by the loads is greater than the incoming power, resulting in repeated power cycling of the robot.
+	\item The amount of input power after conversion is constant due to the use of a controlled environment
+	\item Since a regulator is used, the voltage in the capacitor will never fall below the operating voltage.
+\end{itemize}
+
+%The input power Pin, will be stored in a supercapacitor with capacitance C.
+
+
+%The regulated output voltage is a lower threshold for the energy that can be used from the capacitor.
+%The upper threshold is determined by the maximum voltage rating of the supercapacitor.
+%Lowering the output voltage allows for more energy to be used from the supercapacitor, and also lowers the overall power consumption of individual components.
+%The energy stored in supercapacitor is a function of the capacitance and the threshold voltage difference, being equal to:
+
+
+
+
+
+
+
+
+% 1 Incomming power V * I which scales with solar panel size
+
+% 2 Maximum power point tracking (switchmode boost converter)
+
+% 3 Stored in non-ideal supercapacitor with capcitiy C and a parrallel resistance Rleak and series resistance (ESR, typically small but not neglectable?)
+
+% 123 determine chargetime
+
+% Buck converter losses 
+
+% Power consumed from source = Pcons = Ploss + Pweels
+
+% Power P(t)  = F * v = T x omega
+
+\subsection{Motor Dynamics}
+
+The electrical equivalent circuit of a brushed dc motor is shown in Figure \ref{fig:pre_model_dc}, where $v$ is the voltage applied to the motor, $i$ the armature current, $R$ the armature resistance, $L$ the armature inductance, $e$ the back EMF voltage, $\tau$ the torque produced by the motor, $\omega$ the angular velocity of the rotor, $J$ is the moment of inertia of the rotor, $B$ is the viscous friction coefficient of the motor bearings and $m$ the external applied torque.
+
+
+\begin{figure}[h!]
+	\centering
+	\begin{circuitikz}
+		%\draw [help lines] (-1,-2) grid (12,5);
+		
+		% electrical equivalent circuit
+		%\draw (0,0) to[V, v_=$v$] (0,3);
+		\draw (0,3) node[ocirc] {}; % ,label=left:+
+		\draw (0,3) to[R, i>^=$i$, l=$R$] (3,3);
+		\draw (3,3) to[L, l=$L$] (4,3);
+		
+		\draw (0,2.25) node {$+$};
+		\draw (0,1.5) node {$v$};
+		\draw (0,0.75) node {$-$};
+		
+		\draw (4,3) -- (5,3);
+		\draw (5,3) -- (5,2);
+		%\draw (5,1.5) node[elmech](motor){M};
+		\draw (5,1) -- (5,0);
+		
+		\draw (4.25,2.25) node {$+$};
+		\draw (4.25,1.5) node {$e$};
+		\draw (4.25,0.75) node {$-$};
+		
+		\draw (0,0) -- (5,0);
+		\draw (0,0) node[ocirc] {}; 
+		
+		% motor
+		\draw[fill=white] (4.85,0.85) rectangle (5.15,2.15);
+		\draw[fill=white] (5,1.5) ellipse (.45 and .45);
+		
+		
+		% shaft drive -> transmission
+		\draw[fill=black] (5.45,1.45) rectangle (7.0,1.55);
+		
+		% momentum arrow of drive -> transmission
+		\draw[line width=0.7pt,<-] (5.8,1) arc (-30:30:1);
+		
+		% moment of inertia
+		\draw[fill=white] (7.5,1.59)
+		ellipse (.15 and 0.4);
+		\draw[fill=white, color=white] (6.9, 1.99)
+		rectangle (8.49, 1.19);
+		\draw (6.8,1.59) ellipse (.15 and 0.4);
+		\draw (6.8,1.99) -- (7.5,1.99);
+		\draw (6.8,1.19) -- (7.5,1.19);
+		
+		% momentum arrow (left hand side of brake shoe)
+		\draw[line width=0.7pt,->] (8.05,1.1) arc (-30:30:1);
+		
+		% descriptions inside graphic
+		\draw (5.85,2.2) node {$\omega_A, M_A$};
+		\draw (7.25,1.61) node {$J$};
+		\draw (8.05,2.32) node {$M_R$};
+		
+	\end{circuitikz}
+	\caption{Brushed DC motor system model.}
+	\label{fig:pre_model_dc}
+\end{figure}
+
+\noindent
+Using Kirchhoff's voltage law the electrical dynamics of a dc motor can be described as
+\begin{equation}
+\label{eq:kirchhoff}
+v = Ri + L \dot{i} + e
+\end{equation}
+
+\noindent
+From Newton's second law follows that the mechanical dynamics of a motor can be described as
+\begin{equation}
+\label{eq:newton}
+\tau = J\dot{\omega} + B\omega + m
+\end{equation}
+
+\noindent
+The electromechanical equations state that the back EMF voltage is proportional to the angular velocity and the motor torque is proportional to the armature current
+
+\begin{equation}
+\label{eq:electomechanical}
+\begin{gathered}
+e = k_{e} \omega \\
+\tau = k_{t} i
+\end{gathered}
+\end{equation}
+
+\noindent
+where $k_{e}$ is the back emf constant of the motor and $k_{i}$ the torque constant of the motor.
+The electrical power consumed and mechanical power consumed will be equal to
+
+\begin{equation}
+\begin{gathered}
+p_{\text{e}} = vi \\
+p_{\text{m}} = \tau\omega
+\end{gathered}
+\end{equation}
+
+\noindent
+Rewriting equation \ref{eq:kirchhoff}, \ref{eq:newton} and \ref{eq:electomechanical} and appling the Lalace transa transfer function from $v$ to $\omega$ can be obtained, assuming $m$ = 0.
+
+\begin{equation}
+\frac{\Omega(s)}{V(s)} = \frac{k_{i}}{(Ls + R)(Js + B) + k_{\omega}k_{i}} 
+\end{equation}
+
+where $V(s)$ and $\Omega$ are the Lapace transformations from $v$ and $\omega$ respectively.
+
+
+\subsection{Robot Dynamics}
+The robot is modeled as a mass $m$, that is moved by two wheels with radius $r$, each connected directly to a motor.
+
+
+The rolling friction between the wheels and the surface is equal to:
+\begin{equation}
+F_{\text{k}} = \mu_{\text{k}}mg
+\end{equation}
+
+Therefore the torque applied to the motor due to rolling friction, as it is only present while the robot is moving relative to the surface and the equation becomes:
+
+\begin{equation}
+T_{\text{ext}} = rF_{\text{k}} sgn(\omega)
+\end{equation}
+
+\noindent
+The total mass is equal to the 
 

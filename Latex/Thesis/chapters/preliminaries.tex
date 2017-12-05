@@ -3,7 +3,7 @@
 
 In this chapter the design considerations for the robot will be explained based on minimal required capabilities, in Section \ref{sec:pre_design_considerations}.
 Section \ref{sec:pre_design_considerations} will evaluate two sources for energy harvesting and Section \ref{sec:pre_locomotion_selection} two types of locomotion for the transiently powered robot.
-Finally in Section \ref{sec:pre_transient_model}, a simple model will capture the relation between power harvested and distance covered by the robot.
+%Finally in Section \ref{sec:pre_transient_model}, a simple model will capture the relation between power harvested and distance covered by the robot.
 
 \section{Design Considerations}
 \label{sec:pre_design_considerations}
@@ -26,7 +26,6 @@ This section will shortly explain the main areas considered while designing the 
 	\item \textbf{Autonomous navigation}.
 	During operation the robot will experience a very frequent loss of power. 
 	Despite regular power interruption the transiently-powered robot should be able to complete a movement with an acceptable error when compared to its battery powered equal.
-	
 \end{enumerate}
 
 \section{Energy Source Selection}
@@ -66,7 +65,7 @@ Using Equation \ref{eqn:energy_cap} the energy stored in the capacitor can be de
 
 \begin{equation}
 \label{eq:cap2}
-E = \frac{1}{2} 0.022 (4.4 - 2.2)^2 = 53.24 mJ
+E_{\text{cap}} = \frac{1}{2} 0.022 (4.4 - 2.2)^2 = 53.24 \text{\,mJ}
 \end{equation}
 
 %Additionally the resistors are used to set the overvoltage protection and the buck converter output voltage.
@@ -77,7 +76,7 @@ E = \frac{1}{2} 0.022 (4.4 - 2.2)^2 = 53.24 mJ
 
 The buck converter of the energy harvester is automatically enabled when the maximum voltage threshold is reached.
 A load is connected to the output of the buck converter to quickly drain the energy from the capacitor.
-In this case load is chosen such that the power consumed by the load $P_{\text{load}} >> P_{\text{in}}$.
+In this case load is chosen such that the power consumed by the load $P_{\text{load}} \gg P_{\text{in}}$.
 By connecting a Saleae logic analyzer~\cite{saleae_2017} to the output of the buck converter, the period of the power cycles can be recorded.
 The time that the output of the buck converter is disabled will be equal to the time to charge the capacitor from the minimum to the maximum threshold.
 
@@ -90,13 +89,13 @@ A wire was soldered to the input pin pad of the now removed harvester on the WIS
 This wire was connected directly to the input of the external energy harvester.
 
 \subsection{Measurements}
-Energy was provided to the WISP using a Impinj Speedway R1000 RFID reader~\cite{impinj_eol_2017, indy_r1000_2017}.
-This reader was connected to a Laird S90028PCR antenna~\cite{laird_s9028pcr_2017}.
-The WISP is positioned 25, 35 and 45\,cm away from the reader and the charge time was recorded.
+Energy is provided to the WISP using a Impinj Speedway R1000 RFID reader~\cite{impinj_eol_2017, indy_r1000_2017}.
+This reader is connected to a Laird S90028PCR antenna~\cite{laird_s9028pcr_2017}.
+The WISP is positioned 25, 35 and 45\,cm away from the reader and the charge time are recorded.
 
 \begin{table}[t]
 	\centering
-	\caption{The average charge time with RF}
+	\caption{The average charge time by harvesting energy from RF.}
 	\label{tab:res_rf_harvest}
 	\begin{tabular}{|l||l|l|l|}
 		\hline
@@ -111,7 +110,7 @@ The WISP is positioned 25, 35 and 45\,cm away from the reader and the charge tim
 \subsubsection{Results}
 The time to charge the capacitor is more than 49\,s, see Table \ref{tab:res_rf_harvest}.
 As the WISP is placed further away from the reader the charge times increase significantly.
-While the distance increases more power is directed away from the WISP due to reflections of the signal.
+While the distance increases the harvested power is decreased due to path loss and reflections of the signal.
 
 \subsection{Energy Harvesting from Light}
 
@@ -121,14 +120,14 @@ Artificial light can provides a reasonable amount of uniform light to the area w
 To accurately measure the power that is harvested from each solar panel, their performance was evaluated in a darkroom at TU Delft Embedded Software Lab.
 
 \subsubsection{Solar panels}
-Three different solar panels were tested, each different in material, efficiency and panel size, as can be seen from Table \ref{tab:solar_panels}.
+Three different solar panels were tested, each different in material, efficiency and panel size, as seen from Table \ref{tab:solar_panels}.
 
 \begin{table}[t]
 	\centering
+	\caption{Specification of the solar panels tested in the experiment.}
+	\label{tab:solar_panels}
 	\resizebox{\columnwidth}{!}{%
 		\begin{threeparttable}
-			\caption{Specification of the solar panels tested in the experiment.}
-			\label{tab:solar_panels}
 			\begin{tabular}{|l|l|l|l|}
 				\hline
 				& Material & Efficiency (\%) & Dimensions (mm) \\
@@ -178,15 +177,15 @@ For this lamp on the distances 30\,cm and 50\,cm the Azure space solar panel see
 However, the surface area of this panel is more than double when compared to the other two solar panels, as seen from Table \ref{tab:solar_panels}.
 Therefore the charge times should be doubled, which makes the INYS panel the best performer.
 
-Additionally the charge times were recorded for each solar panel during a sunny, blue sky, November afternoon, as seen from Table \ref{tab:solar_results}.
-The Azurspace solar panel is in this case the winner as, this was expected as it has is able to harvest energy from the broadest part of the light spectrum.
+Additionally the charge times were recorded during a sunny 30 minute time slot from 2:30PM to 3:00PM on 23-11-17 for each solar panels, as seen from Table \ref{tab:solar_results}.
+The Azurspace solar panel is in this case the winner, this can be expected because the triple junction allows it to harvest energy from the broadest part of the light spectrum.
 
 %Both the temperature and illumination increase by decreasing the distance between the light source and the solar panel. 
 %Secondly, increasing the output power of the lamp increases temperature and illumination as well. 
 
 \begin{table}[t]
 	\centering
-	\caption{The average charge times for different distances from the sources.}
+	\caption{The average charge times when harvesting energy for different distances from the sources.}
 	\label{tab:light_results}
 	\begin{tabular}{|l|l|l||l|l|l|l|}
 		\hline
@@ -211,7 +210,7 @@ The Azurspace solar panel is in this case the winner as, this was expected as it
 
 \begin{table}[t]
 	\centering
-	\caption{Charge time from solar.}
+	\caption{The average charge time harvesting ambient light during a sunny afternoon.}
 	\label{tab:solar_results}
 	\begin{tabular}{|l|l|}
 		\hline
@@ -228,12 +227,12 @@ The Azurspace solar panel is in this case the winner as, this was expected as it
 
 To create an area where the transiently-powered robots can move around with approximately constant charge times a light setup is created using wooden beams, as shown in Figure \ref{fig:light_setup}.
 Mounted in this frame are four 120\,W halogen lamps, previously determined to provide the most uniform light distribution and short charge times.
-The frame spans a area of 95$\times$66 cm and distances the lamps 30\,cm from the tabletop.
+The frame spans an area of 95$\times$66 cm and distances the lamps 30\,cm from the tabletop.
 
 \begin{figure}
 	\centering
 	\includegraphics[width=0.7\textwidth]{pics/light_setup.jpg}
-	\caption{Light setup to provide energy to the robot.}
+	\caption{A light setup is created that positions four halogen lamps 30\,cm from the table top and provides energy to the robot.}
 	\label{fig:light_setup}
 \end{figure}
 
@@ -298,7 +297,7 @@ To determine what would be more likely, undershooting or overshooting, the follo
 
 \subsubsection{Experimental setup}
 
-Tiny 6\,mm permanent magnet bipolar stepper motors from Nidec are frequently used in digital camera's~\cite{nidec_stepper_2017}.
+The motor used for this experiment is a 6\,mm permanent magnet bipolar stepper motor from Nidec~\cite{nidec_stepper_2017}.
 For this motor one rotation is equal to 20 steps i.e five times the sequence of four.
 This stepper motor is suspended and a needle glued to the motor shaft.
 The needle rotates over a round piece of paper which is divided by markings in 20 steps.%, as seen from Figure \ref{fig:step_counting}.
@@ -309,7 +308,7 @@ After rotating 20 steps the power is removed from the coils and the needle posit
 \begin{figure}
 	\centering
 	\includegraphics[width=0.7\textwidth]{pics/figure_intertia.png}
-	\caption{Stepper motor inertia result}
+	\caption{The stepper motor is likely to overshoot due to the removal of energy after the commanded 20 steps and this effect becomes more significant with increased step frequency.}
 	\label{fig:step_results}
 \end{figure}
 
@@ -325,7 +324,7 @@ After rotating 20 steps the power is removed from the coils and the needle posit
 
 Figure \ref{fig:step_results} shows the result of the experiment.
 The stepper motor on average will overshoot, i.e. will do more steps than commanded when the power is removed.
-This effect is becomes more significant with increasing step frequency.
+This effect is becomes more significant with increased step frequency, and.
 However, while this experiment only shows the effect for an unloaded motor, it is suspected that a synchronization error will also occur when a transiently-powered robot would be powered using two stepper motors in differential drive.
 After every power interrupt each motor first needs to be synchronized, which will result in the robot making a random turn if the error between the motors is not equal.
 
@@ -384,179 +383,3 @@ Alternatively a normal DC motors can be used which do not require any synchroniz
 However, this motor requires a high start current which the buck converter from the harvester, might not be able to supply.
 PWM can be used to reduce the average current consumed by the motor and a large bulk capacitor can supply short high current demand from the motors.
 Therefore the dc motor is chosen as the locomotion type used for the transiently-powered robot.
-
-\section{Transiently-powered Robot Model}
-\label{sec:pre_transient_model}
-
-In this section a simple model will be derived showing the relation between size and weight of the robot, the amount of power that is harvested and stored and how much of this can be translated into linear movement.
-
-\subsection{Modeling Assumptions}
-
-Energy is harvested from an ambient source and stored in a supercapacitor.
-To make efficient use of the energy stored in a supercapacitor a regular is required to supply a stable voltage to the connected loads.
-In this case the loads are two identical dc motors which each drive wheel. \\
-\\ \noindent
-The following assumptions will be used to model the transiently powered robot:
-\begin{itemize}
-	\item The required power by the loads is greater than the incoming power, resulting in repeated power cycling of the robot.
-	\item The amount of input power after conversion is constant due to the use of a controlled environment
-	\item Since a regulator is used, the voltage in the capacitor will never fall below the operating voltage.
-\end{itemize}
-
-%The input power Pin, will be stored in a supercapacitor with capacitance C.
-
-
-%The regulated output voltage is a lower threshold for the energy that can be used from the capacitor.
-%The upper threshold is determined by the maximum voltage rating of the supercapacitor.
-%Lowering the output voltage allows for more energy to be used from the supercapacitor, and also lowers the overall power consumption of individual components.
-%The energy stored in supercapacitor is a function of the capacitance and the threshold voltage difference, being equal to:
-
-
-
-
-
-
-
-
-% 1 Incomming power V * I which scales with solar panel size
-
-% 2 Maximum power point tracking (switchmode boost converter)
-
-% 3 Stored in non-ideal supercapacitor with capcitiy C and a parrallel resistance Rleak and series resistance (ESR, typically small but not neglectable?)
-
-% 123 determine chargetime
-
-% Buck converter losses 
-
-% Power consumed from source = Pcons = Ploss + Pweels
-
-% Power P(t)  = F * v = T x omega
-
-\subsection{Motor Dynamics}
-
-The electrical equivalent circuit of a brushed dc motor is shown in Figure \ref{fig:pre_model_dc}, where $v$ is the voltage applied to the motor, $i$ the armature current, $R$ the armature resistance, $L$ the armature inductance, $e$ the back EMF voltage, $\tau$ the torque produced by the motor, $\omega$ the angular velocity of the rotor, $J$ is the moment of inertia of the rotor, $B$ is the viscous friction coefficient of the motor bearings and $m$ the external applied torque.
-
-
-\begin{figure}[h!]
-	\centering
-	\begin{circuitikz}
-		%\draw [help lines] (-1,-2) grid (12,5);
-		
-		% electrical equivalent circuit
-		%\draw (0,0) to[V, v_=$v$] (0,3);
-		\draw (0,3) node[ocirc] {}; % ,label=left:+
-		\draw (0,3) to[R, i>^=$i$, l=$R$] (3,3);
-		\draw (3,3) to[L, l=$L$] (4,3);
-		
-		\draw (0,2.25) node {$+$};
-		\draw (0,1.5) node {$v$};
-		\draw (0,0.75) node {$-$};
-		
-		\draw (4,3) -- (5,3);
-		\draw (5,3) -- (5,2);
-		%\draw (5,1.5) node[elmech](motor){M};
-		\draw (5,1) -- (5,0);
-		
-		\draw (4.25,2.25) node {$+$};
-		\draw (4.25,1.5) node {$e$};
-		\draw (4.25,0.75) node {$-$};
-		
-		\draw (0,0) -- (5,0);
-		\draw (0,0) node[ocirc] {}; 
-		
-		% motor
-		\draw[fill=white] (4.85,0.85) rectangle (5.15,2.15);
-		\draw[fill=white] (5,1.5) ellipse (.45 and .45);
-		
-		
-		% shaft drive -> transmission
-		\draw[fill=black] (5.45,1.45) rectangle (7.0,1.55);
-		
-		% momentum arrow of drive -> transmission
-		\draw[line width=0.7pt,<-] (5.8,1) arc (-30:30:1);
-		
-		% moment of inertia
-		\draw[fill=white] (7.5,1.59)
-		ellipse (.15 and 0.4);
-		\draw[fill=white, color=white] (6.9, 1.99)
-		rectangle (8.49, 1.19);
-		\draw (6.8,1.59) ellipse (.15 and 0.4);
-		\draw (6.8,1.99) -- (7.5,1.99);
-		\draw (6.8,1.19) -- (7.5,1.19);
-		
-		% momentum arrow (left hand side of brake shoe)
-		\draw[line width=0.7pt,->] (8.05,1.1) arc (-30:30:1);
-		
-		% descriptions inside graphic
-		\draw (5.85,2.2) node {$\omega_A, M_A$};
-		\draw (7.25,1.61) node {$J$};
-		\draw (8.05,2.32) node {$M_R$};
-		
-	\end{circuitikz}
-	\caption{Brushed DC motor system model.}
-	\label{fig:pre_model_dc}
-\end{figure}
-
-\noindent
-Using Kirchhoff's voltage law the electrical dynamics of a dc motor can be described as
-\begin{equation}
-\label{eq:kirchhoff}
-v = Ri + L \dot{i} + e
-\end{equation}
-
-\noindent
-From Newton's second law follows that the mechanical dynamics of a motor can be described as
-\begin{equation}
-\label{eq:newton}
-\tau = J\dot{\omega} + B\omega + m
-\end{equation}
-
-\noindent
-The electromechanical equations state that the back EMF voltage is proportional to the angular velocity and the motor torque is proportional to the armature current
-
-\begin{equation}
-\label{eq:electomechanical}
-\begin{gathered}
-e = k_{e} \omega \\
-\tau = k_{t} i
-\end{gathered}
-\end{equation}
-
-\noindent
-where $k_{e}$ is the back emf constant of the motor and $k_{i}$ the torque constant of the motor.
-The electrical power consumed and mechanical power consumed will be equal to
-
-\begin{equation}
-\begin{gathered}
-p_{\text{e}} = vi \\
-p_{\text{m}} = \tau\omega
-\end{gathered}
-\end{equation}
-
-\noindent
-Rewriting equation \ref{eq:kirchhoff}, \ref{eq:newton} and \ref{eq:electomechanical} and appling the Lalace transa transfer function from $v$ to $\omega$ can be obtained, assuming $m$ = 0.
-
-\begin{equation}
-\frac{\Omega(s)}{V(s)} = \frac{k_{i}}{(Ls + R)(Js + B) + k_{\omega}k_{i}} 
-\end{equation}
-
-where $V(s)$ and $\Omega$ are the Lapace transformations from $v$ and $\omega$ respectively.
-
-
-\subsection{Robot Dynamics}
-The robot is modeled as a mass $m$, that is moved by two wheels with radius $r$, each connected directly to a motor.
-
-
-The rolling friction between the wheels and the surface is equal to:
-\begin{equation}
-F_{\text{k}} = \mu_{\text{k}}mg
-\end{equation}
-
-Therefore the torque applied to the motor due to rolling friction, as it is only present while the robot is moving relative to the surface and the equation becomes:
-
-\begin{equation}
-T_{\text{ext}} = rF_{\text{k}} sgn(\omega)
-\end{equation}
-
-\noindent
-The total mass is equal to the 
