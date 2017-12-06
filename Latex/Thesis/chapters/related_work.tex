@@ -1,9 +1,10 @@
 \chapter{Related Work}
 \label{chp:related_work}
 
-This chapter will provide background information about current state of the art transiently powered systems and methods that allow computation across power cycles in Section \ref{sec:rw_tp_systems} and \ref{sec:rw_comp_pc}. 
+Background information about current state of the art transiently powered systems is provided in Section \ref{sec:rw_tp_systems}.
+In Section \ref{sec:rw_comp_pc} methods that allow computation across power cycles are discussed.
 The advantages and disadvantages of different electrical storage types are compared in Section \ref{sec:rw_energy_storage}. 
-A short summary of current miniature robotics platforms is given and commonly used locomotion types are discussed in Section \ref{sec:rw_robotic_platforms} and \ref{sec:rw_locomotion}. 
+A short summary of current miniature robotics platforms is given in Section \ref{sec:rw_robotic_platforms} and commonly used locomotion types are discussed in Section \ref{sec:rw_locomotion}. 
 Finally, different methods that try to ensure continuous operation will be discussed in Section \ref{sec:rw_continous_operation}.
 
 \section{Transiently-powered Systems}
@@ -12,13 +13,14 @@ Finally, different methods that try to ensure continuous operation will be discu
 % What are transiently powered systems:
 Transiently-powered systems have evolved from the need to remove batteries, and instead harvest energy from ambient sources.
 The ambient sources available for exploration are limited by the application, and can be scarce or completely absent during prolonged time intervals of the day~\cite{konstantopoulos_im_2016}.
-A result of this is that the amount of power harvested can very significantly over time, and an energy buffer is required to grantee the ability to complete a task.
+A result of this is that the amount of power harvested can vary significantly over time, and an energy buffer is required to grantee the ability to complete a task.
 
-Fully programmable RFID platforms have been developed that explore the combination of sensing, computation and communication, while allowing battery-less operation by harvesting energy from RF~\cite{sample_transim_2008}. 
-The harvested energy is stored in a capacitor, where larger capacitors can buffer more energy and smaller capacitors have the advantage of shorter charge times~\cite{gummerson_mobisys_2010}.
-For longer, complex operations the energy budged needs to be evaluated carefully.
-To store the energy an appropriate size storage capacitor needs to be selected, as increasing the size also increases the self discharge rate of the capacitor~\cite{naderiparizi_rfid_2015}.
-However, the buffer still limits the operation time, resulting in very frequent power cycling of the system.
+Fully programmable RFID platforms have been developed that explore the combination of sensing, computation and communication, while allowing battery-less operation~\cite{sample_transim_2008}.
+These platforms are powered from the radio signal emitted by a specialized RFID reader. 
+The harvested energy is stored in a capacitor, larger capacitors can buffer more energy while smaller capacitors have the advantage of shorter charge times~\cite{gummerson_mobisys_2010}.
+For longer, complex operations the energy budget needs to be evaluated carefully.
+To store the energy, an appropriate size storage capacitor needs to be selected, since increasing the size also increases the self discharge rate of the capacitor~\cite{naderiparizi_rfid_2015}.
+The buffer still limits the operation time, resulting in very frequent power cycling of the system.
 
 \section{Computation across Power Cycles}
 \label{sec:rw_comp_pc} 
@@ -26,9 +28,11 @@ However, the buffer still limits the operation time, resulting in very frequent 
 % TODO longer introduction + add alinea
 
 To be able to execute long running-programs under the threat of power loss due to the energy buffer depletion, different methods have been developed to allow computation across power cycles.
-Programs can be automatically transformed to run under frequent loss of power by using energy-aware state checkpointing, the program state is saved in non-volatile memory before running out of energy~\cite{ransford_asplos_2011}.
+There are several methods that propose solutions to computation across power cycles.
+For example, programs can be automatically transformed to run under frequent loss of power by using energy-aware state checkpointing.
+The state of the program is saved in non-volatile memory before running out of energy~\cite{ransford_asplos_2011}.
 Another checkpointing method removes the need for special hardware or a programming model, instead it uses a compiler to add light weight non-volatile checkpoints to a program, dividing it into re-executable sections~\cite{vanderwoude_osdi_2016}.
-Other research proposes a new programming model that splits a program into tasks, where the tasks exchange data trough non-volatile input and output channels, guaranteeing consistency of the program~\cite{Colin_oopsla_2017}.
+Besides that, other research proposes a new programming model that splits a program into tasks, where the tasks exchange data trough non-volatile input and output channels, guaranteeing consistency of the program~\cite{colin_oopsla_2017}.
 
 
 \section{Energy Storage}
@@ -46,19 +50,20 @@ Other research proposes a new programming model that splits a program into tasks
 IoT devices are currently powered from one of two sources, either from batteries or supercapacitors.
 Normal capacitors are mainly used to stabilize the converted power from these sources.
 Each electrical storage technology has different properties, as seen from Table \ref{tab:cap_scap_battery}.
-For example, supercapacitors have a higher power density that allows very quick charge and discharge rates without any special charging circuitry~\cite{prasad_comst_2014}.
-Supercapacitors are more safe when abused or operating under extreme conditions, as they do not contain any toxic chemicals like batteries~\cite{maxwell_overview_2017}.
-The biggest disadvantages of super-capacitors is their low energy density and high price.
+For example, supercapacitors have a higher power density that allows for quick charge and discharge rates without any special charging circuitry~\cite{prasad_comst_2014}.
+Supercapacitors are more safe when used outside their recommended operating conditions, as they do not contain any toxic chemicals like batteries~\cite{maxwell_overview_2017}.
+The two largest disadvantages of super-capacitors are their low energy density and high price.
 
-On the other hand, batteries have a high energy density when compared to supercapacitors and in addition batteries experience a lower leakage currents.
-Overheating of batteries can severely reduce a batteries lifetime and in worst case lead to explosion, as seen back in January of this year with the Galaxy Note 7 from Samsung~\cite{samsung_note7_2017}.
-%Batteries will seldom withstand more than one thousand complete charge/discharge cycles.
-A combination of a li-ion battery and supercapacitor is proposed in~\cite{ongaro_pwre_2012}, and shows that the number of charge/discharge cycles of the battery can be reduced by a factor of four.
+On the other hand, batteries have a high energy density when compared to supercapacitors and in addition, experience a lower leakage currents.
+A downside of using batteries is that they will seldom withstand more than one thousand complete charge/discharge cycles.
+Overheating of batteries can severely reduce the lifetime of a batter or in worst case lead to explosion, which happened to the Galaxy Note 7 from Samsung in January of this year~\cite{samsung_note7_2017}.
+
+%A combination of a li-ion battery and supercapacitor is proposed in~\cite{ongaro_pwre_2012}, and shows that the number of charge/discharge cycles of the battery can be reduced by a factor of four.
 
 
 \begin{table}[t]
 	\centering
-	\caption{Comparison of capacitors, supercapacitors and batteries~\cite{Gonzalez_rser_2016}.}
+	\caption{Characteristics comparison of capacitors, supercapacitors and batteries~\cite{Gonzalez_rser_2016}. Capacitors can store less energy than batteries, but have a higher power density and a larger cycle life.}
 	\label{tab:cap_scap_battery}
 	\small
 	\begin{tabular}{|l||l|l|l|}
@@ -99,16 +104,17 @@ A combination of a li-ion battery and supercapacitor is proposed in~\cite{ongaro
 % Communication and (swarm) organization
 
 
-Reducing the size of robots has a number of benefits, first of all the cost to build a single robot is reduced.
-Low cost robots are developed to make them available for educational use, and allow children to come in contact with robotics and programming at early age~\cite{rubenstein_icra_2015}.
+Reducing the size of robots has a number of benefits.
+First of all the cost of parts to build a single robot is reduced.
+Low cost robots are, for example, developed to make them available for educational use, and allow children to come in contact with robotics and programming at early age~\cite{rubenstein_icra_2015}.
 
-On the other hand, cost and size can also be a main design considerations when developing miniature robots to research swarm behavior.
+Additionally, cost and size can also be a main design considerations when developing miniature robots to research swarm behavior.
 Keeping the cost down allows experiments with larger collectives of swarm robots that work together to achieve a single goal.
-Hardware modularity exploited to make the robot adapt its resources to different environments and sensing operations.
-By separating out power, computation, motor control and sensing a verity of capabilities can be tested~\cite{sabelhaus_icra_2013, pickem_icra_2015, kim_iros_2016}.
+Hardware modularity is exploited to make robots adapt their resources to different environments and sensing operations.
+By separating out power, computation, motor control and sensing a variety of capabilities can be tested~\cite{sabelhaus_icra_2013, pickem_icra_2015, kim_iros_2016}.
 
 In order to remotely operate and/or coordinate a collective, the robots require communication with a global host accomplished by means of active low power transceivers~\cite{sabelhaus_icra_2013, pickem_icra_2015, kim_iros_2016}. 
-While other microrobots use infrared-based communication, which is additionally used for neighbor to neighbor distance sensing~\cite{rubenstein_icra_2012}.
+Other microrobots use infrared-based communication, which is additionally used for neighbor to neighbor distance sensing~\cite{rubenstein_icra_2012}.
 Batteries power these small robots and provide roughly one to three hours of energy.
 An overview of current state of the art small robotic platforms is provided in Table \ref{tab:comparison_robot_platforms}.
 
@@ -117,17 +123,20 @@ An overview of current state of the art small robotic platforms is provided in T
 \label{sec:rw_locomotion}
 %TODO first constrain yourself to small robots
 
-Choosing the right locomotion type can depend on different factors, moving in the most energy efficient way on a particular surface is often the determining factor.
+Choosing the right locomotion type can depend on different factors.
+Moving in the most energy efficient way on a particular surface is often the determining factor.
 On a flat surface, robots commonly use a two-wheeled differential drive design to not only move but allow for steering as well~\cite{sabelhaus_icra_2013, pickem_icra_2015}.
 The motor shafts of the motors on the mROBerTO directly contact the surface, eliminating the need for wheels and simplifying the design.
 A tiny ball caster is used as a third support point in the front of the robot~\cite{kim_iros_2016}.
-The GRITSBot does not use conventional DC motors, but instead uses stepper motors the speed can be set by changing the delay between steps. 
+The GRITSBot does not use conventional DC motors, but instead uses stepper motors.
+The motors speed can be set by changing the delay between steps. 
 Estimating position is therefore reduced to simply counting steps~\cite{pickem_icra_2015}.
 
-Overall cost can be a decisive factor, therefore the Kilobot uses two vibrating motors for locomotion combined with three thin legs.
+Another decisive factor can be the overall cost.
+The Kilobot uses two vibrating motors for locomotion combined with three thin legs.
 When the motors are activated the centripetal forces will generate a forward movement, which can be explained using the slip-stick principle~\cite{rubenstein_icra_2012}.
-Other locomotion types are biologically inspired, the HARM-VP is small scale piezoelectric driven quadrupled robot.
-Each leg as two degrees of freedom, it can move up and down, as well as forward and backward~\cite{baisch_iros_2013}.
+Other locomotion types are biologically inspired, the HARM-VP is small scale piezoelectric driven quadrupled robot designed decrease manufacturing complexity and overall cost~\cite{baisch_iros_2013}.
+%Each leg as two degrees of freedom, it can move up and down, as well as forward and backward.
 
 \section{Continuous Operation}
 \label{sec:rw_continous_operation}
@@ -135,16 +144,17 @@ Each leg as two degrees of freedom, it can move up and down, as well as forward 
 %TODO add example of iros paper mobile recharging station
 Typically the operation time is extended by regularly checking the remaining energy in the battery and move to a recharging station before the robot runs out of energy~\cite{pickem_icra_2015, rubenstein_icra_2012}.
 
-As an alternative to quickly recharging, the battery can also be swapped automatically when the robot moves into the docking station~\cite{kemal_mech_2015}.
-Another work shows a robot which is able to swap it's primary battery using a six degree-of-freedom manipulator, used to grab the dead battery and plug it into a wireless recharging charging station~\cite{zhang_conel_2013}.
+An alternative to quick recharging is to swap the battery automatically when the robot moves into the docking station~\cite{kemal_mech_2015}.
+An example is a robot which is able to swap it's primary battery using a six degree-of-freedom manipulator.
+The manipulator is used to grab the dead battery and plug it into a wireless recharging charging station~\cite{zhang_conel_2013}.
 
-Using direct wireless power to replace or supplement to a batteries energy is shown in~\cite{karpelson_icra_2014}, however the robot can only operate or recharge while remaining in close proximity to a transmitter. 
-In these cases the robots are highly reliant on an infrastructure to allow for continuous autonomous operation.
-This can be a severe constraint if the robot moves out of reach or needs to operate in an area where this infrastructure is not present.
+Direct wireless power can be used as an alternative to batteries to provide power to a robot~\cite{karpelson_icra_2014}.
+However the robot can only operate or recharge while it remains in close proximity to a transmitter. 
+In this case the robot is highly reliant on an infrastructure to allow for continuous autonomous operation, and can not operate in an area where this infrastructure is not present.
  
-Persistent operation can be achieved by harvesting renewable energy, particularly solar energy to complement to the robots internal energy source. 
+Persistent operation can be achieved by harvesting renewable energy to complement to the robots internal energy source. 
 To remove weight from the robot, in~\cite{bruhwiler_iros_2015} the solar energy is used directly without any type of energy buffer. 
-A drawback of this method is that the incoming solar energy should greater or equal to the energy required for operation. 
+A drawback of this method is that the incoming solar energy should be greater or equal to the energy required for operation. 
 This approach has only been tested for basic locomotion and has not combined any form of sensing or control.
 
 % - Provide overview table robots smaller than 15*15cm
@@ -161,7 +171,7 @@ This approach has only been tested for basic locomotion and has not combined any
 	%\resizebox{\columnwidth}{!}{%
 	\rotatebox{90}{
 		\begin{threeparttable}
-			\caption{Comparison of small robotic platforms.}
+			\caption{The small robotic platforms are comparable in cost, size and weight. However, it is clear that the transiently-powered robot has tiny energy capacity, very short operation time but the ability to recharge locally.}
 			\label{tab:comparison_robot_platforms}
 	 		\begin{tabular}{|l l l l l l l l l|} 
 				\hline 

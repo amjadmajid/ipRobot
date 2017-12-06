@@ -29,7 +29,7 @@ Additionally, any new big improvements in energy density of batteries is not lik
 % And discuss current solutions to autonomus operation / battery replenishment
 
 Stable energy supplies are required to allow long term persistent operation of robots.
-Wireless sensor nodes that rely on energy harvesting have already been emerging, are highly energy constrained but fully eliminate the need for batteries~\cite{wisp5_wiki_2017}.
+Wireless sensor nodes that rely on energy harvesting have already been emerging. They are highly energy constrained but fully eliminate the need for batteries~\cite{wisp5_wiki_2017}.
 In contrary, different replenishment methods for robot batteries are currently used, robots can be moved to a charging station leaving them nonoperational, and manual recharging or battery replacement results in a high strain on maintenance.
 Therefore, relaxing the stable energy supply constraint by allowing a transient supply of harvested energy could be a potent area of research.
 
@@ -66,12 +66,12 @@ Therefore, relaxing the stable energy supply constraint by allowing a transient 
 
 Replacing a battery with an energy harvesting system could make a robot self sufficient and energy-autonomous. 
 This however introduces a new phenomenon to take into account; the intermittent availability of energy produces frequent power interrupts.
-The possibility of sudden power loss is currently not considered when developing control software for a robot, and for this reason can not be used without adaption.
+The possibility of sudden power loss is currently not considered when developing control software for a robot, and for this reason can not be used without applying methods to preserve computation across power cycles.%adaption.
 %\hfill \break
 
-Secondly, applicable sensors and/or sensing frequency may be constrained due to the limited energy budget.
+Furthermore, applicable sensors and/or sensing frequency may be constrained due to the limited energy budget.
 The largest part of the energy budget will already be consumed by the actuators that supply movement to the robot.
-Not every locomotion type currently used may reliable and/or accurate under the frequent power interruption.
+Not every locomotion type currently used may be reliable and/or accurate under the frequent power interruption.
 Therefore the research question this work addresses is:
 
 \begin{center}
@@ -101,10 +101,10 @@ The list of contributions is as follows:
 
 \section{Thesis Outline}
 
-The rest of the this is organized as follows: Chapter \ref{chp:related_work} provides background information and related work.
-The preliminaries in designing the transiently-powered robot are presented in Chapter \ref{chp:preliminaries}.
-In Chapter \ref{chp:design_and_implementation} explains the hardware design and software implementation..
-Next, the performance of the transiently powered robot will be evaluated in Chapter \ref{chp:evaluation}.
+The rest of the this is organized as follows: Chapter \ref{chp:related_work} provides background information and introduces the related work.
+The preliminaries in design of the transiently-powered robot are presented in Chapter \ref{chp:preliminaries}.
+In Chapter \ref{chp:design_and_implementation} the hardware design and software implementation are explained.
+This is followed by a performance evaluation of the transiently powered robot in Chapter \ref{chp:evaluation}.
 Finally, Chapter \ref{chp:summary} concludes this thesis and proposes potential future work.
 
 
