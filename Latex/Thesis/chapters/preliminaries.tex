@@ -18,10 +18,10 @@ This section will explain the main areas considered while designing the battery-
 	
 	\item \textbf{Small form factor}: 
 	The size and weight of the robot needs to be kept to a minimum, reducing the energy required for movement.
-	Additionally, designing the robot to use low cost off-the-shelf parts makes it convenient to build collectives of transiently-powered robots.
+	Additionally, designing the robot to use low cost off-the-shelf parts makes it convenient to build collectives of small transiently-powered robots.
 	
 	\item \textbf{Locomotion}:
-	An efficient locomotion type needs to be selected for the movement on flat surfaces, to optimize the distance that can be covered with a single capacitor charge, 
+	An efficient locomotion type needs to be selected for the movement on flat surfaces, to optimize the distance that can be covered with a single capacitor charge.
 	Movement will consume the largest amount of energy from the total available energy budget.
 
 	\item \textbf{Autonomous navigation}:
@@ -363,7 +363,7 @@ To determine the startup current of a 206-110 motor when supplied with 2.2\,V, a
 \end{figure}
 
 \subsubsection{Results}
-The measurement results for three different motors is shown in Figure \ref{fig:free_running_current}
+The measurement results for three different motors is shown in Figure \ref{fig:free_running_current}.
 The results show that the 2.2\,V supply voltage reduces the start current peak to 140\,mA.
 This is still above 110\,mA and the robot needs to power two motors in a differential drive configuration to allow steering.
 A solution is to use Pulse Width Modulation (PWM) to reduce the motor speed and average current consumed.

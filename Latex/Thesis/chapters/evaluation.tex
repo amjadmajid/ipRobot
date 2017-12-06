@@ -13,14 +13,13 @@
 
 % Video of robot movement
 
-In this section the accuracy of movement of the battery-less robot and its battery powered counterpart will be compared.
+In this section the accuracy of movement of the battery-less robot will be evaluated and compared to its battery powered equal.
 
 \subsection{Experimental setup}
 
 To be able to compare the accuracy of the robot while it is exposed to increasingly smaller power cycles, a variety of movements is recorded using a overhead camera.
-A stand with a Nikon D610 DSLR camera is positioned on a tabletop. 
-In view of the camera is shown in Figure \ref{fig:movement_setup}.
-The corners of a square of 80$\times$80\,cm are indicated with black markers.
+A stand with a Nikon D610 DSLR camera is positioned on a tabletop, as seen in Figure \ref{fig:movement_setup}.
+The corners of a square of 80$\times$80\,cm are indicated with black corner markers.
 This square is later used as a reference to convert the robots movement from pixels to cm.
 Two movements are compared, while the robot is moving straight movement of 75\,cm and a circle with radius of 30\,cm.
 
@@ -29,6 +28,7 @@ Two movements are compared, while the robot is moving straight movement of 75\,c
 	\begin{subfigure}[b]{0.45\textwidth}
 		\includegraphics[width=\textwidth]{pics/movement_setup.jpg}
 		\caption{Camera setup}
+		\label{fig:movement_setup}
 	\end{subfigure}
 	\quad
 	\begin{subfigure}[b]{0.45\textwidth}
@@ -37,7 +37,6 @@ Two movements are compared, while the robot is moving straight movement of 75\,c
 		\label{fig:movement_example}
 	\end{subfigure}
 	\caption{Experimental setup to record the robots movement.}
-	\label{fig:movement_setup}
 \end{figure}
 
 \subsubsection{Tracking the Movement}
@@ -47,6 +46,8 @@ Before the robot executes the movement a green marker is placed on top of the ro
 This marker will be the reference point that the tracking software will try to follow.
 The camera is used to record the movement which then is analyzed using Python and OpenCV 3.2.
 An example of a tracked movement can be seen in Figure \ref{fig:movement_example}.
+The red square is drawn using OpenCV and visually sized to fit the square marked by the black corner markings on the table top.
+Because the size of the square is known to be 80$\times$80\,cm, the movement coordinates can be converted from pixels to centimeter.
 
 \subsubsection{Target Duty Cycle}
 To evaluate the influence of speed each movement is executed at three different target duty cycle settings: 40\%, 65\% and 90\% of the maximum duty cycle.
@@ -67,7 +68,7 @@ With the selected capacitor of 22\,mF the robot can operate around 1 second.
 To find the minimal power interrupt period that is required to allow control the robot, it is programmed to preform a four second straight movement.
 The movement is recorded for each target duty cycle and the power interrupt periods of 0.4\,s, 0.3\,s and 0.2\,s are evaluated.
 
-The results in Figure \ref{fig:decreasing_power_period} show that for the higher duty cycle targets an interrupt period of 0.3\,s leads to significant drift to one side, and is classified as uncontrolled behavior.
+The results in Figure \ref{fig:decreasing_power_period} show that for the higher duty cycle targets an interrupt period of 0.3\,s leads to significant drift to one side, which is classified as uncontrolled behavior.
 The control loop was not able to stabilize the movement before a power interrupt occurs and the robot drifts to the side of its weakest motor.
 The duration that power is available might not be long enough for the motors to reach their steady state speed, making linear control of the motors impossible.
 Increasing the target duty cycle shows that also a higher interrupt period is required to control the movement. 
@@ -142,7 +143,7 @@ Finally, the average of five complete movement measurements is computed and divi
 Using the calibrated speeds and selected power interrupt periods, the robot is commanded to preform a straight movement of 75\,cm from position (40,0) cm within the reference frame.
 Each combination is recorded multiple times and the motion data is extracted from the video using Python and OpenCV.
 The results in Figure \ref{fig:straight_movements} show that the robot approximates the commanded 75\,cm.
-Secondly, the results show that there is a varying horizontal deviation between the start and end point.
+Additionally, the results show a varying horizontal deviation between the start and end point.
 This may be a consequence of inaccuracy in preforming the movement or more likely, an error in the start position of the robot is not positioned exactly perpendicular to the reference frame of 80$\times$80\,cm.
 Even though the robot is positioned carefully in the same start position, it is inevitable that a small error in angle can occur.
 
@@ -171,7 +172,7 @@ Even though the robot is positioned carefully in the same start position, it is 
 
 %The first metric is the length of movement, used to verify the accuracy between multiple iterations of the same calibrated speed and power interrupt combination.
 %The second metric is used to describe deviation in path between the start and endpoint.
-The robot has no reference to its surroundings to determine its absolute position and heading direction, i.e. no external feedback and therefore only relative metrics are valid.
+The robot has no reference to its surroundings to determine its absolute position and heading direction, i.e. no external feedback and therefore only relative metrics are assumed to be valid.
 For each measurement a reference line is computed between the first and last measured data point.
 The Euclidean distance between the closest measurement and the reference line is computed.
 
@@ -181,7 +182,7 @@ The results for the battery powered robot with and without artificial interrupts
 Increasing the speed does not have the same effect and no significant differences can be seen from the results.
 
 The solar powered shows less horizontal deviation when compared to the battery powered robot.
-This seems counter intuitive, however there is a suspicion that the weight and especially weight distribution has a big effect on the movement of the robot.
+This seems counter intuitive, however there is a suspicion that the additional weight of the solar panel a big effect on the movement of the robot.
 The weight of the solar panel is more than twice that of the battery, 5.2\,g and 2.1\,g respectively and is more evenly distributed over the robot.
 The robot without a battery or solar panel has a weight of 16.7\,g and therefore the weight of the solar panel can be considered significant when compared to the bare weight of the robot.
 
@@ -221,9 +222,11 @@ The robot without a battery or solar panel has a weight of 16.7\,g and therefore
 
 The robot is programmed to make a circle with radius of 30\,cm with the predetermined speed and power interrupt settings.
 The results in Figure \ref{fig:circular_movements} show that with each combination the robot is able preform the circular movement.
-However, a clear difference in circle radius can be seen for the interrupt periods, being a result of an error between the actual and calibrated speeds.
-Because the movement target is equal to an angle obtained by integrating the angular velocity, the robot sometimes overshoots its final position.
-Decreasing the power interrupt frequency increases the integration error due to frequent accelerations from zero by the robot.
+A clear difference in circle radius can be seen for each interrupt period, as a result of an error between the actual and calibrated speeds.
+The robot sometimes overshoots its final position while the robot.
+This is suspected to be a caused by an error in integration of the angular velocity to obtain an angle, which is used to determine if the movement target is reached.
+Decreasing the power interrupt frequency is suspected to increases the integration error due to frequent accelerations from zero by the robot.
+%Every time the robot starts a movement, the controller needs time to correct the robots heading.
 
 \begin{figure}[h!]
 	\centering

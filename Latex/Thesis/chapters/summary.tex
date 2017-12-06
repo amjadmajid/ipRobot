@@ -10,11 +10,13 @@ In this thesis, a transiently-powered robot is designed and implemented that use
 Two geared dc motors have been chosen to provide locomotion to the robot and their startup current peak is limited using PWM.
 A controller is designed that allows for controlled straight and curved movements, while a simple check pointing method combined with persistent movement targets allows a movement to be completed across multiple power cycles.
 Multiple movements have been executed and recorded using an overhead camera.
-Tracking software is used to verify the accuracy of movement by comparing a transiently-powered battery-free robot to its battery powered equal.
+Tracking software is used to verify the accuracy of a transiently-powered battery-free robot and compares it performance to a battery powered equivalent robot.
 By decreasing the interrupt period, a lower threshold of 0.3\,s has been found in which case the robot started to show uncontrolled behavior, i.e. significant drift to the side of the weakest motor.
 The amount of time that power is available might not be sufficient for the motors to reach their steady state speed, making controlled movements using linear motor control impossible.
 Using artificial power interrupts, the results show that decreasing the interrupt period towards the lower threshold results in increased horizontal deviation in case of straight movements.
+This is suspected to be caused by more frequent accelerations from standstill.
 For curved movements the results show a decreased average deviation from the fitted circle by increasing the target duty cycle.
+The additional speed is suspected to allow the controller to be more effective in steering the robot towards its final destination.
 The solar powered robot surprisingly outperforms the battery-powered robot in terms of movement accuracy, as the additional weight of the solar panel is suspected to have a positive effect on the movement of the robot.
 
 %Section \ref{sec:controlled_movements} shows that the transiently powered robot is able to execute an instructed motion with similar accuracy compared to a battery powered equal. 
