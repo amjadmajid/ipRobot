@@ -18,7 +18,9 @@ In this section the accuracy of movement of the battery-less robot and its batte
 \subsection{Experimental setup}
 
 To be able to compare the accuracy of the robot while it is exposed to increasingly smaller power cycles, a variety of movements is recorded using a overhead camera.
-A stand with a Nikon D610 DSLR camera is positioned on a tabletop and in the camera's view the corners of a square of 80$\times$80\,cm are indicated with a black marker, as shown in Figure \ref{fig:movement_setup}.
+A stand with a Nikon D610 DSLR camera is positioned on a tabletop. 
+In view of the camera is shown in Figure \ref{fig:movement_setup}.
+The corners of a square of 80$\times$80\,cm are indicated with black markers.
 This square is later used as a reference to convert the robots movement from pixels to cm.
 Two movements are compared, while the robot is moving straight movement of 75\,cm and a circle with radius of 30\,cm.
 
@@ -95,7 +97,7 @@ Therefore the power interrupt periods evaluated in this experiment are set to 1.
 \subsubsection{Speed Calibration}
 Another thing that can be observed from the results in Figure \ref{fig:decreasing_power_period}, is that the distance covered by the robot deceases by deceasing the target and/or power interrupt period.
 Without any sensors or external feedback that measure the robots speed, it is difficult to determine the distance that the robot has traveled.
-To have a rough speed estimate which allows the robot to stay within the camera's view, the average speed is estimated for each target duty cycle and power interrupt period combination.
+To have a rough speed estimate which allows the robot to stay within the view of the camera, the average speed is estimated for each target duty cycle and power interrupt period combination.
 This is achieved by first determining the time that the robot requires to move approximately 150\,cm for each target duty cycle without power interrupts.
 When the robot experiences power interrupts the average speed of an active period becomes lower due to frequent acceleration from a standstill.
 With power interrupts the runtime is increased to make the robot travel approximately the same distance.
@@ -105,15 +107,15 @@ Finally, the average of five complete movement measurements is computed and divi
 \begin{table}[t]
 	\centering
 	\small
-	\caption{The calibrated speeds for each target duty cycle and interrupt period combination.}
+	\caption{The calibrated speeds in centimeter per second for each target duty cycle and interrupt period combination.}
 	\label{tab:val_calib}
-	\begin{tabular}{|l|l||l|l|l|l|l|l|}
+	\begin{tabular}{|l||l|l|l|l|l|l|}
 		\hline
-		Target (\%) & & No interrupt & 1.0\,s & 0.5\,s & Solar \\
+		Target (\%) & No interrupt & 1.0\,s & 0.5\,s & Solar \\
 		\hline \hline
-		 40 & cm/s & 18.9 & 18.0 & 15.9 & 16.0\\
-	     65 & cm/s & 24.0 & 21.3 & 18.8 & 20.8\\
-		 90 & cm/s & 28.8 & 25.7 & 22.7 & 23.3 \\
+		 40 & 18.9 & 18.0 & 15.9 & 16.0\\
+	     65 & 24.0 & 21.3 & 18.8 & 20.8\\
+		 90 & 28.8 & 25.7 & 22.7 & 23.3 \\
 		\hline
 	\end{tabular}
 \end{table}
@@ -217,7 +219,7 @@ The robot without a battery or solar panel has a weight of 16.7\,g and therefore
 
 \subsection{Circular Movements}
 
-The robot is commanded make a circle with radius of 30\,cm with the predetermined speed and power interrupt settings.
+The robot is programmed to make a circle with radius of 30\,cm with the predetermined speed and power interrupt settings.
 The results in Figure \ref{fig:circular_movements} show that with each combination the robot is able preform the circular movement.
 However, a clear difference in circle radius can be seen for the interrupt periods, being a result of an error between the actual and calibrated speeds.
 Because the movement target is equal to an angle obtained by integrating the angular velocity, the robot sometimes overshoots its final position.
@@ -289,6 +291,6 @@ The Euclidean distance is computed between the reference circle and the measured
 
 \subsubsection{Circular Movement Results}
 The average deviation from the reference circle reduces when the target duty cycle is increased, as seen from Table \ref{tab:circular_results}.
-The additional speed is suspected provide a more stable movement because less interrupts are required to complete the circular movement, i.e the controller able to provide more direction.
+The additional speed is suspected provide more stability to the movement because less interrupts are required to complete the circular movement, i.e. the controller able to provide more direction.
 The solar powered robot again shows to be more stable when compared to the battery powered robot.
-Which is suspected to be a positive effect of weight and weight distribution, as explained in the results of Section \ref{eval:straight_movements}.
+Which is suspected to be a positive effect of the additional solar panel weight, as explained in the results of Section \ref{eval:straight_movements}.

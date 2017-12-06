@@ -1,13 +1,13 @@
 \chapter{Design and Implementation}
 \label{chp:design_and_implementation}
 
-In this chapter the hardware design of the transiently-powered robot is presented in Section \ref{sec:dai_hardware_design}.
+The hardware design of the transiently-powered robot is presented in Section \ref{sec:dai_hardware_design}.
 In Section \ref{sec:dai_control_design} the controller will be explained that allows the robot to preform controlled movements without external feedback.
 Finally, Section \ref{sec:dai_software_implementation} introduces the software implementation that enables the robot to execute a movement despite regular power interrupts. 
 
 \section{Hardware Design}
 \label{sec:dai_hardware_design}
-The first step was to evaluate what components are required for the robot to have basic navigation capabilities.
+The first step is to evaluate what components are required for the robot to have basic navigation capabilities. 
 Commercially available low power components have been evaluated, where the main criteria was a low minimal supply voltage of 2.0\,V allowing a system voltage of 2.2\,V.
 This section will explain each part of the robot in more detail, a complete overview of the robot is shown in Figure \ref{fig:robot_overview} and a complete assembled robot with WISP and solar panel is shown in Figure \ref{fig:robot_picture}.
 
@@ -15,7 +15,7 @@ This section will explain each part of the robot in more detail, a complete over
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=0.9\textwidth]{pics/schematic_robot_v2.png}
-	\caption{Schematic overview of the robot.}
+	\caption{Schematic overview of the transiently-powered robot.}
 	\label{fig:robot_overview}
 \end{figure}
 
@@ -35,10 +35,11 @@ The solar cells will be connected to a Texas Instruments BQ25570 energy harveste
 
 The robot is designed around a WISP 5 \cite{wisp5_wiki_2017}, a battery-free platform for low power sensing, computation and communication.
 This platform has the ability to communicate with RFID readers and is powered by the carrier signal emitted by the reader.
-However, the communication range and the power that can be harvested is limited.
-%Therefore communication is currently not implemented and a different energy source for harvesting will be used as described in Section \ref{sec:pre_energy_harvesting_storage}.
-Currently only the MCU from the WISP is being utilized: a Texas Instruments MSP430FR5969 ultra low power microcontroller.
+However, the communication range and the power that can be harvested is limited. 
+Only the MCU from the WISP is currently being utilized: a Texas Instruments MSP430FR5969 ultra low power microcontroller.
 This MCU can operate at 16\,MHz and features 64\,KB FRAM, 2\,KB SRAM and 40 IO-ports \cite{msp430fr5969_2017}.
+
+%Therefore communication is currently not implemented and a different energy source for harvesting will be used as described in Section \ref{sec:pre_energy_harvesting_storage}.
 
 \subsection{Sensing}
 \label{sec:dai_sensing}
@@ -110,7 +111,7 @@ The measurement result is provided in Table \ref{tab:avg_cur_comp}.
 \begin{table}[t]
 	\centering
 	\begin{threeparttable}
-		\caption{Average consumed current for each individual component at 2.2\,V.}
+		\caption{Average consumed current for each individual component on the PCB at 2.2\,V.}
 		\label{tab:avg_cur_comp}
 		\begin{tabular}{|l|l|} 
 			\hline
@@ -132,7 +133,7 @@ The measurement result is provided in Table \ref{tab:avg_cur_comp}.
 	\end{threeparttable}
 \end{table}
 
-\subsection{Cost}
+\subsection{Costs}
 
 By using off-the-shelf components that that are readily available allows to build multiples of this robot with ease.
 Keeping the cost down per individual is important when these robots are used in collectives.
@@ -145,7 +146,7 @@ From this table can be concluded that the cost of building a transiently powered
 
 \begin{table}[t]
 	\centering
-	\caption{Cost per robot}
+	\caption{Cost of parts for one robot}
 	\label{tab:cost_robot}
 	\begin{tabular}{|l|l|} 
 		\hline
@@ -341,7 +342,7 @@ For each movement an additional movement target needs to be defined that specifi
 
 When the control loop is instructed to execute a movement, yaw-rate set point, movement target and motor duty cycle target are set accordingly.
 A timer is enabled running at a frequency of a 100\,Hz, is used to periodically call an interrupt service routine (ISR) and execute the control loop.
-Using a interrupt has the benefit of a constant sample time, which simplifies the PID loop because the integration and differentiation time are also constant and known in advance.
+Using a ISR has the benefit of a constant sample time, which simplifies the PID loop because the integration and differentiation time are also constant and known in advance.
 If the ISR is triggered, first a yaw-rate sample is requested from the gyroscope.
 Then based on the current movement, an evaluation is preformed to determine if the movement target is reached.
 If this is not the case then the yaw-rate supplied to the PID controller to produce an output, which in turn updates the motor values.
@@ -349,8 +350,7 @@ The output is subtracted from the left motor value and added to the right motor 
 
 \subsubsection{Movement target}
 
-For straight movements the movement target is equal to a predetermined time, i.e. number of control loop timer trigger events.
-On the other hand, curved movements use an angle as the movement target.
+For straight movements the movement target is equal to a predetermined time, i.e. number of control loop timer trigger events, while curved movements use an angle as the movement target.
 By integrating the angular velocity an angle estimate is obtained, which is used to verify if the provided angle movement target is reached within a margin of two degrees.
 The loop will exit automatically when the required movement target is reached.
 

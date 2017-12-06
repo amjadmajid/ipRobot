@@ -358,7 +358,7 @@ To determine the startup current of a 206-110 motor when supplied with 2.2\,V, a
 \begin{figure}%[h!]
 	\centering
 	\includegraphics[width=0.7\textwidth]{pics/free_running_current.png}
-	\caption{Current profile of the evaluated dc motors.}
+	\caption{The free-running current profile of the evaluated dc motors. Dc motors have a startup current peak significantly higher that their steady state current.}
 	\label{fig:free_running_current}
 \end{figure}
 
@@ -374,11 +374,11 @@ However the PWM duty cycle will be limited to a maximum of $100/(2*140/110) \app
 \subsection{Conclusion}
 Stepper motor have a lower efficiency than normal dc motors because a constant current consumed independent of the rotational speed.
 The only way the rotor and stator retain alignment is by keeping the stepper motor coil energized.
-Very frequent power interrupts could lead to loss of synchronization between the energized coil and position of the rotor as a result of rotor inertia.
+Frequent power interrupts could lead to loss of synchronization between the energized coil and position of the rotor as a result of rotor inertia.
 The error due to inertia becomes more significant with increase rotational speed.
 Loss of synchronization can result in random behavior of a differential drive robot, as one stepper motor may require a different amount of steps before synchronization than the other.
 
 Alternatively a normal DC motors can be used which do not require any synchronization.
 However, this motor requires a high start current which the buck converter from the harvester, might not be able to supply.
 PWM can be used to reduce the average current consumed by the motor and a large bulk capacitor can supply short high current demand from the motors.
-Therefore the dc motor is chosen as the locomotion type used for the transiently-powered robot.
+Therefore, the dc motor is chosen as the locomotion type used for the transiently-powered robot.

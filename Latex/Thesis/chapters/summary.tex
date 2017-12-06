@@ -7,15 +7,15 @@
 \label{sec:conclusion}
 
 In this thesis, a transiently-powered robot is designed and implemented that uses light as a source of energy.
-Two geared dc motors have been chosen to provide locomotion to the robot, while the motor startup current peak is limited using PWM.
-A controller is designed that allows controlled straight and curved movements, while a simple check pointing method combined with persistent movement targets allows a movement to be completed across multiple power cycles.
-Multiple movements have been executed and recorded using a overhead camera.
-Tracking software is used to verify the the accuracy of movement by comparing a transiently-powered robot to its battery powered equal.
-By decreasing the interrupt period a lower threshold of 0.3\,s has been found where the robot started to show uncontrolled behavior, i.e. significant drift to the side of the weakest motor.
+Two geared dc motors have been chosen to provide locomotion to the robot and their startup current peak is limited using PWM.
+A controller is designed that allows for controlled straight and curved movements, while a simple check pointing method combined with persistent movement targets allows a movement to be completed across multiple power cycles.
+Multiple movements have been executed and recorded using an overhead camera.
+Tracking software is used to verify the accuracy of movement by comparing a transiently-powered battery-free robot to its battery powered equal.
+By decreasing the interrupt period, a lower threshold of 0.3\,s has been found in which case the robot started to show uncontrolled behavior, i.e. significant drift to the side of the weakest motor.
 The amount of time that power is available might not be sufficient for the motors to reach their steady state speed, making controlled movements using linear motor control impossible.
-Using artificial power interrupts, the results show that decreasing the interrupt period towards the lower threshold results in more horizontal deviation in case of straight movements.
+Using artificial power interrupts, the results show that decreasing the interrupt period towards the lower threshold results in increased horizontal deviation in case of straight movements.
 For curved movements the results show a decreased average deviation from the fitted circle by increasing the target duty cycle.
-The solar powered robot surprisingly outperforms the battery-powered robot in terms of movement accuracy, as the additional weight and weight distribution of the solar panel is suspected to have a positive effect on the movement of the robot.
+The solar powered robot surprisingly outperforms the battery-powered robot in terms of movement accuracy, as the additional weight of the solar panel is suspected to have a positive effect on the movement of the robot.
 
 %Section \ref{sec:controlled_movements} shows that the transiently powered robot is able to execute an instructed motion with similar accuracy compared to a battery powered equal. 
 %The distance covered by a robot with frequent power interrupts in a certain amount of time is smaller, i.e the average speed is lower due to frequent acceleration from a standstill.
@@ -23,34 +23,35 @@ The solar powered robot surprisingly outperforms the battery-powered robot in te
 \section{Future Work}
 \label{sec:limitations_future_work}
 
-The capabilities of the current robot are limited, but are easy to extend by using more features from the WISP or by design of a custom alternative.
+The capabilities of the current robot are limited, but are easy to extend by using more features from the WISP or by designing a custom alternative.
 Additional features that could be implemented in feature work are:
 
 \begin{itemize}
 
-\item \textbf{Speed feedback} 
+\item \textbf{Speed feedback}: 
 In order to move a certain distance with a higher accuracy, an energy efficient speed feedback method is required.
-One option is to add local speed sensing or external position feedback could be supplied to the robot.
+One option is to add local speed sensing or another option is to supply external position feedback to the robot.
 
 %One option could be to determine motor speed by measuring the Back-EMF produced by the motor, as it is proportional to the motors revolutions per minute~\cite{precision_backemf_2017}.
 %Another method could use wheel encoders without an active light source and instead use ambient light, already available in abundance because it is used as the source of energy.
 
-\item \textbf{Lack of communication}
-At this moment communication with an external host is not implemented.
+\item \textbf{Lack of communication}: 
+Communication with an external host is not implemented.
 The energy efficient backscatter communication channel of the WISP could be used.
-While power cycles are less frequent when compared to the RFID, due to relative big supercapacitor, they still pose a challenge in externally controlling the robot.
+Even though power cycles will occur less frequent when compared to the RFID, due to relative large supercapacitor, they still pose a challenge in externally controlling the robot.
 
-\item \textbf{Transiently-powered swarm}
-With an working communication channel, a new promising area of research could be to create a swarm of transiently powered robots, investigate the effect of intermittentcy on the behavior and controllability of this type of swarm.
-This research could further investigate the portability of existing swarm algorithms, and if not possible propose new solutions.	
+\item \textbf{Transiently-powered swarm}: 
+With a working communication channel, a new promising area of research is to create a swarm of transiently powered robots.
+The effect of intermittentcy on the behavior and controllability of this type of swarm needs to be investigated.
+This research could further investigate the portability of existing swarm algorithms or propose new solutions.	
 
-\item \textbf{Size reduction} 
-In order to further significantly reduce the weight of a robot there is a need to move away from DC-motors, as significant smaller and efficient DC-motors are not available.
+\item \textbf{Size reduction}: 
+In order to further significantly reduce the weight of a robot there is a need to move away from DC-motors, since significant smaller and efficient DC-motors are not available.
 %Alternative legged locomotion types have been discussed in Section \ref{sec:rw_locomotion}.
-Micro size legged robots that make use of piezoelectric actuators seem promising, but most are still in an early stage of development.
+Miniature legged robots that make use of piezoelectric actuators seem promising, but most of them are still in an early stage of development.
 
-\item \textbf{Sensing capabilities}
-Depending on future research or applications additional sensors could be added to the robot to extend its capabilities.
+\item \textbf{Sensing capabilities}: 
+Additional sensors could be added to the robot to extend its capabilities, depending on future applications.
 However, the power consumption, frequency of use and the accuracy trade off needs to be evaluated carefully while the energy budget is limited.
 
 
