@@ -59,7 +59,7 @@ def plot_raw_data(data_list):
 
     if movement == 1:
         plt.figure(figsize=(5, 5))
-    elif movement == 3:
+    elif movement == 4:
         plt.figure(figsize=(3, 5))
         plt.subplots_adjust(left=0.2)
     for dlist in data_list:
@@ -81,7 +81,9 @@ def plot_raw_data(data_list):
     plt.ylabel('y distance in cm', fontsize=12)
     plt.xticks(fontsize=12)
     plt.yticks(fontsize=12)
-    plt.axes().set_aspect('equal', 'datalim')
+    if movement == 4:
+        plt.xlim(xmin=20, xmax=80)  # adjust the max leaving min unchanged
+    #plt.axes().set_aspect('equal', 'datalim')
     # remove duplicate labels
     handles, labels = plt.gca().get_legend_handles_labels()
     by_label = OrderedDict(zip(labels, handles))

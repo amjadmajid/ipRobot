@@ -34,7 +34,7 @@ The solar cells are connected to a Texas Instruments BQ25570 energy harvester~\c
 \subsection{Computation}
 \label{sec:dai_computation}
 
-The robot is designed around a WISP 5 \cite{wisp5_wiki_2017}, a battery-free platform for low power sensing, computation and communication.
+The robot is designed around a WISP5 \cite{wisp5_wiki_2017}, a battery-free platform for low power sensing, computation and communication.
 This platform has the ability to communicate with RFID readers and is powered by the carrier signal emitted by the reader.
 However, the communication range and the power that can be harvested is limited. 
 Only the MCU from the WISP is currently being utilized: a Texas Instruments MSP430FR5969 ultra low power microcontroller.
@@ -46,7 +46,7 @@ This MCU can operate at 16\,MHz and features 64\,KB FRAM, 2\,KB SRAM and 40 IO-p
 \label{sec:dai_sensing}
 
 The robot has access to basic sensors which can be interfaced trough I2C.
-For detecting obstacles in front of the robot, a Maxim Integrated MAX44000 proximity sensor~\cite{max44000_2017} was added of the robot facing forward.
+For detecting obstacles in front of the robot, a Maxim Integrated MAX44000 proximity sensor~\cite{max44000_2017} was added to the robot facing forward.
 The sensor switches an IR led at high frequency to reduce the power consumption.
 Because the sensor is based around a photo-diode it can be used to measure the amount of ambient light as well.
 To allow for local motion feedback, the robot has a Bosch Sensortec BMG250~\cite{bosch_bmg250_2017} low power triaxial gyroscope to measure yaw-rate.
@@ -101,11 +101,11 @@ All the large components are mounted externally: the solar panel, WISP and the m
 
 \subsection{Energy Expenditure}
 
-The average current consumption by each component was measured with a Monsoon Power Monitor~\cite{monsoon_powermonitor_2017}.
+The average current consumption by each component is measured with a Monsoon Power Monitor~\cite{monsoon_powermonitor_2017}.
 The measurement is performed as follows: first a two second current trace was recorded of the current consumed by the MCU on the WISP.
 The MCU was then used to enable each component individually, followed by a two second current measurement with the enabled component.
 The average of each current trace is calculated, and the current consumed by the microcontroller subtracted from the current consumed by each component.
-The measurement result is provided in Table \ref{tab:avg_cur_comp}.
+The measurements results are provided in Table \ref{tab:avg_cur_comp}.
 
 % Make a overview of the cost to build a robot
 
@@ -172,17 +172,16 @@ From this table can be concluded that the cost of building a transiently powered
 
 \section{Motion Control Design}
 \label{sec:dai_control_design}
-In order for the robot to make controlled movements, it needs to have a local feedback method to be able to 
-
-The buck converter supplies a constant voltage to the motors, which eliminates voltage as a factor in determining the motor speed.
-By making the assumption that the robot only travels on a flat surfaces, the steady state speed is considered ``constant" given a target PWM duty cycle.
+In order for the robot to make controlled movements, it needs to have a local heading feedback method to be able to preform controlled movements.
+Since the buck converter supplies a constant voltage to the motors, voltage is eliminated as a factor in determining the motor speed.
+By making the assumption that the robot only travels on a flat surfaces, the steady state speed is considered ``constant".
 
 \subsection{PWM Frequency for Linear Motion Control}
 \label{sec:cd_pwm_frequency}
 
 PWM is used to control the speed of the motors, as briefly addressed in Section \ref{sec:pre_dc_motor_locomotion}.
 The maximum frequency that still allows linear speed control is dependent on the electrical characteristics of the motor.
-When the motor is at rest, its equivalent circuit consists of a resistance and inductance in series.
+When the motor is at rest, its equivalent circuit consists of a resistance (R) and inductance (L) in series.
 If a voltage is applied to the motor, the rate at which the current rises is limited by the inductance. 
 All RL circuits have a time constant: $\tau = L / R$ and the current is considered to have reached its maximum steady state at $5\tau$~\cite{pmw_linear_motion_2017}. 
 The motors used for the robot have a typical resistance of R = 14.5\,$\Omega$ and an inductance of L = 70\,$\mu$H~\cite{gearmotor_206-110_2017}.
@@ -241,7 +240,7 @@ The maximum duty cycle values are all below the calculated free running maximum 
 Open loop movement using calibrated motor values has been used in previous work \cite{legoc_uist_2016}, but it can be time consuming.
 Furthermore, any small disturbance can throw the robot off course.
 Controlled movements can be achieved by using closed loop feedback, where the heading is used to update the motor control values.
-The robots relative change in heading can be obtained from the gyroscope and corresponds to the yaw-rate.
+The robots relative change in heading, i.e. horizontal angular velocity, can be obtained from the gyroscope and corresponds to the yaw-rate.
 
 \subsubsection{PID Controller}
 
@@ -313,17 +312,17 @@ Figure \ref{fig:gain_tuning} shows how the oscillations are removed by setting t
 The tuning process was speeded up by setting the minimum motor duty cycle as it made the robot a lot more responsive, as described in Section \ref{sec:cd_pwm_frequency}.
 
 \begin{figure}
-	\begin{subfigure}[b]{0.49\textwidth}
+	\begin{subfigure}[b]{0.5\textwidth}
 		\includegraphics[width=\textwidth]{pics/straight_ku.png}
 		\caption{Determining the ultimate gain}
 		\label{fig:ultimate_gain}
 	\end{subfigure}
-	\begin{subfigure}[b]{0.49\textwidth}
+	\begin{subfigure}[b]{0.5\textwidth}
 		\includegraphics[width=\textwidth]{pics/straight_ku_with_tu.png}
-		\caption{Determining the ultimate period}
+		\caption{Result of applying the gains}
 		\label{fig:gain_tuning}
 	\end{subfigure}
-	\caption{Tuning the PID controller using the ultimate gain method, first the ultimate gain is determined to be equal to 0.13. Then the ultimate period is determined equal to 0.2 and using Table \ref{tab:gain_chart} the tunable gains are determined.}
+	\caption{Tuning the PID controller using the closed loop Ziegler-Nichols method, first the ultimate gain is determined to be equal to 0.13. Then the ultimate period is determined equal to 0.2 and using Table \ref{tab:gain_chart} the tunable gains are determined.}
 \end{figure}
 
 %\subsubsection{Controlled turns}
