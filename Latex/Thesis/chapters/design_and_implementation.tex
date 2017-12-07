@@ -2,14 +2,14 @@
 \label{chp:design_and_implementation}
 
 The hardware design of the transiently-powered robot is presented in Section \ref{sec:dai_hardware_design}.
-In Section \ref{sec:dai_control_design} the controller will be explained that allows the robot to perform controlled movements without external feedback.
+In Section \ref{sec:dai_control_design} the controller is explained that allows the robot to perform controlled movements without external feedback.
 Finally, Section \ref{sec:dai_software_implementation} introduces the software implementation that enables the robot to execute a movement despite regular power interrupts. 
 
 \section{Hardware Design}
 \label{sec:dai_hardware_design}
 The first step in the hardware design is to evaluate what components are required for the robot to have basic navigation capabilities. 
 Commercially available low power components have been evaluated, where the main criteria was a low minimal supply voltage of 2.0\,V to function with a system voltage of 2.2\,V.
-This section will explain each part of the robot in more detail.
+In this section each part of the robot is explained in more detail.
 A complete overview of the robot is shown in Figure \ref{fig:robot_overview} and a complete assembled robot with WISP and solar panel is shown in Figure \ref{fig:robot_picture}.
 
 \vspace{1em}
@@ -29,7 +29,7 @@ A complete overview of the robot is shown in Figure \ref{fig:robot_overview} and
 
 \subsection{Energy Harvesting and Storage}
 Energy is harvested from light using two IXYS SLMD121H04L-ND solar cells~\cite{ixolar_slmd121h04l_2017} in parallel, as determined in Section \ref{sec:pre_energy_source_selection}.
-The solar cells will be connected to a Texas Instruments BQ25570 energy harvester~\cite{bq25570_2017} which stores the harvested energy in a 22\,mF - 4.5\,V supercapactor from AVX~\cite{avx_bestcap_2017}.
+The solar cells are connected to a Texas Instruments BQ25570 energy harvester~\cite{bq25570_2017} which stores the harvested energy in a 22\,mF - 4.5\,V supercapactor from AVX~\cite{avx_bestcap_2017}.
 
 \subsection{Computation}
 \label{sec:dai_computation}
@@ -40,7 +40,7 @@ However, the communication range and the power that can be harvested is limited.
 Only the MCU from the WISP is currently being utilized: a Texas Instruments MSP430FR5969 ultra low power microcontroller.
 This MCU can operate at 16\,MHz and features 64\,KB FRAM, 2\,KB SRAM and 40 IO-ports \cite{msp430fr5969_2017}.
 
-%Therefore communication is currently not implemented and a different energy source for harvesting will be used as described in Section \ref{sec:pre_energy_harvesting_storage}.
+%Therefore communication is currently not implemented and a different energy source for harvesting is used as described in Section \ref{sec:pre_energy_harvesting_storage}.
 
 \subsection{Sensing}
 \label{sec:dai_sensing}
@@ -174,10 +174,8 @@ From this table can be concluded that the cost of building a transiently powered
 \label{sec:dai_control_design}
 In order for the robot to make controlled movements, it needs to have a local feedback method to be able to 
 
-%When the motors are powered from the battery the supplied voltages drops while energy is consumed for the battery.
-%Since the speed of the motor is dependent on the supply voltage the speed of the motor will also decrease while energy is consumed from the battery.
 The buck converter supplies a constant voltage to the motors, which eliminates voltage as a factor in determining the motor speed.
-By making the assumption that the robot will only travel on a flat surface, the steady state speed is considered ``constant" given a target PWM duty cycle.
+By making the assumption that the robot only travels on a flat surfaces, the steady state speed is considered ``constant" given a target PWM duty cycle.
 
 \subsection{PWM Frequency for Linear Motion Control}
 \label{sec:cd_pwm_frequency}
@@ -226,7 +224,7 @@ Each motor is physically different and the friction in the gearbox can variate a
 Since the robot uses two motors in differential drive configuration, a minimum duty cycle has to be found for each motor.
 This is accomplished by setting a duty cycle at which both motors are rotating and slowly backing it down until one or both motors stop turning, the minimum duty cycle for each motor can be seen in Table \ref{tab:duty_cycle}.
 The minimum duty cycle, allowing each wheel to rotate, is stored as a calibration value.
-If each motor is supplied their minimum duty cycle does not imply that the motors will rotate at the same speed, i.e. that the robot makes a straight movement.
+If each motor is supplied their minimum duty cycle does not imply that the motors rotate at the same speed, i.e. that the robot makes a straight movement.
 
 \subsubsection{Maximum Duty Cycle}
 
@@ -241,7 +239,7 @@ The maximum duty cycle values are all below the calculated free running maximum 
 
 %The robot uses two physically different motors in differential drive configuration which are mounted in a non-symmetrical way.
 Open loop movement using calibrated motor values has been used in previous work \cite{legoc_uist_2016}, but it can be time consuming.
-Furthermore, any small disturbance will throw the robot off course.
+Furthermore, any small disturbance can throw the robot off course.
 Controlled movements can be achieved by using closed loop feedback, where the heading is used to update the motor control values.
 The robots relative change in heading can be obtained from the gyroscope and corresponds to the yaw-rate.
 
@@ -253,7 +251,7 @@ The robots relative change in heading can be obtained from the gyroscope and cor
 
 Closed loop feedback is achieved by use of a Proportional Integral Derivative (PID) controller.
 The input of the PID controller is the yaw-rate from the gyroscope.
-The controller will periodically try to reduce the yaw error as
+The controller periodically tries to reduce the yaw error as
 
 \begin{equation}
 	e(t) = \psi_{\text{target}} - \psi(t),
@@ -269,11 +267,11 @@ u(t) = K_{\text{p}}e(t) + K_{\text{i}} \int_{0}^{t}e(\tau)d\tau + K_{\text{d}}\f
 
 \noindent
 where $K_{p}$, $K_{i}$ and $K_{d}$ are the tunable gains from the PID controller.
-Using the gains, the controller will continuously adjust the motor speed in order to reduce the error to zero.
+Using the gains, the controller is continuously adjusting the motor speed in order to reduce the error to zero.
 
 \subsubsection{Controlled movements}
 
-The robot will be able to execute two distinct movement: straight and curved movements.
+The robot is able to execute two distinct movement: straight and curved movements.
 When the robot executes a controlled straight movement, any movement perpendicular to the robots heading direction is undesired.
 The yaw-rate target is set to zero, forcing the PID controller to keep the robot straight.
 For curved movements however, a desired yaw-rate set point needs to be specified.
@@ -333,7 +331,7 @@ The tuning process was speeded up by setting the minimum motor duty cycle as it 
 %The control loop for controlled turning uses the angle, which is obtained by integrating the yaw-rate sensor data from the gyroscope.
 %A P controller is used to rotate the robot to the desired angle, the proportional gain is directly influencing turn speed of the robot.
 %The motor control values are set to run the motors opposite directions and are equal to the output of the P controller.
-%These values will keep decreasing until the robot rotates to the desired angle.
+%These values keep decreasing until the robot rotates to the desired angle.
 
 
 \section{Software Implementation}
@@ -359,7 +357,7 @@ The output is subtracted from the left motor value and added to the right motor 
 For straight movements the movement target is equal to a predetermined time, i.e. number of control loop timer trigger events.
 Curved movements use an angle movement target.
 By integrating the angular velocity an angle estimate is obtained, which is used to verify if the provided angle movement target is reached within a margin of two degrees.
-The loop will exit automatically when the required movement target is reached.
+The loop exits automatically when the required movement target is reached.
 
 \subsection{Motor Control}
 % -Write how the pwm control signals are generated for the H-bridge.
@@ -372,7 +370,7 @@ The minimum duty cycle value is added to each motor value and is bounded by the 
 When the timer reaches a value that corresponds to a value one of the compare registers the connected port is toggled automatically.
 
 %\subsection{Controlled Turns}
-%The set point is assumed to be reached when the angle is within two degrees of the target, in this case the loop will stop automatically.
+%The set point is assumed to be reached when the angle is within two degrees of the target, in this case the loop stops automatically.
 %To allow enough precision to measure if the target is within these two degrees, the timer which executes the control loop was set to run at 100\,Hz.
 %Secondly, the proportional gain should not be set to low because the robot might not able to reach the target but also not to high as it can overshoot the target.
 

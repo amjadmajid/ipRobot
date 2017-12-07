@@ -13,7 +13,7 @@
 
 % Video of robot movement
 
-In this section the accuracy of movement of the battery-less robot will be evaluated and compared to its battery powered comparable.
+In this section the accuracy of movement of the battery-less robot is evaluated and compared to its battery powered comparable.
 
 \subsection{Experimental setup}
 
@@ -51,8 +51,8 @@ Because the size of the square is known to be 80$\times$80\,cm, the movement coo
 
 \subsubsection{Target Duty Cycle}
 To evaluate the influence of speed on the movement accuracy, each movement is executed at three different target duty cycle settings: 40\%, 65\% and 90\% of the maximum duty cycle.
-The highest setting is chosen to be equal to 90\% because it allows the PID controller to also increase the target duty cycle.
-While if the target duty cycle is set to a 100\% the controller will only be able to decrease the speed of the faster motor because the maximum motor speed is bounded at a 100\%.
+The highest setting is chosen to be equal to 90\,\% because it allows the PID controller to also increase the target duty cycle.
+If the target duty cycle is set to a 100\,\% the controller is only able to decrease the speed of the faster rotating motor because the maximum motor speed is bounded at a 100\,\%.
 
 
 \subsubsection{Power Interrupts}
@@ -60,7 +60,7 @@ While if the target duty cycle is set to a 100\% the controller will only be abl
 The power cycle period is determined by the energy stored in the capacitor and the power consumed by the robot for movement.
 To evaluate different power cycle periods, besides the one created with the 22\,mF supercapacitor, additional power interrupts are generated artificially.
 The power interrupts, i.e. the capacitor running out of energy, are created artificially using a timer that resets the MCU.
-If the interrupts are generated artificially, the robot will be powered from a battery.
+If the interrupts are generated artificially, the robot is powered from a battery.
 The MSP430FR5969 has the functionality to enable a brownout reset through software, which is used to simulate the event of the supply voltage dropping below the required operating voltage~\cite{msp430fr_family_guide_2017}.
 A timer is used to generate the power interrupt after a predefined period.
 
@@ -259,8 +259,8 @@ Decreasing the power interrupt frequency is suspected to increases the integrati
 
 \subsubsection{Movement Accuracy Metrics}
 
-%The length of the movement will be determined by summing the distance between points in the measurement data.
-% two different metrics will be used.
+%The length of the movement is determined by summing the distance between points in the measurement data.
+% two different metrics are used.
 To determine the accuracy of the circular movement, a circle with varying radius is visually fitted to data of each movement.
 The radius is different because calibrated speed varies with each target duty cycle and interrupt period.
 The Euclidean distance is computed between the reference circle and the measured circular movements.

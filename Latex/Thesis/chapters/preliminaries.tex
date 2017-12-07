@@ -34,12 +34,12 @@ This section explains the main areas considered while designing the battery-less
 % Wispcam requires approx 4 seconds to harvest 20mJ at a distance of 20cm from the reader \cite{naderiparizi_rfid_2015}
 % better to only use RF for communication and harvest energy from another source \cite{konstantioulos}
 
-In this section two sources for the harvesting of ambient energy will be evaluated: radio signals and solar.
+In this section two sources for the harvesting of ambient energy are evaluated: radio signals and solar.
 The charge times are measured for a variety of distances from the selected sources.
 
 \subsection{}
 
-The average input power will be determined as
+The average input power is defined as
 
 \begin{equation}
 	P_{\text{in}} = \frac{E_{\text{cap}}}{t_{\text{charge}}},
@@ -81,7 +81,7 @@ The buck converter of the energy harvester is automatically enabled when the max
 A load is connected to the output of the buck converter to quickly drain the energy from the capacitor.
 In this case load is chosen such that the power consumed by the load $P_{\text{load}} \gg P_{\text{in}}$.
 By connecting a Saleae logic analyzer~\cite{saleae_2017} to the output of the buck converter, the period of the power cycles can be recorded.
-The time that the output of the buck converter is disabled will be equal to the time to charge the capacitor from the minimum to the maximum threshold.
+The time that the output of the buck converter is disabled is equal to the time to charge the capacitor from the minimum to the maximum threshold.
 
 \subsection{Energy Harvesting from radio signals}
 
@@ -289,7 +289,7 @@ However, the motor speed is inversely proportional to the output torque of the m
 
 \subsubsection{Control and Rotor Synchronization}
 
-The only way to guarantee that the teeth on the rotor will stay aligned with the coil, is to keep the coil energized until the next position is instructed and the succeeding coil is energized. 
+The only way to guarantee that the teeth on the rotor stay aligned with the coil, is to keep the coil energized until the next position is instructed and the succeeding coil is energized. 
 On the first startup the rotor may not be aligned with the last position in the sequence of four.
 As a result an error between one and three steps can occur before the energized coil and rotor are synchronized.
 
@@ -323,25 +323,25 @@ After rotating 20 steps the power is removed from the coils and the needle posit
 \subsubsection{Stepper Motor Inertia Result}
 
 Figure \ref{fig:step_results} shows the result of the experiment.
-The stepper motor on average will overshoot, i.e. will do more steps than commanded when the power is removed.
+The stepper motor on average overshoots, i.e. does more steps than commanded when the power is removed.
 This effect becomes more significant with increased step frequency.
-While this experiment only shows the effect for an unloaded motor, it is suspected that a synchronization error will also occur when a transiently-powered robot would be powered using two stepper motors in differential drive.
-After every power interrupt each motor first needs to be synchronized, which will result in the robot making a random turn if the error between the motors is not equal.
+While this experiment only shows the effect for an unloaded motor, it is likely that a synchronization error also occurs when a transiently-powered robot would be powered using two stepper motors in differential drive.
+After every power interrupt each motor first needs to be synchronized, resulting in the robot making a random turn if the error between the motors is not equal.
 
 \subsection{DC Motor locomotion}
 \label{sec:pre_dc_motor_locomotion}
 Small dc motors are commonly selected to provide locomotion for small robotic platforms as seen from Table \ref{tab:comparison_robot_platforms}.
-In this section the DC motor will be evaluated as the locomotion type for the transiently-powered robot.
+In this section the DC motor is evaluated as the locomotion type for the transiently-powered robot.
 
 \subsubsection{Operation of a DC Motor}
 
 When voltage is applied to the motor, current rises as quickly as the inductance in the motor windings allows.
 DC motors produce an initial startup peak because the back electromotive force (back EMF) is initially zero.
 The current reaches a maximum when the rotor starts to rotate and a back EMF is generated.
-The back EMF will further increase while the motor accelerates to its steady state speed, and the speed is limited by the voltage supplied.
+The back EMF increases further while the motor accelerates to its steady state speed, and the speed is limited by the voltage supplied.
 
 If a load is applied to the DC motor, the current consumed by the motor is increased because current is proportional to the torque applied to the motor.
-Additionally, the angular velocity of the motor will decrease while the torque is inversely proportional to the angular velocity of the motor.
+Additionally, the angular velocity of the motor decreases while the torque is inversely proportional to the angular velocity of the motor.
 
 \subsubsection{Evaluation of the Start Current Peak}
 The DC motors used for robots are normally powered directly from the battery since linear or switch-mode power regulators are not able to supply the high start currents.
@@ -350,7 +350,7 @@ However, the use of a supercapacitor requires a regulator to make efficient use 
 The switch-mode regulator that is part of the BQ25570 energy harvester is only able to supply a peak output current of 110\,mA~\cite{bq25570_2017}.
 
 %To evaluate the magnitude of the current peak, the free running current profile of 
-The 206-11 DC motor from Precision Microdrives~\cite{gearmotor_206-110_2017} is the selected motor that will be evaluated.
+The 206-11 DC motor from Precision Microdrives~\cite{gearmotor_206-110_2017} is the selected to be evaluated.
 From the datasheet a typical start current of 185\,mA can be found for its rated operating voltage of 3\,V.
 However, the system voltage chosen for transiently-powered robot is 2.2\,V.
 To determine the startup current of a 206-110 motor when supplied with 2.2\,V, a two second current trace is recorded using a Monsoon Power Monitor~\cite{monsoon_powermonitor_2017}.
@@ -369,7 +369,7 @@ The results show that the 2.2\,V supply voltage reduces the start current peak t
 This is still above 110\,mA and the robot needs to power two motors in a differential drive configuration to allow steering.
 A solution is to use Pulse Width Modulation (PWM) to reduce the motor speed and average current consumed.
 Combining PWM with a large bulk capacitor should enable the buck converter to start the motors.
-However the PWM duty cycle will be limited to a maximum of $100/(2*140/110) \approx 39\%$, and will be further reduced by the load applied to the motors as a result of the robots own weight.
+However, the PWM duty cycle is limited to a maximum of $100/(2*140/110) \approx 39\%$, and is further reduced by the load applied to the motors as a result of the robots own weight.
 
 
 \subsection{Conclusion}
