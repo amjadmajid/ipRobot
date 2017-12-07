@@ -295,7 +295,7 @@ Tuning can be done by a trail and error approach, but a faster way of tuning is 
 
 The method evaluates the amplitude and frequency of observed oscillations in the system by adjusting the tunable gains.
 Initially, the integral gain and the derivative gain, $K_{\text{i}}$ and $K_{\text{d}}$ respectively, are set to zero.
-Then, the proportional gain $K_{p}$ is increased from zero until stable and constant oscillation occurs, which corresponds to the ultimate gain $K_{\text{u}}$.
+Then, the proportional gain $K_{p}$ is increased from zero until sustained oscillation occurs, which corresponds to the ultimate gain $K_{\text{u}}$.
 The ultimate period $T_{\text{u}}$ is equal to the corresponding period and should be measured at zero crossings of the oscillation.
 The found ultimate gain and period can be used to determine the PID gains using Table \ref{tab:gain_chart}.
 
@@ -305,7 +305,7 @@ To find the ultimate gain and period, a robot is programmed to execute a two sec
 The yaw-rate data is stored in non-volatile memory in order to retrieve it using a programmer, after the robot has performed the movement.
 In Figure \ref{fig:ultimate_gain} two second yaw-rate measurement traces are shown for several proportional gains.
 With a proportional gain of 0.13 the robot shows roughly constant oscillation.
-On the other hand for a gain of 0.14 the robot shows unstable behavior due to a small disturbance after one second, resulting in oscillations that keep increasing in amplitude.
+On the other hand, for a gain of 0.14 the robot shows unstable behavior due to a small disturbance after one second, resulting in oscillations that keep increasing in amplitude.
 The ultimate period is determined to be equal to $T_{u} = 0.2$, and is used together with the ultimate gain to determine the tuning parameters from the gain chart in Table \ref{tab:gain_chart}.
 The integral gain and derivative gain can now be determined to be equal to $K_{\text{i}} = K_{\text{p}} / T_{\text{i}}$ and $K_{\text{d}}  = K_{\text{p}}T_{\text{d}}$ respectively.
 Figure \ref{fig:gain_tuning} shows how the oscillations are removed by setting the tunable gains according to the closed loop Ziegler-Nichols method.
@@ -338,18 +338,18 @@ The tuning process was speeded up by setting the minimum motor duty cycle as it 
 
 The software implementation that allows the robot to perform controlled movements is divided in three parts, the main program, a control loop and motor control.
 In the main program a set of movements can be defined for the robot to be executed.
-The robot can be controlled using three movement commands, one for straight trajectories; (1) straight trajectories, (2) curved right turns and (3) curved left turns.
-For each movement an additional movement target needs to be defined that specifies the duration, i.e. when the control loop can consider the movement to be finished.
+The robot can be controlled using three movement commands; (1) straight trajectories, (2) curved right turns and (3) curved left turns.
+For each movement an additional movement target needs to be defined that specifies the duration, i.e. when the control loop considers the movement to be finished.
 
 \subsection{Control loop}
 
-When the control loop is instructed to execute a movement, yaw-rate set point, movement target and motor duty cycle target are set accordingly.
+When the control loop receives a movement command, the yaw-rate set point, movement target and motor duty cycle target are set accordingly.
 A timer running at a frequency of a 100\,Hz, is used to periodically call an interrupt service routine (ISR) and execute the control loop.
 Using an ISR has the benefit of a constant sample time, which simplifies the PID loop, because the integration and differentiation time are also constant and known in advance.
-If the ISR is triggered, first a yaw-rate sample is requested from the gyroscope.
-Based on the current movement, an evaluation is performed to determine if the movement target is reached.
+When the ISR is triggered, first a yaw-rate sample is requested from the gyroscope.
+Based on the current movement command, an evaluation is performed to determine if the movement target is reached.
 If this is not the case, the yaw-rate is supplied to the PID controller, which in turn updates the motor values.
-The output is subtracted from the left motor value and added to the right motor value, in order to keep the average speed approximately the same.
+The output value produced by the PID controller is subtracted from the left motor value and added to the right motor value, in order to keep the average speed approximately the same.
 
 \subsubsection{Movement target}
 
@@ -366,7 +366,7 @@ The H-bridge is configured such that two IO-ports directly control a motor.
 If one of the ports is enabled the motor rotates forwards and if the other port is enabled the motor rotate backwards.
 The control loop updates the compare registers corresponding to each of the ports.
 The minimum duty cycle value is added to each motor value and is bounded by the maximum duty cycle.
-When the timer reaches a value that corresponds to a value one of the compare registers the connected port is toggled automatically.
+When the timer reaches a value that corresponds to the value stored in one of the compare registers, the connected port is toggled automatically.
 
 %\subsection{Controlled Turns}
 %The set point is assumed to be reached when the angle is within two degrees of the target, in this case the loop stops automatically.
@@ -382,7 +382,7 @@ The right and left motor speed tuned by the PID controller are not saved and res
 Due to the startup phase of the motors, previously tuned motor speeds are suspected to be invalid and cannot be used after a power interrupt. 
 
 \subsection{Extendability}
-The current software implementation consists of 700 lines of MSP430 specific C code, which compiled take up 14\% of the SRAM and 14\% of the FRAM.
+The current software implementation consists of 700 lines of MSP430 specific C code, that takes up 14\% of the SRAM and 14\% of the FRAM.
 The control loop is implemented using an ISR leaving the main processor available for other computation tasks.
 The backscatter communication channel on the WISP is currently not implemented, but can potentially be used to provide communication with a global host. 
 Two of the five available timers are used for the control loop and the motor control, while the other three timers are used by the WISP software communication stack.
