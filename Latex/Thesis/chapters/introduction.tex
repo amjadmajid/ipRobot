@@ -8,15 +8,17 @@
 
 % Estabish your territory
 
-Miniature robots with limited capabilities can work together as a collective to achieve more than an individual could by itself, but are still far from being applicable in real world applications~\cite{barca_sekercioglu_2013}.
+Miniature robots with limited capabilities can work together as a collective to achieve more than an individual could by itself.
 The future potential of collectives of small robots, i.e. swarms, is widely recognized to have applications in surveillance, search and rescue, and exploration.
-Swarms have been proposed as a new form of user interface, robots can display information and interact with users on tabletops~\cite{legoc_uist_2016}, unmodified clothing~\cite{dementyev_uist_2016} and can be an educational toy for kids~\cite{sony_toio_2017}, as seen in Figure \ref{fig:int_example_sui}.
+Swarms have been proposed as a new form of user interface.
+Small robots can interact with users on tabletops~\cite{legoc_uist_2016}, unmodified clothing~\cite{dementyev_uist_2016} and can be an educational toy for kids~\cite{sony_toio_2017}, as seen in Figure \ref{fig:int_example_sui}.
 %\hfill \break
 
 % Establish nice
 % Motivation for this work: Why do we want to remove the battery?
 
-However, one of the fundamental issues that needs to be addressed before swarm robotics can advance is related to energy.
+However, advanced swarms are still far from being applicable in real world applications~\cite{barca_sekercioglu_2013}. 
+One of the fundamental issues that needs to be addressed is related to the supply of energy.
 Small lithium batteries are currently powering the robots and limit their operation time to only a few hours. 
 The energy density of batteries has improved less than one order of magnitude since 1945, while in comparison the energy efficiency of computing has improved 12 orders of magnitude~\cite{patel_pvc_2017}.
 The last major advancement in battery technology is 25 years old and came with the introduction of Li-ion batteries.
@@ -65,14 +67,14 @@ Therefore, relaxing the stable energy supply constraint by allowing a transient 
 % swarm robots ie kilobot operate form batteries -> need recharging -> move to tosti irond cannot be used while charging .
 
 Replacing a battery with an energy harvesting system could make a robot self sufficient and energy-autonomous. 
-This however introduces a new phenomenon to take into account; the intermittent availability of energy produces frequent power interrupts.
+This, however, introduces a new phenomenon that has to be taken into account: the intermittent availability of energy produces frequent power interrupts.
 The possibility of sudden power loss is currently not considered when developing control software for a robot, and for this reason can not be used without applying methods to preserve computation across power cycles.%adaption.
 %\hfill \break
 
 Furthermore, applicable sensors and/or sensing frequency may be constrained due to the limited energy budget.
 The largest part of the energy budget will already be consumed by the actuators that supply movement to the robot.
 Not every locomotion type currently used may be reliable and/or accurate under the frequent power interruption.
-Therefore the research question this work addresses is:
+Therefore, the research question this work addresses is:
 
 \begin{center}
 	\textit{What is the effect of intermittentcy on the movement accuracy of a transiently powered robot without external feedback?}
@@ -101,7 +103,7 @@ The list of contributions is as follows:
 
 \section{Thesis Outline}
 
-The rest of the this is organized as follows: Chapter \ref{chp:related_work} provides background information and introduces the related work.
+The rest of the thesis is organized as follows: Chapter \ref{chp:related_work} provides background information and introduces the related work.
 The preliminaries in design of the transiently-powered robot are presented in Chapter \ref{chp:preliminaries}.
 In Chapter \ref{chp:design_and_implementation} the hardware design and software implementation are explained.
 This is followed by a performance evaluation of the transiently powered robot in Chapter \ref{chp:evaluation}.

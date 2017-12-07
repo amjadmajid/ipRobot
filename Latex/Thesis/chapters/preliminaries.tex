@@ -1,7 +1,7 @@
 \chapter{Preliminaries}
 \label{chp:preliminaries}
 
-The design considerations for the robot will be explained based on minimal required capabilities, in Section \ref{sec:pre_design_considerations}.
+The design considerations for the robot will be explained based on minimal required capabilities in Section \ref{sec:pre_design_considerations}.
 Section \ref{sec:pre_energy_source_selection} will evaluate two sources for energy harvesting and Section \ref{sec:pre_locomotion_selection} two types of locomotion for the transiently powered robot.
 %Finally in Section \ref{sec:pre_transient_model}, a simple model will capture the relation between power harvested and distance covered by the robot.
 
@@ -150,12 +150,12 @@ Three different solar panels were tested, each different in material, efficiency
 \subsubsection{Lamps}
 Low cost solar simulators can consist of a combination of LED and halogen light bulbs to simulate sunlight and are used to test the performance of solar panels~\cite{grandi_tia_2014}.
 However, in this case the goal is to have a controlled uniform lighting environment where the robots have roughly constant charge times.
-Solar panels do not only harvest energy from the visual light spectrum but harvest almost at least as much from the infrared light spectrum, therefore not only light but also heat will shorten the charge time~\cite{ixolar_slmd121h04l_2017}.
+Solar panels do not only harvest energy from the visual light spectrum but harvest at least as much from the infrared light spectrum, therefore not only light but also heat will shorten the charge time~\cite{ixolar_slmd121h04l_2017}.
 Halogen lamps have a lower color temperature than the sun but also emit waves far into the infrared spectrum.
 The light sources used in this experiment are a 60\,W halogen bulb, a 120\,W halogen bulb and two 150\,W Philips  BR125, infrared (IR) incandescent reflector lamps~\cite{philips_irlamp_2017} where one is clear and the other uses a red filter.
 
 \subsubsection{Measurements}
-Three charge time measurements are preformed, each lamp is positioned 10\,cm, 30\,cm and 50\,cm from the solar panels.
+Three charge time measurements are performed, each lamp is positioned 10\,cm, 30\,cm and 50\,cm from the solar panels.
 To have a reference the charge times are also measured on a sunny November afternoon. 
 % Additionally, for these three distance the temperature was measured at the solar panel using a K-type thermocouple supplied with an Extech EX330 multimeter and the light intensity using the luxmeter on a MASTECH MS8229 multimeter.
 
@@ -165,16 +165,16 @@ To have a reference the charge times are also measured on a sunny November after
 % Panel from nuna
 % Refer to appendix for temperature and light data?
 
-Increasing the output power of the source and decreasing the distance between panel the source, both decrease the charge times.
-However, there is no obvious best preforming combination as seen from Table \ref{tab:light_results}.
+Increasing the output power of the source and decreasing the distance between panel and the source, both decrease the charge times.
+However, there is no obvious best performing combination as seen from Table \ref{tab:light_results}.
 
-Something to take into consideration is that with some lamps a shadowing pattern is observed due to the construction of the lamps.
-The 60\,W and 150\,W IR lamps have a spherical design, that creates an uneven circular shadowing pattern on the surface the lamps are shining on. 
-This becomes more significant on the bigger distances in this experiment.
+Note that with some lamps a shadowing pattern is observed due to the construction of the lamps.
+The 60\,W and 150\,W IR lamps have a spherical design, creating an uneven circular shadowing pattern. 
+This becomes more significant on larger distances.
 The 120\,W halogen lamp has a tubular design and in combination with the light fixture most of the light is reflected down with minimal shadowing of the lamp resulting in a more even light distribution.
 Therefore, this lamp is chosen to provide light in the controlled setup where the robots can move around with roughly constant charge times.
 
-For this lamp on the distances 30\,cm and 50\,cm the Azure space solar panel seems to preform the best.
+For this lamp on the distances 30\,cm and 50\,cm the Azure space solar panel seems to perform the best.
 However, the surface area of this panel is more than double when compared to the other two solar panels, as seen from Table \ref{tab:solar_panels}.
 Therefore the charge times should be doubled, which makes the INYS panel the best performer.
 
@@ -226,7 +226,7 @@ The Azurspace solar panel has the shortest supercapacitor charge time, this can 
 
 \subsubsection{Light setup}
 
-To create an area where the transiently-powered robots can move around with approximately constant charge times a light setup is created using wooden beams, as shown in Figure \ref{fig:light_setup}.
+To create an area where the transiently-powered robots can move around with approximately constant charge times, a light setup is created using wooden beams, as shown in Figure \ref{fig:light_setup}.
 Mounted in this frame are four 120\,W halogen lamps, previously determined to provide the most uniform light distribution and short charge times.
 The frame spans an area of 95$\times$66 cm and distances the lamps 30\,cm from the tabletop.
 
@@ -284,7 +284,7 @@ Therefore, running the motor at maximum speed translates the most electrical ene
 However, the motor speed is inversely proportional to the output torque of the motor and the maximum speed is limited by the minimal required output torque.
 %The current trough the coils is constant, so the faster the stepper motor changes step the more energy can be transformed into movement.
 %Increasing the rotational speed of the stepper motor decreases the torque output of the motor.
-%Therefore the speed is limited by the amount of torque required to preform the movement.
+%Therefore the speed is limited by the amount of torque required to perform the movement.
 
 \subsubsection{Control and Rotor Synchronization}
 
@@ -293,7 +293,7 @@ On the first startup the rotor may not be aligned with the last position in the 
 As a result an error between one and three steps can occur before the energized coil and rotor are synchronized.
 
 In case the stepper motor is rotating and the power is removed, misalignment between the rotor and the last energized coil can occur. While the rotor could be moving from one position to the next, it has not moved at all (undershoot) or can continue to move to the next position due to inertia of the rotating mass (overshoot). 
-To determine what would be more likely, undershooting or overshooting, the following experiment has been preformed to determine the error in the number of steps.
+To determine what would be more likely, undershooting or overshooting, the following experiment has been performed to determine the error in the number of steps.
 
 \subsubsection{Experimental setup}
 
@@ -339,11 +339,11 @@ DC motors produce an initial startup peak because the back electromotive force (
 The current reaches a maximum when the rotor starts to rotate and a back EMF is generated.
 The back EMF will further increase while the motor accelerates to its steady state speed, and the speed is limited by the voltage supplied.
 
-If a load is applied to the DC motor the current consumed by the motor is increased because current is proportional to the torque applied to the motor.
+If a load is applied to the DC motor, the current consumed by the motor is increased because current is proportional to the torque applied to the motor.
 Additionally, the angular velocity of the motor will decrease while the torque is inversely proportional to the angular velocity of the motor.
 
 \subsubsection{Evaluation of the Start Current Peak}
-The DC motors used for robots are normally powered directly from the battery as linear or switch-mode power regulators are not able to supply the high start currents.
+The DC motors used for robots are normally powered directly from the battery since linear or switch-mode power regulators are not able to supply the high start currents.
 %In the worst case the start current peak can be equal to the stall current of the motor.
 However, the use of a supercapacitor requires a regulator to make efficient use of the energy stored, as described in Section \ref{sec:pre_energy_harvesting_storage}.
 The switch-mode regulator that is part of the BQ25570 energy harvester is only able to supply a peak output current of 110\,mA~\cite{bq25570_2017}.
@@ -372,13 +372,13 @@ However the PWM duty cycle will be limited to a maximum of $100/(2*140/110) \app
 
 
 \subsection{Conclusion}
-Stepper motor have a lower efficiency than normal dc motors because a constant current consumed independent of the rotational speed.
+Stepper motor have a lower efficiency than normal dc motors because a constant current is consumed, independent of the rotational speed.
 The only way the rotor and stator retain alignment is by keeping the stepper motor coil energized.
 Frequent power interrupts could lead to loss of synchronization between the energized coil and position of the rotor as a result of rotor inertia.
 The error due to inertia becomes more significant with increase rotational speed.
 Loss of synchronization can result in random behavior of a differential drive robot, as one stepper motor may require a different amount of steps before synchronization than the other.
 
-Alternatively a normal DC motors can be used which do not require any synchronization.
-However, this motor requires a high start current which the buck converter from the harvester, might not be able to supply.
+Alternatively normal DC motors can be used which do not require any synchronization.
+However, this motor requires a high start current which the buck converter from the harvester might not be able to supply.
 PWM can be used to reduce the average current consumed by the motor and a large bulk capacitor can supply short high current demand from the motors.
 Therefore, the dc motor is chosen as the locomotion type used for the transiently-powered robot.
