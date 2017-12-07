@@ -1,14 +1,14 @@
 \chapter{Preliminaries}
 \label{chp:preliminaries}
 
-The design considerations for the robot will be explained based on minimal required capabilities in Section \ref{sec:pre_design_considerations}.
-Section \ref{sec:pre_energy_source_selection} will evaluate two sources for energy harvesting and Section \ref{sec:pre_locomotion_selection} two types of locomotion for the transiently powered robot.
+The design considerations for the robot is explained based on minimal required capabilities in Section \ref{sec:pre_design_requirements}.
+Section \ref{sec:pre_energy_source_selection} evaluates two sources for energy harvesting and in Section \ref{sec:pre_locomotion_selection} two types of locomotion for the transiently powered robot are evaluated.
 %Finally in Section \ref{sec:pre_transient_model}, a simple model will capture the relation between power harvested and distance covered by the robot.
 
-\section{Design Considerations}
-\label{sec:pre_design_considerations}
+\section{Design requirements}
+\label{sec:pre_design_requirements}
 
-This section will explain the main areas considered while designing the battery-less transiently-powered robot.
+This section explains the main areas considered while designing the battery-less transiently-powered robot.
 
 \begin{enumerate}
 	\item \textbf{Power}: 
@@ -22,11 +22,10 @@ This section will explain the main areas considered while designing the battery-
 	
 	\item \textbf{Locomotion}:
 	An efficient locomotion type needs to be selected for the movement on flat surfaces, to optimize the distance that can be covered with a single capacitor charge.
-	Movement will consume the largest amount of energy from the total available energy budget.
+	%Movement will consume the largest amount of energy from the total available energy budget.
 
 	\item \textbf{Autonomous navigation}:
-	The transiently-powered robot needs to be able to complete a movement with an acceptable error when compared to its battery powered equal.
-	Even though the transiently-powered robot will experience frequent loss of power. 
+	Despite the frequent power failures, the transiently-powered robot needs to be able to complete a movement with an acceptable error when compared to its battery powered counterpart.
 \end{enumerate}
 
 \section{Energy Source Selection}
@@ -35,8 +34,11 @@ This section will explain the main areas considered while designing the battery-
 % Wispcam requires approx 4 seconds to harvest 20mJ at a distance of 20cm from the reader \cite{naderiparizi_rfid_2015}
 % better to only use RF for communication and harvest energy from another source \cite{konstantioulos}
 
-In this section the charge time of two different sources of ambient energy will be compared, RF and Solar.
-To determine which source is the most suitable for powering the transiently-powered robot, their performance will be evaluated for different distances.
+In this section two sources for the harvesting of ambient energy will be evaluated: radio signals and solar.
+The charge times are measured for a variety of distances from the selected sources.
+
+\subsection{}
+
 The average input power will be determined as
 
 \begin{equation}
@@ -45,7 +47,7 @@ The average input power will be determined as
 
 \noindent
 where $E_{\text{cap}}$ the energy stored in a capacitor and $t_{\text{charge}}$ the average charge time.
-The energy stored in a capacitor given a minimum and maximum voltage level is be defined as
+The energy stored in a capacitor given minimum and maximum voltage levels is defined as
 
 \begin{equation}
 \label{eqn:energy_cap}
@@ -53,7 +55,7 @@ The energy stored in a capacitor given a minimum and maximum voltage level is be
 \end{equation}
 
 \noindent
-where $C$ is the capacity of a the capacitor, $V_{\min}$ the minimum and $V_{\max}$ the maximum voltage level of the capacitor.
+where $C$ is the capacity of a the capacitor, $V_{\min}$ is the minimum and $V_{\max}$ is the maximum voltage level of a capacitor.
 
 \subsection{Energy Harvesting and Storage}
 \label{sec:pre_energy_harvesting_storage}
@@ -62,7 +64,7 @@ The harvested energy is stored in a 22\,mF - 4.5\,V supercapacitor from AVX~\cit
 The BQ25570 comes with a buck converter to efficiently regulate the capacitors voltage down to the system voltage of 2.2\,V.
 External resistors are used to program voltage thresholds, allowing to automatically enable and disable the buck converter based on minimum and maximum thresholds.
 The minimum threshold is set to 2.2\,V and the maximum threshold is set to 4.2\,V.
-Using [\ref{eqn:energy_cap}] the energy stored in the capacitor is equal to
+Using (\ref{eqn:energy_cap}) the energy stored in the capacitor is equal to
 
 \begin{equation}
 \label{eq:cap2}
@@ -73,7 +75,7 @@ E_{\text{cap}} = \frac{1}{2} 0.022 (4.4 - 2.2)^2 = 53.24 \text{\,mJ}.
 %The minimal supply voltage is determined by the component with the highest minimal voltage requirement, in this case 2.0\,V.
 %To make sure that a small drop in system voltage would not create instability a margin of 0.2\,V was added, resulting of a system voltage of 2.2\,V.
 
-\subsection{Determining the Charge Time}
+\subsection{Measuring the Charge Time}
 
 The buck converter of the energy harvester is automatically enabled when the maximum voltage threshold is reached.
 A load is connected to the output of the buck converter to quickly drain the energy from the capacitor.
@@ -86,10 +88,10 @@ The time that the output of the buck converter is disabled will be equal to the 
 \subsubsection{Harvesting using a WISP}
 To be able to connect an external harvester, a WISP 5~\cite{sample_transim_2008} is modified.
 The integrated energy harvester, the storage capacitor and the diode to bypass the harvester, are removed from the WISP.
-A wire is soldered to the input pin pad of the now removed harvester on the WISP PCB.
+A wire is soldered to the input pin pad of the removed harvester on the WISP PCB.
 This wire is connected directly to the input of the external energy harvester.
 
-\subsection{Measurements}
+\subsubsection{Measurements}
 Energy is provided to the WISP using a Impinj Speedway R1000 RFID reader~\cite{impinj_eol_2017, indy_r1000_2017}.
 This reader is connected to a Laird S90028PCR antenna~\cite{laird_s9028pcr_2017}.
 The WISP is positioned 25, 35 and 45\,cm away from the reader and the charge time are recorded.
@@ -114,10 +116,9 @@ As the WISP is placed further away from the reader the charge times increase sig
 While the distance increases the harvested power is decreased due to path loss and reflections of the signal.
 
 \subsection{Energy Harvesting from Light}
-
-In this section the charge time of small solar panels under different light sources is evaluated.
-Sunlight is not always available or enough to charge the robots in a acceptable time.
-Artificial light can provides a reasonable amount of uniform light to the area where the robot moves around.
+Sunlight is not always available or strong enough to charge the robots supercapacitor in acceptable time.
+Alternatively, lamps can provide uniform light to the area where the robot moves around.
+In this section the capacitor charge time is evaluated for different solar panel and light source combinations.
 To accurately measure the power that is harvested from each solar panel, their performance was evaluated in a darkroom at TU Delft Embedded Software Lab.
 
 \subsubsection{Solar panels}
@@ -150,7 +151,7 @@ Three different solar panels were tested, each different in material, efficiency
 \subsubsection{Lamps}
 Low cost solar simulators can consist of a combination of LED and halogen light bulbs to simulate sunlight and are used to test the performance of solar panels~\cite{grandi_tia_2014}.
 However, in this case the goal is to have a controlled uniform lighting environment where the robots have roughly constant charge times.
-Solar panels do not only harvest energy from the visual light spectrum but harvest at least as much from the infrared light spectrum, therefore not only light but also heat will shorten the charge time~\cite{ixolar_slmd121h04l_2017}.
+Solar panels do not only harvest energy from the visual light spectrum but harvest at least as much from the infrared light spectrum, therefore not only light but also heat shortens the charge time~\cite{ixolar_slmd121h04l_2017}.
 Halogen lamps have a lower color temperature than the sun but also emit waves far into the infrared spectrum.
 The light sources used in this experiment are a 60\,W halogen bulb, a 120\,W halogen bulb and two 150\,W Philips  BR125, infrared (IR) incandescent reflector lamps~\cite{philips_irlamp_2017} where one is clear and the other uses a red filter.
 
@@ -240,15 +241,15 @@ The frame spans an area of 95$\times$66 cm and distances the lamps 30\,cm from t
 \subsection{Conclusion}
 
 The results from RF experiments show that the minimum charge time is 49\,s and more than doubles with only a 20\,cm distance increase from the reader.
-The mobility of the robot will result in widely varying charge times and possible dead spots where the robot is not able to receive any power.
+The mobility of the robot results in widely varying charge times and possible dead spots where the robot is not able to receive any power.
 Light is more readily available and by illuminating the area where the robot moves around with a 120\,W halogen lamp source, 6\,s charge times can be achieved when the light is positioned at a distance of 30\,cm from the solar panel.
 With the solar panel far shorter charge times can be achieved, and therefore solar is chosen to be the energy source for the transiently powered robot.
 
 \section{Locomotion Selection}
 \label{sec:pre_locomotion_selection}
 
-Robots can use dead reckoning to move between locations without external feedback, but in order to accomplish this accurate locomotion and basic odometry are required.
-In this section two different locomotions types will be evaluated, the stepper motor and the DC motor.
+Robots can navigate without external feedback from one location to another, but accurate locomotion and basic odometry are required.
+In this section two different locomotion types are evaluated, the stepper motor and the DC motor.
 %TODO Move this part!
 %TODO DEFINE AND REFERENCE
 %Wheel encoders are often used to determine the angular speed of each wheel, which can be used to correct speed differences between the motors and can be integrated over time to acquire distance.
@@ -257,13 +258,13 @@ In this section two different locomotions types will be evaluated, the stepper m
 
 \subsection{Stepper motor-based Locomotion}
 
-The GRITSBot~\cite{pickem_icra_2015} uses stepper motors based locomotion which already include basic odometry, as described in Section \ref{sec:rw_locomotion}.
-This section will further investigate the use of stepper motor based locomotion for a transiently-powered robot.
+The GRITSBot~\cite{pickem_icra_2015} uses stepper motor based locomotion which already include basic odometry, as described in Section \ref{sec:rw_locomotion}.
+The upcoming section further investigates the use of stepper motor based locomotion for a transiently-powered robot.
 
 \subsubsection{Operation of a Stepper Motor}
 Stepper motors are permanent magnet dc motors that start to rotate by supplying current to the motor coils in a specific direction.
 The bipolar stepper motor used, requires current to be pulsed trough each of the four connections, in a fixed pattern, in order to rotate it forward or backward.
-A Microcontroller (MCU) is used to keep track and instruct the next stepper motor position from a sequence of four.
+A Microcontroller (MCU) is used to keep track and control stepper motor position from a sequence of four.
 The outputs of the MCU cannot supply enough current to drive a bipolar stepper motor, therefore a dual H-bridge is required to control the current trough each coil.
 
 %TODO make new schematic stepper figure!

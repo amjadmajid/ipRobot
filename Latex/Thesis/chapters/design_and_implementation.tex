@@ -8,8 +8,9 @@ Finally, Section \ref{sec:dai_software_implementation} introduces the software i
 \section{Hardware Design}
 \label{sec:dai_hardware_design}
 The first step in the hardware design is to evaluate what components are required for the robot to have basic navigation capabilities. 
-Commercially available low power components have been evaluated, where the main criteria was a low minimal supply voltage of 2.0\,V allowing a system voltage of 2.2\,V.
-This section will explain each part of the robot in more detail, a complete overview of the robot is shown in Figure \ref{fig:robot_overview} and a complete assembled robot with WISP and solar panel is shown in Figure \ref{fig:robot_picture}.
+Commercially available low power components have been evaluated, where the main criteria was a low minimal supply voltage of 2.0\,V to function with a system voltage of 2.2\,V.
+This section will explain each part of the robot in more detail.
+A complete overview of the robot is shown in Figure \ref{fig:robot_overview} and a complete assembled robot with WISP and solar panel is shown in Figure \ref{fig:robot_picture}.
 
 \vspace{1em}
 \begin{figure}[h!]
@@ -46,9 +47,9 @@ This MCU can operate at 16\,MHz and features 64\,KB FRAM, 2\,KB SRAM and 40 IO-p
 
 The robot has access to basic sensors which can be interfaced trough I2C.
 For detecting obstacles in front of the robot, a Maxim Integrated MAX44000 proximity sensor~\cite{max44000_2017} was added of the robot facing forward.
-This sensor switches an IR led at high frequency to reduce the power consumed.
-Because this sensor is based around a photo-diode it can be used to measure the amount of ambient light as well.
-To allow for controlled movements the robot has a Bosch Sensortec BMG250~\cite{bosch_bmg250_2017} low power triaxial gyroscope to measure yaw-rate, used to correct its heading when necessary.
+The sensor switches an IR led at high frequency to reduce the power consumption.
+Because the sensor is based around a photo-diode it can be used to measure the amount of ambient light as well.
+To allow for local motion feedback, the robot has a Bosch Sensortec BMG250~\cite{bosch_bmg250_2017} low power triaxial gyroscope to measure yaw-rate.
 
 \subsection{Locomotion}
 
@@ -66,8 +67,6 @@ MCU output ports are limited in the amount of current that they can supply.
 MOSFETs inside a Texas Instruments DRV8836 dual H-bridge~\cite{drv8836_2017} allow efficient regulation of larger currents to the motors.
 
 \subsection{Integration}
-
-%TODO add photograph of complete robot here!
 Now that all the parts have been chosen, they can be connected together to form the robot.
 A Printed Circuit Board (PCB) has been designed using EAGLE PCB design and schematic software.
 The PCB increases stability, eases connection and reduces of the total weight of the robot.
@@ -75,9 +74,10 @@ Additionally, a PCB was required because of use of small size ICs (no lead packa
 A detailed schematic of the PCB can be found in Appendix \ref{app:schematic_robot}.
 
 An overview of both the top and bottom side of the PCB is shown in Figure \ref{fig:pcb_robot}.
-Most components are part of the PCB only the larger components are mounted externally: the solar panel, WISP and the motors.
-The PCB contains headers to connect the solar panel, a header to connect all the required pins from the WISP and a additional header to connect a battery for testing purposes.
-Most reference designs are extendable but this adds complexity, while weight and size are the main constraints in the design of this robot.
+The PCB contains headers to connect the solar panel and headers to connect all the required pins from the WISP.
+An additional header is available to connect a battery for testing purposes.
+All the large components are mounted externally: the solar panel, WISP and the motors.
+%Most reference designs are extendable but this adds complexity, while weight and size are the main constraints in the design of this robot.
 
 %The top of the PCB contains all the surface mount components that are soldered to the PCB using a reflow oven. 
 %When the boards come out of the oven, the headers, motors and supercapacitor are soldered to the boards by hand.
@@ -95,16 +95,16 @@ Most reference designs are extendable but this adds complexity, while weight and
 		\caption{Bottom side of the PCB}
 		\label{fig:pcb_robot_back}
 	\end{subfigure}
-	\caption{The PCB designed for the robot, on the top side of the PCB the ICs are marked, harvester (U1), gyroscope (U2) and H-bridge (U3). The bottom side contains only the supercapacitor.}
+	\caption{The PCB designed for the robot, on the top side of the PCB the ICs are marked, harvester (U1), gyroscope (U2) and H-bridge (U3). The bottom side only contains the supercapacitor.}
 	\label{fig:pcb_robot}
 \end{figure}
 
 \subsection{Energy Expenditure}
 
-The average current consumed of each component was measured with a Monsoon Power Monitor~\cite{monsoon_powermonitor_2017}.
-The measurement was executed as follows: first a two second current trace was recorded of the current consumed by the MCU on the WISP.
+The average current consumption by each component was measured with a Monsoon Power Monitor~\cite{monsoon_powermonitor_2017}.
+The measurement is performed as follows: first a two second current trace was recorded of the current consumed by the MCU on the WISP.
 The MCU was then used to enable each component individually, followed by a two second current measurement with the enabled component.
-The average of each current trace was calculated, and the current consumed by the microcontroller subtracted from the current consumed by each component.
+The average of each current trace is calculated, and the current consumed by the microcontroller subtracted from the current consumed by each component.
 The measurement result is provided in Table \ref{tab:avg_cur_comp}.
 
 % Make a overview of the cost to build a robot
@@ -136,11 +136,11 @@ The measurement result is provided in Table \ref{tab:avg_cur_comp}.
 
 \subsection{Costs}
 
-The use of off-the-shelf components that are readily available allows to build multiples of this robot with ease.
-Keeping the cost down per individual is important when these robots are used in collectives.
-Table \ref{tab:cost_robot} shows the total price to build a single robot, assuming a minimal fabrication quantity of 20.
+Using of off-the-shelf components that are readily available allows to build multiples of this robot with ease.
+%The cost per individual is important when these robots are used in collectives.
+Table \ref{tab:cost_robot} shows the total price per robot, assuming a minimal fabrication quantity of 20.
 This overview is compiled by querying the component prices of different suppliers, Farnell, Digikey, Mouser, Pololu, and OshPark.
-The price for the PCB does not include the price of assembling the PCB, as this is currently done by hand.
+The price for the PCB does not include the price of assembling the PCB, as it is currently done by hand.
 Secondly, the cost of a WISP / MCU is currently not included in the price.
 From this table can be concluded that the cost of building a transiently powered robot is comparable to the cost of other reference small robotic platforms, as seen in Table \ref{tab:comparison_robot_platforms}.
 
@@ -172,7 +172,8 @@ From this table can be concluded that the cost of building a transiently powered
 
 \section{Motion Control Design}
 \label{sec:dai_control_design}
-%TODO write intro and link to preliminaries
+In order for the robot to make controlled movements, it needs to have a local feedback method to be able to 
+
 %When the motors are powered from the battery the supplied voltages drops while energy is consumed for the battery.
 %Since the speed of the motor is dependent on the supply voltage the speed of the motor will also decrease while energy is consumed from the battery.
 The buck converter supplies a constant voltage to the motors, which eliminates voltage as a factor in determining the motor speed.
@@ -183,11 +184,11 @@ By making the assumption that the robot will only travel on a flat surface, the 
 
 PWM is used to control the speed of the motors, as briefly addressed in Section \ref{sec:pre_dc_motor_locomotion}.
 The maximum frequency that still allows linear speed control is dependent on the electrical characteristics of the motor.
-When the motor is at rest its equivalent circuit consists of a resistance and inductance in series.
-When voltage is applied to the motor the rate at which the current rises is limited by the inductance. 
+When the motor is at rest, its equivalent circuit consists of a resistance and inductance in series.
+If a voltage is applied to the motor, the rate at which the current rises is limited by the inductance. 
 All RL circuits have a time constant: $\tau = L / R$ and the current is considered to have reached its maximum steady state at $5\tau$~\cite{pmw_linear_motion_2017}. 
 The motors used for the robot have a typical resistance of R = 14.5\,$\Omega$ and an inductance of L = 70\,$\mu$H~\cite{gearmotor_206-110_2017}.
-Therefore the minimum pulse width should be equal to
+Therefore, the minimum pulse width should be equal to
 
 \begin{equation}
 T_{\min} = 5 \frac{L}{R} = 24.14\,\mu\text{s}
@@ -239,7 +240,8 @@ The maximum duty cycle values are all below the calculated free running maximum 
 \subsection{Closed loop feedback for controlled movements}
 
 %The robot uses two physically different motors in differential drive configuration which are mounted in a non-symmetrical way.
-Open loop movement using calibrated motor values has been used in previous work \cite{legoc_uist_2016}, but it can be time consuming and any small disturbance will throw the robot off course.
+Open loop movement using calibrated motor values has been used in previous work \cite{legoc_uist_2016}, but it can be time consuming.
+Furthermore, any small disturbance will throw the robot off course.
 Controlled movements can be achieved by using closed loop feedback, where the heading is used to update the motor control values.
 The robots relative change in heading can be obtained from the gyroscope and corresponds to the yaw-rate.
 
@@ -272,7 +274,8 @@ Using the gains, the controller will continuously adjust the motor speed in orde
 \subsubsection{Controlled movements}
 
 The robot will be able to execute two distinct movement: straight and curved movements.
-For controlled straight movements horizontal movement is undesired, therefore the target yaw-rate is set to zero.
+When the robot executes a controlled straight movement, any movement perpendicular to the robots heading direction is undesired.
+The yaw-rate target is set to zero, forcing the PID controller to keep the robot straight.
 For curved movements however, a desired yaw-rate set point needs to be specified.
 The yaw-rate set point can for example be determined from the radius of the circle that the robot needs to turn and a calibrated speed.
 
@@ -292,20 +295,22 @@ The yaw-rate set point can for example be determined from the radius of the circ
 \subsubsection{PID tuning using Ziegler-Nichols method}
 
 Tuning can be done by a trail and error approach, but a faster way of tuning is to use the closed loop Ziegler-Nichols method~\cite{franklin_feedback_2015}.
-In the ultimate gain method, the tunable gains are adjusted by evaluating the amplitude and frequency of observed oscillations by the system.
-Initially the integral gain and the derivative gain, $K_{\text{i}}$ and $K_{\text{d}}$ respectively, are set to zero.
-Then the proportional gain $K_{p}$ is increased from zero until stable and constant oscillation occurs, which corresponds to the ultimate gain $K_{\text{u}}$.
-The ultimate period $T_{\text{u}}$ is equal to the corresponding period and should be measured at zero crossings of the oscillation.
 
-\subsubsection{Experimental ultimate gain and period determination}
+The method evaluates the amplitude and frequency of observed oscillations in the system by adjusting the tunable gains.
+Initially, the integral gain and the derivative gain, $K_{\text{i}}$ and $K_{\text{d}}$ respectively, are set to zero.
+Then, the proportional gain $K_{p}$ is increased from zero until stable and constant oscillation occurs, which corresponds to the ultimate gain $K_{\text{u}}$.
+The ultimate period $T_{\text{u}}$ is equal to the corresponding period and should be measured at zero crossings of the oscillation.
+The found ultimate gain and period can be used to determine the PID gains using Table \ref{tab:gain_chart}.
+
+\subsubsection{Experimental ultimate gain and period determination}	
 
 To find the ultimate gain and period, a robot is programmed to execute a two second straight movement.
 The yaw-rate data is stored in non-volatile memory in order to retrieve it using a programmer, after the robot has performed the movement.
-In Figure \ref{fig:ultimate_gain} two second yaw-rate measurement traces are shown for increased proportional gains.
+In Figure \ref{fig:ultimate_gain} two second yaw-rate measurement traces are shown for several proportional gains.
 With a proportional gain of 0.13 the robot shows roughly constant oscillation.
 On the other hand for a gain of 0.14 the robot shows unstable behavior due to a small disturbance after one second, resulting in oscillations that keep increasing in amplitude.
 The ultimate period is determined to be equal to $T_{u} = 0.2$, and is used together with the ultimate gain to determine the tuning parameters from the gain chart in Table \ref{tab:gain_chart}.
-The integral gain and derivative gain can now be determined to be equal to $K_{\text{i}}  = K_{\text{p}} / T_{\text{i}}$ and $K_{\text{d}}  = K_{\text{p}}T_{\text{d}}$ respectively.
+The integral gain and derivative gain can now be determined to be equal to $K_{\text{i}} = K_{\text{p}} / T_{\text{i}}$ and $K_{\text{d}}  = K_{\text{p}}T_{\text{d}}$ respectively.
 Figure \ref{fig:gain_tuning} shows how the oscillations are removed by setting the tunable gains according to the closed loop Ziegler-Nichols method.
 The tuning process was speeded up by setting the minimum motor duty cycle as it made the robot a lot more responsive, as described in Section \ref{sec:cd_pwm_frequency}.
 
