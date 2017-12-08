@@ -77,7 +77,7 @@ The minimum threshold is set to 2.2\,V and the maximum threshold is set to 4.2\,
 
 The buck converter of the energy harvester is automatically enabled when the maximum voltage threshold is reached.
 A load is connected to the output of the buck converter to quickly drain the energy from the capacitor.
-In this case load is chosen such that the power consumed by the load $P_{\text{load}} \gg P_{\text{in}}$.
+In this case load is chosen such that the power consumed by the load $P_{\text{load}} \gg P_{\text{in}}$, the harvested input power .
 By connecting a Saleae logic analyzer~\cite{saleae_2017} to the output of the buck converter, the off time of the power cycles can be recorded.
 The time that the output of the buck converter is disabled is equal to the time to charge the capacitor from the minimum to the maximum threshold.
 
@@ -96,11 +96,11 @@ The WISP is positioned 25, 35 and 45\,cm away from the reader and the charge tim
 
 \begin{table}[t]
 	\centering
-	\caption{The average charge time by harvesting energy from radio signals.}
+	\caption{The average charge time by harvesting energy from RFID transmitter.}
 	\label{tab:res_rf_harvest}
 	\begin{tabular}{|l||l|l|l|}
 		\hline
-		Distance from reader & 25\,cm & 35\,cm & 45\,cm \\
+		Distance from RFID reader (cm) & 25 & 35 & 45 \\
 		\hline \hline
 		Average charge time (s) & 49.1 & 61.1 & 164.8 \\
 		%Average input power & 1.086\,mW & 0.871\,mW & 0.323\,mW \\
@@ -155,7 +155,7 @@ The light sources used in this experiment are a 60\,W halogen bulb, a 120\,W hal
 
 \subsubsection{Measurements}
 Three charge time measurements are performed, each lamp is positioned 10\,cm, 30\,cm and 50\,cm from the solar panels.
-To have a reference the charge times are also measured on a sunny November afternoon. 
+To have a reference the charge times are also measured on a sunny November afternoon, inside the office room of TU Delft Embedded Software lab. 
 % Additionally, for these three distance the temperature was measured at the solar panel using a K-type thermocouple supplied with an Extech EX330 multimeter and the light intensity using the luxmeter on a MASTECH MS8229 multimeter.
 
 \subsubsection{Results}
@@ -165,7 +165,7 @@ To have a reference the charge times are also measured on a sunny November after
 % Refer to appendix for temperature and light data?
 
 Increasing the output power of the source and decreasing the distance between panel and the source, both decrease the charge times.
-However, there is no obvious best performing combination as seen from Table \ref{tab:light_results}.
+However, there is no obvious best performing combination of solar panel/light source as seen in Table \ref{tab:light_results}.
 
 Note that with some lamps a shadowing pattern is observed due to the construction of the lamps.
 The 60\,W and 150\,W IR lamps have a spherical design, creating an uneven circular shadowing pattern. 
@@ -173,11 +173,11 @@ This becomes more significant on larger distances.
 The 120\,W halogen lamp has a tubular design and in combination with the light fixture most of the light is reflected down with minimal shadowing of the lamp resulting in a more even light distribution.
 Therefore, this lamp is chosen to provide light in the controlled setup where the robots can move around with roughly constant charge times.
 
-For this lamp on the distances 30\,cm and 50\,cm the Azure space solar panel seems to perform the best.
-However, the surface area of this panel is more than double when compared to the other two solar panels, as seen from Table \ref{tab:solar_panels}.
+For this lamp at the distances 30\,cm and 50\,cm the Azure space solar panel seems to perform the best.
+However, the surface area of this panel is more than double when compared to the other two solar panels, as seen in Table \ref{tab:solar_panels}.
 Therefore the charge times should be doubled, which makes the INYS panel the best performer.
 
-Additionally the charge times were recorded during a sunny 30 minute time slot from 2:30PM to 3:00PM on 23-11-17 for each solar panels, as seen from Table \ref{tab:solar_results}.
+Additionally the charge times were recorded during a sunny 30 minute time slot (2:30--3:00\,PM, 23 November 2017) for each solar panels, as seen in Table \ref{tab:solar_results}.
 The Azurspace solar panel has the shortest supercapacitor charge time, this can be expected because the triple junction allows it to harvest energy from the broadest part of the light spectrum.
 
 %Both the temperature and illumination increase by decreasing the distance between the light source and the solar panel. 
@@ -185,7 +185,7 @@ The Azurspace solar panel has the shortest supercapacitor charge time, this can 
 
 \begin{table}[t]
 	\centering
-	\caption{The average supercapacitor charge times in seconds when harvesting energy for different distances from the sources.}
+	\caption{The average supercapacitor charge times (in seconds) when harvesting energy for different distances from the sources.}
 	\label{tab:light_results}
 	\begin{tabular}{|l|l||l|l|l|l|}
 		\hline
@@ -357,7 +357,7 @@ To determine the startup current of a 206-110 motor when supplied with 2.2\,V, a
 \begin{figure}%[h!]
 	\centering
 	\includegraphics[width=0.7\textwidth]{pics/free_running_current.png}
-	\caption{The free-running current profile of the evaluated dc motors. Dc motors have a startup current peak significantly higher that their steady state current.}
+	\caption{The free-running current profile of three 206-110 dc motors. Dc motors have a startup current peak significantly higher that their steady state current.}
 	\label{fig:free_running_current}
 \end{figure}
 
@@ -367,7 +367,7 @@ The results show that the 2.2\,V supply voltage reduces the start current peak t
 This is still above 110\,mA and the robot needs to power two motors in a differential drive configuration to allow steering.
 A solution is to use Pulse Width Modulation (PWM) to reduce the motor speed and average current consumed.
 Combining PWM with a large bulk capacitor should enable the buck converter to start the motors.
-However, the PWM duty cycle is limited to a maximum of $100/(2*140/110) \approx 39\%$, and is further reduced by the load applied to the motors as a result of the robots own weight.
+However, the PWM duty cycle is limited to a maximum of $100/(2\times140/110) \approx 39\%$, and is further reduced by the load applied to the motors as a result of the robots own weight.
 
 
 \subsection{Conclusion}

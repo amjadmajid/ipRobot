@@ -8,19 +8,19 @@
 
 % Estabish your territory
 
-Miniature robots with limited capabilities can work together as a collective to achieve more than an individual could by itself.
-The future potential of collectives of small robots, i.e. swarms, is widely recognized to have applications in surveillance, search and rescue, and exploration.
-Swarms have been proposed as a new form of user interface.
-Small robots can interact with users on tabletops~\cite{legoc_uist_2016}, unmodified clothing~\cite{dementyev_uist_2016} and can be an educational toy for kids~\cite{sony_toio_2017}, as seen in Figure \ref{fig:int_example_sui}.
+Miniature robots with limited capabilities in locomotion and sensing, can work together as a collective to achieve more than an individual could by itself.
+The future potential of collectives of small robots, i.e. swarms, is widely recognized to have applications in surveillance, search and rescue operations, and exploration.
+Swarms have also been proposed as a new form of user interface.
+For instance, small robots can interact with users on tabletops~\cite{legoc_uist_2016}, unmodified clothing~\cite{dementyev_uist_2016} and can be an educational toy for kids~\cite{sony_toio_2017}, as seen in Figure \ref{fig:int_example_sui}.
 %\hfill \break
 
 % Establish nice
 % Motivation for this work: Why do we want to remove the battery?
 
-However, advanced swarms are still far from being applicable in real world applications~\cite{barca_sekercioglu_2013}. 
+However, advanced swarms are still far from being applicable in real-world applications~\cite{barca_sekercioglu_2013}. 
 One of the fundamental issues that needs to be addressed is related to the supply of energy.
 Small lithium batteries are currently powering the robots and limit their operation time to only a few hours. 
-The energy density of batteries has improved less than one order of magnitude since 1945, while in comparison the energy efficiency of computing has improved 12 orders of magnitude~\cite{patel_pvc_2017}.
+To give a stark example, the energy density of batteries has improved less than one order of magnitude since 1945, while in comparison the energy efficiency of computing has improved 12 orders of magnitude~\cite{patel_pvc_2017}.
 The last major advancement in battery technology is 25 years old and came with the introduction of Li-ion batteries.
 Additionally, any new big improvements in energy density of batteries is not likely to happen anytime soon, as new battery technologies are often overhyped and slow to emerge~\cite{zachary_spec_2016}.
 %	\hfill \break
@@ -31,9 +31,10 @@ Additionally, any new big improvements in energy density of batteries is not lik
 % And discuss current solutions to autonomus operation / battery replenishment
 
 Stable energy supplies are considered a requirement to allow long term persistent operation of robots.
-However, wireless sensor nodes that rely on energy harvesting have emerged.
-They are highly energy constrained, but fully eliminate the need for batteries~\cite{wisp5_wiki_2017}.
-In contrary, different replenishment methods for robot batteries are currently used, robots can be moved to a charging station leaving them nonoperational, and manual recharging or battery replacement results in a high strain on maintenance.
+%However, wireless sensor nodes that rely on energy harvesting have emerged.
+%They are highly energy constrained, but fully eliminate the need for batteries~\cite{wisp5_wiki_2017}.
+As of now, different replenishment methods for robot batteries are currently used, robots can be moved to a charging station, which leaves them non-operational.
+At the same time, manual recharging or battery replacement results in a high strain on maintenance.
 Therefore, relaxing the stable energy supply constraint by allowing a transient supply of harvested energy could be a potent area of research.
 
 % 4 lines left!
@@ -67,13 +68,13 @@ Therefore, relaxing the stable energy supply constraint by allowing a transient 
 
 % swarm robots ie kilobot operate form batteries -> need recharging -> move to tosti irond cannot be used while charging .
 
-Replacing a battery with an energy harvesting system could make a robot self sufficient and energy-autonomous. 
-However, this introduces a new phenomenon that has to be taken into account: the intermittent availability of energy produces frequent power interrupts.
+Replacing a battery with an energy harvesting system could make a robot self-sufficient and energy-autonomous. 
+However, this introduces a new phenomenon that has to be taken into account: the \emph{intermittent availability} of energy produces frequent power interrupts.
 The possibility of sudden power loss is currently not considered when developing control software for a robot, and for this reason can not be used without applying methods to preserve computation across power cycles.%adaption.
 %\hfill \break
 
 Furthermore, applicable sensors and/or sensing frequency may be constrained due to the limited energy budget.
-The largest part of the energy budget is already consumed by the actuators that supply movement to the robot.
+The largest part of the energy budget is likely to be already consumed by the actuators that supply movement to the robot.
 Not every locomotion type currently used may be reliable and/or accurate under the frequent power interruption.
 Therefore, the research question this work addresses is:
 

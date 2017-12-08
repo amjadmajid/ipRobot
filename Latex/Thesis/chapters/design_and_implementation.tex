@@ -28,7 +28,7 @@ A complete overview of the robot is shown in Figure \ref{fig:robot_overview} and
 \end{figure}
 
 \subsection{Energy Harvesting and Storage}
-Energy is harvested from light using two IXYS SLMD121H04L-ND solar cells~\cite{ixolar_slmd121h04l_2017} in parallel, as determined in Section \ref{sec:pre_energy_source_selection}.
+Energy is harvested from light using two IXYS SLMD121H04L-ND solar cells~\cite{ixolar_slmd121h04l_2017} in parallel, selected based on experimental results given in Section \ref{sec:pre_energy_source_selection}.
 The solar cells are connected to a Texas Instruments BQ25570 energy harvester~\cite{bq25570_2017} which stores the harvested energy in a 22\,mF - 4.5\,V supercapactor from AVX~\cite{avx_bestcap_2017}.
 
 \subsection{Computation}
@@ -54,7 +54,7 @@ To allow for local motion feedback, the robot has a Bosch Sensortec BMG250~\cite
 \subsection{Locomotion}
 
 Sub-micro plastic planetary gearmotors from Precision Microdrives~\cite{gearmotor_206-110_2017} are chosen to provide locomotion to the robot, as described in Section \ref{sec:pre_locomotion_selection}.
-Two motors are mounted diagonally opposite from each other in a 3D printed frame making the robot as compact as possible, and the differential drive configuration allows steering.
+Two motors are mounted diagonally opposite from each other in a 3D-printed frame making the robot as compact as possible, and the differential drive configuration allows steering.
 Small plastic wheels with rubber tires are mounted directly on each of the motor shafts.
 Behind these two motors a free running caster wheel is mounted to the frame, acting as a third support point for the robot.
 
@@ -68,7 +68,7 @@ MOSFETs inside a Texas Instruments DRV8836 dual H-bridge~\cite{drv8836_2017} all
 
 \subsection{Integration}
 Now that all the parts have been chosen, they can be connected together to form the robot.
-A Printed Circuit Board (PCB) has been designed using EAGLE PCB design and schematic software.
+A Printed Circuit Board (PCB) has been designed using EAGLE PCB design and schematic software~\cite{eagle_pcb_2017}.
 The PCB increases stability, eases connection and reduces of the total weight of the robot.
 Additionally, a PCB was required because of use of small size ICs (no lead packaging).
 A detailed schematic of the PCB can be found in Appendix \ref{app:schematic_robot}.
@@ -141,7 +141,7 @@ Using of off-the-shelf components that are readily available allows to build mul
 Table \ref{tab:cost_robot} shows the total price per robot, assuming a minimal fabrication quantity of 20.
 This overview is compiled by querying the component prices of different suppliers, Farnell, Digikey, Mouser, Pololu, and OshPark.
 The price for the PCB does not include the price of assembling the PCB, as it is currently done by hand.
-Secondly, the cost of a WISP / MCU is currently not included in the price.
+Secondly, the cost of a WISP/MCU is currently not included in the price.
 From this table can be concluded that the cost of building a transiently powered robot is comparable to the cost of other reference small robotic platforms, as seen in Table \ref{tab:comparison_robot_platforms}.
 
 
@@ -151,7 +151,7 @@ From this table can be concluded that the cost of building a transiently powered
 	\label{tab:cost_robot}
 	\begin{tabular}{|l|l|} 
 		\hline
-		Part & \euro Price \\
+		Part & Price (\euro) \\
 		\hline\hline
 		Solar panel & 9,60\\
 		Supercapacitor & 7,43\\
@@ -172,7 +172,7 @@ From this table can be concluded that the cost of building a transiently powered
 
 \section{Motion Control Design}
 \label{sec:dai_control_design}
-In order for the robot to make controlled movements, it needs to have a local heading feedback method to be able to preform controlled movements.
+In order for the robot to make controlled movements, it needs to have a local heading feedback method.
 Since the buck converter supplies a constant voltage to the motors, voltage is eliminated as a factor in determining the motor speed.
 By making the assumption that the robot only travels on a flat surfaces, the steady state speed is considered ``constant".
 
@@ -188,14 +188,14 @@ The motors used for the robot have a typical resistance of R = 14.5\,$\Omega$ an
 Therefore, the minimum pulse width should be equal to
 
 \begin{equation}
-T_{\min} = 5 \frac{L}{R} = 24.14\,\mu\text{s}
+T_{\min} = 5 \frac{L}{R} = 24.14\,\mu\text{s}.
 \end{equation}
 
 \noindent
 If a minimum duty cycle $D_{\min}$ of 5\% assumed, than the maximum PWM frequency becomes
 
 \begin{equation}
-f_{\max} = \frac{D_{\min}}{T_{\min}}\cdot 100 = 2071.25\,\text{Hz}
+f_{\max} = \frac{D_{\min}}{T_{\min}}\times 100 = 2071.25\,\text{Hz}.
 \end{equation}
 
 \noindent
@@ -203,7 +203,7 @@ The PWM frequency is set to 2\,kHz and from Table \ref{tab:duty_cycle} can be se
 
 \begin{table}[t]
 	\centering
-	\caption{Minimum and maximum duty cycle for different robots}
+	\caption{Minimum and maximum duty cycle for different robots.}
 	\label{tab:duty_cycle}
 	\begin{tabular}{|l||l|l|l|} 
 		\hline
@@ -258,7 +258,7 @@ The controller periodically tries to reduce the yaw error as
 
 \noindent
 where $\psi_{\text{target}}$ is the yaw-rate target and $\psi(t)$ the yaw-rate obtained by the gyroscope.
-The PID controller adjusts its output, and corrects the speed of each motor in opposite direction by the following equation
+The PID controller adjusts its output, and corrects the speed of each motor in opposite direction as
 
 \begin{equation}
 u(t) = K_{\text{p}}e(t) + K_{\text{i}} \int_{0}^{t}e(\tau)d\tau + K_{\text{d}}\frac{d}{dt}e(t),
@@ -338,7 +338,7 @@ The tuning process was speeded up by setting the minimum motor duty cycle as it 
 
 The software implementation that allows the robot to perform controlled movements is divided in three parts, the main program, a control loop and motor control.
 In the main program a set of movements can be defined for the robot to be executed.
-The robot can be controlled using three movement commands; (1) straight trajectories, (2) curved right turns and (3) curved left turns.
+The robot can be controlled using three movement commands: (1) straight trajectories, (2) curved right turns and (3) curved left turns.
 For each movement an additional movement target needs to be defined that specifies the duration, i.e. when the control loop considers the movement to be finished.
 
 \subsection{Control loop}

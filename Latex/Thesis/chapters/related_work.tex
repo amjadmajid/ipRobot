@@ -31,7 +31,7 @@ To be able to execute long running-programs under the threat of power loss due t
 There are several methods that propose solutions to computation across power cycles.
 For example, programs can be automatically transformed to run under frequent loss of power by using energy-aware state checkpointing.
 The state of the program is saved in non-volatile memory before running out of energy~\cite{ransford_asplos_2011}.
-Another checkpointing method removes the need for special hardware or a programming model, instead it uses a compiler to add light weight non-volatile checkpoints to a program, dividing it into re-executable sections~\cite{vanderwoude_osdi_2016}.
+Another checkpointing method removes the need for special hardware or a programming model, instead it uses a compiler to add lightweight non-volatile checkpoints to a program, dividing it into re-executable sections~\cite{vanderwoude_osdi_2016}.
 Besides that, other research proposes a new programming model that splits a program into tasks, where the tasks exchange data trough non-volatile input and output channels, guaranteeing consistency of the program~\cite{colin_oopsla_2017}.
 
 
@@ -47,16 +47,16 @@ Besides that, other research proposes a new programming model that splits a prog
 
 %Capacitor vs Supercapacitor EDLC vs battery?
 
-IoT devices are currently powered from one of two sources, either from batteries or supercapacitors.
-Normal capacitors can not store enough energy to power devices and are mainly used to stabilize power supplies.
-Each electrical storage technology has different properties, as seen from Table \ref{tab:cap_scap_battery}.
+Internet of Things (IoT) devices are currently powered from one of two sources, either from batteries or supercapacitors.
+Normal capacitors cannot store enough energy to power devices and are mainly used to stabilize power supplies.
+Each electrical storage technology has different properties, as seen in Table \ref{tab:cap_scap_battery}.
 For example, supercapacitors have a higher power density that allows for quick charge and discharge rates without any special charging circuitry~\cite{prasad_comst_2014}.
 Supercapacitors are more safe when used outside their recommended operating conditions, as they do not contain any toxic chemicals like batteries~\cite{maxwell_overview_2017}.
 The two largest disadvantages of super-capacitors are their low energy density and high price.
 
 On the other hand, batteries have a higher energy density when compared to supercapacitors and in addition, experience lower leakage currents.
 A downside of using batteries is that they seldom withstand more than one thousand complete charge/discharge cycles.
-Overheating of batteries can severely reduce the lifetime of a battery or in the worst case lead to explosion, which happened to the Galaxy Note 7 from Samsung in January of this year~\cite{samsung_note7_2017}.
+Overheating of batteries can severely reduce the lifetime of a battery or in the worst case lead to explosion, which happened to the Galaxy Note 7 from Samsung in January~\cite{samsung_note7_2017}.
 
 %A combination of a li-ion battery and supercapacitor is proposed in~\cite{ongaro_pwre_2012}, and shows that the number of charge/discharge cycles of the battery can be reduced by a factor of four.
 
@@ -72,8 +72,8 @@ Overheating of batteries can severely reduce the lifetime of a battery or in the
 		\hline \hline
 		Specific Energy (Wh/kg) & \textless 0.1 & 1--10 & 10--100 \\
 		Specific Power (W/kg) & \textgreater 10.000 & 500--10.000 & \textless 1000 \\
-		Discharge time & 10\textsuperscript{5} to 10\textsuperscript{3} & s to min & 0.3--3\,h \\
-		Charge time & 10\textsuperscript{5} to 10\textsuperscript{3} & s to min & 1--5\,h \\
+		Discharge time & 10\textsuperscript{-5} to 10\textsuperscript{-3}\,s & s to min & 0.3--3\,h \\
+		Charge time & 10\textsuperscript{-5} to 10\textsuperscript{-3}\,s & s to min & 1--5\,h \\
 		Coulombic efficiency (\%) & About 100 & 85--98 & 70--85 \\
 		Cycle life & Almost infinite & \textgreater 500.000 & about 1000 \\
 		%Cost per Wh & \$20 (typical) & \$2 (typical) \\
@@ -127,7 +127,7 @@ Moving in the most energy efficient way on a particular surface is often the det
 On a flat surface, robots commonly use a two-wheeled differential drive design to not only move but allow for steering as well~\cite{sabelhaus_icra_2013, pickem_icra_2015}.
 The need for wheels can be eliminated by positioning the DC motors at a 45 degree angle relative to surface and letting the motor shafts directly contact the surface~\cite{kim_iros_2016}.
 A tiny ball caster is used as a third support point in the front of the robot.
-Other designs do not use conventional DC motors, but instead uses stepper motors.
+Other designs do not use conventional DC motors, but instead use stepper motors.
 The motors speed can be set by changing the delay between steps. 
 Estimating position is therefore reduced to simply counting steps~\cite{pickem_icra_2015}.
 
@@ -144,7 +144,7 @@ Other locomotion types are biologically inspired, a small scale piezoelectric dr
 Typically the operation time is extended by regularly checking the remaining energy in the battery and move to a recharging station before the robot runs out of energy~\cite{pickem_icra_2015, rubenstein_icra_2012}.
 
 An alternative to quick recharging is to swap the battery automatically when the robot moves into the docking station~\cite{kemal_mech_2015}.
-An example is a robot which is able to swap it's primary battery using a six degree-of-freedom manipulator.
+An example is a robot which is able to swap its primary battery using a six degree-of-freedom manipulator.
 The manipulator is used to grab the dead battery and plug it into a wireless recharging charging station~\cite{zhang_conel_2013}.
 
 Direct wireless power can be used as an alternative to batteries to provide power to a robot~\cite{karpelson_icra_2014}.
@@ -170,28 +170,28 @@ This approach has only been tested for basic locomotion and has not combined any
 	%\resizebox{\columnwidth}{!}{%
 	\rotatebox{90}{
 		\begin{threeparttable}
-			\caption{The small robotic platforms are comparable in cost, size and weight. However, it is clear that the transiently-powered robot has tiny energy capacity, very short operation time but the ability to recharge locally.}
+			\caption{The small robotic platforms are compared in cost, size and weight. It is clear that the transiently-powered robot has tiny energy capacity, very short operation time but the ability to recharge locally.}
 			\label{tab:comparison_robot_platforms}
 	 		\begin{tabular}{|l l l l l l l l l|} 
 				\hline 
 	 			Robot  & Cost & Locomotion & Speed & Size                    & Weight & Energy  & Operation & Recharge\\ 
-	 			       & (\euro)&          & (cm/s)& (mm\textsuperscript{2}) & (g)       & Capacity (mAh)& Time      & Method \\ 
+	 			       & (\euro)&          & (cm/s)& (mm\textsuperscript{$\dagger$}) & (g)       & Capacity (mAh)& Time      & Method \\ 
 	 			\hline\hline
 	 			This robot & 59 & wheel & 25 & 35$\times$40 & 22 & 0.006 & 1 s & solar \\
-	 			Roverables \cite{dementyev_uist_2016} & 34\textsuperscript{3} & wheel & N/A & 40$\times$26 & 36\textsuperscript{3} & 100 & 45 min & inductive \\                    
+	 			Roverables \cite{dementyev_uist_2016} & 34\textsuperscript{$\ddagger$} & wheel & N/A & 40$\times$26 & 36\textsuperscript{$\ddagger$} & 100 & 45 min & inductive \\                    
 	 			Zooids \cite{legoc_uist_2016}& 43 & wheel & 50 & 26$\times$26 & 12 & 100 & 1 h & manual \\      
-	 			mROBerTO \cite{kim_iros_2016} & 52\textsuperscript{2} &motor shaft & 15 & 16$\times$16 & 10\textsuperscript{3} & 120 & 1.5 h & manual \\
-	 			GRITSBot \cite{pickem_icra_2015} & 43\textsuperscript{2} & wheel & 25 & 31$\times$30 & 60\textsuperscript{3} & 150 & 1 h & contact \\
+	 			mROBerTO \cite{kim_iros_2016} & 52\textsuperscript{$\dagger$} &motor shaft & 15 & 16$\times$16 & 10\textsuperscript{$\ddagger$} & 120 & 1.5 h & manual \\
+	 			GRITSBot \cite{pickem_icra_2015} & 43\textsuperscript{$\dagger$} & wheel & 25 & 31$\times$30 & 60\textsuperscript{$\ddagger$} & 150 & 1 h & contact \\
 	 			TinyTerp \cite{sabelhaus_icra_2013} & 43 & wheel & 50 & 17$\times$18 & N/A & 50 & 1 h & manual \\
-	 			Kilobot \cite{rubenstein_icra_2012} & 43\textsuperscript{2} & vibration & 1 & 33$\times$33 & 17.6\textsuperscript{3} & 160 & 3 h & manual (bulk) \\
-				HAMR-VP\textsuperscript{1} \cite{bruhwiler_iros_2015}& N/A & legged & 44 & 44$\times$44 & 2.3 & 8 & 3 min & manual \\
+	 			Kilobot \cite{rubenstein_icra_2012} & 43\textsuperscript{$\dagger$} & vibration & 1 & 33$\times$33 & 17.6\textsuperscript{$\ddagger$} & 160 & 3 h & manual (bulk) \\
+				HAMR-VP\textsuperscript{*} \cite{bruhwiler_iros_2015}& N/A & legged & 44 & 44$\times$44 & 2.3 & 8 & 3 min & manual \\
 				\hline
 			\end{tabular}
 			\begin{tablenotes}
 				\small
-				\item [1] Modified to include on-board power, sensing and control.
-				\item [2] Cost of parts
-				\item [3] Obtained by contacting the authors of the paper
+				\item [*] Modified to include on-board power, sensing and control.
+				\item [$\dagger$] Cost of parts
+				\item [$\ddagger$] Obtained by contacting the authors of the paper
 			\end{tablenotes}
 		\end{threeparttable}
 	}
