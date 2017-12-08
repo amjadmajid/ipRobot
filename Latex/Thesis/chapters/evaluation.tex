@@ -17,7 +17,7 @@ In this section the accuracy of movement of the battery-less robot is evaluated 
 
 \subsection{Experimental setup}
 
-To be able to compare the accuracy of the robot while it is exposed to increasingly smaller power cycles, a variety of movements is recorded using an overhead camera.
+To be able to compare the accuracy of the robot while it is exposed to increasingly smaller on times, a variety of movements is recorded using an overhead camera.
 A stand with a Nikon D610 DSLR camera is positioned on a tabletop, as seen in Figure \ref{fig:movement_setup}.
 The corners of a square of 80$\times$80\,cm are indicated with black corner markers.
 This square is used as a reference to convert the robots movement from pixels to cm.
@@ -41,7 +41,7 @@ Two movements are compared: (1) the robot preforms a straight movement of 75\,cm
 
 \subsubsection{Tracking the Movement}
 
-%The robot is programmed to perform the movement at a desired PWM target ie at a specified speed, and optional power interrupt period.
+%The robot is programmed to perform the movement at a desired PWM target ie at a specified speed, and optional on time.
 Before the robot executes the movement, a green marker is placed on top of the robot.
 The marker is the reference point that is used by the tracking software.
 The camera is used to record the movement, which then is analyzed using Python and OpenCV 3.2.
@@ -57,24 +57,24 @@ If the target duty cycle is set to a 100\,\% the controller is only able to decr
 
 \subsubsection{Power Interrupts}
 
-The power cycle period is determined by the energy stored in the capacitor and the power consumed by the robot for movement.
-To evaluate different power cycle periods, besides the one created with the 22\,mF supercapacitor, additional power interrupts are generated artificially.
+The on time is determined by the energy stored in the capacitor and the power consumed by the robot for movement.
+To evaluate different on times, besides the one created with the 22\,mF supercapacitor, additional power interrupts are generated artificially.
 The power interrupts, i.e. the capacitor running out of energy, are created artificially using a timer that resets the MCU.
 If the interrupts are generated artificially, the robot is powered from a battery.
 The MSP430FR5969 has the functionality to enable a brownout reset through software, which is used to simulate the event of the supply voltage dropping below the required operating voltage~\cite{msp430fr_family_guide_2017}.
-A timer is used to generate the power interrupt after a predefined period.
+A timer is used to generate the power interrupt after a predefined time.
 
-\subsubsection{Power Interrupt Period}
+\subsubsection{On Time}
 
 With the selected capacitor of 22\,mF, the robot can operate around 1 second. 
-To find the minimal power interrupt period that is required to allow control the robot, it is programmed to perform a four second straight movement.
-The movement is recorded for each target duty cycle and the power interrupt periods of 0.4\,s, 0.3\,s and 0.2\,s are evaluated.
+To find the minimal on time that is required to allow control the robot, it is programmed to perform a four second straight movement.
+The movement is recorded for each target duty cycle and the on times of 0.4\,s, 0.3\,s and 0.2\,s are evaluated.
 
-The results in Figure \ref{fig:decreasing_power_period} show that for the higher duty cycle targets an interrupt period of 0.3\,s leads to significant drift to one side, which is classified as uncontrolled behavior.
+The results in Figure \ref{fig:decreasing_power_period} show that for the higher duty cycle targets an on time of 0.3\,s leads to significant drift to one side, which is classified as uncontrolled behavior.
 The control loop was not able to stabilize the movement before a power interrupt occurs, and therefore the robot drifts to the side of its weakest motor.
 The duration that power is available might not be long enough for the motors to reach their steady state speed, making linear control of the motors impossible.
-Increasing the target duty cycle shows that a higher interrupt period is required to control the movement. 
-Therefore, the power interrupt periods evaluated in this experiment are set to 1.0\,s and 0.5\,s.
+Increasing the target duty cycle shows that a longer on time is required to control the movement. 
+Therefore, the on times evaluated in this experiment are set to 1.0\,s and 0.5\,s.
 
 
 \begin{figure}
@@ -93,15 +93,15 @@ Therefore, the power interrupt periods evaluated in this experiment are set to 1
 		\caption{Target 90\%}
 		\label{fig:target_90}
 	\end{subfigure}
-	\caption{Accuracy of straight movements while the power interrupt period is decreased, for each target duty cycle.}
+	\caption{Accuracy of straight movements while the on time is decreased, for each target duty cycle.}
 	\label{fig:decreasing_power_period}
 \end{figure}
 
 \subsubsection{Speed Calibration}
-Another thing that can be observed from the results in Figure \ref{fig:decreasing_power_period}, is the distance covered by the robot decreases by decreasing the target and/or power interrupt period.
+Another thing that can be observed from the results in Figure \ref{fig:decreasing_power_period}, is the distance covered by the robot decreases by decreasing the target and/or on time.
 Without any sensors or external feedback of the robots speed, it is difficult to determine the distance that the robot has traveled.
 A rough speed estimate allows the robot to stay within the view of the camera.
-The average speed is estimated for each target duty cycle and power interrupt period combination.
+The average speed is estimated for each target duty cycle and one time combination.
 This is achieved by first determining the time that the robot requires to move approximately 150\,cm for each target duty cycle without power interrupts.
 When the robot experiences power interrupts, the average speed of an active period becomes lower due to frequent acceleration from a standstill.
 Therefore, power interrupts increase the runtime required to make the robot travel approximately the same distance.
@@ -112,7 +112,7 @@ Finally, the average of five complete movement measurements is computed and divi
 \begin{table}[t]
 	\centering
 	\small
-	\caption{The calibrated speeds in centimeter per second for each target duty cycle and interrupt period combination.}
+	\caption{The calibrated speeds in centimeter per second for each target duty cycle and on time combination.}
 	\label{tab:val_calib}
 	\begin{tabular}{|l||l|l|l|l|l|l|}
 		\hline
@@ -120,7 +120,7 @@ Finally, the average of five complete movement measurements is computed and divi
 		\hline \hline
 		 40 & 18.9 & 18.0 & 15.9 & 16.0\\
 	     65 & 24.0 & 21.3 & 18.8 & 20.8\\
-		 90 & 28.8 & 25.7 & 22.7 & 23.3 \\
+		 90 & 28.8 & 25.7 & 22.7 & 23.3\\
 		\hline
 	\end{tabular}
 \end{table}
@@ -144,7 +144,7 @@ Finally, the average of five complete movement measurements is computed and divi
 \subsection{Straight Movements}
 \label{eval:straight_movements}
 
-Using the calibrated speeds and selected power interrupt periods, the robot is commanded to perform a straight movement of 75\,cm from position (40,0) cm within the reference frame.
+Using the calibrated speeds and selected on times, the robot is commanded to perform a straight movement of 75\,cm from position (40,0) cm within the reference frame.
 Each combination is recorded multiple times and the motion data is extracted from the video using Python and OpenCV.
 The results in Figure \ref{fig:straight_movements} show that the distance traveled by the robot, for each measurement, approximates the commanded 75\,cm.
 Additionally, the results show a varying horizontal deviation between the start and end point.
@@ -184,7 +184,7 @@ The Euclidean distance between the closest measurement and the reference line is
 
 \subsubsection{Straight Movement Results}
 
-The results for the battery powered robot with and without artificial interrupts show that decreasing the interrupt period, increases the maximum, average and standard deviation of the horizontal deviation, as seen in Table \ref{tab:straight_results}.
+The results for the battery powered robot with and without artificial interrupts show that decreasing the on time, increases the maximum, average and standard deviation of the horizontal deviation, as seen in Table \ref{tab:straight_results}.
 Increasing the speed does not have the same effect and no significant differences can be seen from the results.
 
 The solar powered shows less horizontal deviation when compared to the battery powered robot.
@@ -226,9 +226,9 @@ The robot without a battery or solar panel has a weight of 16.7\,g and therefore
 
 \subsection{Circular Movements}
 
-The robot is programmed to make a circle with radius of 30\,cm with the predetermined speed and power interrupt settings.
+The robot is programmed to make a circle with radius of 30\,cm with the predetermined speed and on times.
 The results in Figure \ref{fig:circular_movements} show that for all measurements the robot is able perform the circular movement.
-A clear difference in circle radius can be seen for each interrupt period, as a result of an error between the actual and calibrated speeds.
+A clear difference in circle radius can be seen for each on time, as a result of an error between the actual and calibrated speeds.
 The robot sometimes overshoots its final position.
 It is expected to be caused by an error in integration of the angular velocity to obtain an angle.
 The angle is used to determine if the movement target is reached.
@@ -262,7 +262,7 @@ Decreasing the power interrupt frequency is suspected to increases the integrati
 %The length of the movement is determined by summing the distance between points in the measurement data.
 % two different metrics are used.
 To determine the accuracy of the circular movement, a circle with varying radius is visually fitted to data of each movement.
-The radius is different because calibrated speed varies with each target duty cycle and interrupt period.
+The radius is different because calibrated speed varies with each target duty cycle and on time.
 The Euclidean distance is computed between the reference circle and the measured circular movements.
 
 

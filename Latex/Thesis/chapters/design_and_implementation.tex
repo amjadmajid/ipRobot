@@ -374,7 +374,7 @@ When the timer reaches a value that corresponds to the value stored in one of th
 %Secondly, the proportional gain should not be set to low because the robot might not able to reach the target but also not to high as it can overshoot the target.
 
 \subsection{Persistent Movement}
-The transiently-powered robot can make one movement or a series of movements, which probably require multiple power cycles to complete.
+The transiently-powered robot can make one movement or a series of movements, which probably requires multiple power cycles to complete.
 To be able to finish a movement and not reset, i.e. redo the same movement, a simple checkpointing method is used to save the progress across power cycles.
 A persistent counter registers the progress in the set of movements.
 Every control loop iteration the persistent variable that captures the progress towards the movement target is updated, and depending on the movement can be a time or angle.

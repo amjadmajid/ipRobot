@@ -37,25 +37,23 @@ This section explains the main areas considered while designing the battery-less
 In this section two sources for the harvesting of ambient energy are evaluated: radio signals and solar.
 The charge times are measured for a variety of distances from the selected sources.
 
-\subsection{}
+%The average input power is defined as
 
-The average input power is defined as
+%\begin{equation}
+%	P_{\text{in}} = \frac{E_{\text{cap}}}{t_{\text{charge}}},
+%\end{equation}
 
-\begin{equation}
-	P_{\text{in}} = \frac{E_{\text{cap}}}{t_{\text{charge}}},
-\end{equation}
+%\noindent
+%where $E_{\text{cap}}$ the energy stored in a capacitor and $t_{\text{charge}}$ the average charge time.
+%The energy stored in a capacitor given minimum and maximum voltage levels is defined as
 
-\noindent
-where $E_{\text{cap}}$ the energy stored in a capacitor and $t_{\text{charge}}$ the average charge time.
-The energy stored in a capacitor given minimum and maximum voltage levels is defined as
+%\begin{equation}
+%\label{eqn:energy_cap}
+%	E_{\text{cap}} = \frac{1}{2}C(V_{\max} - V_{\min})^{2},
+%\end{equation}
 
-\begin{equation}
-\label{eqn:energy_cap}
-	E_{\text{cap}} = \frac{1}{2}C(V_{\max} - V_{\min})^{2},
-\end{equation}
-
-\noindent
-where $C$ is the capacity of a the capacitor, $V_{\min}$ is the minimum and $V_{\max}$ is the maximum voltage level of a capacitor.
+%\noindent
+%where $C$ is the capacity of a the capacitor, $V_{\min}$ is the minimum and $V_{\max}$ is the maximum voltage level of a capacitor.
 
 \subsection{Energy Harvesting and Storage}
 \label{sec:pre_energy_harvesting_storage}
@@ -64,12 +62,12 @@ The harvested energy is stored in a 22\,mF - 4.5\,V supercapacitor from AVX~\cit
 The BQ25570 comes with a buck converter to efficiently regulate the capacitors voltage down to the system voltage of 2.2\,V.
 External resistors are used to program voltage thresholds, allowing to automatically enable and disable the buck converter based on minimum and maximum thresholds.
 The minimum threshold is set to 2.2\,V and the maximum threshold is set to 4.2\,V.
-Using (\ref{eqn:energy_cap}) the energy stored in the capacitor is equal to
+%Using (\ref{eqn:energy_cap}) the energy stored in the capacitor is equal to
 
-\begin{equation}
-\label{eq:cap2}
-E_{\text{cap}} = \frac{1}{2} 0.022 (4.4 - 2.2)^2 = 53.24 \text{\,mJ}.
-\end{equation}
+%\begin{equation}
+%\label{eq:cap2}
+%E_{\text{cap}} = \frac{1}{2} 0.022 (4.4 - 2.2)^2 = 53.24 \text{\,mJ}.
+%\end{equation}
 
 %Additionally the resistors are used to set the overvoltage protection and the buck converter output voltage.
 %The minimal supply voltage is determined by the component with the highest minimal voltage requirement, in this case 2.0\,V.
@@ -80,7 +78,7 @@ E_{\text{cap}} = \frac{1}{2} 0.022 (4.4 - 2.2)^2 = 53.24 \text{\,mJ}.
 The buck converter of the energy harvester is automatically enabled when the maximum voltage threshold is reached.
 A load is connected to the output of the buck converter to quickly drain the energy from the capacitor.
 In this case load is chosen such that the power consumed by the load $P_{\text{load}} \gg P_{\text{in}}$.
-By connecting a Saleae logic analyzer~\cite{saleae_2017} to the output of the buck converter, the period of the power cycles can be recorded.
+By connecting a Saleae logic analyzer~\cite{saleae_2017} to the output of the buck converter, the off time of the power cycles can be recorded.
 The time that the output of the buck converter is disabled is equal to the time to charge the capacitor from the minimum to the maximum threshold.
 
 \subsection{Energy Harvesting from radio signals}

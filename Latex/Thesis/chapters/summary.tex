@@ -12,11 +12,11 @@ A controller is designed that allows for controlled straight and curved movement
 
 Straight and circular movements have been executed and recorded using an overhead camera.
 Tracking software is used to verify the accuracy of a transiently-powered battery-free robot and compares it performance to a battery powered equivalent robot.
-By decreasing the interrupt period, a lower threshold of 0.3\,s has been found.
+By decreasing the on time, a lower threshold of 0.3\,s has been found.
 The robot started to show uncontrolled behavior, i.e. significant drift to the side of the weakest motor.
 A shorter on time than 0.3\,s might not be sufficient for the motors to reach their steady state speed, making controlled movements using linear motor control impossible.
 
-Using artificial power interrupts, the results show that decreasing the interrupt period towards the lower threshold results in increased horizontal deviation in case of straight movements.
+Using artificial power interrupts, the results show that decreasing the on time towards the lower threshold results in increased horizontal deviation in case of straight movements.
 It is expected to be caused by more frequent accelerations from standstill.
 For curved movements the results show a decreased average deviation from the fitted circle by increasing the target duty cycle.
 The additional speed is suspected to allow the controller to be more effective in steering the robot towards its final destination.
