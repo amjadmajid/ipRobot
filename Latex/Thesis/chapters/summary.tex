@@ -8,19 +8,21 @@ This thesis is surmised by a conclusion in Section \ref{sec:conclusion} and in S
 
 In this thesis, a transiently-powered battery-free robot is designed and implemented.
 The robot harvests energy from light and DC motors have been chosen to provide locomotion.
-A controller is designed that allows for controlled straight and curved movements, while a simple check pointing method combined with persistent movement targets allows a movement to be completed across multiple power cycles.
+An embedded gyroscope provides heading feedback, and a PID controller allows execution of controlled straight and curved movements.
+A simple check pointing method combined with persistent movement targets allows a movement to be completed across multiple power cycles.
 
 Straight and circular movements have been executed and recorded using an overhead camera.
-Tracking software is used to verify the accuracy of a transiently-powered battery-free robot and compares it performance to a battery powered equivalent robot.
-By decreasing the on time, a lower threshold of 0.3\,s has been found.
+Tracking software is used to collect the robots movement data and compare the movement accuracy of a transiently-powered battery-free robot with its battery powered equivalent.
+Using artificial power interrupts, the on time is decreased and a lower threshold of 0.3\,s is found.
 The robot started to show uncontrolled behavior, i.e. significant drift to the side of the weakest motor.
-A shorter on time than 0.3\,s might not be sufficient for the motors to reach their steady state speed, making controlled movements using linear motor control impossible.
+On times below 0.3\,s might not allow the motors to reach their steady state speed, making linear motor control impossible.
 
-Using artificial power interrupts, the results show that decreasing the on time towards the lower threshold results in increased horizontal deviation in case of straight movements.
+The results show that decreasing the on time towards the lower threshold, increases the horizontal deviation in case of straight movements.
 It is expected to be caused by more frequent accelerations from standstill.
 For curved movements the results show a decreased average deviation from the fitted circle by increasing the target duty cycle.
 The additional speed is suspected to allow the controller to be more effective in steering the robot towards its final destination.
-The solar powered robot surprisingly outperforms the battery-powered robot in terms of movement accuracy, as the additional weight of the solar panel is likely to have a positive effect on the movement of the robot.
+The solar powered robot surprisingly outperforms the battery-powered robot in terms of movement accuracy.
+The additional weight of the solar panel is likely to have a positive effect on the movement of the robot.
 
 %Section \ref{sec:controlled_movements} shows that the transiently powered robot is able to execute an instructed motion with similar accuracy compared to a battery powered equal. 
 %The distance covered by a robot with frequent power interrupts in a certain amount of time is smaller, i.e the average speed is lower due to frequent acceleration from a standstill.

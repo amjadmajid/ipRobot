@@ -346,7 +346,7 @@ For each movement an additional movement target needs to be defined that specifi
 When the control loop receives a movement command, the yaw-rate set point, movement target and motor duty cycle target are set accordingly.
 A timer running at a frequency of a 100\,Hz, is used to periodically call an interrupt service routine (ISR) and execute the control loop.
 Using an ISR has the benefit of a constant sample time, which simplifies the PID loop, because the integration and differentiation time are also constant and known in advance.
-When the ISR is triggered, first a yaw-rate sample is requested from the gyroscope.
+When the ISR is triggered, first a yaw-rate sample is requested from the gyroscope, as seen in Figure \ref{fig:flowchart_code}.
 Based on the current movement command, an evaluation is performed to determine if the movement target is reached.
 If this is not the case, the yaw-rate is supplied to the PID controller, which in turn updates the motor values.
 The output value produced by the PID controller is subtracted from the left motor value and added to the right motor value, in order to keep the average speed approximately the same.
@@ -357,6 +357,13 @@ For straight movements the movement target is equal to a predetermined time, i.e
 Curved movements use an angle movement target.
 By integrating the angular velocity an angle estimate is obtained, which is used to verify if the provided angle movement target is reached within a margin of two degrees.
 The loop exits automatically when the required movement target is reached.
+
+\begin{figure}[ht!]
+	\centering
+	\includegraphics[width=0.65\textwidth]{pics/flowchart_code.png}
+	\caption{The control loop that periodically updates the motor values based on the yaw-rate obtained from the gyroscope. The loop exits automatically if the movement target is reached.}
+	\label{fig:flowchart_code}
+\end{figure}
 
 \subsection{Motor Control}
 % -Write how the pwm control signals are generated for the H-bridge.

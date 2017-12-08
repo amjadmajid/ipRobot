@@ -230,7 +230,7 @@ The Azurspace solar panel has the shortest supercapacitor charge time, this can 
 \subsection{Conclusion}
 
 The results from RF experiments show that the minimum charge time is 49\,s, which more than doubles with only a 20\,cm distance increase from the reader.
-The mobility of the robot results in widely varying charge times and possible dead spots where the robot is not able to receive any power.
+%The mobility of the robot results in widely varying charge times and possible dead spots where the robot is not able to receive any power.
 Light is more readily available and by illuminating the area where the robot moves around with a 120\,W halogen lamp source, 6\,s charge times can be achieved when the light is positioned at a distance of 30\,cm from the solar panel.
 With the solar panel eight times shorter charge times can be achieved, and therefore solar is chosen to be the energy source for the transiently powered robot.
 
@@ -260,7 +260,7 @@ The GRITSBot~\cite{pickem_icra_2015} uses stepper motor based locomotion which a
 The upcoming section further investigates the use of stepper motor based locomotion for a transiently-powered robot.
 
 \subsubsection{Operation of a Stepper Motor}
-Stepper motors are permanent magnet dc motors that start to rotate by supplying current to the motor coils in a specific direction.
+Stepper motors are permanent magnet DC motors that start to rotate by supplying current to the motor coils in a specific direction.
 The bipolar stepper motor used, requires current to be pulsed trough each of the four connections, in a fixed pattern, in order to rotate it forward or backward.
 A Microcontroller (MCU) is used to keep track and control stepper motor position from a sequence of four.
 The outputs of the MCU cannot supply enough current to drive a bipolar stepper motor, therefore a dual H-bridge is required to control the current trough each coil.
@@ -354,6 +354,14 @@ From the datasheet a typical start current of 185\,mA can be found for its rated
 However, the system voltage chosen for transiently-powered robot is 2.2\,V.
 To determine the startup current of a 206-110 motor when supplied with 2.2\,V, a two second current trace is recorded using a Monsoon Power Monitor~\cite{monsoon_powermonitor_2017}.
 
+The maximum current measurements for three different motors is shown in Figure \ref{fig:free_running_current}.
+The results show that the 2.2\,V supply voltage reduces the start current peak to 140\,mA.
+This is still above 110\,mA and the robot needs to power two motors in a differential drive configuration to allow steering.
+
+A solution is to use Pulse Width Modulation (PWM) to reduce the motor speed and average current consumption.
+Combining PWM with a large bulk capacitor should enable the buck converter to start the motors.
+However, the duty cycle is limited to a maximum of $100/(2\times140/110) \approx 39\%$, and is further reduced by the load applied to the motors as a result of the robots own weight.
+
 \begin{figure}%[h!]
 	\centering
 	\includegraphics[width=0.8\textwidth]{pics/free_running_current.png}
@@ -361,22 +369,13 @@ To determine the startup current of a 206-110 motor when supplied with 2.2\,V, a
 	\label{fig:free_running_current}
 \end{figure}
 
-\subsubsection{Results}
-The measurement results for three different motors is shown in Figure \ref{fig:free_running_current}.
-The results show that the 2.2\,V supply voltage reduces the start current peak to 140\,mA.
-This is still above 110\,mA and the robot needs to power two motors in a differential drive configuration to allow steering.
-A solution is to use Pulse Width Modulation (PWM) to reduce the motor speed and average current consumption.
-Combining PWM with a large bulk capacitor should enable the buck converter to start the motors.
-However, the PWM duty cycle is limited to a maximum of $100/(2\times140/110) \approx 39\%$, and is further reduced by the load applied to the motors as a result of the robots own weight.
-
 \subsection{Conclusion}
-Stepper motor have a lower efficiency than normal dc motors because a constant current is consumed, independent of the rotational speed.
-The only way the rotor and stator retain alignment is by keeping the stepper motor coil energized.
+%Stepper motor have a lower efficiency than normal dc motors because a constant current is consumed.
+The only way the rotor and stator of a stepper motor aligned is by keeping the stepper motor coil energized.
 Frequent power interrupts could lead to loss of synchronization between the energized coil and position of the rotor as a result of rotor inertia.
 The error due to inertia becomes more significant with increase rotational speed.
 Loss of synchronization can result in random behavior of a differential drive robot, as one stepper motor may require a different amount of steps before synchronization than the other.
 
-Alternatively normal DC motors can be used which do not require any synchronization.
 Normal DC motors have a high start current which the buck converter from the harvester might not be able to supply.
 PWM can be used to reduce the average current consumed by the motor and a large bulk capacitor can supply short high current demand from the motors.
 The DC motor is chosen as the locomotion type used for the transiently-powered robot.

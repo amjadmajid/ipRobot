@@ -51,9 +51,9 @@ Because the size of the square is known to be 80$\times$80\,cm, the movement coo
 
 \subsubsection{Target Duty Cycle}
 To evaluate the influence of speed on the movement accuracy, each movement is executed at three different target duty cycle settings: 40\%, 65\% and 90\% of the maximum duty cycle.
+The maximum duty cycle is previously determined in Section \ref{sec:cd_pwm_frequency}, by the amount of current that the power supply can deliver to the motors.
 The highest setting is chosen to be equal to 90\,\% because it allows the PID controller to also increase the target duty cycle.
 If the target duty cycle is set to a 100\,\% the controller is only able to decrease the speed of the faster rotating motor because the maximum motor speed is bounded at a 100\,\%.
-
 
 \subsubsection{Power Interrupts}
 
@@ -93,14 +93,14 @@ Therefore, the on times evaluated in this experiment are set to 1.0\,s and 0.5\,
 		\caption{Target 90\%}
 		\label{fig:target_90}
 	\end{subfigure}
-	\caption{Accuracy of straight movements while the on time is decreased, for each target duty cycle.}
+	\caption{Accuracy of four second straight movements while the on time is decreased, for each target duty cycle.}
 	\label{fig:decreasing_power_period}
 \end{figure}
 
 \subsubsection{Speed Calibration}
 Another observation stemming from the results in Figure \ref{fig:decreasing_power_period}, is the distance covered by the robot decreases by decreasing the target and/or on time.
 Without any sensors or external feedback of the robots speed, it is difficult to determine the distance that the robot has traveled.
-A rough speed estimate allows the robot to stay within the view of the camera.
+A rough speed estimate allows the robot calculate the traveled distance and stay within the view of the camera.
 The average speed is estimated for each target duty cycle and one time combination.
 This is achieved by first determining the time that the robot requires to move approximately 150\,cm for each target duty cycle without power interrupts.
 When the robot experiences power interrupts, the average speed of an active period becomes lower due to frequent acceleration from a standstill.
@@ -302,6 +302,6 @@ The Euclidean distance is computed between the reference circle and the measured
 
 \subsubsection{Circular Movement Results}
 The average deviation from the reference circle reduces when the target duty cycle is increased, as seen from Table \ref{tab:circular_results}.
-The additional speed is likely to provide more stability to the movement, since less interrupts are required to complete the circular movement, i.e. the controller is able to provide more direction.
+The additional speed is likely to provide more stability to the movement, since less interrupts are experienced while the circular movement is completed, i.e. the controller is able to provide more direction.
 The solar powered robot shows more stability when compared to the battery powered robot.
 Which is expected to be a positive effect of the additional solar panel weight, as explained in the results of Section \ref{eval:straight_movements}.
