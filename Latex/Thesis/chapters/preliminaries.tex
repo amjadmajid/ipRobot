@@ -35,7 +35,7 @@ This section explains the main areas considered while designing the battery-less
 % better to only use RF for communication and harvest energy from another source \cite{konstantioulos}
 
 In this section two sources for the harvesting of ambient energy are evaluated: radio signals and solar.
-The charge times are measured for a variety of distances from the selected sources.
+The charge times of an energy storage element are measured for a variety of distances from the selected sources.
 
 %The average input power is defined as
 
@@ -147,15 +147,15 @@ Three different solar panels were tested, each different in material, efficiency
 
 
 \subsubsection{Lamps}
-Low cost solar simulators can consist of a combination of LED and halogen light bulbs to simulate sunlight and are used to test the performance of solar panels~\cite{grandi_tia_2014}.
-However, in this case the goal is to have a controlled uniform lighting environment where the robots have roughly constant charge times.
+Low cost solar simulators can for example consist of a combination of LED and halogen light bulbs to simulate sunlight and are used to test the performance of solar panels~\cite{grandi_tia_2014}.
+However, the goal is to have a controlled uniform lighting environment where the robots have roughly constant charge times.
 Solar panels do not only harvest energy from the visual light spectrum but harvest at least as much from the infrared light spectrum, therefore not only light but also heat shortens the charge time~\cite{ixolar_slmd121h04l_2017}.
-Halogen lamps have a lower color temperature than the sun but also emit waves far into the infrared spectrum.
-The light sources used in this experiment are a 60\,W halogen bulb, a 120\,W halogen bulb and two 150\,W Philips  BR125, infrared (IR) incandescent reflector lamps~\cite{philips_irlamp_2017} where one is clear and the other uses a red filter.
+Halogen lamps have a lower color temperature than the sun, but also emit waves far into the infrared spectrum.
+The light sources used in this experiment are a 60\,W halogen bulb, a 120\,W halogen bulb and two 150\,W Philips  BR125, infrared (IR) incandescent reflector lamps~\cite{philips_irlamp_2017} where one is translucent and the other uses a red filter.
 
 \subsubsection{Measurements}
 Three charge time measurements are performed, each lamp is positioned 10\,cm, 30\,cm and 50\,cm from the solar panels.
-To have a reference the charge times are also measured on a sunny November afternoon, inside the office room of TU Delft Embedded Software lab. 
+As reference, the charge times are also measured on a sunny November afternoon, inside the office room of TU Delft Embedded Software lab. 
 % Additionally, for these three distance the temperature was measured at the solar panel using a K-type thermocouple supplied with an Extech EX330 multimeter and the light intensity using the luxmeter on a MASTECH MS8229 multimeter.
 
 \subsubsection{Results}
@@ -164,18 +164,16 @@ To have a reference the charge times are also measured on a sunny November after
 % Panel from nuna
 % Refer to appendix for temperature and light data?
 
+The results obtained from the measurements show a non-linear relation between the charge times and the distance between the solar panel and the source, as seen in Table \ref{tab:light_results}.
 Increasing the output power of the source and decreasing the distance between panel and the source, both decrease the charge times.
-However, there is no obvious best performing combination of solar panel/light source as seen in Table \ref{tab:light_results}.
+However, there is no obvious best performing combination of solar panel/light source.
 
 Note that with some lamps a shadowing pattern is observed due to the construction of the lamps.
-The 60\,W and 150\,W IR lamps have a spherical design, creating an uneven circular shadowing pattern. 
+The 60\,W and 150\,W IR lamps have a spherical design, and their construction creates an uneven circular shadowing pattern. 
 This becomes more significant on larger distances.
 The 120\,W halogen lamp has a tubular design and in combination with the light fixture most of the light is reflected down with minimal shadowing of the lamp resulting in a more even light distribution.
-Therefore, this lamp is chosen to provide light in the controlled setup where the robots can move around with roughly constant charge times.
-
-For this lamp at the distances 30\,cm and 50\,cm the Azure space solar panel seems to perform the best.
-However, the surface area of this panel is more than double when compared to the other two solar panels, as seen in Table \ref{tab:solar_panels}.
-Therefore the charge times should be doubled, which makes the INYS panel the best performer.
+Therefore, it is chosen to provide light in the controlled setup where the robots can move around with roughly constant charge times.
+For the 120\,W halogen lamp at the distances 30\,cm and 50\,cm the INYS solar panel seems to perform the best.
 
 Additionally the charge times were recorded during a sunny 30 minute time slot (2:30--3:00\,PM, 23 November 2017) for each solar panels, as seen in Table \ref{tab:solar_results}.
 The Azurspace solar panel has the shortest supercapacitor charge time, this can be expected because the triple junction allows it to harvest energy from the broadest part of the light spectrum.
@@ -185,27 +183,33 @@ The Azurspace solar panel has the shortest supercapacitor charge time, this can 
 
 \begin{table}[t]
 	\centering
-	\caption{The average supercapacitor charge times (in seconds) when harvesting energy for different distances from the sources.}
-	\label{tab:light_results}
-	\begin{tabular}{|l|l||l|l|l|l|}
-		\hline
-		\multicolumn{2}{|c|}{} & \multicolumn{4}{|c|}{Source} \\
-		\hline
-		Distance (cm) & Panel & 60\,W & 120\,W & 150\,W clear & 150\,W red \\
-		\hline \hline
-		\multirow{3}{*}{10} & Banggood& 3.08 & 2.19 & 0.99 & 0.73 \\
-		& INYS & 2.76 & 0.82 & 0.51 & 0.56 \\
-		& Azurspace & 2.81 & 1.61 & 0.77 & 1.77 \\
-		\hline
-		\multirow{3}{*}{30} & Banggood & 6.45 & 6.72 & 7.83 & 1.88 \\
-		& INYS & 8.76 & 6.21 & 2.92 & 1.63 \\
-		& Azurspace & 11.53 & 4.12 & 9.88 & 10.16\\
-		\hline
-		\multirow{3}{*}{50} & Banggood & 26.28 & 17.59 & 17.91 & 9.46 \\
-		& INYS & 49.70 & 17.00 & 10.15 & 7.63 \\
-		& Azurspace & 53.33 & 12.09 & 23.1 & 46.96 \\
-		\hline
-	\end{tabular}
+	\begin{threeparttable}
+		\caption{The average supercapacitor charge times, for each panel at three distances from the sources.}
+		\label{tab:light_results}
+		\begin{tabular}{|l|l||l|l|l|l|}
+			\hline
+			\multirow{2}{*}{Distance (cm)} & \multirow{2}{*}{Panel} & \multicolumn{4}{c|}{Average charge time per source (s)} \\
+			%\hline
+			& & 60\,W & 120\,W & 150\,W clear & 150\,W red \\
+			\hline \hline
+			\multirow{3}{*}{10} & Banggood& 3.08 & 2.19 & 0.99 & 0.73 \\
+			& INYS & 2.52 & 0.75 & 0.46 & 0.51 \\
+			& Azurspace & 5.62 & 3.22 & 1.55 & 3.54 \\
+			\hline
+			\multirow{3}{*}{30} & Banggood & 6.45 & 6.72 & 7.83 & 1.88 \\
+			& INYS & 8.00 & 5.68 & 2.67 & 1.50 \\
+			& Azurspace & 23.05 & 8.25 & 19.75 & 20.33\\
+			\hline
+			\multirow{3}{*}{50} & Banggood & 26.28 & 17.59 & 17.91 & 9.46 \\
+			& INYS & 45.41 & 15.53 & 9.28 & 6.97 \\
+			& Azurspace & 106.67 & 24.18 & 46.20 & 93.91 \\
+			\hline
+		\end{tabular}
+		\begin{tablenotes}
+			\small
+			\item The charge times are normalized to a panel dimension of 40$\times$40 mm.
+		\end{tablenotes}
+	\end{threeparttable}
 \end{table}
 
 \begin{table}[t]
@@ -217,42 +221,38 @@ The Azurspace solar panel has the shortest supercapacitor charge time, this can 
 		Panel & Charge time (s) \\
 		\hline \hline
 		Banggood & 3.84\\
-		INYS & 3.89\\ 
-		Azurspace & 1.40\\
+		INYS & 3.55\\ 
+		Azurspace & 2.81\\
 		\hline
 	\end{tabular}
 \end{table}
 
-\subsubsection{Light setup}
+\subsection{Conclusion}
+
+The results from RF experiments show that the minimum charge time is 49\,s, which more than doubles with only a 20\,cm distance increase from the reader.
+The mobility of the robot results in widely varying charge times and possible dead spots where the robot is not able to receive any power.
+Light is more readily available and by illuminating the area where the robot moves around with a 120\,W halogen lamp source, 6\,s charge times can be achieved when the light is positioned at a distance of 30\,cm from the solar panel.
+With the solar panel eight times shorter charge times can be achieved, and therefore solar is chosen to be the energy source for the transiently powered robot.
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=0.8\textwidth]{pics/light_setup.jpg}
+	\caption{The light setup consisting out of four halogen lamps placed 30\,cm from the table top, providing energy to the robot.}
+	\label{fig:light_setup}
+\end{figure}
+
+\subsection{Light setup}
 
 To create an area where the transiently-powered robots can move around with approximately constant charge times, a light setup is created using wooden beams, as shown in Figure \ref{fig:light_setup}.
 Mounted in this frame are four 120\,W halogen lamps, previously determined to provide the most uniform light distribution and short charge times.
 The frame spans an area of 95$\times$66 cm and distances the lamps 30\,cm from the tabletop.
 
-\begin{figure}
-	\centering
-	\includegraphics[width=0.7\textwidth]{pics/light_setup.jpg}
-	\caption{The light setup consisting out of four halogen lamps placed 30\,cm from the table top, providing energy to the robot.}
-	\label{fig:light_setup}
-\end{figure}
-
-\subsection{Conclusion}
-
-The results from RF experiments show that the minimum charge time is 49\,s and more than doubles with only a 20\,cm distance increase from the reader.
-The mobility of the robot results in widely varying charge times and possible dead spots where the robot is not able to receive any power.
-Light is more readily available and by illuminating the area where the robot moves around with a 120\,W halogen lamp source, 6\,s charge times can be achieved when the light is positioned at a distance of 30\,cm from the solar panel.
-With the solar panel far shorter charge times can be achieved, and therefore solar is chosen to be the energy source for the transiently powered robot.
-
 \section{Locomotion Selection}
 \label{sec:pre_locomotion_selection}
 
-Robots can navigate without external feedback from one location to another, but accurate locomotion and basic odometry are required.
-In this section two different locomotion types are evaluated, the stepper motor and the DC motor.
-%TODO Move this part!
-%TODO DEFINE AND REFERENCE
-%Wheel encoders are often used to determine the angular speed of each wheel, which can be used to correct speed differences between the motors and can be integrated over time to acquire distance.
-%Miniaturizing encoders significantly reduces their resolution, and can be classified as power hungry when considering a small energy budget and active light source is used.
-%TODO NEED REFERENCE FOR THIS CLAIM
+Wheeled locomotion types are assumed to be the most efficient on flat surfaces.
+Therefore, in this section two wheeled locomotion types are evaluated: the stepper motor and the DC motor.
+The robot can navigate without external feedback from one location to another, but accurate locomotion and basic odometry are required.
 
 \subsection{Stepper motor-based Locomotion}
 
@@ -274,20 +274,20 @@ The outputs of the MCU cannot supply enough current to drive a bipolar stepper m
 %	\label{fig:bipolarstepper}
 %\end{figure}
 
-\subsubsection{Current Consumption}
+%\subsubsection{Current Consumption}
 %TODO values that calculate the current per motor?
 %TODO ADD CURRENT MEASUREMENTS @ 2.2 v
-The current consumed by a stepper motor is constant and independent of the angular velocity of the rotor.
-The average current consumed is equal to: $\textrm{I} = V_{\text{supply}}/R_{\text{coil}}$.
-Therefore, running the motor at maximum speed translates the most electrical energy into kinetic energy.
-However, the motor speed is inversely proportional to the output torque of the motor and the maximum speed is limited by the minimal required output torque.
+%The current consumed by a stepper motor is constant and independent of the angular velocity of the rotor.
+%The average current consumed is equal to: $\textrm{I} = V_{\text{supply}}/R_{\text{coil}}$.
+%Therefore, running the motor at maximum speed translates the most electrical energy into kinetic energy.
+%However, the motor speed is inversely proportional to the output torque of the motor and the maximum speed is limited by the minimal required output torque.
 %The current trough the coils is constant, so the faster the stepper motor changes step the more energy can be transformed into movement.
 %Increasing the rotational speed of the stepper motor decreases the torque output of the motor.
 %Therefore the speed is limited by the amount of torque required to perform the movement.
 
 \subsubsection{Control and Rotor Synchronization}
 
-The only way to guarantee that the teeth on the rotor stay aligned with the coil, is to keep the coil energized until the next position is instructed and the succeeding coil is energized. 
+The only way to guarantee that the rotor stays aligned with the coil, is to keep the coil energized until the next position is instructed and the succeeding coil is energized. 
 On the first startup the rotor may not be aligned with the last position in the sequence of four.
 As a result an error between one and three steps can occur before the energized coil and rotor are synchronized.
 
@@ -305,7 +305,7 @@ After rotating 20 steps the power is removed from the coils and the needle posit
 
 \begin{figure}
 	\centering
-	\includegraphics[width=0.7\textwidth]{pics/figure_intertia.png}
+	\includegraphics[width=0.8\textwidth]{pics/figure_intertia.png}
 	\caption{The visually counted number of steps when power is removed after 20 steps. The stepper motor is likely to overshoot and this effect becomes more significant with increased step frequency.}
 	\label{fig:step_results}
 \end{figure}
@@ -324,11 +324,12 @@ Figure \ref{fig:step_results} shows the result of the experiment.
 The stepper motor on average overshoots, i.e. does more steps than commanded when the power is removed.
 This effect becomes more significant with increased step frequency.
 While this experiment only shows the effect for an unloaded motor, it is likely that a synchronization error also occurs when a transiently-powered robot would be powered using two stepper motors in differential drive.
-After every power interrupt each motor first needs to be synchronized, resulting in the robot making a random turn if the error between the motors is not equal.
+After every power interrupt, the rotor of each motor needs to be synchronized with the energized coil by the MCU.
+As a result the robot could make a random turn if the error between the motors is not equal.
 
 \subsection{DC Motor locomotion}
 \label{sec:pre_dc_motor_locomotion}
-Small dc motors are commonly selected to provide locomotion for small robotic platforms as seen from Table \ref{tab:comparison_robot_platforms}.
+Small DC motors are commonly selected to provide locomotion for small robotic platforms as seen from Table \ref{tab:comparison_robot_platforms}.
 In this section the DC motor is evaluated as the locomotion type for the transiently-powered robot.
 
 \subsubsection{Operation of a DC Motor}
@@ -336,7 +337,7 @@ In this section the DC motor is evaluated as the locomotion type for the transie
 When voltage is applied to the motor, current rises as quickly as the inductance in the motor windings allows.
 DC motors produce an initial startup peak because the back electromotive force (back EMF) is initially zero.
 The current reaches a maximum when the rotor starts to rotate and a back EMF is generated.
-The back EMF increases further while the motor accelerates to its steady state speed, and the speed is limited by the voltage supplied.
+The back EMF increases further while the motor accelerates to its steady state speed, and the speed is determined by the voltage supplied.
 
 If a load is applied to the DC motor, the current consumed by the motor is increased because current is proportional to the torque applied to the motor.
 Additionally, the angular velocity of the motor decreases while the torque is inversely proportional to the angular velocity of the motor.
@@ -353,10 +354,9 @@ From the datasheet a typical start current of 185\,mA can be found for its rated
 However, the system voltage chosen for transiently-powered robot is 2.2\,V.
 To determine the startup current of a 206-110 motor when supplied with 2.2\,V, a two second current trace is recorded using a Monsoon Power Monitor~\cite{monsoon_powermonitor_2017}.
 
-
 \begin{figure}%[h!]
 	\centering
-	\includegraphics[width=0.7\textwidth]{pics/free_running_current.png}
+	\includegraphics[width=0.8\textwidth]{pics/free_running_current.png}
 	\caption{The free-running current profile of three 206-110 dc motors. Dc motors have a startup current peak significantly higher that their steady state current.}
 	\label{fig:free_running_current}
 \end{figure}
@@ -365,10 +365,9 @@ To determine the startup current of a 206-110 motor when supplied with 2.2\,V, a
 The measurement results for three different motors is shown in Figure \ref{fig:free_running_current}.
 The results show that the 2.2\,V supply voltage reduces the start current peak to 140\,mA.
 This is still above 110\,mA and the robot needs to power two motors in a differential drive configuration to allow steering.
-A solution is to use Pulse Width Modulation (PWM) to reduce the motor speed and average current consumed.
+A solution is to use Pulse Width Modulation (PWM) to reduce the motor speed and average current consumption.
 Combining PWM with a large bulk capacitor should enable the buck converter to start the motors.
 However, the PWM duty cycle is limited to a maximum of $100/(2\times140/110) \approx 39\%$, and is further reduced by the load applied to the motors as a result of the robots own weight.
-
 
 \subsection{Conclusion}
 Stepper motor have a lower efficiency than normal dc motors because a constant current is consumed, independent of the rotational speed.
@@ -378,6 +377,6 @@ The error due to inertia becomes more significant with increase rotational speed
 Loss of synchronization can result in random behavior of a differential drive robot, as one stepper motor may require a different amount of steps before synchronization than the other.
 
 Alternatively normal DC motors can be used which do not require any synchronization.
-However, this motor requires a high start current which the buck converter from the harvester might not be able to supply.
+Normal DC motors have a high start current which the buck converter from the harvester might not be able to supply.
 PWM can be used to reduce the average current consumed by the motor and a large bulk capacitor can supply short high current demand from the motors.
-Therefore, the dc motor is chosen as the locomotion type used for the transiently-powered robot.
+The DC motor is chosen as the locomotion type used for the transiently-powered robot.
