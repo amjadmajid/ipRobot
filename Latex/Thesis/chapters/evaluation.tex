@@ -62,12 +62,12 @@ To evaluate different on times, besides the one created with the 22\,mF supercap
 The power interrupts, i.e. the capacitor running out of energy, are created artificially using a timer that resets the MCU.
 If the interrupts are generated artificially, the robot is powered from a battery.
 The MSP430FR5969 has the functionality to enable a brownout reset through software, which is used to simulate the event of the supply voltage dropping below the required operating voltage~\cite{msp430fr_family_guide_2017}.
-A timer is used to generate the power interrupt after a predefined time.
+A timer is used to generate the power interrupt after a predefined on time.
 
 \subsubsection{On Time}
 
 With the selected capacitor of 22\,mF, the robot can operate around 1 second. 
-To find the minimal on time that is required to allow control the robot, it is programmed to perform a four second straight movement.
+To find the minimal on time that is required to allow control of the robot, it is programmed to perform a four second straight movement.
 The movement is recorded for each target duty cycle and the on times of 0.4\,s, 0.3\,s and 0.2\,s are evaluated.
 
 The results in Figure \ref{fig:decreasing_power_period} show that for the higher duty cycle targets an on time of 0.3\,s leads to significant drift to one side, which is classified as uncontrolled behavior.

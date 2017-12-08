@@ -59,7 +59,7 @@ def plot_raw_data(data_list):
 
     if movement == 1:
         plt.figure(figsize=(5, 5))
-    elif movement == 4:
+    elif movement == 3 or movement == 4:
         plt.figure(figsize=(3, 5))
         plt.subplots_adjust(left=0.2)
     for dlist in data_list:
@@ -81,13 +81,15 @@ def plot_raw_data(data_list):
     plt.ylabel('y distance in cm', fontsize=12)
     plt.xticks(fontsize=12)
     plt.yticks(fontsize=12)
+    if movement == 3:
+        plt.xlim(xmin=10, xmax=70)  # adjust the max leaving min unchanged
     if movement == 4:
         plt.xlim(xmin=20, xmax=80)  # adjust the max leaving min unchanged
     #plt.axes().set_aspect('equal', 'datalim')
     # remove duplicate labels
     handles, labels = plt.gca().get_legend_handles_labels()
     by_label = OrderedDict(zip(labels, handles))
-    plt.legend(by_label.values(), by_label.keys(), loc='upper right')
+    plt.legend(by_label.values(), by_label.keys(), loc='lower right')
     plt.show()
 
 
@@ -95,7 +97,7 @@ def plot_raw_data(data_list):
 
 ddir = 'Csv_Data/'
 
-movement = 1
+movement = 3
 set = 2
 pwm = ['30', '50', '70']
 #re_list = ['', '_int500', '_int750', '_int1000', '_int1250']
