@@ -80,17 +80,17 @@ Therefore, the on times evaluated in this experiment are set to 1.0\,s and 0.5\,
 \begin{figure}
 	\begin{subfigure}[b]{0.32\textwidth}
 		\includegraphics[width=\textwidth]{pics/figure_40.png}
-		\caption{Target 40\%}
+		\caption{Duty cycle 40\%}
 		\label{fig:target_40}
 	\end{subfigure}
 	\begin{subfigure}[b]{0.32\textwidth}
 		\includegraphics[width=\textwidth]{pics/figure_65.png}
-		\caption{Target 65\%}
+		\caption{Duty cycle 65\%}
 		\label{fig:target_65}
 	\end{subfigure}
 	\begin{subfigure}[b]{0.32\textwidth}
 		\includegraphics[width=\textwidth]{pics/figure_90.png}
-		\caption{Target 90\%}
+		\caption{Duty cycle 90\%}
 		\label{fig:target_90}
 	\end{subfigure}
 	\caption{Accuracy of four second straight movements while the on time is decreased, for each target duty cycle.}
@@ -116,7 +116,7 @@ Finally, the average of five complete movement measurements is computed and divi
 	\label{tab:val_calib}
 	\begin{tabular}{|l||l|l|l|l|l|l|}
 		\hline
-		Target (\%) & No interrupt & 1.0\,s & 0.5\,s & Solar \\
+		Duty cycle (\%) & No interrupt & 1.0\,s & 0.5\,s & Solar \\
 		\hline \hline
 		 40 & 18.9 & 18.0 & 15.9 & 16.0\\
 	     65 & 24.0 & 21.3 & 18.8 & 20.8\\
@@ -156,17 +156,17 @@ Even though the robot is positioned carefully in the same start position, it is 
 	\centering
 	\begin{subfigure}[b]{0.32\textwidth}
 		\includegraphics[width=\textwidth]{pics/straight_40.png}
-		\caption{Target 40\%}
+		\caption{Duty cycle 40\%}
 		\label{fig:stra_exp1}
 	\end{subfigure}
 	\begin{subfigure}[b]{0.32\textwidth}
 		\includegraphics[width=\textwidth]{pics/straight_65.png}
-		\caption{Target 65\%}
+		\caption{Duty cycle 65\%}
 		\label{fig:stra_exp2}
 	\end{subfigure}
 	\begin{subfigure}[b]{0.32\textwidth}
 		\includegraphics[width=\textwidth]{pics/straight_90.png}
-		\caption{Target 90\%}
+		\caption{Duty cycle 90\%}
 		\label{fig:stra_exp3}
 	\end{subfigure}
 	\caption{Straight movements for the different target duty cycles, the black horizontal line marks the 75\,cm endpoint.}
@@ -198,7 +198,7 @@ The robot without a battery or solar panel has a weight of 16.7\,g and therefore
 	\label{tab:straight_results}
 	\begin{tabular}{|l|l||l|l|l|}
 		\hline
-		Target (\%) & Interrupt (s) & Max (cm) & Mean (cm) & Std (cm)\\
+		Duty cycle (\%) & Interrupt (s) & Max (cm) & Mean (cm) & Std (cm)\\
 		\hline \hline
 		\multirow{4}{*}{40} & No interrupt & 0.86 & 0.36 & 0.16 \\
 		%& 1.25 & 0.67 & 0.34 & 0.12 \\
@@ -239,18 +239,18 @@ Decreasing the power interrupt frequency is suspected to increases the integrati
 	\centering
 	\begin{subfigure}[b]{0.49\textwidth}
 		\includegraphics[width=\textwidth]{pics/circle_40.png}
-		\caption{Target 40\%}
+		\caption{Duty cycle 40\%}
 		\label{fig:circ_exp1}
 	\end{subfigure}
 	\begin{subfigure}[b]{0.49\textwidth}
 		\includegraphics[width=\textwidth]{pics/circle_65.png}
-		\caption{Target 65\%}
+		\caption{Duty cycle 65\%}
 		\label{fig:circ_exp2}
 	\end{subfigure}
 
 	\begin{subfigure}[b]{0.49\textwidth}
 		\includegraphics[width=\textwidth]{pics/circle_90.png}
-		\caption{Target 90\%}
+		\caption{Duty cycle 90\%}
 		\label{fig:circ_exp3}
 	\end{subfigure}
 	\caption{Circular movements for the different target duty cycles, the black dashed circle marks the programmed circle with a radius of 30\,cm.}
@@ -273,7 +273,7 @@ The Euclidean distance is computed between the reference circle and the measured
 	\resizebox{\columnwidth}{!}{%
 		\begin{tabular}{|l|l||l|l|l|l|}
 			\hline
-			Target (\%) & Interrupt (s) & Radius (cm) & Max (cm) & Mean (cm) & Std (cm)\\
+			Duty cycle (\%) & Interrupt (s) & Radius (cm) & Max (cm) & Mean (cm) & Std (cm)\\
 			\hline \hline
 			\multirow{4}{*}{40} & No interrupt & 34 & 4.30 & 1.30 & 0.67 \\
 			%& 1.25 & 32 & 2.59 & 1.29 & 0.69 \\
