@@ -39,15 +39,15 @@ def get_max_avg_cur(file):
 
     avg_cur = chop_ends(avg_cur, 2)
 
-    ws = 100
+    ws = 20
     maxc = pd.Series(avg_cur).rolling(ws).max().dropna().tolist()
     avgc = pd.Series(avg_cur).rolling(ws).mean().dropna().tolist()
 
     print 'max_max: ' + str(max(maxc))
     print 'avg_max: ' + str(max(avgc))
     x = np.linspace(0, 0.0002 * len(maxc), len(maxc))
-    ax1.plot(x, maxc)
-    #ax2.plot(x, avgc)
+    #ax1.plot(x, maxc)
+    ax1.plot(x, avgc)
 
 
 """
@@ -57,7 +57,6 @@ ROBOT 1
 dir1 = 'data_20-11/'
 
 fig1 = plt.figure(1)
-#fig1.suptitle('Robot1, Left', fontsize=12, fontweight='normal')
 fig1.subplots_adjust(hspace=0.4)
 ax1 = fig1.add_subplot(111)
 #ax1.set_title('Max current')
@@ -65,17 +64,26 @@ ax1.set_ylabel('Current (mA)', fontsize=12)
 ax1.set_xlabel('Time (s)', fontsize=12)
 plt.xticks(fontsize=12)
 plt.yticks(fontsize=12)
-#ax2 = fig1.add_subplot(212)
-#ax2.set_title('Average current')
-#ax2.set_ylabel('Current (mA)')
-#ax2.set_xlabel('Time (s)')
-
-#get_max_avg_cur(dir1 + "R1_left_no_pwm_current_2.2v_v2.csv")
 
 get_max_avg_cur(dir1 + "R1_left_no_pwm_current_2.2v_no_wheel_v2.csv")
 get_max_avg_cur(dir1 + "R1_right_no_pwm_current_2.2v_no_wheel.csv")
-get_max_avg_cur(dir1 + "R2_left_no_pwm_current_2.2v_no_wheel.csv")
+#get_max_avg_cur(dir1 + "R2_left_no_pwm_current_2.2v_no_wheel.csv")
 #get_max_avg_cur(dir1 + "R2_right_no_pwm_current_2.2v_no_wheel.csv")
+
+
+fig1 = plt.figure(2)
+fig1.subplots_adjust(hspace=0.4)
+ax1 = fig1.add_subplot(111)
+#ax1.set_title('Max current')
+ax1.set_ylabel('Current (mA)', fontsize=12)
+ax1.set_xlabel('Time (s)', fontsize=12)
+plt.xticks(fontsize=12)
+plt.yticks(fontsize=12)
+
+get_max_avg_cur(dir1 + "R1_left_40%_pwm_current_2.2v_no_wheel.csv")
+#get_max_avg_cur(dir1 + "R1_right_40%_pwm_current_2.2v_no_wheel.csv")
+#get_max_avg_cur(dir1 + "R3_left_40%_pwm_current_2.2v_no_wheel.csv")
+get_max_avg_cur(dir1 + "R3_right_40%_pwm_current_2.2v_no_wheel.csv")
 
 
 '''
