@@ -25,3 +25,8 @@
 *.pdf
 !Thesis/pics/*.pdf
 !Paper/Revisions/*.pdf
+
+# remove additional files created by presentation tex file
+*.nav
+*.snm
+!Presentation/tud_white.pdf
