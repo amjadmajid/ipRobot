@@ -120,7 +120,7 @@ In this section the capacitor charge time is evaluated for different solar panel
 To accurately measure the power that is harvested from each solar panel, their performance was evaluated in a darkroom at TU Delft Embedded Software Lab.
 
 \subsubsection{Solar panels}
-Three different solar panels were tested, each different in material, efficiency and panel size, as seen from Table \ref{tab:solar_panels}.
+Three solar panels are tested, each different in material, efficiency and panel size, as seen from Table \ref{tab:solar_panels}.
 
 \begin{table}[t]
 	\centering
@@ -175,7 +175,7 @@ The 120\,W halogen lamp has a tubular design and in combination with the light f
 Therefore, it is chosen to provide light in the controlled setup where the robots can move around with roughly constant charge times.
 For the 120\,W halogen lamp at the distances 30\,cm and 50\,cm the INYS solar panel seems to perform the best.
 
-Additionally the charge times were recorded during a sunny 30 minute time slot (2:30--3:00\,PM, 23 November 2017) for each solar panels, as seen in Table \ref{tab:solar_results}.
+Additionally, the charge times were recorded during a sunny 30 minute time slot (2:30--3:00\,PM, 23 November 2017) for each solar panels, as seen in Table \ref{tab:solar_results}.
 The Azurspace solar panel has the shortest supercapacitor charge time, this can be expected because the triple junction allows it to harvest energy from the broadest part of the light spectrum.
 
 %Both the temperature and illumination increase by decreasing the distance between the light source and the solar panel. 
@@ -261,7 +261,7 @@ The upcoming section further investigates the use of stepper motor based locomot
 
 \subsubsection{Operation of a Stepper Motor}
 Stepper motors are permanent magnet DC motors that start to rotate by supplying current to the motor coils in a specific direction.
-The bipolar stepper motor used, requires current to be pulsed trough each of the four connections, in a fixed pattern, in order to rotate it forward or backward.
+The bipolar stepper motor used, requires current to be pulsed trough each of the four connections, in a fixed pattern, in order to rotate it forwards or backwards.
 A Microcontroller (MCU) is used to keep track and control stepper motor position from a sequence of four.
 The outputs of the MCU cannot supply enough current to drive a bipolar stepper motor, therefore a dual H-bridge is required to control the current trough each coil.
 
@@ -355,7 +355,7 @@ However, the system voltage chosen for transiently-powered robot is 2.2\,V.
 To determine the startup current of a 206-110 motor when supplied with 2.2\,V, a two second current trace is recorded using a Monsoon Power Monitor~\cite{monsoon_powermonitor_2017}.
 
 The maximum current measurements for three different motors is shown in Figure \ref{fig:free_running_current}.
-The results show that the 2.2\,V supply voltage reduces the start current peak to 140\,mA.
+The results show that a supply voltage of 2.2\,V reduces the start current peak to 140\,mA.
 This is still above 110\,mA and the robot needs to power two motors in a differential drive configuration to allow steering.
 
 A solution is to use Pulse Width Modulation (PWM) to reduce the motor speed and average current consumption.
