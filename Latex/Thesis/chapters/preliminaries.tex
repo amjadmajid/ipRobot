@@ -359,8 +359,8 @@ The results show that a supply voltage of 2.2\,V reduces the start current peak 
 This is still above 110\,mA and the robot needs to power two motors in a differential drive configuration to allow steering.
 
 A solution is to use Pulse Width Modulation (PWM) to reduce the motor speed and average current consumption.
-Combining PWM with a large bulk capacitor should enable the buck converter to start the motors.
-However, the duty cycle is limited to a maximum of $100/(2\times140/110) \approx 39\%$, and is further reduced by the load applied to the motors as a result of the robots own weight.
+Combining PWM with a large bulk capacitor that can supply the short high current demand, should enable the buck converter to start the motors.
+%However, the duty cycle is limited to a maximum of $100/(2\times140/110) \approx 39\%$, and is further reduced by the load applied to the motors as a result of the robots own weight.
 
 \begin{figure}%[h!]
 	\centering
