@@ -192,7 +192,7 @@ T_{\min} = 5 \frac{L}{R} = 24.14\,\mu\text{s}.
 \end{equation}
 
 \noindent
-If a minimum duty cycle $D_{\min}$ of 5\% assumed, than the maximum PWM frequency becomes
+If a minimum duty cycle $D_{\min}$ of 5\% is assumed, then the maximum PWM frequency becomes
 
 \begin{equation}
 f_{\max} = \frac{D_{\min}}{T_{\min}}\times 100 = 2071.25\,\text{Hz}.
@@ -203,7 +203,7 @@ The PWM frequency is set to 2\,kHz and from Table \ref{tab:duty_cycle} can be se
 
 \begin{table}[t]
 	\centering
-	\caption{Minimum and maximum duty cycle for different robots.}
+	\caption{With the minimum duty cycle the robots just starts moving and the maximum duty cycle is determined by the power supply while it still can supply the motor start current.}
 	\label{tab:duty_cycle}
 	\begin{tabular}{|l||l|l|l|} 
 		\hline
@@ -291,7 +291,7 @@ The yaw-rate set point can for example be determined from the radius of the circ
 
 \subsubsection{PID tuning using Ziegler-Nichols method}
 
-Tuning can be done by a trail and error approach, but a faster way of tuning is to use the closed loop Ziegler-Nichols method~\cite{franklin_feedback_2015}.
+Tuning can be done by a trial and error approach, but a faster way of tuning is to use the closed loop Ziegler-Nichols method~\cite{franklin_feedback_2015}.
 
 The method evaluates the amplitude and frequency of observed oscillations in the system by adjusting the tunable gains.
 Initially, the integral gain and the derivative gain, $K_{\text{i}}$ and $K_{\text{d}}$ respectively, are set to zero.
