@@ -25,6 +25,7 @@
 *.pdf
 !Thesis/pics/*.pdf
 !Paper/Revisions/*.pdf
+!Thesis/Final_Thesis_Koen_Schaper_11-12-2017.pdf
 
 # remove additional files created by presentation tex file
 *.nav
