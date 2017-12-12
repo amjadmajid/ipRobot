@@ -9,7 +9,7 @@
 \usepackage{graphicx}
 \usepackage{subcaption}
 \captionsetup[figure]{font=scriptsize,labelfont=scriptsize}
-%\captionsetup[subfigure]{font=scriptsize,labelfont=scriptsize}
+\captionsetup[subfigure]{font=scriptsize,labelfont=scriptsize}
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amsthm}
@@ -75,7 +75,7 @@
 			\caption*{Sony Toio}
 		\end{subfigure}
 	\end{figure}
-
+	Operation time is limited by Li-ion batteries
 \end{frame}
 
 \begin{frame}{Problem of batteries}
@@ -89,10 +89,9 @@
 		\item Recharging or battery replacement
 	\end{itemize}
 	\vspace{2em}
-	
+	\pause
 	\textbf{Solution:} \\
 	Energy from ambient sources stored in capacitors
-
 \end{frame}
 
 \begin{frame}{Energy harvesting}
@@ -101,15 +100,15 @@
 		\centering
 		\includegraphics[width=0.8\textwidth]{pics/Harvesting-diagram.png}
 	\end{figure}
-	\vspace{2em}
+	%\pause
 	\begin{minipage}{0.45\textwidth}
 		\textbf{1000x} smaller energy storage \\\\
-		%\noident
 		\textbf{Challenge}: \\
 		Frequent power interrupts
 	\end{minipage}
 	\begin{minipage}{0.54\textwidth}\raggedleft
 		\begin{figure}
+			\vspace{2em}
 			\includegraphics[width=0.9\textwidth]{pics/Voltage_time_harvester.png}
 			\caption*{Image: Naderiparizi RFID' 15}
 		\end{figure}
@@ -143,14 +142,16 @@
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Energy Source}
+\begin{frame}{Power}
 	\vspace{1em}
 	\begin{minipage}{0.45\textwidth}
 		Energy from light \\
 		
 		Solar panel \\
 		
-		\textbf{6\,s} Charge times
+		\textbf{6\,s} Charge time \\
+		
+		\textbf{1\,s} Operation time \\
 		
 	\end{minipage}
 	\begin{minipage}{0.54\textwidth}\raggedleft
@@ -173,11 +174,12 @@
 	\begin{minipage}{0.54\textwidth}\raggedleft
 		\begin{figure}
 			\includegraphics[width=\textwidth]{pics/free_running_current.png}
-			\caption*{Current profile}
+			\caption*{DC motor current profile}
 		\end{figure}
 	\end{minipage} \\
-	\textbf{Solution:} \\
-	Pulse Width Modulation + Bulk capacitor
+	\pause
+	\vspace{1em}
+	\textbf{Solution:} Pulse Width Modulation + Bulk capacitor
 \end{frame}
 
 \begin{frame}{Schematic overview}
@@ -188,13 +190,29 @@
 \end{frame}
 
 \begin{frame}{Robot implementation}
-	\begin{center}
+	\begin{figure}
+		\centering
 		\includegraphics[width=0.9\textwidth]{pics/tp_robot2.png}
-	\end{center}
+	\end{figure}
 \end{frame}
 
 \begin{frame}{Controlled movements}
-
+	\begin{minipage}{0.45\textwidth}
+		Straight and curved movements\\
+		
+		Yaw-rate from gyroscope \\
+		
+		PID controller \\
+		
+		Movement target \\
+	\end{minipage}
+	\pause
+	\begin{minipage}{0.54\textwidth}\raggedleft
+		\begin{figure}
+			\centering
+			\includegraphics[width=0.8\textwidth]{pics/Flowchart_code.png}
+		\end{figure}
+	\end{minipage}
 \end{frame}
 
 \begin{frame}{Tuning PID controller}
@@ -213,11 +231,6 @@
 	\end{figure}
 \end{frame}
 
-\begin{frame}{Control loop}
-\begin{center}
-	\includegraphics[width=0.4\textwidth]{pics/Flowchart_code.png}
-\end{center}
-\end{frame}
 
 \begin{frame}{Evaluation}
 	\vspace{1em}
@@ -235,41 +248,38 @@
 	\end{figure}
 \end{frame}
 
-\begin{frame}{Solar powered demo}
-	\begin{figure}
-		\centering
-		\includegraphics[width=\textwidth]{pics/video.jpg}
-	\end{figure}
-\end{frame}
-
 \begin{frame}{Minimum on time}
 	\begin{figure}
 		\centering
-		\begin{subfigure}[b]{0.32\textwidth}
+		\begin{subfigure}[b]{0.28\textwidth}
 			\includegraphics[width=\textwidth]{pics/figure_40.png}
 			\caption*{Duty cycle 40\%}
 		\end{subfigure}
 		\hspace{2em}
-		\begin{subfigure}[b]{0.32\textwidth}
+		\begin{subfigure}[b]{0.28\textwidth}
 			\includegraphics[width=\textwidth]{pics/figure_90.png}
 			\caption*{Duty cycle 90\%}
 		\end{subfigure}
 	\end{figure}
+	\pause
+	\textbf{Conclusion:} Minimum on time $\geq$ 0.3\,s
 \end{frame}
 
 \begin{frame}{Straight movements}
 	\begin{figure}
 		\centering
-		\begin{subfigure}[b]{0.32\textwidth}
+		\begin{subfigure}[b]{0.28\textwidth}
 			\includegraphics[width=\textwidth]{pics/straight_40.png}
 			\caption*{Duty cycle 40\%}
 		\end{subfigure}
 		\hspace{2em}
-		\begin{subfigure}[b]{0.32\textwidth}
+		\begin{subfigure}[b]{0.28\textwidth}
 			\includegraphics[width=\textwidth]{pics/straight_90.png}
 			\caption*{Duty cycle 90\%}
 		\end{subfigure}
 	\end{figure}
+	\pause
+	\textbf{Conclusion:} Interrupts increase horizontal deviation
 \end{frame}
 
 \begin{frame}{Circular movements}
@@ -284,26 +294,38 @@
 			\caption*{Duty cycle 90\%}
 		\end{subfigure}
 	\end{figure}
+	\pause
+	\textbf{Conclusion:} Higher duty cycle equals less deviation from circular path
+\end{frame}
+
+\begin{frame}{Solar powered demo}
+	\begin{figure}
+		\centering
+		\includegraphics[width=\textwidth]{pics/video.jpg}
+	\end{figure}
 \end{frame}
 
 \begin{frame}{Conclusion}
-	\begin{itemize}
-		\setlength\itemsep{1em}	
-		\item 16\% power duty cycle
-		\item Minimum on time of 0.3\,s
-		\item Transiently-powered vs battery-powered robot
-	\end{itemize}
+	16\% power duty cycle \\
+	\vspace{1em}
+	Minimum on time of 0.3\,s \\
+	\vspace{1em}
+	Transiently-powered vs battery-powered robot \\
+	\vspace{1em}
 \end{frame}
 
 \begin{frame}{Future Work}
-	\begin{itemize}
-		\setlength\itemsep{1em}
-		\item Speed feedback 
-		\item Communication
-		\item Transiently-powered swarm
-		\item Size reduction
-		\item Sensing capabilities
-	\end{itemize}
+
+	Speed feedback \\
+	\vspace{1em}
+	Communication \\
+	\vspace{1em}
+	Transiently-powered swarm \\
+	\vspace{1em}
+	Size reduction \\
+	\vspace{1em}
+	Sensing capabilities \\
+	
 \end{frame}
 
 \end{document}
