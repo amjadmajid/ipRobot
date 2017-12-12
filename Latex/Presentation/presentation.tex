@@ -8,6 +8,8 @@
 \usepackage[absolute,overlay]{textpos}
 \usepackage{graphicx}
 \usepackage{subcaption}
+\captionsetup[figure]{font=scriptsize,labelfont=scriptsize}
+%\captionsetup[subfigure]{font=scriptsize,labelfont=scriptsize}
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amsthm}
@@ -28,7 +30,7 @@
 
 
 \title[]{Transiently-powered Battery-free Robot}
-\institute[]{Delft University of Technology, The Netherlands}
+\institute[]{Delft University of Technology}
 \author{Koen Schaper}
 %\date{}
 
@@ -44,22 +46,145 @@
 
 }
 
-\begin{frame}{Example frame 1}
-This is the first frame
+\begin{frame}{Overview}
+		Introduction \\
+		\vspace{1em}
+		Design and Implementation
+		\begin{itemize}
+			\item Hardware
+			\item Control
+			\item Software
+		\end{itemize}
+		Evaluation \\
+		\vspace{1em}
+		Conclusion
 \end{frame}
 
-\begin{frame}{Overview}
+\begin{frame}{Small robotic platforms}
+	\begin{figure}
+		\begin{subfigure}[b]{0.32\textwidth}
+			\includegraphics[width=\textwidth]{pics/zooids.jpg}
+			\caption*{Zooids}
+		\end{subfigure}
+		\begin{subfigure}[b]{0.324\textwidth}
+			\includegraphics[width=\textwidth]{pics/rovables.jpg}
+			\caption*{Rovables}
+		\end{subfigure}
+		\begin{subfigure}[b]{0.323\textwidth}
+			\includegraphics[width=\textwidth]{pics/toio.jpg}
+			\caption*{Sony Toio}
+		\end{subfigure}
+	\end{figure}
+
+\end{frame}
+
+\begin{frame}{Problem of batteries}
+	New battery technologies
 	\begin{itemize}
-		\item item 1
-		\item Conclusion
-		\item 
+		\item Overhyped and slow emerging
 	\end{itemize}
+	\vspace{0.5em}
+	Replenishment methods
+	\begin{itemize}
+		\item Recharging or battery replacement
+	\end{itemize}
+	\vspace{2em}
+	
+	\textbf{Solution:} \\
+	Energy from ambient sources stored in capacitors
+
+\end{frame}
+
+\begin{frame}{Energy harvesting}
+	%\vspace{1em}
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.8\textwidth]{pics/Harvesting-diagram.png}
+	\end{figure}
+	\vspace{2em}
+	\begin{minipage}{0.45\textwidth}
+		\textbf{1000x} smaller energy storage \\\\
+		%\noident
+		\textbf{Challenge}: \\
+		Frequent power interrupts
+	\end{minipage}
+	\begin{minipage}{0.54\textwidth}\raggedleft
+		\begin{figure}
+			\includegraphics[width=0.9\textwidth]{pics/Voltage_time_harvester.png}
+			\caption*{Image: Naderiparizi RFID' 15}
+		\end{figure}
+	\end{minipage}
+\end{frame}
+
+\begin{frame}{Research question}
+	\begin{center}
+	%\begin{block}{}
+		What is the effect of intermittency on the movement accuracy of a transiently-powered robot without external feedback?
+	%\end{block}	
+	\end{center}
+\end{frame}
+
+\begin{frame}{Design requirements}
+	Power \\
+	\begin{itemize}
+		\item Not rely on batteries
+	\end{itemize}
+	Small form factor \\
+	\begin{itemize}
+		\item Lower material cost
+	\end{itemize}
+    Locomotion \\
+    \begin{itemize}
+    	\item Efficient actuator for movement
+    \end{itemize}
+    Controlled movements \\
+    \begin{itemize}
+    	\item Complete movement across power cycles
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Energy Source}
+	\vspace{1em}
+	\begin{minipage}{0.45\textwidth}
+		Energy from light \\
+		
+		Solar panel \\
+		
+		\textbf{6\,s} Charge times
+		
+	\end{minipage}
+	\begin{minipage}{0.54\textwidth}\raggedleft
+		\begin{figure}
+			\includegraphics[width=0.9\textwidth]{pics/light_setup.jpg}
+			\caption*{Light setup}
+		\end{figure}
+	\end{minipage}
+\end{frame}
+
+\begin{frame}{Locomotion}
+	\begin{minipage}{0.45\textwidth}
+		Geared DC motors \\
+		
+		Start current peak \\
+		
+		Maximum current harvester: \\
+		110\,mA
+	\end{minipage}
+	\begin{minipage}{0.54\textwidth}\raggedleft
+		\begin{figure}
+			\includegraphics[width=\textwidth]{pics/free_running_current.png}
+			\caption*{Current profile}
+		\end{figure}
+	\end{minipage} \\
+	\textbf{Solution:} \\
+	Pulse Width Modulation + Bulk capacitor
 \end{frame}
 
 \begin{frame}{Schematic overview}
-	\begin{center}
+	\begin{figure}
+		\centering
 		\includegraphics[width=0.9\textwidth]{pics/schematic_robot_v2.png}
-	\end{center}
+	\end{figure}
 \end{frame}
 
 \begin{frame}{Robot implementation}
@@ -68,14 +193,13 @@ This is the first frame
 	\end{center}
 \end{frame}
 
-\begin{frame}{Control loop}
-	\begin{center}
-		\includegraphics[width=0.4\textwidth]{pics/Flowchart_code.png}
-	\end{center}
+\begin{frame}{Controlled movements}
+
 \end{frame}
 
 \begin{frame}{Tuning PID controller}
 	\begin{figure}
+		Ziegler-Nichols Closed-Loop Tuning Method
 		\begin{center}
 		\begin{subfigure}[b]{0.49\textwidth}
 			\includegraphics[width=\textwidth]{pics/straight_ku.png}
@@ -87,6 +211,12 @@ This is the first frame
 		\end{subfigure}
 		\end{center}
 	\end{figure}
+\end{frame}
+
+\begin{frame}{Control loop}
+\begin{center}
+	\includegraphics[width=0.4\textwidth]{pics/Flowchart_code.png}
+\end{center}
 \end{frame}
 
 \begin{frame}{Evaluation}
@@ -102,6 +232,13 @@ This is the first frame
 			\includegraphics[width=\textwidth]{pics/movement_example.png}
 			\caption*{Tracking with OpenCV}
 		\end{subfigure}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{Solar powered demo}
+	\begin{figure}
+		\centering
+		\includegraphics[width=\textwidth]{pics/video.jpg}
 	\end{figure}
 \end{frame}
 
@@ -151,8 +288,10 @@ This is the first frame
 
 \begin{frame}{Conclusion}
 	\begin{itemize}
-		\item item 1
-		\item item 2
+		\setlength\itemsep{1em}	
+		\item 16\% power duty cycle
+		\item Minimum on time of 0.3\,s
+		\item Transiently-powered vs battery-powered robot
 	\end{itemize}
 \end{frame}
 
