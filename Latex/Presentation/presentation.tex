@@ -32,7 +32,7 @@
 \title[]{Transiently-powered Battery-free Robot}
 \institute[]{Delft University of Technology}
 \author{Koen Schaper}
-%\date{}
+\date{15 December 2017}
 
 \logo{\includegraphics[width=3cm]{pics/es_logo_cyan_black_rgb}}
 
@@ -46,51 +46,71 @@
 
 }
 
+\begin{comment}
 \begin{frame}{Overview}
 		Introduction \\
 		\vspace{1em}
 		Design and Implementation
 		\begin{itemize}
 			\item Hardware
-			\item Control
-			\item Software
+			\item Control software
 		\end{itemize}
+		\vspace{1em}
 		Evaluation \\
 		\vspace{1em}
 		Conclusion
 \end{frame}
+\end{comment}
 
 \begin{frame}{Small robotic platforms}
+	\textbf{Future applications}
+	\begin{itemize}
+		\item Search and rescue
+		\item Exploration
+	\end{itemize}
+	\pause
 	\begin{figure}
-		\begin{subfigure}[b]{0.32\textwidth}
+		\centering
+		\begin{subfigure}[b]{0.28\textwidth}
 			\includegraphics[width=\textwidth]{pics/zooids.jpg}
 			\caption*{Zooids}
 		\end{subfigure}
-		\begin{subfigure}[b]{0.324\textwidth}
+		\quad
+		\begin{subfigure}[b]{0.2825\textwidth}
 			\includegraphics[width=\textwidth]{pics/rovables.jpg}
 			\caption*{Rovables}
 		\end{subfigure}
-		\begin{subfigure}[b]{0.323\textwidth}
+		\quad
+		\begin{subfigure}[b]{0.2815\textwidth}
 			\includegraphics[width=\textwidth]{pics/toio.jpg}
 			\caption*{Sony Toio}
 		\end{subfigure}
 	\end{figure}
-	Operation time is limited by Li-ion batteries
+	\pause
+	\textbf{Problem:} Operation time is limited by Lithium-ion batteries
 \end{frame}
 
 \begin{frame}{Problem of batteries}
-	New battery technologies
-	\begin{itemize}
-		\item Overhyped and slow emerging
-	\end{itemize}
-	\vspace{0.5em}
-	Replenishment methods
-	\begin{itemize}
-		\item Recharging or battery replacement
-	\end{itemize}
-	\vspace{2em}
+	\begin{minipage}{0.54\textwidth}
+		\textbf{New battery technologies}
+		\begin{itemize}
+			\item Overhyped and slow emerging
+		\end{itemize}
+		\vspace{0.5em}
+		\textbf{Replenishment methods}
+		\begin{itemize}
+			\item Recharging or battery replacement
+		\end{itemize}
+	\end{minipage}
+	\begin{minipage}{0.45\textwidth}\raggedleft
+		\begin{figure}
+			\centering
+			\includegraphics[width=0.9\textwidth]{pics/Kilobot_charger_with_robots1-495x188.png}
+		\end{figure}
+	\end{minipage} \\
+	\vspace{3em}
 	\pause
-	\textbf{Solution:} \\
+	\textbf{Solution:} 
 	Energy from ambient sources stored in capacitors
 \end{frame}
 
@@ -102,7 +122,7 @@
 	\end{figure}
 	%\pause
 	\begin{minipage}{0.45\textwidth}
-		\textbf{1000x} smaller energy storage \\\\
+		\textbf{1000x} smaller energy storage \\\\\\
 		\textbf{Challenge}: \\
 		Frequent power interrupts
 	\end{minipage}
@@ -118,30 +138,31 @@
 \begin{frame}{Research question}
 	\begin{center}
 	%\begin{block}{}
-		What is the effect of intermittency on the movement accuracy of a transiently-powered robot without external feedback?
+		\textbf{What is the effect of intermittency on the movement accuracy of a transiently-powered robot without external feedback?}
 	%\end{block}	
 	\end{center}
 \end{frame}
 
 \begin{frame}{Design requirements}
-	Power \\
+	\textbf{Power} \\
 	\begin{itemize}
 		\item Not rely on batteries
 	\end{itemize}
-	Small form factor \\
+	\textbf{Small form factor} \\
 	\begin{itemize}
 		\item Lower material cost
 	\end{itemize}
-    Locomotion \\
+    \textbf{Locomotion} \\
     \begin{itemize}
     	\item Efficient actuator for movement
     \end{itemize}
-    Controlled movements \\
+    \textbf{Controlled movements} \\
     \begin{itemize}
     	\item Complete movement across power cycles
     \end{itemize}
 \end{frame}
 
+\begin{comment}
 \begin{frame}{Power}
 	\vspace{1em}
 	\begin{minipage}{0.45\textwidth}
@@ -161,7 +182,9 @@
 		\end{figure}
 	\end{minipage}
 \end{frame}
+\end{comment}
 
+\begin{comment}
 \begin{frame}{Locomotion}
 	\begin{minipage}{0.45\textwidth}
 		Geared DC motors \\
@@ -181,6 +204,7 @@
 	\vspace{1em}
 	\textbf{Solution:} Pulse Width Modulation + Bulk capacitor
 \end{frame}
+\end{comment}
 
 \begin{frame}{Schematic overview}
 	\begin{figure}
@@ -196,7 +220,24 @@
 	\end{figure}
 \end{frame}
 
-\begin{frame}{Controlled movements}
+\begin{frame}{PCB implementation}
+	\vspace{1em}
+	\begin{figure}
+		\centering
+		\begin{subfigure}[b]{0.35\textwidth}
+			\includegraphics[width=\textwidth]{pics/pcb_front.jpg}
+			\caption*{Front side}
+		\end{subfigure}
+		\qquad
+		\begin{subfigure}[b]{0.35\textwidth}
+			\includegraphics[width=\textwidth]{pics/pcb_back.jpg}
+			\caption*{Back side}
+		\end{subfigure}
+	\end{figure}
+\end{frame}
+
+
+\begin{frame}{Motion control}
 	\begin{minipage}{0.45\textwidth}
 		Straight and curved movements\\
 		
@@ -205,6 +246,8 @@
 		PID controller \\
 		
 		Movement target \\
+		
+		Persistent checkpoints\\
 	\end{minipage}
 	\pause
 	\begin{minipage}{0.54\textwidth}\raggedleft
@@ -213,6 +256,27 @@
 			\includegraphics[width=0.8\textwidth]{pics/Flowchart_code.png}
 		\end{figure}
 	\end{minipage}
+\end{frame}
+
+\begin{comment}
+\begin{frame}{PID controller}
+The controller periodically tries to reduce the yaw error as \\
+
+\begin{equation}
+e(t) = \psi_{\text{target}} - \psi(t),
+\end{equation} \\
+\vspace{1em}
+\noindent
+where $\psi_{\text{target}}$ is the yaw-rate target and $\psi(t)$ the yaw-rate obtained by the gyroscope. \\
+\vspace{1em}
+The PID controller adjusts its output as \\
+
+\begin{equation}
+u(t) = K_{\text{p}}e(t) + K_{\text{i}} \int_{0}^{t}e(\tau)d\tau + K_{\text{d}}\frac{d}{dt}e(t),
+\end{equation} \\
+\vspace{1em}
+\noindent
+where $K_{p}$, $K_{i}$ and $K_{d}$ are the tunable gains.
 \end{frame}
 
 \begin{frame}{Tuning PID controller}
@@ -230,9 +294,11 @@
 		\end{center}
 	\end{figure}
 \end{frame}
-
+\end{comment}
 
 \begin{frame}{Evaluation}
+	Determine the accuracy of movement
+	\pause
 	\vspace{1em}
 	\begin{figure}
 		\centering
@@ -246,9 +312,20 @@
 			\caption*{Tracking with OpenCV}
 		\end{subfigure}
 	\end{figure}
+	%Artificial power interrupts
+\end{frame}
+
+\begin{frame}{Solar powered demo}
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{pics/video.jpg}
+\end{figure}
 \end{frame}
 
 \begin{frame}{Minimum on time}
+	\vspace{0.5em}
+	%4\,s straight movements
+	\vspace{-0.5em}
 	\begin{figure}
 		\centering
 		\begin{subfigure}[b]{0.28\textwidth}
@@ -262,10 +339,15 @@
 		\end{subfigure}
 	\end{figure}
 	\pause
-	\textbf{Conclusion:} Minimum on time $\geq$ 0.3\,s
+	\vspace{0.5em}
+	\textbf{Conclusion 1:} Minimum on time $\geq$ 0.3\,s \\
+	\textbf{Conclusion 2:} Speed decrease due to power interrupts \\
 \end{frame}
 
 \begin{frame}{Straight movements}
+	\vspace{0.5em}
+	%Average speed experimentally determined
+	\vspace{-0.5em}
 	\begin{figure}
 		\centering
 		\begin{subfigure}[b]{0.28\textwidth}
@@ -279,10 +361,13 @@
 		\end{subfigure}
 	\end{figure}
 	\pause
-	\textbf{Conclusion:} Interrupts increase horizontal deviation
+	\vspace{0.5em}
+	\textbf{Conclusion 1:} Interrupts increase horizontal deviation \\
+	\textbf{Conclusion 2:} Solar powered more stable \\
 \end{frame}
 
 \begin{frame}{Circular movements}
+	\vspace{-1em}
 	\begin{figure}[h!]
 		\centering
 		\begin{subfigure}[b]{0.49\textwidth}
@@ -295,37 +380,62 @@
 		\end{subfigure}
 	\end{figure}
 	\pause
-	\textbf{Conclusion:} Higher duty cycle equals less deviation from circular path
-\end{frame}
-
-\begin{frame}{Solar powered demo}
-	\begin{figure}
-		\centering
-		\includegraphics[width=\textwidth]{pics/video.jpg}
-	\end{figure}
+	\vspace{0.5em}
+	\textbf{Conclusion:} Higher duty cycle decreases deviation from circular path
 \end{frame}
 
 \begin{frame}{Conclusion}
-	16\% power duty cycle \\
+	%16\% power duty cycle \\
+	%\vspace{1em}
+	\textbf{Minimum on time} \\
+	\begin{itemize}
+		\item Required for linear motion control
+	\end{itemize}
 	\vspace{1em}
-	Minimum on time of 0.3\,s \\
+	\textbf{Transiently-powered vs battery-powered robot} \\
+	\begin{itemize}
+		\item No significant differences in accuracy of movement
+	\end{itemize}
 	\vspace{1em}
-	Transiently-powered vs battery-powered robot \\
-	\vspace{1em}
+	\textbf{Transiently-powered robot is feasible} \\
+	\begin{itemize}
+		\item Potential for self-sufficient and energy-autonomous robots
+	\end{itemize}
 \end{frame}
 
 \begin{frame}{Future Work}
 
-	Speed feedback \\
-	\vspace{1em}
-	Communication \\
-	\vspace{1em}
-	Transiently-powered swarm \\
-	\vspace{1em}
-	Size reduction \\
-	\vspace{1em}
-	Sensing capabilities \\
+	\textbf{Speed feedback} \\
+	\begin{itemize}
+		\item Local sensing or external feedback
+	\end{itemize}
+	\textbf{Communication} \\
+	\begin{itemize}
+		\item Backscatter communication channel from the WISP
+	\end{itemize}
+	\textbf{Transiently-powered swarm} \\
+	\begin{itemize}
+		\item Swarm behavior with collective of transiently-powered robots
+	\end{itemize}
+	\textbf{Size reduction} \\
+	\begin{itemize}
+		\item Reduce cost and energy required for movement
+	\end{itemize}
+	\textbf{Sensing capabilities} \\
+	\begin{itemize}
+		\item Additional sensors for future applications
+	\end{itemize}
 	
+\end{frame}
+
+\begin{frame}{}
+	\begin{center}
+		\textbf{\huge{Questions?}}
+		\vspace{2em}
+		\begin{figure}
+			\includegraphics[width=0.8\textwidth]{pics/tp_robot.png}
+		\end{figure}
+	\end{center}
 \end{frame}
 
 \end{document}
