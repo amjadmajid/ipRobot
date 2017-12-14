@@ -14,10 +14,11 @@ print 'stddev bat_bot: ' + str(np.std(bat_bot))
 print 'stddev ip_bot: ' + str(np.std(ip_bot))
 
 # basic plot
-plt.figure(1)
+plt.figure(figsize=(5, 5))
 plt.ylabel('Distance (cm)')
 plt.boxplot([bat_bot, ip_bot])
-plt.xticks([1,2], ['Battery Powered Robot', 'Intermittently Powered Robot'])
+plt.ylim(ymin=0)
+plt.xticks([1,2], ['Battery-powered robot', 'Transiently-powered robot'])
 
 #plt.figure(2)
 #plt.hist(bat_bot,normed=True)

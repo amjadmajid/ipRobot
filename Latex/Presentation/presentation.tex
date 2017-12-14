@@ -163,28 +163,6 @@
 \end{frame}
 
 \begin{comment}
-\begin{frame}{Power}
-	\vspace{1em}
-	\begin{minipage}{0.45\textwidth}
-		Energy from light \\
-		
-		Solar panel \\
-		
-		\textbf{6\,s} Charge time \\
-		
-		\textbf{1\,s} Operation time \\
-		
-	\end{minipage}
-	\begin{minipage}{0.54\textwidth}\raggedleft
-		\begin{figure}
-			\includegraphics[width=0.9\textwidth]{pics/light_setup.jpg}
-			\caption*{Light setup}
-		\end{figure}
-	\end{minipage}
-\end{frame}
-\end{comment}
-
-\begin{comment}
 \begin{frame}{Locomotion}
 	\begin{minipage}{0.45\textwidth}
 		Geared DC motors \\
@@ -220,7 +198,7 @@
 	\end{figure}
 \end{frame}
 
-\begin{frame}{PCB implementation}
+\begin{frame}{Printed Circuit Board}
 	\vspace{1em}
 	\begin{figure}
 		\centering
@@ -238,67 +216,57 @@
 
 
 \begin{frame}{Motion control}
-	\begin{minipage}{0.45\textwidth}
-		Straight and curved movements\\
+	\begin{minipage}{0.30\textwidth}%\raggedleft
+		\textbf{Movement:} \\\\
 		
-		Yaw-rate from gyroscope \\
+		\textbf{Controller setpoint:} \\\\
 		
-		PID controller \\
-		
-		Movement target \\
-		
-		Persistent checkpoints\\
+		\textbf{Finished target:} \\\\
+	
 	\end{minipage}
-	\pause
+	\begin{minipage}{0.32\textwidth}
+		Straight movements \\\\
+		
+		Zero \\\\
+		
+		Time \\\\
+		
+	\end{minipage}
+	\begin{minipage}{0.34\textwidth}%\raggedleft
+		Curved movements \\\\
+		
+		Desired angular velocity \\\\
+		
+		Angle \\\\
+		
+	\end{minipage}
+\end{frame}
+
+\begin{frame}{Stepper motor locomotion}
+	\begin{minipage}{0.45\textwidth}
+		\textbf{Traveled distance}
+		\begin{itemize}
+			\item Obtained by counting steps
+		\end{itemize}
+		\vspace{1em}
+		\textbf{Keep motor energized}
+		\begin{itemize}
+			\item To sustain synchronization
+		\end{itemize}
+
+	\end{minipage}
 	\begin{minipage}{0.54\textwidth}\raggedleft
 		\begin{figure}
-			\centering
-			\includegraphics[width=0.8\textwidth]{pics/Flowchart_code.png}
+			\includegraphics[width=\textwidth]{pics/stepper_motor_figure_magnitude_experiment.png}
 		\end{figure}
-	\end{minipage}
+	\end{minipage}\\
+	\pause
+	\textbf{Problem:} Loss of synchronization due to power interrupts
 \end{frame}
 
-\begin{comment}
-\begin{frame}{PID controller}
-The controller periodically tries to reduce the yaw error as \\
-
-\begin{equation}
-e(t) = \psi_{\text{target}} - \psi(t),
-\end{equation} \\
-\vspace{1em}
-\noindent
-where $\psi_{\text{target}}$ is the yaw-rate target and $\psi(t)$ the yaw-rate obtained by the gyroscope. \\
-\vspace{1em}
-The PID controller adjusts its output as \\
-
-\begin{equation}
-u(t) = K_{\text{p}}e(t) + K_{\text{i}} \int_{0}^{t}e(\tau)d\tau + K_{\text{d}}\frac{d}{dt}e(t),
-\end{equation} \\
-\vspace{1em}
-\noindent
-where $K_{p}$, $K_{i}$ and $K_{d}$ are the tunable gains.
-\end{frame}
-
-\begin{frame}{Tuning PID controller}
-	\begin{figure}
-		Ziegler-Nichols Closed-Loop Tuning Method
-		\begin{center}
-		\begin{subfigure}[b]{0.49\textwidth}
-			\includegraphics[width=\textwidth]{pics/straight_ku.png}
-			\caption*{Determining the ultimate gain}
-		\end{subfigure}
-		\begin{subfigure}[b]{0.49\textwidth}
-			\includegraphics[width=\textwidth]{pics/straight_ku_with_tu.png}
-			\caption*{Result of applying the gains}
-		\end{subfigure}
-		\end{center}
-	\end{figure}
-\end{frame}
-\end{comment}
 
 \begin{frame}{Evaluation}
 	Determine the accuracy of movement
-	\pause
 	\vspace{1em}
 	\begin{figure}
 		\centering
@@ -312,7 +280,6 @@ where $K_{p}$, $K_{i}$ and $K_{d}$ are the tunable gains.
 			\caption*{Tracking with OpenCV}
 		\end{subfigure}
 	\end{figure}
-	%Artificial power interrupts
 \end{frame}
 
 \begin{frame}{Solar powered demo}
@@ -330,12 +297,12 @@ where $K_{p}$, $K_{i}$ and $K_{d}$ are the tunable gains.
 		\centering
 		\begin{subfigure}[b]{0.28\textwidth}
 			\includegraphics[width=\textwidth]{pics/figure_40.png}
-			\caption*{Duty cycle 40\%}
+			\caption*{Speed: 40\%}
 		\end{subfigure}
 		\hspace{2em}
 		\begin{subfigure}[b]{0.28\textwidth}
 			\includegraphics[width=\textwidth]{pics/figure_90.png}
-			\caption*{Duty cycle 90\%}
+			\caption*{Speed: 90\%}
 		\end{subfigure}
 	\end{figure}
 	\pause
@@ -352,12 +319,12 @@ where $K_{p}$, $K_{i}$ and $K_{d}$ are the tunable gains.
 		\centering
 		\begin{subfigure}[b]{0.28\textwidth}
 			\includegraphics[width=\textwidth]{pics/straight_40.png}
-			\caption*{Duty cycle 40\%}
+			\caption*{Speed: 40\%}
 		\end{subfigure}
 		\hspace{2em}
 		\begin{subfigure}[b]{0.28\textwidth}
 			\includegraphics[width=\textwidth]{pics/straight_90.png}
-			\caption*{Duty cycle 90\%}
+			\caption*{Speed: 90\%}
 		\end{subfigure}
 	\end{figure}
 	\pause
@@ -372,16 +339,16 @@ where $K_{p}$, $K_{i}$ and $K_{d}$ are the tunable gains.
 		\centering
 		\begin{subfigure}[b]{0.49\textwidth}
 			\includegraphics[width=\textwidth]{pics/circle_40.png}
-			\caption*{Duty cycle 40\%}
+			\caption*{Speed: 40\%}
 		\end{subfigure}
 		\begin{subfigure}[b]{0.49\textwidth}
 			\includegraphics[width=\textwidth]{pics/circle_90.png}
-			\caption*{Duty cycle 90\%}
+			\caption*{Speed: 90\%}
 		\end{subfigure}
 	\end{figure}
 	\pause
 	\vspace{0.5em}
-	\textbf{Conclusion:} Higher duty cycle decreases deviation from circular path
+	\textbf{Conclusion:} Higher speed decreases deviation from circular path
 \end{frame}
 
 \begin{frame}{Conclusion}
@@ -438,4 +405,61 @@ where $K_{p}$, $K_{i}$ and $K_{d}$ are the tunable gains.
 	\end{center}
 \end{frame}
 
+
+\begin{frame}[noframenumbering]{Power}
+	\vspace{1em}
+	\begin{minipage}{0.35\textwidth}
+	Energy from light \\
+	
+	Solar panel \\
+	
+	\textbf{6\,s} Charge time \\
+	
+	\textbf{1\,s} Operation time \\
+	
+	\end{minipage}
+	\begin{minipage}{0.64\textwidth}\raggedleft
+		\begin{figure}
+			\includegraphics[width=0.9\textwidth]{pics/light_setup.jpg}
+			\caption*{Light setup}
+		\end{figure}
+	\end{minipage}
+\end{frame}
+
+
+\begin{frame}[noframenumbering]{PID controller}
+The controller periodically tries to reduce the yaw error as \\
+
+\begin{equation}
+e(t) = \psi_{\text{target}} - \psi(t),
+\end{equation} \\
+\vspace{1em}
+\noindent
+where $\psi_{\text{target}}$ is the yaw-rate target and $\psi(t)$ the yaw-rate obtained by the gyroscope. \\
+\vspace{1em}
+The PID controller adjusts its output as \\
+
+\begin{equation}
+u(t) = K_{\text{p}}e(t) + K_{\text{i}} \int_{0}^{t}e(\tau)d\tau + K_{\text{d}}\frac{d}{dt}e(t),
+\end{equation} \\
+\vspace{1em}
+\noindent
+where $K_{p}$, $K_{i}$ and $K_{d}$ are the tunable gains.
+\end{frame}
+
+\begin{frame}[noframenumbering]{Tuning PID controller}
+	\begin{figure}
+	Ziegler-Nichols Closed-Loop Tuning Method
+		\begin{center}
+		\begin{subfigure}[b]{0.49\textwidth}
+			\includegraphics[width=\textwidth]{pics/straight_ku.png}
+			\caption*{Determining the ultimate gain}
+		\end{subfigure}
+		\begin{subfigure}[b]{0.49\textwidth}
+			\includegraphics[width=\textwidth]{pics/straight_ku_with_tu.png}
+			\caption*{Result of applying the gains}
+		\end{subfigure}
+		\end{center}
+	\end{figure}
+\end{frame}
 \end{document}
